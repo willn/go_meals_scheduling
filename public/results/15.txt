@@ -1,0 +1,65 @@
+9/4/2012	sharon	helen	nancy	judy	aaron	gregaustic
+9/5/2012	kito			keithg
+9/9/2012	jane	luke	debbi	debbi	michael	bill
+9/10/2012	dale	meg	alicia	ted	judy	jillian
+9/12/2012	susan	bill	judith	jillian	bill	kito
+9/13/2012	sharon	meg	rebecca	sharon	hermann	margaret
+9/16/2012	aaron	bill	patti	meg	bill	mac
+9/17/2012	dale	meg	rod	jillian	bill	michael
+9/18/2012	margaret	judy	kelly	judy	maryking	patti
+9/19/2012	katie			kito
+9/23/2012	aaron	luke	rod	megan	michael	debbi
+9/24/2012	dale	meg	elisha	bill	patti	ted
+9/26/2012	tammy	judith	heather	jillian	bill	jimgraham
+9/27/2012	sarah	gregaustic	kelly	jillian	judy	mac
+9/30/2012	keithg	catherine	luke	megan	meg	kito
+10/1/2012	syndallas	meg	judy	bill	mac	ted
+10/2/2012	margaret	helen	rod	patti	margaret	kito
+10/3/2012	kito			kito
+10/7/2012	gregaustic	bill	debbi	rod	bill	judy
+10/8/2012	tammy	meg	nancy	ted	bill	patti
+10/10/2012	dale	alicia	rod	patti	bill	rod
+10/11/2012	sharon	heather	gayle	sarah	michael	aaron
+10/14/2012	jane	patti	luke	meg	mac	bill
+10/15/2012	katie			keithg
+10/16/2012	margaret	judy	kelly	judy	jimgraham	maryking
+10/17/2012	susan	alicia	nancy	maryking	bill	kito
+10/21/2012	gregaustic	catherine	bill	megan	rod	meg
+10/22/2012	syndallas	meg	helen	patti	judy	ted
+10/24/2012	heather	nancy	kelly	mac	bill	rod
+10/25/2012	sharon	alicia	rebecca	sarah	michael	hermann
+10/28/2012	aditya	luke	syndallas	meg	kito	rod
+10/29/2012	tammy	meg	elisha	bill	aaron	mac
+10/30/2012	sarah	helen	gayle	patti	michael	maryking
+11/4/2012	pam	rod	gregaustic	megan	judy	pam
+11/5/2012	syndallas	helen	kelly	patti	margaret	rod
+11/7/2012	kito			kito
+11/8/2012	margaret	sarah	rod	sarah	bill	jimgraham
+11/11/2012	aaron	catherine	patti	rod	michael	fatima
+11/12/2012	dale	meg	elisha	mac	jimgraham	amyh
+11/13/2012	elph	judy	kelly	judy	ted	patti
+11/14/2012	susan	heather	gayle	bill	sharon	aaron
+11/18/2012	pam	rod	luke	megan	meg	pam
+11/19/2012	kito			keithg
+11/21/2012	dale	helen	gayle	jimgraham	gabe	gregaustic
+11/25/2012	amyh	luke	rod	mac	kito	fatima
+11/26/2012	tammy	meg	rebecca	ted	judy	hermann
+11/27/2012	sharon	sarah	heather	amyh	judy	mac
+11/28/2012	susan	nancy	kelly	michael	jimgraham	sharon
+11/29/2012	sarah	rod	gregaustic	jillian	michael	gregaustic
+12/2/2012	jane	patti	luke	judy	meg	megan
+12/3/2012	syndallas	meg	rod	jillian	kito	rod
+12/4/2012	tammy	helen	sarah	jimgraham	judy	michael
+12/5/2012	katie			keithg
+12/9/2012	gregaustic	debbi	rod	mac	pam	fatima
+12/10/2012	tammy	meg	judith	ted	gabe	patti
+12/12/2012	heather	nancy	kelly	patti	michael	sharon
+12/13/2012	margaret	rod	elisha	jillian	sarah	mac
+12/16/2012	keithg	luke	catherine	megan	meg	pam
+12/17/2012	katie			kito
+12/18/2012	margaret	sarah	gregaustic	patti	judy	gabe
+12/19/2012	sharon	nancy	judith	mac	margaret	amyh
+12/23/2012	jane	debbi	luke	megan	debbi	fatima
+12/26/2012	elph	nancy	gregaustic	jimgraham	gabe	gregaustic
+12/27/2012	sarah	helen	rebecca	judy	hermann	amyh
+12/30/2012	amyh	luke	gregaustic	debbi	kito	judy

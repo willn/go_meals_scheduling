@@ -1,0 +1,76 @@
+1/2/2011	aditya	amyh	fatima	aditya	megan	sari
+1/3/2011	kelly	nancy	pare@ts	vincent	vincent	vincent
+1/4/2011	sarah	julie@ts	ted	kendra	kate	sara@ts
+1/5/2011	deb	helen
+1/9/2011	aditya	fatima	pam	aditya	sari	pam
+1/10/2011	elisha	rebecca	judy@ts	patti	bill	kendra
+1/11/2011	heather	syndallas	deb	mac	dolores@ts	keithg
+1/12/2011	sharon	gail@ts	craig	vincent	sharon	helen
+1/13/2011	kate	rod	jessica@ts	jillian	elph	sari
+1/16/2011	eric	keithg	becky	aditya	fatima	pam
+1/17/2011	gayle	helen
+1/18/2011	tammy	heather	deb	mac	dolores@ts	kathyboblitt
+1/19/2011	susan	sarah	rod	vincent	audrey@ts	sari
+1/23/2011	maryking	fatima	keithg	vincent	vincent	sari
+1/24/2011	tom	helen	gabe	jillian	bill	gayle
+1/25/2011	elisha	syndallas	craig	mac	dolores@ts	lyns@ts
+1/26/2011	sharon	gail@ts	gayle	jillian	kate	sharon
+1/27/2011	katie	rod	jessica@ts	dolores@ts	elph	fatima
+1/30/2011	kelly	fatima	melanie	aditya	megan	eric
+1/31/2011	elisha	lois@ts	becky	vincent	vincent	vincent
+2/1/2011	syndallas	heather	gail@ts	jimgraham	sari	dolores@ts
+2/2/2011	deb	keithg
+2/6/2011	kate	melanie	pam	vincent	fatima	megan
+2/7/2011	tammy	gail@ts	nancy	bill	peter	dolores@ts
+2/8/2011	catherine	pare@ts	craig	patti	lyns@ts	keithg
+2/9/2011	susan	helen	jessica@ts	bill	audrey@ts	eric
+2/10/2011	elph	nancy	gayle	jillian	dolores@ts	kate
+2/13/2011	kelly	fatima	keithg	vincent	sari	megan
+2/14/2011	margaret	gail@ts	deb	dolores@ts	eric	jillian
+2/15/2011	tammy	hermann	ts_placeholder	mac	dolores@ts	kate
+2/16/2011	tom	nancy	gabe	vincent	bill	helen
+2/20/2011	eric	amyh	becky	vincent	fatima	kate
+2/21/2011	deb	helen
+2/22/2011	syndallas	rusty@ts	nancy	jimgraham	sara@ts	kendra
+2/23/2011	tammy	sarah	lois@ts	vincent	audrey@ts	bill
+2/24/2011	sari	nancy	gayle	jillian	dolores@ts	fatima
+2/27/2011	maryking	becky	heather	megan	fatima	kate
+2/28/2011	sharon	gail@ts	hermann	aditya	sharon	dolores@ts
+3/1/2011	deb	ts_placeholder	helen	mac	ts_placeholder	eric
+3/2/2011	deb	keithg
+3/6/2011	jane	fatima	pam	vincent	kate	eric
+3/7/2011	kelly	nancy	ts_placeholder	ts_placeholder	kendra	bill
+3/8/2011	tom	heather	gabe	aditya	kathyboblitt	ts_placeholder
+3/9/2011	sarah	helen	ts_placeholder	sari	ts_placeholder	gayle
+3/10/2011	sari	ts_placeholder	gayle	patti	ts_placeholder	bill
+3/13/2011	aaron	amyh	melanie	vincent	fatima	kate
+3/14/2011	catherine	ts_placeholder	alan	ts_placeholder	peter	patti
+3/15/2011	deb	nancy	syndallas	mac	eric	keithg
+3/16/2011	katie	helen	ts_placeholder	vincent	ts_placeholder	bill
+3/20/2011	maryking	fatima	heather	vincent	megan	pam
+3/21/2011	gayle	keithg
+3/22/2011	deb	syndallas	craig	mac	eric	ts_placeholder
+3/23/2011	margaret	helen	rebecca	gayle	kendra	bill
+3/24/2011	tammy	ts_placeholder	nancy	vincent	ts_placeholder	kate
+3/27/2011	jane	melanie	keithg	aditya	megan	fatima
+3/28/2011	elisha	alan	ts_placeholder	mac	ts_placeholder	peter
+3/29/2011	deb	nancy	ts_placeholder	mac	ts_placeholder	gayle
+3/30/2011	margaret	helen	becky	patti	kendra	eric
+3/31/2011	sharon	ts_placeholder	rod	jillian	ts_placeholder	kate
+4/3/2011	maryking	tammy	heather	aditya	bill	fatima
+4/4/2011	kate	nancy	alan	aditya	peter	kendra
+4/5/2011	kelly	ts_placeholder	gayle	jimgraham	ts_placeholder	kathyboblitt
+4/6/2011	gayle	helen
+4/10/2011	aaron	fatima	pam	aditya	megan	eric
+4/11/2011	sharon	ts_placeholder	becky	jillian	ts_placeholder	sharon
+4/12/2011	tammy	nancy	heather	mac	kate	kathyboblitt
+4/13/2011	margaret	helen	sarah	patti	bill	kendra
+4/14/2011	tom	ts_placeholder	gabe	fatima	elph	ts_placeholder
+4/17/2011	kate	amyh	becky	aditya	fatima	pam
+4/18/2011	gayle	keithg
+4/19/2011	sharon	heather	craig	mac	eric	ts_placeholder
+4/20/2011	dale	ts_placeholder	nancy	patti	ts_placeholder	helen
+4/25/2011	margaret	ts_placeholder	becky	aditya	elph	eric
+4/26/2011	heather	alan	deb	mac	kate	keithg
+4/27/2011	margaret	nancy	sarah	jimgraham	bill	helen
+4/28/2011	kelly	ts_placeholder	gayle	patti	ts_placeholder	fatima

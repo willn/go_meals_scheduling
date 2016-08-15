@@ -1,0 +1,18 @@
+testing the add / remove "avoid" workers
+- try a new user
+	- add, reset
+	- add, add, add, remove, remove, reset
+	- add, save
+	- add, add, add, save
+
+- try testing a saved user
+	- (0) previously saved then removed
+	- (1) does one show up?
+	- (3) does 3 show up?
+
+	- change to
+		- clear
+		- different 1
+		- add
+		- change and add
+		- clear and add

@@ -1,0 +1,161 @@
+The Great Oak Meals Scheduling Survey
+----------------------------------------
+Directions to set up the survey:
+
+# check that there aren't uncommitted modifications in the production version:
+	cd /docroot/gocoho/scheduling
+	cvs -nq update -dP
+
+# grab the freshest code
+	cd ~/dev_sites/scheduling
+	cvs -nq update -dP
+
+# make sure that unit tests work:
+	cd tests
+	./run.sh
+
+# grab the latest sqlite file from webfactional, fix permissions, and commit:
+	scp gocoho@web30.webfaction.com:webapps/django/allocation/file.db public/sqlite_data/work_allocation.db
+	chmod 664 !$
+	sudo chgrp _www !$
+	cvs commit !$
+
+# edit public/config.php
+	- set the appropriate DEADLINE date
+	- confirm the holiday dates array is correct for the upcoming season
+
+# add any extra workers to the get_num_shift_overrides() function
+
+# get new job IDs for the season, and update the defines for each job in config.php
+	cd ../utils/
+	php find_current_season_jobs.php
+	# copy that block and replace the previous season's entries in this file:
+	vi config.php
+
+# initialize the database
+	php initialize_database.php
+	cd ..
+	cvs commit public/sqlite_data/work_allocation.db
+
+# test to make sure everything works in the dev directory
+	- confirm that the calendar dates are correct
+	- confirm the holidays and meeting nights are correct
+	- fill in some entries and save them, then cvs revert
+
+# cvs update in the live directory and test 1 entry there
+	- cd /docroot/gocoho/scheduling/
+	- revert the database with cvs
+	- load listing page again to make sure the db is writeable
+
+# verify that the number of shifts counted is proper:
+	- /report.php "Number of assignments needed"
+
+# notify participants that the survey is ready
+
+# set up database backup routine on goutte
+	sudo bash
+	crontab -e
+	# uncomment the following lines:
+
+	20 *   *   *   *   /usr/bin/nice -n 10 /bin/cp -f /docroot/gocoho/scheduling/public/sqlite_data/work_allocation.db /backups/
+	25 *   *   *   *   /usr/bin/nice -n 10 /usr/bin/gzip -f /backups/work_allocation.db
+
+# make sure the work allocation crontab is in place to copy from webserver to desktop
+
+- schedule a few reminders spaced out over the rest of the session to send
+  reminder emails to laggards
+
+what to do at the end of the survey:
+-------------------------------------
+- disable cronjobs
+
+- commit closed database:
+	cvs commit -m "end of survey" \
+	/docroot/gocoho/scheduling/public/sqlite_data/work_allocation.db
+
+- check for any un-assigned workers
+	cd /docroot/gocoho/scheduling/auto_assignments/
+	php assignments -x
+
+- count un-filled slots:
+	php assignments.php -s > schedule.txt
+	grep XXX !$
+
+- Examine workers:
+	php assignments.php -w > workers.txt
+
+- Someone may have volunteered to take too many additional dinners.
+  Reduce the number of needed volunteer / override positions mentioned
+  with this:
+	grep OVERAGE workers.txt
+
+- find the people who aren't fully assigned:
+	egrep '(^name|\(0)' workers.txt | grep -B1 'j:'
+
+- check for hobarter ratio:
+	php assignments.php -s | grep 'MISSED HOBART'
+
+- read the comments and make sure they apply cleanly with auto-checks, copy and
+  paste from "Confirm results check" section, and create custom ones for anything
+  that's not a personal avoid request.
+
+- do any swapping needed
+
+- run avoids validation:
+	cd ../utils/
+	php validate_schedule.php -f ../auto_assignments/schedule.txt
+
+- write out schedule to public/results/schedule.txt
+	* mv auto_assignments/schedule.txt public/results/
+	* send link to Adi:
+		http://scheduling.fluidthoughts.com/results/schedule.txt
+
+translate dale's work system user names to MESS inserts
+--------------------------------------------------------
+- go to phpPgAdmin and get the select of the users account for id, first, last,
+  alternate_id, then choose "Show" to the screen:
+	* https://web471.webfaction.com/phpPgAdmin/
+
+- copy and paste those entries into a file:
+	* cd ~/Dropbox/private/schedule/
+	* vi user_ids_to_names.csv # then paste
+
+- refine the list:
+	* cat user_ids_to_names.csv | grep -v '"\\N"' > go_user_ids.csv
+
+- extract just the alternate IDs:
+	* cat go_user_ids.csv | cut -d\, -f4 | cut -d\" -f2 | sort -u > go_names.txt
+
+- copy the schedule to this directory:
+	* scp goutte.fluidthoughts.com:/docroot/gocoho/scheduling/auto_assignments/schedule.txt .
+
+- extract the scheduled names:
+	* cat schedule.txt | sed 's/^.*2016       //' > worker_assignments.txt
+		+ # note that the above has a special tab command in it, and the year will
+		  need to be changed... sigh.  :(
+	* break out the names into a unique list:
+		+ for i in `cat worker_assignments.txt`; do echo $i; done | sort -u > go_workers.txt
+
+- look for any missing workers:
+	* diff go_names.txt go_workers.txt | grep '>'
+
+#!# need to get them entered into the new system...
+
+
+
+#!# need to inspect the names list first...
+
+- generate the ruby inserts:
+	* php meals_inserts.php > mess_schedule_inserts.rb
+
+
+
+- ?? profit!
+
+
+
+
+
+
+
+

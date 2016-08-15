@@ -1,0 +1,28 @@
+# update public/config.php, update the season name, year, and season id
+
+- pop into sqlite:
+	sqlite3 !$
+
+- update the data to use the current season id:
+	update survey_assignment set season_id=11 where season_id=10;
+
+
+---------
+how to add a user with an override.
+They need to be entered into the database...
+
+% sqlite3 work_allocation.db
+
+# get the username of the peron
+sqlite> select id from auth_user where username='katie';
+35
+
+# get the max assignment id:
+sqlite> select max(id) from survey_assignment;
+9254
+
+# add a new entry
+insert into survey_assignment values(9255, 23, 'a', 35, 2715, 0, 1);
+insert into survey_assignment values(max assignment + 1, season id, 'a',
+	username, job id, 0, 1);
+

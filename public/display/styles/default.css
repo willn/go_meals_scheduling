@@ -1,0 +1,381 @@
+@import url(http://fonts.googleapis.com/css?family=Lobster);
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11pt;
+}
+
+/* hack for a elements which don't have an href */
+a {
+	cursor: pointer;
+	text-decoration: underline;
+	color: #00e;
+	padding: 2px;
+}
+
+h1 {
+	margin: 25px 0 10px;
+	font-family: 'Lobster', cursive;
+	font-size: 49px;
+	font-weight: normal;
+	background: url('/display/images/great_oak_logo.png') no-repeat left center scroll;
+	padding: 7px 0 11px 60px;
+}
+h2 {
+	margin: 10px 0;
+}
+h3 {
+	margin: 10px 0 6px;
+}
+
+p {
+	margin: 6px 0px;
+}
+
+.explain {
+	margin-top: 15px;
+	color: #444;
+}
+
+table {
+	font-size: 9pt;
+}
+
+th {
+	width: 85px;
+	text-align: left;
+}
+
+.date_number, .day_of_week  {
+	font-size: 16px;
+	margin: 0;
+}
+
+td {
+	vertical-align: top;
+	background: #ffffff;
+}
+
+.surround {
+	background: #cccccc;
+	margin: 10px 0px;
+}
+
+.surround.month_1 {
+	background: #30B336;
+}
+.surround.month_2 {
+	background: #30B378;
+}
+.surround.month_3 {
+	background: #30ACB3;
+}
+.surround.month_0 {
+	background: #408Af9;
+}
+
+.choice {
+	margin: 0px;
+	margin-top: 7px;
+	white-space: nowrap;
+}
+
+.radio_btn {
+	background: #e6e6e6;
+	border: 1px solid #999999;
+	margin: 1px;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
+.jobname {
+	margin: 0;
+}
+
+.attention, .highlight, .warning {
+	background: #ccccff;
+	padding: 5px 13px;
+	font-size: 110%;
+	margin: 5px 0;
+}
+
+.attention {
+	background: #ddd;
+	border: 1px dashed #999;
+}
+
+.warning {
+	background: #fba;
+	color: #700;
+	font-weight: bold;
+}
+
+.subtle_text {
+	color: #666;
+}
+
+ul {
+	margin: 1px;
+	padding-left: 15px;
+}
+
+li {
+	list-style-type: none;
+}
+
+fieldset {
+	border: 1px solid #cccccc;
+	font-size: 80%;
+	margin-bottom: 2px;
+	background-color: #eeeeee;
+}
+
+fieldset p {
+	margin: 0px;
+}
+
+fieldset legend {
+	background: #fff;
+	padding: 3px 6px;
+	font-size: 14px;
+}
+
+.pill {
+	float: right;
+	margin: 7px 0;
+	font-size: 25pt;
+	padding: 6px 15px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	margin: 10px;
+
+	background: #bfd255;
+	background: -moz-linear-gradient(top,  #bfd255 0%, #8eb92a 93%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bfd255), color-stop(93%,#8eb92a));
+	background: -webkit-linear-gradient(top,  #bfd255 0%,#8eb92a 93%);
+	background: -o-linear-gradient(top,  #bfd255 0%,#8eb92a 93%);
+	background: -ms-linear-gradient(top,  #bfd255 0%,#8eb92a 93%);
+	background: linear-gradient(top,  #bfd255 0%,#8eb92a 93%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfd255', endColorstr='#8eb92a',GradientType=0 );
+}
+
+a.pill {
+	text-decoration: none;
+	color: #000;
+}
+
+
+.radio_buttons {
+	margin-top: 5px;
+}
+.radio_buttons label, .radio_buttons label span {
+	display: inline;
+}
+label {
+	margin: 10px 10px 10px 0;
+	display: block;
+}
+label span {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.special_requests li {
+	margin-bottom: 1.0em;
+}
+
+.skip, .note {
+	color: #999;
+}
+
+.week_selector {
+	text-align: right;
+	white-space: nowrap;
+}
+.week_selector a {
+	padding: 2px;
+	display: block;
+}
+
+.weekdays {
+	display: none;
+}
+.weekdays td {
+	white-space: nowrap;
+}
+.weekdays td a {
+	padding: 2px;
+	margin-right: 5px;
+}
+
+.prefer, .OK, .avoid {
+	padding: 3px;
+	margin: 0px;
+}
+
+a.prefer:hover {
+	background: #0f6;
+}
+a.OK:hover {
+	background: #ee6;
+}
+a.avoid:hover {
+	background: #f77;
+}
+
+table tr.week .affecting {
+	background-color: #eee;
+}
+
+.error {
+	margin: 10px;
+	padding: 15px;
+	color: #900;
+	font-size: 15px;
+	border: 1px dashed #999;
+	background: #eee;
+}
+
+.shift_instances {
+	margin: 5px;
+	padding: 5px;
+	background: #e0e0e0;
+	width: 33%;
+}
+
+.shift_instances h4 {
+	margin-top: 0px;
+}
+
+.responses {
+	margin: 10px;
+}
+
+.access_type {
+	float: left;
+	border: 1px dashed #ccc;
+	background: #eee;
+	margin: 10px;
+	width: 25%;
+	padding: 10px;
+}
+
+.summary_listing {
+	float: left;
+	margin-right: 25px;
+}
+
+.summary_report {
+	margin: 20px 0;
+	clear: left;
+}
+
+#summary_overlay {
+	position: fixed;
+	top: 0;
+	right: 20px;
+	z-index: 1;
+	background: #ddd;
+	padding: 8px;
+	-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+	-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+	background: rgba(0, 0, 0, .7);
+	color: #fff;
+	-webkit-border-radius: 0 0 10px 10px;
+	-moz-border-radius: 0 0 10px 10px;
+	border-radius: 0 0 10px 10px;
+	text-shadow: #000 0px 0px 10px;
+}
+
+#summary_overlay li {
+	margin: 5px;
+}
+
+#summary_overlay a {
+	color: #bf3;
+	padding: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#summary_overlay a:hover {
+	background-color: #9f0;
+	color: #060;
+	text-shadow: none;
+}
+
+.workers_list {
+	text-align: left;
+}
+.workers_list a {
+	line-height: 25px;
+}
+.workers_list ol {
+	float: left;
+	padding-left: 0;
+	margin-right: 15px;
+}
+
+.special_info {
+	clear: left;
+	margin-top: 15px;
+	padding: 10px;
+}
+
+.sorting, .sorting_asc, .sorting_desc {
+	color: #33f;
+	cursor: pointer;
+}
+
+.sorting:after, .sorting_asc:after {
+	content: ' \2193';
+	color: #aaa;
+}
+.sorting_desc:after {
+	content: " \2191";
+}
+.sorting_asc:after, .sorting_desc:after {
+	color: #000;
+}
+.type_count {
+	margin-left: 10px;
+	font-size: 10px;
+	color: #ccc;
+}
+
+.d_table {
+	display: table;
+}
+.d_row {
+	display: table-row;
+}
+.d_cell {
+	display: table-cell;
+}
+
+.pad {
+	padding: 10px 30px 10px 0;
+}
+
+svg {
+	margin: 10px 0 0;
+	display: block;
+}
+
+.confirm_results {
+	white-space: pre;
+	background: #eee;
+	font-size: 80%;
+	padding: 10px;
+}
+
+.striped tbody tr:nth-child(odd) {
+	background: #eee;
+}

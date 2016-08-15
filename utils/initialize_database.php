@@ -1,0 +1,185 @@
+<?php
+/*
+ * Initialize the database to get it ready for use with the meals scheduling
+ * work:
+ * - remove 'aetherbunny' placeholder user
+ * - loads the user IDs
+ * - loads the maximum survey_assignment ID
+ * - add meals scheduling tables
+ */
+
+global $relative_dir;
+$relative_dir = '../public/';
+
+require_once 'database.php';
+require_once "{$relative_dir}/constants.inc";
+
+class DatabaseInitializer extends DatabaseHandler {
+	protected $users = array();
+	protected $max_assign_id;
+
+	protected $errors = array();
+
+	/**
+	 * Process the database initialization.
+	 */
+	public function run() {
+		$this->removeAetherBunny();
+		$this->addSchedulingTables();
+		$this->initializeExtraWorkers();
+
+		if (!empty($this->errors)) {
+			echo implode("\n", $this->errors) . "\n";
+		}
+	}
+
+	/**
+	 * Remove the placeholder "aether" user from the assignments table.
+	 */
+	protected function removeAetherBunny() {
+		$id = NULL;
+
+		$sql = 'select id, username from auth_user where username="aether"';
+		foreach ($this->dbh->query($sql) as $row) {
+			$id = $row['id'];
+			break;
+		}
+
+		if (empty($id)) {
+			$this->errors[] = "could not find bunny's ID!\n";
+			return;
+		}
+
+		$sql = "delete from survey_assignment where worker_id={$id}";
+		$this->dbh->exec($sql);
+
+		// confirm this worked
+		$sql = "select count(*) from survey_assignment where worker_id={$id}";
+		foreach ($this->dbh->query($sql) as $row) {
+			if ($row[0] != 0) {
+				$this->errors[] = "Aether Bunny assignments NOT removed";
+				return;
+			}
+		}
+
+		echo "Aether Bunny entries removed\n";
+		return;
+	}
+
+	/**
+	 * Add tables to the database needed for recording scheduling.
+	 */
+	protected function addSchedulingTables() {
+		$schema_sql_file = '../sql/scheduling_survey_schema.sql';
+		if (!file_exists($schema_sql_file)) {
+			$this->errors[] = "Could not find survey schema file\n";
+			return;
+		}
+
+		$sql = file_get_contents($schema_sql_file);
+		$this->dbh->exec($sql);
+		echo "Added scheduling tables\n";
+	}
+
+	/**
+	 * Get a list of existing usernames from the database.
+	 */
+	protected function getUsernamesFromDb() {
+		$users = array();
+		$key = 'username';
+		$sql = "SELECT {$key} FROM auth_user";
+		foreach($this->dbh->query($sql, PDO::FETCH_ASSOC) as $row) {
+			$name = array_get($row, $key);
+			$users[$name] = TRUE;
+		}
+		return $users;
+	}
+
+	/**
+	 * Insert a user entry into the database.
+	 */
+	protected function insertUserEntry($username) {
+		if (!preg_match('/^[A-Za-z\.]+$/', $username)) {
+			echo "Not a valid name: $username\n";
+			return;
+		}
+
+		$sql = <<<EOSQL
+INSERT INTO auth_user
+	(username, first_name, last_name, email, password, is_staff,
+		is_active, is_superuser, last_login, date_joined)
+	VALUES('{$username}', '{$username}', '{$username}', '', '', 0, 1,
+		0, '', '')
+EOSQL;
+		if ($this->dbh->exec($sql) !== FALSE) {
+			echo "Added {$username}\n";
+		}
+	}
+
+	/**
+	 * Get the user's worker ID.
+	 */
+	protected function getUserId($username) {
+		if (isset($this->users[$username])) {
+			return $this->users[$username];
+		}
+
+		$key = 'id';
+		$sql = <<<EOSQL
+SELECT {$key} FROM auth_user WHERE username='{$username}';
+EOSQL;
+
+		$id = NULL;
+		foreach($this->dbh->query($sql, PDO::FETCH_ASSOC) as $row) {
+			$id = array_get($row, $key);
+			break;
+		}
+		$this->users[$username] = $id;
+
+		return $id;
+	}
+
+	/**
+	 * Insert an assignment entry into the database.
+	 */
+	protected function insertAssignment($username) {
+		$worker_id = $this->getUserId($username);
+
+		$season_id = SEASON_ID;
+		$sql = <<<EOSQL
+INSERT INTO survey_assignment
+	(season_id, type, worker_id, job_id, instances, reason_id)
+	VALUES($season_id, 'a', '{$worker_id}', 0, 0, 0);
+EOSQL;
+
+		if ($this->dbh->exec($sql) !== FALSE) {
+			echo "Added assignment for {$username}\n";
+		}
+	}
+
+	/**
+	 * Add any users who aren't mentioned in the work database.
+	 * Two tables: auth_user and survey_assignment
+	 *
+	 */
+	protected function initializeExtraWorkers() {
+		$extras = get_num_shift_overrides();
+		if (empty($extras)) {
+			echo "No extra users to initialize.\n";
+			return;
+		}
+
+		$users = $this->getUsernamesFromDb();
+		foreach($extras as $name => $assignments) {
+			if (!isset($users[$name])) {
+				$this->insertUserEntry($name);
+			}
+
+			$this->insertAssignment($name);
+		}
+	}
+}
+
+$dbi = new DatabaseInitializer();
+$dbi->run();
+?>
