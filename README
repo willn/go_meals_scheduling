@@ -3,12 +3,8 @@ The Great Oak Meals Scheduling Survey
 Directions to set up the survey:
 
 # check that there aren't uncommitted modifications in the production version:
-	cd /docroot/gocoho/scheduling
-	cvs -nq update -dP
-
-# grab the freshest code
-	cd ~/dev_sites/scheduling
-	cvs -nq update -dP
+	cd /Users/willn/great-oak/meals/meals_scheduling
+	git status
 
 # make sure that unit tests work:
 	cd tests
@@ -22,7 +18,10 @@ Directions to set up the survey:
 
 # edit public/config.php
 	- set the appropriate DEADLINE date
-	- confirm the holiday dates array is correct for the upcoming season
+
+# edit public/utils.php
+	- confirm the holiday dates (get_holidays) function is correct for
+	  the upcoming season 
 
 # add any extra workers to the get_num_shift_overrides() function
 
@@ -30,13 +29,16 @@ Directions to set up the survey:
 	cd ../utils/
 	php find_current_season_jobs.php
 	# copy that block and replace the previous season's entries in this file:
-	vi config.php
+	vi ../public/config.php
 
 # initialize the database
 	php initialize_database.php
 	cd ..
-	cvs commit public/sqlite_data/work_allocation.db
+	git status
+	git add ... # any changed files
+	git commit
 
+#!#
 # test to make sure everything works in the dev directory
 	- confirm that the calendar dates are correct
 	- confirm the holidays and meeting nights are correct

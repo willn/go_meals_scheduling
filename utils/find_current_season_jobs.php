@@ -28,23 +28,29 @@ class CurrentSeasonIds {
 		$jobs = array(
 			'MEETING_NIGHT_ORDERER' => 'Meeting night takeout orderer',
 			'MEETING_NIGHT_CLEANER' => 'Meeting night cleaner',
-			'SUNDAY_HEAD_COOK' => 'Sunday head cook%',
-			'SUNDAY_ASST_COOK' => 'Sunday meal ass%',
+			'SUNDAY_HEAD_COOK' => 'Sunday head cook',
+			'SUNDAY_ASST_COOK' => 'Sunday meal ass',
 			'SUNDAY_CLEANER' => 'Sunday Meal Cleaner',
-			'WEEKDAY_HEAD_COOK' => 'Weekday head cook%',
-			'WEEKDAY_ASST_COOK' => 'Weekday meal ass%',
+			'WEEKDAY_HEAD_COOK' => 'Weekday head cook',
+			'WEEKDAY_ASST_COOK' => 'Weekday meal ass',
 			'WEEKDAY_CLEANER' => 'Weekday Meal cleaner',
+			'WEEKDAY_TABLE_SETTER' => 'Weekday Table Setter',
 		);
 
 		$sql_format = <<<EOSQL
 select id from survey_job where season_id=%d and description like '%s';
 EOSQL;
-
+		$count = 0;
 		foreach($jobs as $define => $desc) {
-			$sql = sprintf($sql_format, SEASON_ID, $desc);
+			$sql = sprintf($sql_format, SEASON_ID, $desc . '%');
 			foreach ($this->dbh->query($sql) as $row) {
 				echo "define('{$define}', {$row['id']});\n";
+				$count++;
 			}
+		}
+
+		if ($count !== count($jobs)) {
+			echo "\n\nERROR: only found {$count} of " . count($jobs) . "\n";
 		}
 	}
 }

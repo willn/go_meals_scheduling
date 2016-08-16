@@ -9,17 +9,18 @@ require_once "{$relative_dir}/constants.inc";
 date_default_timezone_get('America/Detroit');
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('april 22, 2016, 7:30pm'));
+define('DEADLINE', strtotime('august 22, 2016, 7:30pm'));
 
 /* ----------- job ids --------------- */
-define('MEETING_NIGHT_ORDERER', 3206);
-define('MEETING_NIGHT_CLEANER', 3209);
-define('SUNDAY_HEAD_COOK', 3204);
-define('SUNDAY_ASST_COOK', 3205);
-define('SUNDAY_CLEANER', 3208);
-define('WEEKDAY_HEAD_COOK', 3202);
-define('WEEKDAY_ASST_COOK', 3203);
-define('WEEKDAY_CLEANER', 3207);
+define('MEETING_NIGHT_ORDERER', 3379);
+define('MEETING_NIGHT_CLEANER', 3382);
+define('SUNDAY_HEAD_COOK', 3377);
+define('SUNDAY_ASST_COOK', 3378);
+define('SUNDAY_CLEANER', 3381);
+define('WEEKDAY_HEAD_COOK', 3375);
+define('WEEKDAY_ASST_COOK', 3376);
+define('WEEKDAY_CLEANER', 3380);
+define('WEEKDAY_TABLE_SETTER', 3504);
 
 // forced skip dates
 global $skip_dates;
@@ -41,34 +42,11 @@ $override_dates = array(
 function get_num_shift_overrides() {
 	// username => array(job_id => num_meals)
 	return array(
+/*
 		'amyh' => array(
 			SUNDAY_CLEANER => 2,
 		),
-		'bill' => array(
-			SUNDAY_CLEANER => 1,
-			SUNDAY_ASST_COOK => 1,
-		),
-		'hope' => array(
-			SUNDAY_CLEANER => 1,
-		),
-		'patti' => array(
-			SUNDAY_CLEANER => 1,
-			SUNDAY_ASST_COOK => 1,
-		),
-		'lindal' => array(
-			SUNDAY_ASST_COOK => 2,
-			WEEKDAY_ASST_COOK => -2,
-		),
-		'anastasia' => array(
-			WEEKDAY_ASST_COOK => 2,
-		),
-		'brittany' => array(
-			SUNDAY_ASST_COOK => -4,
-			SUNDAY_CLEANER => -8,
-		),
-		'gail' => array(
-			SUNDAY_CLEANER => 1,
-		)
+*/
 	);
 }
 
@@ -156,8 +134,6 @@ $job_instances = array(
 
 global $hobarters;
 $hobarters = array(
-	'aaron',
-	'aditya',
 	'amyh',
 	'debbi',
 	'erik',
@@ -173,7 +149,6 @@ $hobarters = array(
 	'sharon',
 	'ted',
 	'willie',
-	'vincent',
 );
 
 ?>
