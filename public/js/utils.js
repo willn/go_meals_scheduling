@@ -35,7 +35,8 @@ Survey = {
 		Survey.enableWeekSelect();
 
 		$('#avoid_worker, #prefer_worker').select2({
-			placeholder: 'Select one or more names'
+			placeholder: 'Select one or more names',
+			width: 350,
 		}).on('change', Survey.workerPrefChange);
 
 		$('p.month_mark_all').on('click', 'a', Survey.markMonth);

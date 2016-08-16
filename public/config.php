@@ -9,7 +9,7 @@ require_once "{$relative_dir}/constants.inc";
 date_default_timezone_get('America/Detroit');
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('august 22, 2016, 7:30pm'));
+define('DEADLINE', strtotime('august 23, 2016, 7:30pm'));
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_ORDERER', 3379);
@@ -73,6 +73,7 @@ $weekday_jobs = array(
 	WEEKDAY_HEAD_COOK => 'Weekday head cook (two meals/season)',
 	WEEKDAY_ASST_COOK => 'Weekday meal asst cook (2 meals/season)',
 	WEEKDAY_CLEANER => 'Weekday Meal cleaner',
+	WEEKDAY_TABLE_SETTER => 'Weekday Table Setter',
 );
 
 /*
@@ -94,6 +95,7 @@ function get_num_dinners_per_assignment($job_id=NULL) {
 		WEEKDAY_ASST_COOK => 2,
 		WEEKDAY_HEAD_COOK => 2,
 		WEEKDAY_CLEANER => 4,
+		WEEKDAY_TABLE_SETTER => 4,
 	);
 
 	if (is_null($job_id)) {

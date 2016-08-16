@@ -38,15 +38,11 @@ Directions to set up the survey:
 	git add ... # any changed files
 	git commit
 
-#!#
 # test to make sure everything works in the dev directory
 	- confirm that the calendar dates are correct
 	- confirm the holidays and meeting nights are correct
-	- fill in some entries and save them, then cvs revert
-
-# cvs update in the live directory and test 1 entry there
-	- cd /docroot/gocoho/scheduling/
-	- revert the database with cvs
+	- fill in some entries and save them, then revert
+		* git checkout sqlite_data/work_allocation.db
 	- load listing page again to make sure the db is writeable
 
 # verify that the number of shifts counted is proper:
@@ -54,6 +50,7 @@ Directions to set up the survey:
 
 # notify participants that the survey is ready
 
+# #!#
 # set up database backup routine on goutte
 	sudo bash
 	crontab -e
