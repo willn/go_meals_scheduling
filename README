@@ -49,15 +49,20 @@ Directions to set up the survey:
 	- /report.php "Number of assignments needed"
 
 # notify participants that the survey is ready
+ 
+# commit the current state
+  	- git status
+  	- git add *
+  	- git commit
 
-# #!#
 # set up database backup routine on goutte
+	mkdir ~/backups
+	chmod 700 ~/backups/
 	sudo bash
 	crontab -e
 	# uncomment the following lines:
-
-	20 *   *   *   *   /usr/bin/nice -n 10 /bin/cp -f /docroot/gocoho/scheduling/public/sqlite_data/work_allocation.db /backups/
-	25 *   *   *   *   /usr/bin/nice -n 10 /usr/bin/gzip -f /backups/work_allocation.db
+	20 *   *   *   *   /bin/cp -f ~/meals_scheduling/public/sqlite_data/work_allocation.db ~/backups/
+	25 *   *   *   *   /usr/bin/gzip -f ~/backups/work_allocation.db
 
 # make sure the work allocation crontab is in place to copy from webserver to desktop
 
