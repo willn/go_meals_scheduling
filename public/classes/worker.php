@@ -1,6 +1,5 @@
 <?php
 
-error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " ");
 class Worker {
 	protected $worker_id;
 	protected $username;
@@ -588,6 +587,5 @@ EOSQL;
 			stripslashes($comments['comments']) : '';
 	}
 }
-error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " ");
 
 ?>

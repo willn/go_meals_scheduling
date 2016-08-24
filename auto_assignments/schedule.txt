@@ -1,68 +1,66 @@
-5/1/2016	hope	luke	fatima	amyh	luke	michael
-5/2/2016	kate	helen	catherine	mac	yimiau	ben
-5/3/2016	dale	katie	ted	ted	ben	kelly
-5/4/2016	megan			jeff		
-5/8/2016	maryking	luke	fatima	kathyboblitt	michael	megan
-5/9/2016	jennifer	bill	dan	rod	dan	thomas
-5/10/2016	tammy	rebecca	elisha	hermann	rachelp	bill
-5/11/2016	susan	anne	sarah	jillian	lindal	hope
-5/15/2016	pam	luke	lindal	patti	luke	rachelp
-5/16/2016	megan			megan		
-5/17/2016	rae	katie	kelly	mac	kelly	rachelp
-5/18/2016	tevah	bill	anne	bill	rachelp	mac
-5/22/2016	hope	fatima	luke	kathyboblitt	rachelp	michael
-5/23/2016	dale	catherine	sarah	debbi	thomas	patti
-5/24/2016	tammy	rod	megan	rod	jacob	rachelp
-5/25/2016	sharon	lindal	helen	jillian	lindal	mac
-5/31/2016	kate	rae	anne	jimgraham	anne	ted
-6/1/2016	gail			dan		
-6/6/2016	sharon	katie	kelly	hope	kelly	michael
-6/7/2016	tammy	brian	lindal	lindal	hermann	rachelp
-6/8/2016	sarah	ted	sharon	lindal	bill	rachelp
-6/12/2016	kate	luke	anne	mac	luke	michael
-6/13/2016	tammy	bill	sharon	jillian	yimiau	debbi
-6/14/2016	susan	rod	anne	rod	rachelp	lindal
-6/15/2016	sharon	lindal	brian	hope	lindal	patti
-6/19/2016	maryking	catherine	luke	patti	megan	gail
-6/20/2016	margaret			dan		
-6/21/2016	dale	nancy	elisha	jimgraham	hermann	michael
-6/22/2016	sarah	bill	becky	bill	rachelp	mac
-6/26/2016	maryking	luke	anne	willie	luke	willie
-6/27/2016	sharon	helen	anastasia	jillian	yimiau	bill
-6/28/2016	tammy	ted	catherine	ted	rachelp	ben
-6/29/2016	brian	rae	kelly	hope	kelly	bill
-7/3/2016	eric	bill	fatima	kathyboblitt	bill	megan
-7/5/2016	dale	sarah	dan	jimgraham	dan	michael
-7/6/2016	gail			jeff		
-7/10/2016	kate	debbi	fatima	rachelp	thomas	kathyboblitt
-7/11/2016	brian	rae	kelly	kelly	thomas	patti
-7/12/2016	sharon	bill	helen	mac	anne	lindal
-7/13/2016	tammy	katie	megan	hope	bill	rachelp
-7/17/2016	pam	luke	lindal	patti	luke	mac
-7/18/2016	fatima			megan		
-7/19/2016	dale	catherine	brian	mac	lindal	rachelp
-7/20/2016	sharon	ted	bill	hope	kelly	rachelp
-7/24/2016	maryking	anne	fatima	mac	rachelp	michael
-7/25/2016	dale	gayle	dan	jillian	yimiau	hope
-7/26/2016	tammy	nancy	lindal	lindal	jacob	mac
-7/27/2016	rae	anne	megan	bill	hope	mac
-7/31/2016	kate	catherine	fatima	amyh	thomas	luke
-8/1/2016	jennifer	helen	rod	patti	ben	michael
-8/2/2016	sarah	hermann	anne	anne	hope	ben
-8/3/2016	margaret			kathyboblitt		
-8/7/2016	elisha	luke	hope	hope	luke	michael
-8/8/2016	margaret	nancy	dan	debbi	dan	thomas
-8/9/2016	sharon	rae	kelly	jimgraham	kelly	lindal
-8/10/2016	brian	anne	becky	mac	lindal	margaret
-8/14/2016	kate	patti	anne	patti	thomas	michael
-8/15/2016	fatima			kathyboblitt		
-8/16/2016	dale	catherine	rod	rod	lindal	ben
-8/17/2016	margaret	brian	dan	debbi	margaret	hope
-8/21/2016	eric	luke	hope	mac	luke	megan
-8/22/2016	sarah	gayle	anastasia	jillian	jacob	margaret
-8/23/2016	tammy	rebecca	kelly	ted	kelly	margaret
-8/24/2016	sharon	hermann	megan	hermann	ben	mac
-8/28/2016	elisha	debbi	fatima	patti	thomas	michael
-8/29/2016	brian	helen	dan	dan	hope	jillian
-8/30/2016	dale	nancy	catherine	mac	anne	ben
-8/31/2016	tevah	anne	sarah	jillian	jacob	hope
+no possible workers defined for job 3504, Weekday Table Setter, 9/6/2016
+9/6/2016	tammy	XXXXXXXX	gaz	michellemyers	kathyboblitt	dan	michael
+9/7/2016	elisha			meg		
+9/11/2016	hope	fatima	ben	hope	gayle	mario
+9/12/2016	brian	gayle	catherine	XXXXXXXX	debbi	bill	mac
+9/13/2016	sharon	katie	rachelp	gaz	jillian	eric	dan
+9/14/2016	jennifer	XXXXXXXX	anastasia	nancy	rod	anastasia	nicholas
+9/18/2016	maryking	fatima	gaz	mac	tolkien	michael
+9/19/2016	elisha			dan		
+9/20/2016	tammy	XXXXXXXX	michellemyers	brian	ted	ben	mac
+9/21/2016	sharon	XXXXXXXX	keithg	jillian	jillian	kate	hope
+9/25/2016	megan	fatima	eric	debbi	megan	mario
+9/26/2016	brian	katie	meg	XXXXXXXX	amyh	dan	XXXXXXXX
+9/27/2016	kelly	anne	rebecca	bill	patti	michael	mac
+9/28/2016	rae	XXXXXXXX	gaz	elisha	mac	nicholas	jillian
+10/2/2016	maryking	fatima	dan	kathyboblitt	julia	gayle
+10/3/2016	sharon	katie	catherine	XXXXXXXX	mac	bill	michael
+10/4/2016	tammy	XXXXXXXX	michellemyers	brian	rod	anastasia	eric
+10/5/2016	megan			meg		
+10/9/2016	hope	fatima	elisha	hope	julia	michael
+10/10/2016	dale	gayle	keithg	brian	mac	bill	XXXXXXXX
+10/11/2016	kate	katie	rachelp	gaz	amyh	kate	patti
+10/12/2016	brian	anne	rae	gaz	kathyboblitt	nicholas	jillian
+10/16/2016	pam	fatima	XXXXXXXX	debbi	julia	tolkien
+10/17/2016	megan			dan		
+10/18/2016	tammy	XXXXXXXX	rebecca	bill	patti	eric	kate
+10/19/2016	kelly	XXXXXXXX	gaz	rae	mac	hope	XXXXXXXX
+10/23/2016	hope	fatima	elisha	hope	julia	michael
+10/24/2016	rachelp	XXXXXXXX	meg	gayle	kathyboblitt	kate	XXXXXXXX
+10/25/2016	dale	XXXXXXXX	ted	gaz	ted	ben	eric
+10/26/2016	sharon	anne	anastasia	nancy	jillian	jacob	hope
+10/30/2016	maryking	fatima	megan	rod	megan	julia
+11/1/2016	kelly	XXXXXXXX	katie	bill	patti	nicholas	michael
+11/2/2016	elisha			kathyboblitt		
+11/6/2016	eric	anne	dan	mac	gayle	julia
+11/7/2016	rachelp	katie	meg	dan	rachelp	meg	XXXXXXXX
+11/8/2016	sharon	anne	tevah	bill	rod	jacob	mac
+11/9/2016	sharon	XXXXXXXX	michellemyers	nancy	ted	kate	bill
+11/13/2016	hope	catherine	debbi	hope	tolkien	michael
+11/14/2016	dale	katie	nancy	meg	amyh	nicholas	XXXXXXXX
+11/15/2016	tammy	anne	rebecca	bill	patti	anastasia	dan
+11/16/2016	jennifer	XXXXXXXX	keithg	gayle	jillian	bill	mac
+11/20/2016	maryking	eric	megan	mac	megan	julia
+11/21/2016	elisha			dan		
+11/22/2016	kelly	anne	bill	rachelp	kathyboblitt	ben	michael
+11/23/2016	rae	anne	ted	gayle	ted	nicholas	bill
+11/28/2016	dale	gayle	meg	dan	debbi	bill	XXXXXXXX
+11/29/2016	tammy	katie	anastasia	nancy	rod	michael	mac
+11/30/2016	kelly	XXXXXXXX	keithg	megan	patti	kate	XXXXXXXX
+12/4/2016	eric	catherine	pam	mac	tolkien	mario
+12/5/2016	sharon	gayle	dan	meg	meg	bill	debbi
+12/6/2016	dale	XXXXXXXX	rae	meg	ted	meg	mac
+12/7/2016	gail			kathyboblitt		
+12/11/2016	megan	debbi	ben	megan	gayle	kathyboblitt
+12/12/2016	dale	katie	rachelp	dan	rachelp	mac	XXXXXXXX
+12/13/2016	kelly	XXXXXXXX	michellemyers	meg	patti	meg	kate
+12/14/2016	tammy	anne	jillian	sharon	jillian	bill	hope
+12/18/2016	pam	anne	gaz	kathyboblitt	julia	mario
+12/19/2016	gail			dan		
+12/20/2016	sharon	XXXXXXXX	katie	rae	mac	jacob	nicholas
+12/21/2016	jennifer	gayle	tevah	nancy	amyh	michael	hope
+12/26/2016	kate	gayle	rebecca	elisha	debbi	kate	michael
+12/27/2016	tammy	anne	gayle	gaz	ted	ben	jacob
+12/28/2016	jennifer	anne	anastasia	megan	hope	anastasia	nicholas
+MISSED HOBARTERS: 1 of 63 0.02
+elapsed time: 0.14024591445923

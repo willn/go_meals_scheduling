@@ -50,7 +50,7 @@ class Meal {
 	 * Example: weekday asst cooks should get 2 empty slots to fill.
 	 */
 	public function addShifts($job_id_list) {
-		global $job_instances;
+		$job_instances = get_job_instances();
 
 		foreach(array_values($job_id_list) as $job_id) {
 			if (empty($job_instances[$job_id])) {
@@ -83,7 +83,7 @@ class Meal {
 			$assn_out = print_r($this->assigned, TRUE);
 			echo <<<EOTXT
 The job "{$all_jobs[$job_id]}" isn't scheduled for this date: {$this->date}
-U:{$username} P:{$pref} jobid: {$job_id}
+U:{$username} P:{$pref}
 all jobs: {$all_jobs_out}
 assigned: {$assn_out}
 
@@ -122,7 +122,7 @@ EOTXT;
 	 * @return float the popularity / open spot ratio
 	 */
 	public function getNumPossibleWorkerRatio($job_id) {
-		global $job_instances;
+		$job_instances = get_job_instances();
 
 		// check to see if this is the wrong date for this job
 		if (!isset($job_instances[$job_id][$this->day_of_week]) || 
@@ -154,7 +154,7 @@ EOTXT;
 	 * (Meal)
 	 */
 	public function hasOpenShifts($job_id) {
-		global $job_instances;
+		$job_instances = get_job_instances();
 
 		// if this day of week isn't defined. For example, a sunday shift on a
 		// weekday...
@@ -510,7 +510,6 @@ EOTXT;
 		$out_jobs = array();
 		// check to make sure that all of the required instances are filled
 		foreach($this->assigned as $job_id=>$assignments) {
-
 			// check for un-assigned names
 			foreach($assignments as $shift_num=>$name) {
 				if (is_null($name)) {

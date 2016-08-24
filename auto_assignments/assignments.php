@@ -24,16 +24,14 @@ EOTXT;
 }
 
 global $relative_dir;
-$relative_dir = '../public/scheduling/';
+$relative_dir = '../public/';
 
 require_once $relative_dir . 'globals.php';
 require_once $relative_dir . 'classes/calendar.php';
-error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " ");
 require_once $relative_dir . 'classes/worker.php';
 require_once $relative_dir . 'classes/roster.php';
 require_once 'schedule.php';
 require_once 'meal.php';
-error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " ");
 
 global $dbh;
 global $job_key_clause;
@@ -43,7 +41,6 @@ unset($all_jobs['all']);
 
 $job_ids_clause = get_job_ids_clause();
 
-error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " ");
 // run many combinations of numbers looking for a full allocation
 if (array_key_exists('x', $options)) {
 	foreach(range(1, 10, 2) as $a) {

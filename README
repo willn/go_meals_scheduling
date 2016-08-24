@@ -82,7 +82,7 @@ what to do at the end of the survey:
 	git commit
 
 - check for any un-assigned workers
-	cd /docroot/gocoho/scheduling/auto_assignments/
+	cd auto_assignments/
 	php assignments -x
 
 - count un-filled slots:

@@ -109,6 +109,7 @@ function get_num_dinners_per_assignment($job_id=NULL) {
 	return array_get($dinners, $job_id, 0);
 }
 
+// #!# is this used anywhere?
 $hours_per_job = array(
 	MEETING_NIGHT_ORDERER => 1,
 	MEETING_NIGHT_CLEANER => 1.5,
@@ -122,21 +123,23 @@ $hours_per_job = array(
 	WEEKDAY_CLEANER => 1.5,
 );
 
-global $job_instances;
 // job_id => array( dow => count), 1 = MON, 7 = SUN
 // per job, list number of open shifts per day of week
-$job_instances = array(
-	MEETING_NIGHT_CLEANER => array(1=>1, 3=>1),
-	MEETING_NIGHT_ORDERER => array(1=>1, 3=>1),
+function get_job_instances() {
+	return [
+		MEETING_NIGHT_CLEANER => array(1=>1, 3=>1),
+		MEETING_NIGHT_ORDERER => array(1=>1, 3=>1),
 
-	SUNDAY_HEAD_COOK => array(7=>1),
-	SUNDAY_ASST_COOK => array(7=>2),
-	SUNDAY_CLEANER => array(7=>3),
+		SUNDAY_HEAD_COOK => array(7=>1),
+		SUNDAY_ASST_COOK => array(7=>2),
+		SUNDAY_CLEANER => array(7=>3),
 
-	WEEKDAY_HEAD_COOK => array(1=>1, 2=>1, 3=>1, 4=>1),
-	WEEKDAY_ASST_COOK => array(1=>2, 2=>2, 3=>2, 4=>2),
-	WEEKDAY_CLEANER => array(1=>3, 2=>3, 3=>3, 4=>3),
-);
+		WEEKDAY_HEAD_COOK => array(1=>1, 2=>1, 3=>1, 4=>1),
+		WEEKDAY_ASST_COOK => array(1=>2, 2=>2, 3=>2, 4=>2),
+		WEEKDAY_CLEANER => array(1=>3, 2=>3, 3=>3, 4=>3),
+		WEEKDAY_TABLE_SETTER => array(1=>1, 2=>1, 3=>1, 4=>1),
+	];
+}
 
 global $hobarters;
 $hobarters = array(
