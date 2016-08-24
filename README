@@ -55,7 +55,7 @@ Directions to set up the survey:
   	- git add *
   	- git commit
 
-# set up database backup routine on goutte
+# set up database backup routine on the webserver:
 	mkdir ~/backups
 	chmod 700 ~/backups/
 	sudo bash
@@ -63,6 +63,9 @@ Directions to set up the survey:
 	# uncomment the following lines:
 	20 *   *   *   *   /bin/cp -f ~/meals_scheduling/public/sqlite_data/work_allocation.db ~/backups/
 	25 *   *   *   *   /usr/bin/gzip -f ~/backups/work_allocation.db
+
+# set up a cronjob to copy webserver locally:
+	57 * * * * rsync -e 'ssh -p 7822' -avz fluidth1@a2ss23.a2hosting.com:meals_scheduling/ ~/backups/a2hosting/
 
 # make sure the work allocation crontab is in place to copy from webserver to desktop
 
@@ -74,8 +77,9 @@ what to do at the end of the survey:
 - disable cronjobs
 
 - commit closed database:
-	cvs commit -m "end of survey" \
-	/docroot/gocoho/scheduling/public/sqlite_data/work_allocation.db
+	git status
+	git add # files which changed
+	git commit
 
 - check for any un-assigned workers
 	cd /docroot/gocoho/scheduling/auto_assignments/
