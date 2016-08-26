@@ -107,16 +107,14 @@ what to do at the end of the survey:
   paste from "Confirm results check" section, and create custom ones for anything
   that's not a personal avoid request.
 
+- check to make sure that there are no 'table setter' assignments which conflict
+  with head or asst cooking
+
 - do any swapping needed
 
 - run avoids validation:
 	cd ../utils/
 	php validate_schedule.php -f ../auto_assignments/schedule.txt
-
-- write out schedule to public/results/schedule.txt
-	* mv auto_assignments/schedule.txt public/results/
-	* send link to Adi:
-		http://scheduling.fluidthoughts.com/results/schedule.txt
 
 translate dale's work system user names to MESS inserts
 --------------------------------------------------------
