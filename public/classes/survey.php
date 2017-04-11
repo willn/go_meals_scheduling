@@ -192,11 +192,12 @@ EOHTML;
 	}
 
 	public function reportNoShifts() {
+		$dir = BASE_DIR;
 		echo <<<EOHTML
 			<div style="padding: 50px;">
 				<div class="highlight">Sorry {$_GET['worker']} - you don't
 				have any meals shifts for the upcoming season</div>
-				<a href="/" class="pill">&larr; go back</a>
+				<a href="{$dir}" class="pill">&larr; go back</a>
 			</div>
 EOHTML;
 		exit;
@@ -488,6 +489,7 @@ EOHTML;
 
 		if (!empty($insufficient_prefs)) {
 			$missing = implode('<br>', $insufficient_prefs);
+			$dir = BASE_DIR;
 			$out = <<<EOHTML
 			<div class="warning">
 				<h2>Warning:</h2>
@@ -500,7 +502,7 @@ EOHTML;
 				<h3>Jobs which need more availability:</h3>
 				<p>{$missing}</p>
 				<p>Perhaps you can trade a shift, or <a
-					href="/index.php?worker={$this->username}">
+					href="{$dir}/index.php?worker={$this->username}">
 						add more availability</a>.</p>
 			</div>
 EOHTML;
@@ -649,11 +651,12 @@ EOHTML;
 EOHTML;
 		}
 
+		$dir = BASE_DIR;
 		return <<<EOHTML
 	<h2>Saved!</h2>
 	<p>Saved {$this->saved} shift preferences.</p>
-	<p>You may <a href="/index.php?worker={$this->username}">make changes</a>
-		or <a href="/">take the survey for another person</a>.</p>
+	<p>You may <a href="{$dir}/index.php?worker={$this->username}">make changes</a>
+		or <a href="{$dir}">take the survey for another person</a>.</p>
 	{$summary_text}
 EOHTML;
 	}
