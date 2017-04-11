@@ -3,18 +3,19 @@ The Great Oak Meals Scheduling Survey
 Directions to set up the survey:
 
 # check that there aren't uncommitted modifications in the production version:
-	cd /Users/willn/great-oak/meals/meals_scheduling
+	cd /home/gocoho/meals_scheduling/
 	git status
 
 # make sure that unit tests work:
 	cd tests
 	./run.sh
+	cd ..
 
 # grab the latest sqlite file from webfactional, fix permissions, and commit:
 	scp gocoho@web30.webfaction.com:webapps/django/allocation/file.db public/sqlite_data/work_allocation.db
 	chmod 664 !$
-	sudo chgrp _www !$
-	cvs commit !$
+	# sudo chgrp gocoho !$
+	git commit !$
 
 # edit public/config.php
 	- set the appropriate DEADLINE date
