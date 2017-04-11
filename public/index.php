@@ -1,4 +1,5 @@
 <?php
+ini_set('error_log', '../error_log');
 session_start();
 
 require_once 'utils.php';
@@ -28,8 +29,9 @@ if (!$db_is_writable) {
 EOHTML;
 }
 
+$dir = BASE_DIR;
 $report_link = <<<EOHTML
-<p class="summary_report">See the <a href="/report.php">summary report</a></p>
+<p class="summary_report">See the <a href="{$dir}/report.php">summary report</a></p>
 EOHTML;
 
 // ----- deadline check ----
