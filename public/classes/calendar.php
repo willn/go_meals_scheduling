@@ -520,7 +520,10 @@ EOHTML;
 				$jobs_html .= "<li><b>{$label}</b></li>\n";
 				continue;
 			}
-			$jobs_html .= "<li><a href=\"report.php?key={$key}\">{$label}</a></li>\n";
+			$dir = BASE_DIR;
+			$jobs_html .= <<<EOHTML
+<li><a href="{$dir}/report.php?key={$key}">{$label}</a></li>
+EOHTML;
 		}
 		return $jobs_html;
 	}
@@ -739,9 +742,10 @@ EOHTML;
 		$out = $lines = '';
 		$count = 0;
 		ksort($workers);
+		$dir = BASE_DIR;
 		foreach($workers as $name=>$unused) {
 			$lines .= <<<EOHTML
-				<li><a href="/index.php?worker={$name}">{$name}</a></li>
+				<li><a href="{$dir}/index.php?worker={$name}">{$name}</a></li>
 EOHTML;
 
 			$count++;
