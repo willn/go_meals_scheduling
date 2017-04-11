@@ -9,7 +9,7 @@ require_once "{$relative_dir}/constants.inc";
 date_default_timezone_get('America/Detroit');
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('august 23, 2016, 7:30pm'));
+define('DEADLINE', strtotime('april 21, 2017, 7:30pm'));
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_ORDERER', 3379);
