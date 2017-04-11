@@ -20,11 +20,12 @@ if (!isset($_SESSION['access_type'])) {
 		$_SESSION['access_type'] = 'admin';
 	}
 	else if (!isset($_SESSION['access_type'])) {
+		$dir = BASE_DIR;
 		print <<<EOHTML
 			<h2>Meals scheduling reporting</h2>
 			<h3>Please choose access type:</h3>
 			<div class="access_type">
-				<a href="{$_SERVER['PHP_SELF']}?guest=1">guest</a>
+				<a href="{$dir}/report.php?guest=1">guest</a>
 			</div>
 			<div class="access_type">
 				admin
