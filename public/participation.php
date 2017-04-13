@@ -31,7 +31,7 @@ class Respondents {
 					AND ({$this->ids_clause})
 				GROUP BY sa.worker_id
 EOSQL;
-		$all_workers = array();
+		$all_workers = [];
 		foreach ($this->dbh->query($sql) as $row) {
 			$all_workers[$row['id']] = $row['username'];
 		}
@@ -49,14 +49,14 @@ EOSQL;
 	 * survey already.
 	 */
 	public function getResponders() {
-		// list of workers who *have* responded:
+		// list of workers who are assigned.
 		$sql = <<<EOSQL
 			SELECT a.id as id, a.username as username
 				FROM auth_user as a, schedule_prefs as p
 				WHERE a.id=p.worker_id
 				GROUP BY p.worker_id;
 EOSQL;
-		$responders = array();
+		$responders = [];
 		foreach ($this->dbh->query($sql) as $row) {
 			$responders[$row['id']] = $row['username'];
 		}
@@ -119,6 +119,7 @@ EOHTML;
 	 *
 	 * @param[in] display_usernames boolean default FALSE. If true, then the
 	 *     email addresses of the slackers are shown as well.
+	 * #!# move this to workerslist?
 	 */
 	public function getSummary($display_usernames=FALSE) {
 		$all_workers = $this->getWorkers();

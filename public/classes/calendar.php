@@ -5,8 +5,9 @@ if (!isset($relative_dir)) {
 }
 require_once $relative_dir . 'globals.php';
 
+require_once 'WorkersList.php';
+
 class Calendar {
-	protected $workers = array();
 	protected $web_display = TRUE;
 	protected $key_filter = 'all';
 
@@ -662,38 +663,6 @@ EOHTML;
 		return $out . $check_script;
 	}
 
-
-	/*
-	 * Find all of the worker names. We need even those who don't have shifts
-	 * this season in case they have overrides.
-	 */
-	public function loadParticipatingWorkers() {
-		$sid = SEASON_ID;
-		$sql = <<<EOSQL
-			SELECT id, username, first_name, last_name
-				FROM auth_user
-				WHERE id IN
-					(SELECT worker_id
-						FROM survey_assignment
-						WHERE season_id={$sid}
-						GROUP BY worker_id)
-				ORDER BY first_name, username
-EOSQL;
-
-		global $dbh;
-		$this->workers = array();
-		foreach ($dbh->query($sql) as $row) {
-			$this->workers[$row['username']] = $row;
-		}
-	}
-
-	/**
-	 * Get the list of workers.
-	 */
-	public function getWorkers() {
-		return $this->workers;
-	}
-
 	/**
 	 * Get a select list of the various workers available.
 	 * @param [in] id string, denotes name of DOM element and form element
@@ -709,7 +678,8 @@ EOSQL;
 	public function getWorkerList($id, $first_entry=FALSE, $skip_user=NULL,
 		$chosen=array(), $only_user=FALSE) {
 
-		$workers = $this->getWorkers();
+		$worker_list = new WorkersList();
+		$workers = $worker_list->getWorkers();
 		$options = ($first_entry) ? '<option value="none"></option>' : '';
 		foreach($workers as $username=>$info) {
 			if (!is_null($skip_user) && $username == $skip_user) {
@@ -731,35 +701,6 @@ EOHTML;
 			{$options}
 		</select>
 EOHTML;
-	}
-
-	/**
-	 * Display the list of workers as links in order to select their survey.
-	 */
-	public function getWorkersListAsLinks() {
-		$workers = $this->getWorkers();
-
-		$out = $lines = '';
-		$count = 0;
-		ksort($workers);
-		$dir = BASE_DIR;
-		foreach($workers as $name=>$unused) {
-			$lines .= <<<EOHTML
-				<li><a href="{$dir}/index.php?worker={$name}">{$name}</a></li>
-EOHTML;
-
-			$count++;
-			if (($count % 10) == 0) {
-				$out .= "<ol>{$lines}</ol>\n";
-				$lines = '';
-			}
-		}
-
-		if ($lines != '') {
-			$out .= "<ol>{$lines}</ol>\n";
-		}
-
-		return $out;
 	}
 
 	/*

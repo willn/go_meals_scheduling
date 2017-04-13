@@ -12,15 +12,15 @@ date_default_timezone_get('America/Detroit');
 define('DEADLINE', strtotime('april 21, 2017, 7:30pm'));
 
 /* ----------- job ids --------------- */
-define('MEETING_NIGHT_ORDERER', 3379);
-define('MEETING_NIGHT_CLEANER', 3382);
-define('SUNDAY_HEAD_COOK', 3377);
-define('SUNDAY_ASST_COOK', 3378);
-define('SUNDAY_CLEANER', 3381);
-define('WEEKDAY_HEAD_COOK', 3375);
-define('WEEKDAY_ASST_COOK', 3376);
-define('WEEKDAY_CLEANER', 3380);
-define('WEEKDAY_TABLE_SETTER', 3504);
+define('MEETING_NIGHT_ORDERER', 3745);
+define('MEETING_NIGHT_CLEANER', 3748);
+define('SUNDAY_HEAD_COOK', 3743);
+define('SUNDAY_ASST_COOK', 3744);
+define('SUNDAY_CLEANER', 3747);
+define('WEEKDAY_HEAD_COOK', 3741);
+define('WEEKDAY_ASST_COOK', 3742);
+define('WEEKDAY_CLEANER', 3746);
+define('WEEKDAY_TABLE_SETTER', 3735);
 
 // forced skip dates
 global $skip_dates;
@@ -42,15 +42,11 @@ $override_dates = array(
 function get_num_shift_overrides() {
 	// username => array(job_id => num_meals)
 	return [
+/*
 		'hope' => [
 			WEEKDAY_CLEANER => 2,
 		],
-		'rachelp' => [
-			WEEKDAY_CLEANER => -2,
-		],
-		'michellemyers' => [
-			WEEKDAY_ASST_COOK => 5,
-		],
+*/
 	];
 }
 

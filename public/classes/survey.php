@@ -6,6 +6,7 @@ require_once 'display/includes/header.php';
 require_once 'classes/calendar.php';
 require_once 'classes/roster.php';
 require_once 'classes/worker.php';
+require_once 'classes/WorkersList.php';
 
 class Survey {
 	protected $worker;
@@ -45,7 +46,6 @@ class Survey {
 
 	public function __construct() {
 		$this->calendar = new Calendar();
-		$this->calendar->loadParticipatingWorkers();
 		$this->roster = new Roster();
 
 		global $dbh;
@@ -94,8 +94,13 @@ class Survey {
 		}
 	}
 
+	/**
+	 * Get the list of workers.
+	 * @return array list of workers.
+	 */
 	public function getWorkers() {
-		return $this->calendar->getWorkers();
+		$workers_list = new WorkersList();
+		return $workers_list->getWorkers();
 	}
 
 	/**
@@ -115,10 +120,6 @@ class Survey {
 
 		return $this->calendar->getWorkerList($id, $first_entry,
 			$skip_user, $chosen_users, $only_user);
-	}
-
-	public function getWorkersListAsLinks() {
-		return $this->calendar->getWorkersListAsLinks();
 	}
 
 	/**

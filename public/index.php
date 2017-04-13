@@ -56,7 +56,7 @@ else {
 	if (!isset($_GET['worker']) ||
 		!array_key_exists($_GET['worker'], $workers)) {
 		display_respondents();
-		display_worker_menu($workers, $survey);
+		display_worker_menu($workers);
 
 		print $report_link;
 	}
@@ -80,8 +80,11 @@ function display_respondents() {
 EOHTML;
 }
 
-function display_worker_menu($workers, $survey) {
-	if (empty($workers)) {
+function display_worker_menu() {
+	$workers_list = new WorkersList();
+	$list = $workers_list->getWorkers();
+
+	if (empty($workers_list)) {
 		echo "<h2>No workers configured</h2>\n";
 		return;
 	}
@@ -89,7 +92,7 @@ function display_worker_menu($workers, $survey) {
 	// display names for "login"
 	print <<<EOHTML
 		<div class="workers_list">
-			{$survey->getWorkersListAsLinks()}
+			{$workers_list->getWorkersListAsLinks()}
 		</div>
 EOHTML;
 }

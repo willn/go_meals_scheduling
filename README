@@ -11,12 +11,6 @@ Directions to set up the survey:
 	./run.sh
 	cd ..
 
-# grab the latest sqlite file from webfactional, fix permissions, and commit:
-	scp gocoho@web30.webfaction.com:webapps/django/allocation/file.db public/sqlite_data/work_allocation.db
-	chmod 664 !$
-	# sudo chgrp gocoho !$
-	git commit !$
-
 # edit public/config.php
 	- set the appropriate DEADLINE date
 
@@ -25,6 +19,12 @@ Directions to set up the survey:
 	  the upcoming season 
 
 # add any extra workers to the get_num_shift_overrides() function
+
+# grab the latest sqlite file from webfactional, fix permissions, and commit:
+	scp gocoho@web30.webfaction.com:webapps/django/allocation/file.db public/sqlite_data/work_allocation.db
+	chmod 664 !$
+	# sudo chgrp gocoho !$
+	git commit !$
 
 # get new job IDs for the season, and update the defines for each job in config.php
 	cd ../utils/
