@@ -1,5 +1,4 @@
 <?php
-ini_set('error_log', '../error_log');
 session_start();
 
 require_once 'utils.php';

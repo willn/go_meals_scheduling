@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('America/Detroit');
+
 require_once('utils.php');
 require_once('config.php');
 
@@ -9,8 +11,6 @@ define('NON_RESPONSE_PREF', .5);
 define('PLACEHOLDER', 'XXXXXXXX');
 define('DOMAIN', '@gocoho.org');
 define('HAS_CONFLICT', -1);
-
-date_default_timezone_set('America/Detroit');
 
 global $days_of_week;
 $days_of_week = array(
