@@ -29,7 +29,7 @@ class Roster {
 			$this->total_labor_avail[$job_id] = 0;
 		}
 
-		global $current_season;
+		$current_season = get_current_season();
 		if (empty($current_season)) {
 			echo "no months assigned to current season\n";
 			exit;

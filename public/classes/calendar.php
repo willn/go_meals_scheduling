@@ -62,7 +62,7 @@ class Calendar {
 	}
 
 	public function renderMonthsOverlay() {
-		global $current_season;
+		$current_season = get_current_season();
 
 		$out = '';
 		foreach($current_season as $month_num=>$month_name) {
@@ -140,8 +140,9 @@ EOHTML;
 		global $mtg_jobs;
 		global $days_of_week;
 		global $mtg_nights;
-		global $current_season;
 		global $override_dates;
+
+		$current_season = get_current_season();
 
 		$meal_days = get_meal_days();
 

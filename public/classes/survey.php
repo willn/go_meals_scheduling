@@ -517,8 +517,6 @@ EOHTML;
 	 * database.
 	 */
 	protected function getNumInstances($row) {
-		global $current_season;
-
 		$job_id = $row['job_id'];
 		$num_dinners = get_num_dinners_per_assignment($job_id);
 

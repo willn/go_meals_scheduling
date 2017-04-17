@@ -64,35 +64,36 @@ $mtg_nights = array(
 	MONDAY => 3,
 );
 
-global $current_season;
-switch(SEASON_NAME) {
-	case 'winter':
-		$current_season = array(
-			1=>'January',
-			2=>'February',
-			3=>'March',
-			4=>'April'
-		);
-		break;
+/**
+ * Get the months contained in the current season.
+ */
+function get_current_season($name) {
+	switch(SEASON_NAME) {
+		case 'winter':
+			return [
+				1=>'January',
+				2=>'February',
+				3=>'March',
+				4=>'April'
+			];
 
-	case 'spring':
-	case 'summer':
-		$current_season = array(
-			5=>'May',
-			6=>'June',
-			7=>'July',
-			8=>'August'
-		);
-		break;
+		case 'spring':
+		case 'summer':
+			return [	
+				5=>'May',
+				6=>'June',
+				7=>'July',
+				8=>'August'
+			];
 
-	case 'fall':
-		$current_season = array(
-			9=>'September',
-			10=>'October',
-			11=>'November',
-			12=>'December'
-		);
-		break;
+		case 'fall':
+			return [
+				9=>'September',
+				10=>'October',
+				11=>'November',
+				12=>'December'
+			];
+	}
 }
 
 // -------- function declarations here ------
