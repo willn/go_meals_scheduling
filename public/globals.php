@@ -66,6 +66,8 @@ $mtg_nights = array(
 
 /**
  * Get the months contained in the current season.
+ *
+ * @return array list of month names contained in the requested season.
  */
 function get_current_season($name) {
 	switch(SEASON_NAME) {
@@ -92,6 +94,11 @@ function get_current_season($name) {
 				10=>'October',
 				11=>'November',
 				12=>'December'
+			];
+
+		case 'test':
+			return [
+				1=>'January',
 			];
 	}
 }
