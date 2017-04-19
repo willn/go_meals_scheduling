@@ -42,11 +42,12 @@ $override_dates = array(
 function get_num_shift_overrides() {
 	// username => array(job_id => num_meals)
 	return [
-/*
 		'hope' => [
-			WEEKDAY_CLEANER => 2,
+			SUNDAY_HEAD_COOK => 1,
 		],
-*/
+		'sarah' => [
+			WEEKDAY_HEAD_COOK => 3,
+		],
 	];
 }
 
