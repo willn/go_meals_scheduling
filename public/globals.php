@@ -1,4 +1,6 @@
 <?php
+#ini_set('error_log', '/home/gocoho/error_log');
+
 date_default_timezone_set('America/Detroit');
 
 require_once('utils.php');

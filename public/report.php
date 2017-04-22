@@ -1,4 +1,5 @@
 <?php
+require_once('globals.php');
 global $relative_dir;
 if (!strlen($relative_dir)) {
     $relative_dir = '.';
@@ -39,7 +40,6 @@ EOHTML;
 	}
 }
 
-require_once('globals.php');
 require_once('classes/calendar.php');
 require_once('participation.php');
 
