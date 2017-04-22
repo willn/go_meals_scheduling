@@ -546,6 +546,9 @@ EOTXT;
 					$has_clean_job = TRUE;
 				}
 			}
+			else {
+				$order = 4;
+			}
 
 			if (($only_cleaners) && ($order != 2)) {
 				continue;
