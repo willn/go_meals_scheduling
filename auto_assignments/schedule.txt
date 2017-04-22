@@ -1,66 +1,68 @@
-no possible workers defined for job 3504, Weekday Table Setter, 9/6/2016
-9/6/2016	tammy	XXXXXXXX	gaz	michellemyers	kathyboblitt	dan	michael
-9/7/2016	elisha			meg		
-9/11/2016	hope	fatima	ben	hope	gayle	mario
-9/12/2016	brian	gayle	catherine	XXXXXXXX	debbi	bill	mac
-9/13/2016	sharon	katie	rachelp	gaz	jillian	eric	dan
-9/14/2016	jennifer	XXXXXXXX	anastasia	nancy	rod	anastasia	nicholas
-9/18/2016	maryking	fatima	gaz	mac	tolkien	michael
-9/19/2016	elisha			dan		
-9/20/2016	tammy	XXXXXXXX	michellemyers	brian	ted	ben	mac
-9/21/2016	sharon	XXXXXXXX	keithg	jillian	jillian	kate	hope
-9/25/2016	megan	fatima	eric	debbi	megan	mario
-9/26/2016	brian	katie	meg	XXXXXXXX	amyh	dan	XXXXXXXX
-9/27/2016	kelly	anne	rebecca	bill	patti	michael	mac
-9/28/2016	rae	XXXXXXXX	gaz	elisha	mac	nicholas	jillian
-10/2/2016	maryking	fatima	dan	kathyboblitt	julia	gayle
-10/3/2016	sharon	katie	catherine	XXXXXXXX	mac	bill	michael
-10/4/2016	tammy	XXXXXXXX	michellemyers	brian	rod	anastasia	eric
-10/5/2016	megan			meg		
-10/9/2016	hope	fatima	elisha	hope	julia	michael
-10/10/2016	dale	gayle	keithg	brian	mac	bill	XXXXXXXX
-10/11/2016	kate	katie	rachelp	gaz	amyh	kate	patti
-10/12/2016	brian	anne	rae	gaz	kathyboblitt	nicholas	jillian
-10/16/2016	pam	fatima	XXXXXXXX	debbi	julia	tolkien
-10/17/2016	megan			dan		
-10/18/2016	tammy	XXXXXXXX	rebecca	bill	patti	eric	kate
-10/19/2016	kelly	XXXXXXXX	gaz	rae	mac	hope	XXXXXXXX
-10/23/2016	hope	fatima	elisha	hope	julia	michael
-10/24/2016	rachelp	XXXXXXXX	meg	gayle	kathyboblitt	kate	XXXXXXXX
-10/25/2016	dale	XXXXXXXX	ted	gaz	ted	ben	eric
-10/26/2016	sharon	anne	anastasia	nancy	jillian	jacob	hope
-10/30/2016	maryking	fatima	megan	rod	megan	julia
-11/1/2016	kelly	XXXXXXXX	katie	bill	patti	nicholas	michael
-11/2/2016	elisha			kathyboblitt		
-11/6/2016	eric	anne	dan	mac	gayle	julia
-11/7/2016	rachelp	katie	meg	dan	rachelp	meg	XXXXXXXX
-11/8/2016	sharon	anne	tevah	bill	rod	jacob	mac
-11/9/2016	sharon	XXXXXXXX	michellemyers	nancy	ted	kate	bill
-11/13/2016	hope	catherine	debbi	hope	tolkien	michael
-11/14/2016	dale	katie	nancy	meg	amyh	nicholas	XXXXXXXX
-11/15/2016	tammy	anne	rebecca	bill	patti	anastasia	dan
-11/16/2016	jennifer	XXXXXXXX	keithg	gayle	jillian	bill	mac
-11/20/2016	maryking	eric	megan	mac	megan	julia
-11/21/2016	elisha			dan		
-11/22/2016	kelly	anne	bill	rachelp	kathyboblitt	ben	michael
-11/23/2016	rae	anne	ted	gayle	ted	nicholas	bill
-11/28/2016	dale	gayle	meg	dan	debbi	bill	XXXXXXXX
-11/29/2016	tammy	katie	anastasia	nancy	rod	michael	mac
-11/30/2016	kelly	XXXXXXXX	keithg	megan	patti	kate	XXXXXXXX
-12/4/2016	eric	catherine	pam	mac	tolkien	mario
-12/5/2016	sharon	gayle	dan	meg	meg	bill	debbi
-12/6/2016	dale	XXXXXXXX	rae	meg	ted	meg	mac
-12/7/2016	gail			kathyboblitt		
-12/11/2016	megan	debbi	ben	megan	gayle	kathyboblitt
-12/12/2016	dale	katie	rachelp	dan	rachelp	mac	XXXXXXXX
-12/13/2016	kelly	XXXXXXXX	michellemyers	meg	patti	meg	kate
-12/14/2016	tammy	anne	jillian	sharon	jillian	bill	hope
-12/18/2016	pam	anne	gaz	kathyboblitt	julia	mario
-12/19/2016	gail			dan		
-12/20/2016	sharon	XXXXXXXX	katie	rae	mac	jacob	nicholas
-12/21/2016	jennifer	gayle	tevah	nancy	amyh	michael	hope
-12/26/2016	kate	gayle	rebecca	elisha	debbi	kate	michael
-12/27/2016	tammy	anne	gayle	gaz	ted	ben	jacob
-12/28/2016	jennifer	anne	anastasia	megan	hope	anastasia	nicholas
-MISSED HOBARTERS: 1 of 63 0.02
-elapsed time: 0.14024591445923
+5/1/2017	sharon	michele	dan	jillian	dan	bill
+5/2/2017	kate	rod	angie	rod	angie	michael	anne
+5/3/2017	meg			megan		
+5/7/2017	willie	fatima	gregd	thomas	marys	bruno
+5/8/2017	dale	catherine	michele	thomas	jimgraham	bill
+5/9/2017	kelly	yimiau	kate	ted	kevink	michael	anne
+5/10/2017	keithg	elisha	michele	jillian	rachelp	lindal	rachelp
+5/14/2017	keithg	lindal	michele	amyh	gayle	thomas
+5/15/2017	nancy			dan		
+5/16/2017	sharon	angie	kate	rod	anne	kevink	anne
+5/17/2017	jennifer	megan	michele	meg	jillian	yimiau	anne
+5/21/2017	willie	debbi	fatima	marys	thomas	bill
+5/22/2017	dale	gregd	kelly	thomas	gregd	meg	anne
+5/23/2017	tammy	tammy	tammy	kathyboblitt	kevink	michael	anne
+5/24/2017	susan	lindal	nancy	jimgraham	lindal	dan	anne
+5/30/2017	sharon	bill	gayle	rod	catherine	michael	marys
+5/31/2017	keithg	elisha	michele	debbi	marys	meg	anne
+6/4/2017	XXXXXXXX	lindal	gregd	thomas	dan	bill
+6/5/2017	dale	michele	kate	hope	kevink	rachelp	marys
+6/6/2017	tevah	angie	kelly	jimgraham	angie	michael	anne
+6/7/2017	nancy			megan		
+6/11/2017	maryking	fatima	mario	marys	tolkien	fatima
+6/12/2017	susan	yimiau	michele	debbi	rachelp	bill	rebecca
+6/13/2017	tammy	catherine	kate	kathyboblitt	catherine	kevink	anne
+6/14/2017	sarah	lindal	keithg	hope	lindal	bill	anne
+6/18/2017	elisha	gregd	michele	amyh	gayle	bill
+6/19/2017	angie			dan		
+6/20/2017	kate	nancy	kate	jimgraham	kevink	michael	anne
+6/21/2017	kelly	keithg	bill	jillian	keithg	marys	anne
+6/25/2017	eric	lindal	augustd	tolkien	marys	gayle
+6/26/2017	kelly	meg	michele	hope	yimiau	bill	rebecca
+6/27/2017	tammy	tammy	tammy	kathyboblitt	catherine	jacob	anne
+6/28/2017	jennifer	michele	meg	thomas	anne	lindal	marys
+7/2/2017	gregd	fatima	iand	dan	pam	gayle
+7/3/2017	dale	angie	nancy	thomas	rachelp	michael	hermann
+7/5/2017	rebecca			gregd		
+7/9/2017	elisha	michele	mario	gayle	bill	fatima
+7/10/2017	XXXXXXXX	patti	kelly	hope	yimiau	bill	rebecca
+7/11/2017	tammy	meg	kate	jimgraham	keithg	jacob	anne
+7/12/2017	gregd	marys	nancy	gregd	jeff	bill	anne
+7/16/2017	eric	dan	fatima	amyh	dan	gayle
+7/17/2017	rebecca			kathyboblitt		
+7/18/2017	sharon	rachelp	nancy	ted	kevink	michael	anne
+7/19/2017	kelly	yimiau	lindal	debbi	lindal	bill	anne
+7/23/2017	gregd	fatima	lindal	pam	tolkien	bill
+7/24/2017	tammy	angie	michele	angie	jacob	marys	hermann
+7/25/2017	kate	meg	nancy	jillian	anne	kevink	marys
+7/26/2017	sarah	megan	lindal	lindal	michael	meg	anne
+7/30/2017	hope	michele	fatima	gayle	bruno	pam
+7/31/2017	yimiau	dan	kelly	dan	jeff	debbi	hermann
+8/1/2017	tevah	rachelp	meg	jimgraham	catherine	michael	anne
+8/2/2017	angie			kathyboblitt		
+8/6/2017	eric	debbi	gregd	fatima	pam	bill
+8/7/2017	dale	angie	kate	ted	michael	yimiau
+8/8/2017	jennifer	rod	gayle	rod	kevink	dan	rachelp
+8/9/2017	sarah	lindal	michele	lindal	marys	bill	anne
+8/13/2017	keithg	dan	michele	dan	bill	fatima
+8/14/2017	yimiau	patti	meg	jimgraham	jacob	bill
+8/15/2017	kelly	rachelp	nancy	jillian	anne	kevink	rachelp
+8/16/2017	kate	marys	gregd	gregd	jeff	jillian	anne
+8/20/2017	eric	fatima	augustd	amyh	tolkien	bruno
+8/21/2017	meg			gregd		
+8/22/2017	tammy	tammy	tammy	kathyboblitt	angie	kevink	anne
+8/23/2017	kelly	keithg	michele	jimgraham	keithg	bill	anne
+8/27/2017	maryking	michele	iand	bruno	gayle	bill
+8/28/2017	dale	yimiau	nancy	ted	jeff	bill	rebecca
+8/29/2017	jennifer	rachelp	kate	jillian	kevink	michael	anne
+8/30/2017	gregd	lindal	keithg	keithg	gregd	lindal	rachelp
