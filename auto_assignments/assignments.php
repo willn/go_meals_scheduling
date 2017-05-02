@@ -176,9 +176,9 @@ EOSQL;
 	public function makeAssignments() {
 		global $all_jobs;
 
-		foreach(array_keys($all_jobs) as $j) {
-			$this->schedule->setJobId($j);
-			$this->roster->setJobId($j);
+		foreach(array_keys($all_jobs) as $job_id) {
+			$this->schedule->setJobId($job_id);
+			$this->roster->setJobId($job_id);
 			$this->schedule->sortPossibleRatios();
 
 			// keep assigning until all the meals have been assigned
