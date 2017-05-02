@@ -102,14 +102,22 @@ what to do at the end of the survey:
 	egrep '(^name|\(0)' workers.txt | grep -B1 'j:'
 
 - check for hobarter ratio:
-	php assignments.php -s | grep 'MISSED HOBART'
+	grep HOBART schedule.txt
 
 - read the comments and make sure they apply cleanly with auto-checks, copy and
   paste from "Confirm results check" section, and create custom ones for anything
   that's not a personal avoid request.
+	http://gocoho.org/meals_scheduling/report.php?key=all#confirm_checks
+	* copy section
+	* vi checks.sh
+	* paste
+	* chmod +x checks.sh
+	* ./checks.sh
 
 - check to make sure that there are no 'table setter' assignments which conflict
   with head or asst cooking
+	* do visual check, make sure the last column isn't in the first 2
+	* cat schedule.txt | awk '{print $1 " " $2 " "  $3 " " $8}' | grep ' .* .* [^ ]'
 
 - do any swapping needed
 
