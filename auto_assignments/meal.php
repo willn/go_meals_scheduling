@@ -259,7 +259,7 @@ EOTXT;
 	 * @param[in] job_id int the number of the current job to fill
 	 */
 	protected function pickWorker($job_id, $worker_freedom) {
-		$worker_points = array();
+		$worker_points = [];
 
 		$assigned_worker_names = $this->getAssignedWorkerNamesByJobId($job_id);
 		$list = $this->getAvoidAndPreferWorkerList($job_id,
@@ -385,18 +385,18 @@ EOTXT;
 		$username = $this->pickWorker($job_id, $worker_freedom);
 
 		// assign to the first available shift slot
-		$available = FALSE;
+		$is_available = FALSE;
 		foreach($this->assigned[$job_id] as $key=>$w) {
 			if (!is_null($w)) {
 				// slot is taken already
 				continue;
 			}
 
-			$available = TRUE;
+			$is_available = TRUE;
 			break;
 		}
 
-		if (!$available) {
+		if (!$is_available) {
 			echo "all slots are full\n";
 			return PLACEHOLDER;
 		}
@@ -499,7 +499,7 @@ EOTXT;
 			return;
 		}
 
-		global $hobarters;
+		$hobarters = get_hobarters();
 
 		// testing flags:
 		$only_cleaners = FALSE;

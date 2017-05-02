@@ -200,7 +200,7 @@ function is_a_head_cook_job($job_id) {
 }
 
 function is_a_hobarter($worker) {
-	global $hobarters;
+	$hobarters = get_hobarters();
 	return in_array($worker, $hobarters);
 }
 

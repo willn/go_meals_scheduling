@@ -138,23 +138,29 @@ function get_job_instances() {
 	];
 }
 
-global $hobarters;
-$hobarters = array(
-	'amyh',
-	'debbi',
-	'erik',
-	'hope',
-	'jillian',
-	'jimgraham',
-	'kathyboblitt',
-	'mac',
-	'maryking',
-	'patti',
-	'rod',
-	'sarah',
-	'sharon',
-	'ted',
-	'willie',
-);
-
+/**
+ * Get the list of people preferred to do hobarting duty.
+ *
+ * @return array list of names.
+ */
+function get_hobarters() {
+	return [
+		'bill',
+		'debbi',
+		'erik',
+		'hope',
+		'jillian',
+		'kate',
+		'kathyboblitt',
+		'kevink',
+		'mac',
+		'maryking',
+		'patti',
+		'rod',
+		'sharon',
+		'ted',
+		'willie',
+		'yimiau',
+	];
+}
 ?>

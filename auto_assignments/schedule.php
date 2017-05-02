@@ -78,7 +78,7 @@ class Schedule {
 		$this->job_id = $job_id;
 
 		// reset the listing of availability for all meals
-		$this->least_possible = array();
+		$this->least_possible = [];
 	}
 
 
@@ -205,7 +205,7 @@ class Schedule {
 		$prev = empty($this->least_possible) ? 
 			array_keys($this->meals) :
 			array_keys($this->least_possible);
-		$this->least_possible = array();
+		$this->least_possible = [];
 
 		foreach($prev as $date) {
 			$m = $this->meals[$date];
@@ -255,20 +255,22 @@ EOTXT;
 	 * @return boolean. If TRUE, then the meal was filled successfully.
 	 */
 	public function fillMeal($worker_freedom) {
-		$j = $this->job_id;
+		$job_id = $this->job_id;
 
 		$date = $this->getLeastPopularDate();
 		if ($date == '') {
+			echo "EMPTY DATE\n";
 			return FALSE;
 		}
 		$meal = $this->meals[$date];
-		$username = $meal->fill($j, $worker_freedom);
+		$username = $meal->fill($job_id, $worker_freedom);
 		if (is_null($username)) {
+			echo "null user\n";
 			return FALSE;
 		}
 
 		// update the current meal's possibility ratio
-		$poss = $meal->getNumPossibleWorkerRatio($j);
+		$poss = $meal->getNumPossibleWorkerRatio($job_id);
 		if ($poss == 0) {
 			unset($this->least_possible[$date]);
 		}
@@ -280,11 +282,11 @@ EOTXT;
 		$worker = $this->getWorker($username);
 		// if this wasn't able to be filled, don't do the rest of the steps
 		if ($username == PLACEHOLDER) {
-			return FALSE;
+			return TRUE;
 		}
 
 		// update this worker's availability
-		if (!($worker->setAssignedShift($j, $date))) {
+		if (!($worker->setAssignedShift($job_id, $date))) {
 			echo "unable to set assigned shift!\n";
 			return FALSE;
 		}
