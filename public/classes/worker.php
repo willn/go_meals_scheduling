@@ -1,4 +1,5 @@
 <?php
+require_once('../../constants.php');
 
 class Worker {
 	protected $worker_id;
@@ -525,15 +526,16 @@ EOTXT;
 
 		$each_job = array();
 		foreach($all_jobs as $id=>$name) {
-			$each_job[] = "survey_job.id='{$id}'";
+			$each_job[] = SURVEY_JOB_TABLE . ".id='{$id}'";
 		}
 		$each_job_sql = implode(' or ', $each_job);
 
 		$sid = SEASON_ID;
+		$jobs_table = SURVEY_JOB_TABLE;
 		$task_sql = <<<EOSQL
-			select survey_job.description, survey_job.id
-				from survey_job, survey_assignment
-				where survey_job.id=survey_assignment.job_id and
+			select {$jobs_table}.description, {$jobs_table}.id
+				from {$jobs_table}, survey_assignment
+				where {$jobs_table}.id=survey_assignment.job_id and
 					worker_id={$this->id} and
 					survey_assignment.type='a' and
 					survey_assignment.season_id={$sid} and

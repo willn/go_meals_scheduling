@@ -1,4 +1,6 @@
 <?php
+require_once('../constants.php');
+
 /*
  * Grab the list of current jobs for this season, i.e. their job IDs.
  */
@@ -37,8 +39,9 @@ class CurrentSeasonIds {
 			'WEEKDAY_TABLE_SETTER' => 'Weekday Table Setter',
 		);
 
+		$jobs_table = SURVEY_JOB_TABLE;
 		$sql_format = <<<EOSQL
-select id from survey_job where season_id=%d and description like '%s';
+select id from {$jobs_table} where season_id=%d and description like '%s';
 EOSQL;
 		$count = 0;
 		foreach($jobs as $define => $desc) {

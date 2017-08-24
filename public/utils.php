@@ -61,13 +61,13 @@ function get_season_name($date=NULL) {
  */
 function get_holidays($season_name) {
 	// month num => array(date,...)
-	$holidays = array();
+	$holidays = [];
 
 	switch($season_name) {
 		case 'winter':
-			$holidays = array(
-				1 => array(1),
-			);
+			$holidays = [
+				1 => [1],
+			];
 
 			// add easter, which floats between march and april
 			$easter_month = date('n', easter_date(SEASON_YEAR));

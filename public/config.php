@@ -9,18 +9,18 @@ require_once "{$relative_dir}/constants.inc";
 date_default_timezone_get('America/Detroit');
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('april 21, 2017, 8:15pm'));
+define('DEADLINE', strtotime('august 27, 2017, 8:15pm'));
 
 /* ----------- job ids --------------- */
-define('MEETING_NIGHT_ORDERER', 3745);
-define('MEETING_NIGHT_CLEANER', 3748);
-define('SUNDAY_HEAD_COOK', 3743);
-define('SUNDAY_ASST_COOK', 3744);
-define('SUNDAY_CLEANER', 3747);
-define('WEEKDAY_HEAD_COOK', 3741);
-define('WEEKDAY_ASST_COOK', 3742);
-define('WEEKDAY_CLEANER', 3746);
-define('WEEKDAY_TABLE_SETTER', 3735);
+define('MEETING_NIGHT_ORDERER', 4001);
+define('MEETING_NIGHT_CLEANER', 4004);
+define('SUNDAY_HEAD_COOK', 3999);
+define('SUNDAY_ASST_COOK', 4000);
+define('SUNDAY_CLEANER', 4003);
+define('WEEKDAY_HEAD_COOK', 3997);
+define('WEEKDAY_ASST_COOK', 3998);
+define('WEEKDAY_CLEANER', 4002);
+define('WEEKDAY_TABLE_SETTER', 3991);
 
 // forced skip dates
 global $skip_dates;
@@ -40,14 +40,13 @@ $override_dates = array(
  * username => array(job_id => num_meals)
  */
 function get_num_shift_overrides() {
-	// username => array(job_id => num_meals)
+	// username => [job_id => num_meals]
 	return [
+		/*
 		'hope' => [
 			SUNDAY_HEAD_COOK => 1,
 		],
-		'sarah' => [
-			WEEKDAY_HEAD_COOK => 3,
-		],
+		*/
 	];
 }
 
