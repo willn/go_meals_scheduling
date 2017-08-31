@@ -102,7 +102,7 @@ function get_holidays($season_name) {
 			// start with fixed dates
 			$holidays = array(
 				10 => array(31),
-				12 => array(24,25),
+				12 => array(24,25, 31),
 			);
 
 			// labor day

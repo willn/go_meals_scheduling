@@ -21,7 +21,7 @@ Directions to set up the survey:
 # add any extra workers to the get_num_shift_overrides() function
 
 # grab the latest sqlite file from webfactional, fix permissions, and commit:
-	scp gocoho@web30.webfaction.com:webapps/django/allocation/file.db public/sqlite_data/work_allocation.db
+	#!# scp gocoho@web30.webfaction.com:webapps/django/allocation/file.db public/sqlite_data/work_allocation.db
 	chmod 644 !$
 	# sudo chgrp gocoho !$
 	git commit !$

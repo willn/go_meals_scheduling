@@ -1,6 +1,4 @@
 <?php
-require_once('../../constants.php');
-
 class Worker {
 	protected $worker_id;
 	protected $username;
@@ -532,13 +530,14 @@ EOTXT;
 
 		$sid = SEASON_ID;
 		$jobs_table = SURVEY_JOB_TABLE;
+		$assn_table = ASSIGN_TABLE;
 		$task_sql = <<<EOSQL
 			select {$jobs_table}.description, {$jobs_table}.id
-				from {$jobs_table}, survey_assignment
-				where {$jobs_table}.id=survey_assignment.job_id and
+				from {$jobs_table}, {$assn_table}
+				where {$jobs_table}.id={$assn_table}.job_id and
 					worker_id={$this->id} and
-					survey_assignment.type='a' and
-					survey_assignment.season_id={$sid} and
+					{$assn_table}.type='a' and
+					{$assn_table}.season_id={$sid} and
 					( {$each_job_sql} );
 EOSQL;
 

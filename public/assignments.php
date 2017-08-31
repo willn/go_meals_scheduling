@@ -54,9 +54,10 @@ foreach($dbh->query($sql) as $row) {
 // get the list of workers who didn't respond to the survey, and their assigned
 // job IDs
 $sid = SEASON_ID;
+$assn_table = ASSIGN_TABLE;
 $sql = <<<EOSQL
 SELECT u.username, a.job_id
-	FROM survey_assignment as a, auth_user as u
+	FROM {$assn_table} as a, auth_user as u
 	WHERE a.season_id={$sid}
 		AND u.id=a.worker_id
 		AND ({$job_ids_clause})
@@ -76,7 +77,7 @@ foreach($dbh->query($sql) as $row) {
 // find how many each worker has been assigned
 $sql = <<<EOSQL
 SELECT u.username, a.job_id, a.instances
-	FROM survey_assignment as a, auth_user as u
+	FROM {$assn_table} as a, auth_user as u
 	WHERE a.season_id={$sid}
 		AND a.type="a"
 		AND a.worker_id = u.id

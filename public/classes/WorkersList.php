@@ -12,12 +12,13 @@ class WorkersList {
 	 */
 	public function load() {
 		$sid = SEASON_ID;
+		$assn_table = ASSIGN_TABLE;
 		$sql = <<<EOSQL
 			SELECT id, username, first_name, last_name
 				FROM auth_user
 				WHERE id IN
 					(SELECT worker_id
-						FROM survey_assignment
+						FROM {$assn_table}
 						WHERE season_id={$sid}
 						GROUP BY worker_id)
 				ORDER BY first_name, username

@@ -7,6 +7,10 @@ define('BASE_DIR', '/meals_scheduling');
 define('SKIP_EMAIL', FALSE); // set to true for debugging
 define('RESULTS_FILE', 'schedule.txt');
 
+// database table names
+define('SURVEY_JOB_TABLE', 'work_app_job');
+define('ASSIGN_TABLE', 'work_app_assignment');
+
 /* ---------- date stuff ------------- */
 define('WINTER', 'winter');
 define('FALL', 'fall');

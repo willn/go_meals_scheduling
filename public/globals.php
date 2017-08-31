@@ -71,7 +71,7 @@ $mtg_nights = array(
  *
  * @return array list of month names contained in the requested season.
  */
-function get_current_season($name) {
+function get_current_season() {
 	switch(SEASON_NAME) {
 		case 'winter':
 			return [

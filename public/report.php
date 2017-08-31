@@ -1,6 +1,5 @@
 <?php
 require_once('globals.php');
-require_once('../constants.php');
 
 global $relative_dir;
 if (!strlen($relative_dir)) {
@@ -80,9 +79,10 @@ $job_id_clause = ($job_key != 'all') ?
 $ids_clause = get_job_ids_clause();
 $sid = SEASON_ID;
 $jobs_table = SURVEY_JOB_TABLE;
+$assn_table = ASSIGN_TABLE;
 $sql = <<<EOSQL
 	SELECT u.username, a.job_id, j.description, a.instances
-		FROM survey_assignment as a, auth_user as u, {$jobs_table} as j
+		FROM {$assn_table} as a, auth_user as u, {$jobs_table} as j
 		WHERE a.season_id={$sid} AND
 			({$ids_clause}) AND
 			a.type="a" AND

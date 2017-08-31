@@ -23,9 +23,10 @@ class Respondents {
 	public function getWorkers() {
 		// all the workers who should respond:
 		$sid = SEASON_ID;
+		$assn_table = ASSIGN_TABLE;
 		$sql = <<<EOSQL
 			SELECT a.id, a.username
-				FROM survey_assignment as sa, auth_user as a
+				FROM {$assn_table} as sa, auth_user as a
 				WHERE sa.season_id={$sid}
 					AND a.id=sa.worker_id
 					AND ({$this->ids_clause})

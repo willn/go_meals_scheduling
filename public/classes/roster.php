@@ -1,5 +1,5 @@
 <?php
-require_once '../public/utils.php';
+require_once 'utils.php';
 
 global $dbh;
 
@@ -171,9 +171,10 @@ EOSQL;
 
 		// set the number of shifts per assigned worker
 		$sid = SEASON_ID;
+		$assn_table = ASSIGN_TABLE;
 		$sql = <<<EOSQL
 		SELECT u.username, a.job_id, a.instances
-			FROM survey_assignment as a, auth_user as u
+			FROM {$assn_table} as a, auth_user as u
 			WHERE a.season_id={$sid}
 				AND a.type="a"
 				AND a.worker_id = u.id

@@ -34,7 +34,7 @@ if (is_null($max_user_id)) {
 }
 
 // -------------- collect max assignment ID
-$sql = 'select id from survey_assignment order by id desc limit 1';
+$sql = 'select id from ' . ASSIGN_TABLE . ' order by id desc limit 1';
 $max_assign_id = NULL;
 foreach ($dbh->query($sql) as $row) {
 	$max_assign_id = $row['id'];
@@ -59,8 +59,9 @@ EOSQL;
 	foreach($jobs as $job_id => $instances) {
 		$max_assign_id++;
 		$sid = SEASON_ID;
+		$assn_table = ASSIGN_TABLE;
 		$insert = <<<EOSQL
-insert into survey_assignment values({$max_assign_id}, {$sid}, 'a',
+insert into {$assn_table} values({$max_assign_id}, {$sid}, 'a',
 	$max_user_id, $job_id, $instances, 1);
 EOSQL;
 		$dbh->query($insert);
