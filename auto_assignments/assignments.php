@@ -1,9 +1,15 @@
 <?php
+ini_set('display_errors', 1);
+
+# set the include path to be the top-level of the meals scheduling project
+set_include_path('../');
+
+require_once 'public/utils.php';
+
 /*
  * Automated meals scheduling assignments
  * $Id: assignments.php,v 1.38 2014/11/03 02:16:29 willn Exp $
  */
-
 $start = microtime(TRUE);
 
 $options = getopt('cijsxwqu');
@@ -41,6 +47,7 @@ unset($all_jobs['all']);
 
 $job_ids_clause = get_job_ids_clause();
 
+/*
 // run many combinations of numbers looking for a full allocation
 if (array_key_exists('x', $options)) {
 	foreach(range(1, 10, 2) as $a) {
@@ -62,6 +69,10 @@ else {
 	$assignments = new Assignments();
 	$assignments->run();
 }
+*/
+
+$assignments = new Assignments();
+$assignments->run();
 
 // output to json for integration with the report
 if (array_key_exists('j', $options)) {

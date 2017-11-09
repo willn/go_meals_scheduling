@@ -73,24 +73,24 @@ $mtg_nights = array(
  */
 function get_current_season() {
 	switch(SEASON_NAME) {
-		case 'winter':
+		case WINTER:
 			return [
 				1=>'January',
 				2=>'February',
 				3=>'March',
-				4=>'April'
 			];
 
-		case 'spring':
-		case 'summer':
+		case SPRING:
+		case SUMMER:
 			return [	
+				4=>'April',
 				5=>'May',
 				6=>'June',
 				7=>'July',
 				8=>'August'
 			];
 
-		case 'fall':
+		case FALL:
 			return [
 				9=>'September',
 				10=>'October',

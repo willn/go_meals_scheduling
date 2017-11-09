@@ -145,6 +145,7 @@ $rows = '';
 $per_shift = array();
 foreach($diffs as $key=>$diff) {
 	$row = $assignments[$key];
+	error_log('row' . print_r($row, TRUE));
 	$shifts = $row['instances'] * get_num_dinners_per_assignment($row['job_id']);
 
 	// initialize unseen job
@@ -239,7 +240,7 @@ foreach($per_shift as $job_name=>$num_assn_shifts) {
 		$all = print_r($all_jobs, TRUE);
 		$shift_summary_rows .= <<<EOHTML
 		<tr>
-			<td colspan="4">Unable to find job id for "{$job_name}"
+			<td colspan="4">Unable to find job id for "[{$job_id}] {$job_name}"
 				<pre>{$all}</pre>
 			</td>
 		</tr>

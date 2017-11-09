@@ -13,6 +13,7 @@ define('ASSIGN_TABLE', 'work_app_assignment');
 
 /* ---------- date stuff ------------- */
 define('WINTER', 'winter');
+define('SPRING', 'spring');
 define('FALL', 'fall');
 define('SUMMER', 'summer');
 

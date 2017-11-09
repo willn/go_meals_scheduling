@@ -1,6 +1,11 @@
 <?php
 define('PREFER_TO_AVOID_RATIO', .55);
 
+define('DEFAULT_HOBART_SCORE', 7);
+define('DEFAULT_AVAIL_SCORE', 5);
+define('DEFAULT_AVOIDS_SCORE', 7);
+define('DEFAULT_PREFERS_SCORE', 4);
+
 class Schedule {
 	protected $meals = array();
 	protected $roster;
@@ -8,10 +13,10 @@ class Schedule {
 	protected $calendar;
 
 	protected $point_factors = array(
-		'hobart' => 7,
-		'avail' => 5,
-		'avoids' => 7,
-		'prefers' => 4,
+		'hobart' => DEFAULT_HOBART_SCORE,
+		'avail' => DEFAULT_AVAIL_SCORE,
+		'avoids' => DEFAULT_AVOIDS_SCORE,
+		'prefers' => DEFAULT_PREFERS_SCORE,
 	);
 
 	// which shifts happen on which dates
@@ -79,6 +84,13 @@ class Schedule {
 
 		// reset the listing of availability for all meals
 		$this->least_possible = [];
+	}
+
+	/**
+	 * Get the job id
+	 */
+	public function getJobId() {
+		return $this->job_id;
 	}
 
 

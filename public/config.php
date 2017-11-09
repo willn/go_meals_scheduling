@@ -9,7 +9,7 @@ require_once "{$relative_dir}/constants.inc";
 date_default_timezone_get('America/Detroit');
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('august 30, 2017, 9:45pm'));
+define('DEADLINE', strtotime('december 1, 2017, 9:45pm'));
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_ORDERER', 4001);
@@ -42,14 +42,10 @@ $override_dates = array(
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-		'elisha' => [
-			WEEKDAY_ASST_COOK => -2,
-		],
-		'eric' => [
-			WEEKDAY_CLEANER => -1,
-		],
-		'maryking' => [
-			WEEKDAY_CLEANER => 1,
+		'willie' => [
+			WEEKDAY_ASST_COOK => 1,
+			MEETING_NIGHT_ORDERER => 1,
+			SUNDAY_HEAD_COOK => 1,
 		],
 	];
 }

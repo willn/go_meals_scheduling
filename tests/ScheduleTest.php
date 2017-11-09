@@ -3,8 +3,8 @@ global $relative_dir;
 $relative_dir = '../public/';
 require_once '../public/config.php';
 require_once '../auto_assignments/schedule.php';
-// require_once '../public/classes/calendar.php';
 require_once '../public/classes/sqlite_interface.php';
+require_once '../public/classes/calendar.php';
 
 /**
  * Test the scheduling framework.
@@ -14,32 +14,53 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 	protected $schedule;
 
 	public function setUp() {
-		// $this->schedule = new Schedule();
-		global $dbh;
-
-		$iface = new SqliteInterface('sqlite::memory');
-		$iface->query('create table user (id INTEGER PRIMARY KEY, name TEXT)');
-		$iface->query('insert into user (name) values("bob")');
+		$this->schedule = new Schedule();
 	}
 
 	/**
-	 * @dataProvider varsProvider
+	 * @dataProvider jobIdsProvider
 	 */
-	public function testSetVars($vars) {
-/*
-		$this->schedule->setVariables($vars);
-		$pts = $this->schedule->getPointFactors();
-		$this->assertEquals(
-			$pts['prefer'] * PREFER_TO_AVOID_RATIO);
-*/
+	public function testSetJobId($id) {
+		$this->schedule->setJobId($id);
+		$this->assertEquals($this->schedule->getJobId(), $id);
+		$this->assertEquals($this->schedule->getPossibleRatios(), []);
 	}
 
-	public function varsProvider() {
-		return array(
-			array(0, 0, 0),
-			array(1, 2, 3, 1.65),
-			array(8, 9, 9, 4.95),
-		);
+	public function jobIdsProvider() {
+		return [
+			[0],
+			[1],
+			[8],
+		];
 	}
+
+	/**
+	 * @dataProvider pointFactorsProvider
+	 */
+	public function testSetPointFactors($hobart, $avail, $avoids, $prefer) {
+		$this->schedule->setPointFactors($hobart, $avail, $avoids);
+		$expected = [
+			'hobart' => !is_null($hobart) ? $hobart : DEFAULT_HOBART_SCORE,
+			'avail' => !is_null($avail) ? $avail : DEFAULT_AVAIL_SCORE,
+			'avoids' => !is_null($avoids) ? $avoids : DEFAULT_AVOIDS_SCORE,
+			'prefers' => !is_null($prefer) ? $prefer : DEFAULT_PREFERS_SCORE,
+		];
+
+		$this->assertEquals($this->schedule->getPointFactors(), $expected);
+	}
+
+	public function pointFactorsProvider() {
+		// hobart_factor, avail_factor, avoids_factor
+		return [
+			[NULL, NULL, NULL, NULL],
+			[NULL, 1, 2, 1.1],
+			[1, NULL, 2, 1.1],
+			[1, 2, NULL, DEFAULT_PREFERS_SCORE],
+			[0, 0, 0, 0],
+			[1, 1, 1, .55],
+			[1, 1, 10, 5.5],
+		];
+	}
+
 }
 ?>

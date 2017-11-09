@@ -53,9 +53,21 @@ function get_season_name($date=NULL) {
 	}
 }
 
+/**
+ * Add the easter date to the holidates array.
+ */
+function add_easter($holidays) {
+	// add easter, which floats between march and april
+	$easter_month = date('n', easter_date(SEASON_YEAR));
+	$easter_day = date('j', easter_date(SEASON_YEAR));
+	$holidays[$easter_month][] = $easter_day;
+
+	return $holidays;
+}
+
 /*
  * Get the list of holidays for the current season
- * @param[in] season_name string (summer, fall, winter)
+ * @param[in] season_name string (spring, summer, fall, winter)
  * @return associative array where the keys are the months, and the values are
  *     dates in the months.
  */
@@ -64,23 +76,19 @@ function get_holidays($season_name) {
 	$holidays = [];
 
 	switch($season_name) {
-		case 'winter':
+		case WINTER:
 			$holidays = [
 				1 => [1],
 			];
-
-			// add easter, which floats between march and april
-			$easter_month = date('n', easter_date(SEASON_YEAR));
-			$easter_day = date('j', easter_date(SEASON_YEAR));
-			$holidays[$easter_month][] = $easter_day;
-
 			break;
 
-		case 'summer':
+		case SPRING:
+		case SUMMER:
 			// 4th of july
-			$holidays = array(
+			$holidays = [
 				7 => array(4),
-			);
+			];
+			$holidays = add_easter($holidays);
 
 			// add memorial day
 			$mem_day = date('j', strtotime('last monday of May, ' . SEASON_YEAR));
@@ -98,7 +106,7 @@ function get_holidays($season_name) {
 
 			break;
 
-		case 'fall':
+		case FALL:
 			// start with fixed dates
 			$holidays = array(
 				10 => array(31),

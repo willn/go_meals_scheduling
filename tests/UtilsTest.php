@@ -1,4 +1,6 @@
 <?php
+global $relative_dir;
+$relative_dir = '../public/';
 require_once '../public/utils.php';
 require_once '../public/config.php';
 
@@ -34,7 +36,7 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 
 	public function provide_get_season_id() {
 		return array(
-			array(25),
+			array(30),
 		);
 	}
 

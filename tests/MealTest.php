@@ -1,4 +1,6 @@
 <?php
+global $relative_dir;
+$relative_dir = '../public/';
 require_once '../public/config.php';
 require_once '../auto_assignments/meal.php';
 
@@ -22,7 +24,7 @@ class MealTest extends PHPUnit_Framework_TestCase {
 
 	public function datesProvider() {
 		return array(
-			array('Wed Dec 11 23:15:42 EST 2013', 3),
+			array('Wed Dec 11 23:15:42 EST 2013', 4),
 			array('12/31/13', 2),
 			array('10/6/13', 7)
 		);

@@ -1,4 +1,6 @@
 <?php
+global $relative_dir;
+$relative_dir = '../public/';
 require_once '../public/utils.php';
 require_once '../public/config.php';
 
@@ -20,19 +22,19 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function provide_get_holidays() {
+		$winter = array(
+			1 => array(1),
+		);
 		$summer = array(
-			5 => array(24, 25),
+			4 => array(1),
+			5 => array(28, 29),
 			7 => array(4),
 		);
 		$fall = array(
-			9 => array(6,7),
+			9 => array(3,4),
 			10 => array(31),
-			11 => array(26, 29),
-			12 => array(24, 25),
-		);
-		$winter = array(
-			1 => array(1),
-			3 => array(27),
+			11 => array(23, 26),
+			12 => array(24, 25, 31),
 		);
 
 		return array(
