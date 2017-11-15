@@ -145,7 +145,6 @@ $rows = '';
 $per_shift = array();
 foreach($diffs as $key=>$diff) {
 	$row = $assignments[$key];
-	error_log('row' . print_r($row, TRUE));
 	$shifts = $row['instances'] * get_num_dinners_per_assignment($row['job_id']);
 
 	// initialize unseen job
