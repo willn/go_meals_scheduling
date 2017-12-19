@@ -42,18 +42,15 @@ $override_dates = array(
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
+		/* XXX example...
 		'willie' => [
 			WEEKDAY_ASST_COOK => 1,
 			MEETING_NIGHT_ORDERER => 1,
 			SUNDAY_HEAD_COOK => 1,
 		],
+		*/
 	];
 }
-
-/*
- * XXX unassigned:
- * - 2 sunday cleans
- */
 
 // If these names change, be sure to update the is_a_*_job() functions.
 // List in order of importance.
