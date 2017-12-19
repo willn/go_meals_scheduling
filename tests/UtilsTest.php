@@ -26,18 +26,9 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
-	/**
-	 * @dataProvider provide_get_season_id
-	 */
-	public function test_get_season_id($expected) {
-		$result = get_season_id();
-		$this->assertEquals($result, $expected);
-	}
-
-	public function provide_get_season_id() {
-		return array(
-			array(30),
-		);
+	public function test_get_season_id() {
+		$result = intval(get_season_id());
+		$this->assertGreaterThan(0, $result);
 	}
 
 	/**
