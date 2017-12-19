@@ -66,45 +66,6 @@ $mtg_nights = array(
 	MONDAY => 3,
 );
 
-/**
- * Get the months contained in the current season.
- *
- * @return array list of month names contained in the requested season.
- */
-function get_current_season() {
-	switch(SEASON_NAME) {
-		case WINTER:
-			return [
-				1=>'January',
-				2=>'February',
-				3=>'March',
-			];
-
-		case SPRING:
-		case SUMMER:
-			return [	
-				4=>'April',
-				5=>'May',
-				6=>'June',
-				7=>'July',
-				8=>'August'
-			];
-
-		case FALL:
-			return [
-				9=>'September',
-				10=>'October',
-				11=>'November',
-				12=>'December'
-			];
-
-		case 'test':
-			return [
-				1=>'January',
-			];
-	}
-}
-
 // -------- function declarations here ------
 
 function create_sqlite_connection() {

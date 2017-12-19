@@ -2,12 +2,17 @@ The Great Oak Meals Scheduling Survey
 ----------------------------------------
 Directions to set up the survey:
 
-#!# For fall 2017, I used the strategy of copying from the git repo to the directory root:
-# cp -r ~/meals_scheduling/public/ ~/public/meals_scheduling/
-
-# check that there aren't uncommitted modifications in the production version:
+# check that there aren't uncommitted modifications in either version:
 	cd /home/gocoho/meals_scheduling/
 	git status
+	#!# cd /home/gocoho/meals_scheduling/
+	git status
+
+# Copy the git repo to the directory root:
+	cd ~
+	diff -r meals_scheduling/public/ public_html/meals_scheduling/
+	# if changes are needed...
+	cp -r ~/meals_scheduling/public/ ~/public_html/meals_scheduling/
 
 # make sure that unit tests work:
 	cd tests
