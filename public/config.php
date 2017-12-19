@@ -9,18 +9,18 @@ require_once "{$relative_dir}/constants.inc";
 date_default_timezone_get('America/Detroit');
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('december 1, 2017, 9:45pm'));
+define('DEADLINE', strtotime('december 21, 2017, 8:00pm'));
 
 /* ----------- job ids --------------- */
-define('MEETING_NIGHT_ORDERER', 4001);
-define('MEETING_NIGHT_CLEANER', 4004);
-define('SUNDAY_HEAD_COOK', 3999);
-define('SUNDAY_ASST_COOK', 4000);
-define('SUNDAY_CLEANER', 4003);
-define('WEEKDAY_HEAD_COOK', 3997);
-define('WEEKDAY_ASST_COOK', 3998);
-define('WEEKDAY_CLEANER', 4002);
-define('WEEKDAY_TABLE_SETTER', 3991);
+define('MEETING_NIGHT_ORDERER', 4194);
+define('MEETING_NIGHT_CLEANER', 4197);
+define('SUNDAY_HEAD_COOK', 4192);
+define('SUNDAY_ASST_COOK', 4193);
+define('SUNDAY_CLEANER', 4196);
+define('WEEKDAY_HEAD_COOK', 4190);
+define('WEEKDAY_ASST_COOK', 4191);
+define('WEEKDAY_CLEANER', 4195);
+define('WEEKDAY_TABLE_SETTER', 4184);
 
 // forced skip dates
 global $skip_dates;

@@ -114,7 +114,6 @@ function add_easter($holidays) {
  *     dates in the months.
  */
 function get_holidays() {
-	// month num => array(date,...)
 	$holidays = [
 		1 => [1],
 		7 => [4],
