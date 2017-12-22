@@ -1,186 +1,203 @@
-no possible workers defined for job 3504, Weekday Table Setter, 9/6/2016
+XXXXXXXX no more workers left for J:4194 (Meeting night takeout orderer)
+XXXXXXXX no more workers left for J:4194 (Meeting night takeout orderer)
 name: amyh 6 hours
-	j: [Weekday Meal cleaner] [4/4] (1.00) 9/26/2016, 10/11/2016, 11/14/2016, 12/21/2016
+	j: [Weekday Meal cleaner] [4/4] (1.00) 1/16/2018, 3/14/2018, 3/28/2018, 4/17/2018
 
-name: anastasia 14 hours
-	j: [Weekday meal asst cook (2 meals/season)] [4/4] (1.00) 9/14/2016, 10/26/2016, 11/29/2016, 12/28/2016
-	j: [Weekday Meal cleaner] [4/4] (1.00) 9/14/2016, 10/4/2016, 11/15/2016, 12/28/2016
+name: anne 0 hours
+	j: [Weekday Table Setter] [16/16] (1.00) 1/10/2018, 1/17/2018, 1/24/2018, 1/31/2018, 2/14/2018, 2/26/2018, 2/27/2018, 3/13/2018, 3/21/2018, 3/26/2018, 3/28/2018, 4/3/2018, 4/11/2018, 4/17/2018, 4/24/2018, 4/25/2018
 
-name: anne 4 hours
-	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 11/6/2016, 12/18/2016
-	j: [Weekday Table Setter] [10/24] (0.42) 9/27/2016, 10/12/2016, 10/26/2016, 11/8/2016, 11/15/2016, 11/22/2016, 11/23/2016, 12/14/2016, 12/27/2016, 12/28/2016
+name: ben 6 hours
+	j: [Sunday Meal Cleaner] [4/4] (1.00) 2/11/2018, 3/18/2018, 4/15/2018, 4/29/2018
 
-name: ben 10 hours
-	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 9/11/2016, 12/11/2016
-	j: [Weekday Meal cleaner] [4/4] (1.00) 9/20/2016, 10/25/2016, 11/22/2016, 12/27/2016
+name: bill 38 hours
+	j: [Sunday Meal Cleaner] [8/8] (1.00) 1/7/2018, 1/14/2018, 2/4/2018, 2/18/2018, 3/11/2018, 3/18/2018, 3/25/2018, 4/22/2018
+	j: [Weekday meal asst cook (2 meals/season)] [4/4] (1.00) 1/24/2018, 2/27/2018, 3/28/2018, 4/9/2018
+	j: [Weekday Meal cleaner] [12/12] (1.00) 1/17/2018, 1/22/2018, 1/24/2018, 1/29/2018, 2/5/2018, 2/14/2018, 3/14/2018, 3/26/2018, 3/28/2018, 4/2/2018, 4/9/2018, 4/23/2018
 
-name: bill 25.5 hours
-	j: [Weekday meal asst cook (2 meals/season)] [6/6] (1.00) 9/27/2016, 10/18/2016, 11/1/2016, 11/8/2016, 11/15/2016, 11/22/2016
-	j: [Weekday Meal cleaner] [9/12] (0.75) 9/12/2016, 10/3/2016, 10/10/2016, 11/9/2016, 11/16/2016, 11/23/2016, 11/28/2016, 12/5/2016, 12/14/2016
+name: bob 6 hours
+	j: [Weekday meal asst cook (2 meals/season)] [3/3] (1.00) 1/10/2018, 2/26/2018, 4/25/2018
 
-name: brian 18 hours
-	j: [Weekday head cook (two meals/season)] [3/4] (0.75) 9/12/2016, 9/26/2016, 10/12/2016
-	j: [Weekday meal asst cook (2 meals/season)] [3/10] (0.30) 9/20/2016, 10/4/2016, 10/10/2016
+name: catherine 10 hours
+	j: [Weekday meal asst cook (2 meals/season)] [2/2] (1.00) 1/2/2018, 4/11/2018
+	j: [Weekday Meal cleaner] [4/4] (1.00) 1/2/2018, 1/23/2018, 2/27/2018, 3/20/2018
 
-name: catherine 8 hours
-	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 11/13/2016, 12/4/2016
-	j: [Weekday meal asst cook (2 meals/season)] [2/2] (1.00) 9/12/2016, 10/3/2016
+name: dale 16 hours
+	j: [Weekday head cook (two meals/season)] [4/4] (1.00) 1/16/2018, 2/12/2018, 3/12/2018, 4/23/2018
 
-name: dale 24 hours
-	j: [Weekday head cook (two meals/season)] [6/6] (1.00) 10/10/2016, 10/25/2016, 11/14/2016, 11/28/2016, 12/6/2016, 12/12/2016
+name: dan 37 hours
+	j: [Meeting night cleaner] [2/2] (1.00) 2/7/2018, 2/19/2018
+	j: [Sunday head cook (two meals/season)] [2/2] (1.00) 1/7/2018, 4/22/2018
+	j: [Sunday Meal Cleaner] [8/8] (1.00) 1/7/2018, 1/21/2018, 1/28/2018, 2/4/2018, 2/25/2018, 3/25/2018, 4/8/2018, 4/22/2018
+	j: [Weekday meal asst cook (2 meals/season)] [4/4] (1.00) 1/30/2018, 2/13/2018, 3/6/2018, 4/10/2018
+	j: [Weekday Meal cleaner] [4/4] (1.00) 1/30/2018, 2/13/2018, 3/6/2018, 4/10/2018
 
-name: dan 24 hours
-	j: [Meeting night cleaner] [4/4] (1.00) 9/19/2016, 10/17/2016, 11/21/2016, 12/19/2016
-	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 10/2/2016, 11/6/2016
-	j: [Weekday meal asst cook (2 meals/season)] [4/4] (1.00) 11/7/2016, 11/28/2016, 12/5/2016, 12/12/2016
-	j: [Weekday Meal cleaner] [4/4] (1.00) 9/6/2016, 9/13/2016, 9/26/2016, 11/15/2016
+name: debbi 6 hours
+	j: [Weekday Meal cleaner] [4/4] (1.00) 1/8/2018, 1/31/2018, 2/26/2018, 3/21/2018
 
-name: debbi 13 hours
-	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 11/13/2016, 12/11/2016
-	j: [Sunday Meal Cleaner] [2/4] (0.50) 9/25/2016, 10/16/2016
-	j: [Weekday Meal cleaner] [4/4] (1.00) 9/12/2016, 11/28/2016, 12/5/2016, 12/26/2016
+name: drew 22 hours
+	j: [Weekday head cook (two meals/season)] [2/2] (1.00) 1/17/2018, 2/14/2018
+	j: [Weekday meal asst cook (2 meals/season)] [4/4] (1.00) 1/2/2018, 1/30/2018, 3/12/2018, 3/21/2018
+	j: [Weekday Meal cleaner] [4/4] (1.00) 2/14/2018, 2/26/2018, 3/12/2018, 4/24/2018
 
-name: elisha 12 hours
-	j: [Meeting night takeout orderer] [4/4] (1.00) 9/7/2016, 9/19/2016, 11/2/2016, 11/21/2016
-	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 10/9/2016, 10/23/2016
-	j: [Weekday meal asst cook (2 meals/season)] [2/2] (1.00) 9/28/2016, 12/26/2016
+name: emilyadama 34 hours
+	j: [Meeting night takeout orderer] [2/2] (1.00) 2/19/2018, 4/4/2018
+	j: [Sunday head cook (two meals/season)] [4/4] (1.00) 2/4/2018, 3/4/2018, 3/25/2018, 4/15/2018
+	j: [Weekday head cook (two meals/season)] [4/4] (1.00) 1/9/2018, 1/22/2018, 3/13/2018, 4/25/2018
 
-name: eric 18 hours
-	j: [Sunday head cook (two meals/season)] [2/2] (1.00) 11/6/2016, 12/4/2016
-	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 9/25/2016, 11/20/2016
-	j: [Weekday Meal cleaner] [4/4] (1.00) 9/13/2016, 10/4/2016, 10/18/2016, 10/25/2016
+name: eric 12 hours
+	j: [Weekday Meal cleaner] [8/8] (1.00) 1/8/2018, 1/29/2018, 2/12/2018, 2/27/2018, 3/5/2018, 3/12/2018, 4/9/2018, 4/24/2018
 
-name: fatima 16 hours
-	j: [Sunday meal asst cook (two meals/season)] [8/8] (1.00) 9/11/2016, 9/18/2016, 9/25/2016, 10/2/2016, 10/9/2016, 10/16/2016, 10/23/2016, 10/30/2016
+name: fatima 30 hours
+	j: [Sunday meal asst cook (two meals/season)] [12/12] (1.00) 1/7/2018, 1/14/2018, 1/21/2018, 1/28/2018, 3/4/2018, 3/11/2018, 3/18/2018, 3/25/2018, 4/8/2018, 4/15/2018, 4/22/2018, 4/29/2018
+	j: [Sunday Meal Cleaner] [4/4] (1.00) 1/28/2018, 3/11/2018, 3/25/2018, 4/8/2018
 
 name: gail 2 hours
-	j: [Meeting night takeout orderer] [2/2] (1.00) 12/7/2016, 12/19/2016
+	j: [Meeting night takeout orderer] [2/2] (1.00) 3/19/2018, 4/16/2018
 
-name: gayle 14 hours
-	j: [Sunday Meal Cleaner] [4/4] (1.00) 9/11/2016, 10/2/2016, 11/6/2016, 12/11/2016
-	j: [Weekday meal asst cook (2 meals/season)] [4/4] (1.00) 10/24/2016, 11/16/2016, 11/23/2016, 12/27/2016
-	j: [Weekday Table Setter] [6/8] (0.75) 9/12/2016, 10/10/2016, 11/28/2016, 12/5/2016, 12/21/2016, 12/26/2016
+name: gayle 12 hours
+	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 1/28/2018, 4/15/2018
+	j: [Weekday meal asst cook (2 meals/season)] [4/4] (1.00) 1/8/2018, 1/17/2018, 3/26/2018, 4/25/2018
+	j: [Weekday Table Setter] [8/8] (1.00) 1/22/2018, 1/30/2018, 2/5/2018, 3/5/2018, 3/12/2018, 3/14/2018, 4/9/2018, 4/18/2018
 
-name: gaz 20 hours
-	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 9/18/2016, 12/18/2016
-	j: [Weekday meal asst cook (2 meals/season)] [8/8] (1.00) 9/6/2016, 9/13/2016, 9/28/2016, 10/11/2016, 10/12/2016, 10/19/2016, 10/25/2016, 12/27/2016
+name: glenn 20 hours
+	j: [Weekday meal asst cook (2 meals/season)] [4/4] (1.00) 1/29/2018, 2/12/2018, 3/14/2018, 4/18/2018
+	j: [Weekday Meal cleaner] [8/8] (1.00) 1/10/2018, 1/17/2018, 2/6/2018, 2/20/2018, 3/5/2018, 3/21/2018, 3/26/2018, 4/25/2018
 
-name: hope 31 hours
-	j: [Sunday head cook (two meals/season)] [4/4] (1.00) 9/11/2016, 10/9/2016, 10/23/2016, 11/13/2016
-	j: [Sunday Meal Cleaner] [4/4] (1.00) 9/11/2016, 10/9/2016, 10/23/2016, 11/13/2016
-	j: [Weekday Meal cleaner] [6/6] (1.00) 9/21/2016, 10/19/2016, 10/26/2016, 12/14/2016, 12/21/2016, 12/28/2016
+name: gregd 37 hours
+	j: [Meeting night cleaner] [2/2] (1.00) 1/3/2018, 4/16/2018
+	j: [Sunday head cook (two meals/season)] [2/2] (1.00) 1/28/2018, 3/18/2018
+	j: [Weekday head cook (two meals/season)] [2/2] (1.00) 2/20/2018, 3/14/2018
+	j: [Weekday meal asst cook (2 meals/season)] [6/6] (1.00) 1/17/2018, 2/28/2018, 3/26/2018, 4/2/2018, 4/9/2018, 4/30/2018
+	j: [Weekday Meal cleaner] [4/4] (1.00) 2/20/2018, 2/28/2018, 4/2/2018, 4/30/2018
 
-name: jacob 6 hours
-	j: [Weekday Meal cleaner] [4/4] (1.00) 10/26/2016, 11/8/2016, 12/20/2016, 12/27/2016
+name: hermann 0 hours
+	j: [Weekday Table Setter] [4/4] (1.00) 1/2/2018, 1/16/2018, 2/20/2018, 3/27/2018
+
+name: hope 6 hours
+	j: [Sunday Meal Cleaner] [4/4] (1.00) 1/21/2018, 3/4/2018, 3/11/2018, 3/18/2018
+
+name: iand 4 hours
+	j: [Weekday meal asst cook (2 meals/season)] [2/2] (1.00) 1/23/2018, 2/20/2018
 
 name: jennifer 16 hours
-	j: [Weekday head cook (two meals/season)] [4/4] (1.00) 9/14/2016, 11/16/2016, 12/21/2016, 12/28/2016
+	j: [Sunday head cook (two meals/season)] [2/2] (1.00) 1/21/2018, 2/11/2018
+	j: [Weekday head cook (two meals/season)] [2/2] (1.00) 4/11/2018, 4/18/2018
 
-name: jillian 14.5 hours
-	j: [Weekday meal asst cook (2 meals/season)] [2/2] (1.00) 9/21/2016, 12/14/2016
-	j: [Weekday Meal cleaner] [7/8] (0.88) 9/13/2016, 9/21/2016, 9/28/2016, 10/12/2016, 10/26/2016, 11/16/2016, 12/14/2016
+name: jillian 6 hours
+	j: [Weekday Meal cleaner] [4/4] (1.00) 1/10/2018, 2/28/2018, 4/11/2018, 4/25/2018
 
-name: julia 12 hours
-	j: [Sunday Meal Cleaner] [8/8] (1.00) 10/2/2016, 10/9/2016, 10/16/2016, 10/23/2016, 10/30/2016, 11/6/2016, 11/20/2016, 12/18/2016
+name: kathyboblitt 15 hours
+	j: [Meeting night cleaner] [2/2] (1.00) 3/7/2018, 3/19/2018
+	j: [Sunday Meal Cleaner] [4/4] (1.00) 1/28/2018, 2/11/2018, 2/25/2018, 4/8/2018
+	j: [Weekday Meal cleaner] [4/4] (1.00) 1/9/2018, 1/22/2018, 4/17/2018, 4/30/2018
 
-name: kate 20 hours
-	j: [Weekday head cook (two meals/season)] [2/2] (1.00) 10/11/2016, 12/26/2016
-	j: [Weekday Meal cleaner] [8/8] (1.00) 9/21/2016, 10/11/2016, 10/18/2016, 10/24/2016, 11/9/2016, 11/30/2016, 12/13/2016, 12/26/2016
+name: katie 0 hours
+	j: [Weekday Table Setter] [8/8] (1.00) 1/9/2018, 1/23/2018, 1/29/2018, 2/12/2018, 2/28/2018, 4/10/2018, 4/23/2018, 4/30/2018
 
-name: kathyboblitt 13.5 hours
-	j: [Meeting night cleaner] [2/2] (1.00) 11/2/2016, 12/7/2016
-	j: [Sunday Meal Cleaner] [3/4] (0.75) 10/2/2016, 12/11/2016, 12/18/2016
-	j: [Weekday Meal cleaner] [4/4] (1.00) 9/6/2016, 10/12/2016, 10/24/2016, 11/22/2016
+name: keithg 26 hours
+	j: [Sunday head cook (two meals/season)] [2/2] (1.00) 2/18/2018, 4/29/2018
+	j: [Weekday head cook (two meals/season)] [2/2] (1.00) 3/26/2018, 4/9/2018
+	j: [Weekday meal asst cook (2 meals/season)] [2/2] (1.00) 1/8/2018, 1/22/2018
+	j: [Weekday Meal cleaner] [4/4] (1.00) 1/22/2018, 2/6/2018, 3/6/2018, 4/18/2018
 
-name: katie 4 hours
-	j: [Weekday meal asst cook (2 meals/season)] [2/2] (1.00) 11/1/2016, 12/20/2016
-	j: [Weekday Table Setter] [8/8] (1.00) 9/13/2016, 9/26/2016, 10/3/2016, 10/11/2016, 11/7/2016, 11/14/2016, 11/29/2016, 12/12/2016
+name: kelly 40 hours
+	j: [Weekday head cook (two meals/season)] [8/8] (1.00) 1/8/2018, 1/24/2018, 1/29/2018, 2/13/2018, 2/27/2018, 3/20/2018, 4/10/2018, 4/24/2018
+	j: [Weekday meal asst cook (2 meals/season)] [4/4] (1.00) 1/22/2018, 2/6/2018, 2/20/2018, 4/17/2018
 
-name: keithg 8 hours
-	j: [Weekday meal asst cook (2 meals/season)] [4/4] (1.00) 9/21/2016, 10/10/2016, 11/16/2016, 11/30/2016
+name: liam 4 hours
+	j: [Weekday meal asst cook (2 meals/season)] [2/2] (1.00) 3/5/2018, 4/23/2018
 
-name: kelly 24 hours
-	j: [Weekday head cook (two meals/season)] [6/6] (1.00) 9/27/2016, 10/19/2016, 11/1/2016, 11/22/2016, 11/30/2016, 12/13/2016
+name: lindsay 18 hours
+	j: [Meeting night takeout orderer] [2/2] (1.00) 1/15/2018, 2/7/2018
+	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 3/11/2018, 3/25/2018
+	j: [Weekday meal asst cook (2 meals/season)] [6/8] (0.75) 1/31/2018, 2/14/2018, 2/27/2018, 2/28/2018, 3/21/2018, 4/24/2018
 
-name: mac 25.5 hours
-	j: [Sunday Meal Cleaner] [4/4] (1.00) 9/18/2016, 11/6/2016, 11/20/2016, 12/4/2016
-	j: [Weekday Meal cleaner] [13/16] (0.81) 9/12/2016, 9/20/2016, 9/27/2016, 9/28/2016, 10/3/2016, 10/10/2016, 10/19/2016, 11/8/2016, 11/16/2016, 11/29/2016, 12/6/2016, 12/12/2016, 12/20/2016
+name: mac 12 hours
+	j: [Sunday Meal Cleaner] [4/4] (1.00) 1/7/2018, 3/4/2018, 4/15/2018, 4/29/2018
+	j: [Weekday Meal cleaner] [4/4] (1.00) 2/6/2018, 2/20/2018, 3/14/2018, 4/3/2018
 
 name: mario 6 hours
-	j: [Sunday Meal Cleaner] [4/4] (1.00) 9/11/2016, 9/25/2016, 12/4/2016, 12/18/2016
+	j: [Sunday Meal Cleaner] [4/4] (1.00) 1/14/2018, 2/11/2018, 2/18/2018, 4/29/2018
 
-name: maryking 16 hours
-	j: [Sunday head cook (two meals/season)] [4/4] (1.00) 9/18/2016, 10/2/2016, 10/30/2016, 11/20/2016
+name: marta 20 hours
+	j: [Sunday meal asst cook (two meals/season)] [4/4] (1.00) 1/21/2018, 2/4/2018, 2/18/2018, 4/29/2018
+	j: [Weekday meal asst cook (2 meals/season)] [6/6] (1.00) 1/9/2018, 1/24/2018, 1/31/2018, 3/13/2018, 3/14/2018, 3/28/2018
 
-name: meg 25 hours
-	j: [Meeting night cleaner] [2/2] (1.00) 9/7/2016, 10/5/2016
-	j: [Weekday meal asst cook (2 meals/season)] [8/8] (1.00) 9/26/2016, 10/24/2016, 11/7/2016, 11/14/2016, 11/28/2016, 12/5/2016, 12/6/2016, 12/13/2016
-	j: [Weekday Meal cleaner] [4/4] (1.00) 11/7/2016, 12/5/2016, 12/6/2016, 12/13/2016
+name: maryking 8 hours
+	j: [Sunday head cook (two meals/season)] [2/2] (1.00) 2/25/2018, 3/11/2018
 
-name: megan 24 hours
-	j: [Meeting night takeout orderer] [2/2] (1.00) 10/5/2016, 10/17/2016
-	j: [Sunday head cook (two meals/season)] [2/2] (1.00) 9/25/2016, 12/11/2016
-	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 10/30/2016, 11/20/2016
-	j: [Sunday Meal Cleaner] [4/4] (1.00) 9/25/2016, 10/30/2016, 11/20/2016, 12/11/2016
-	j: [Weekday meal asst cook (2 meals/season)] [2/2] (1.00) 11/30/2016, 12/28/2016
+name: marys 29 hours
+	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 3/4/2018, 4/22/2018
+	j: [Sunday Meal Cleaner] [4/4] (1.00) 1/21/2018, 2/18/2018, 3/4/2018, 4/22/2018
+	j: [Weekday meal asst cook (2 meals/season)] [5/5] (1.00) 1/9/2018, 2/6/2018, 3/20/2018, 4/10/2018, 4/24/2018
+	j: [Weekday Meal cleaner] [6/6] (1.00) 1/31/2018, 2/21/2018, 2/28/2018, 4/11/2018, 4/18/2018, 4/30/2018
 
-name: michael 18 hours
-	j: [Sunday Meal Cleaner] [4/4] (1.00) 9/18/2016, 10/9/2016, 10/23/2016, 11/13/2016
-	j: [Weekday Meal cleaner] [8/8] (1.00) 9/6/2016, 9/27/2016, 10/3/2016, 11/1/2016, 11/22/2016, 11/29/2016, 12/21/2016, 12/26/2016
+name: meg 12 hours
+	j: [Weekday meal asst cook (2 meals/season)] [6/6] (1.00) 1/16/2018, 1/29/2018, 2/13/2018, 3/5/2018, 4/3/2018, 4/18/2018
 
-name: michellemyers 10 hours
-	j: [Weekday meal asst cook (2 meals/season)] [5/5] (1.00) 9/6/2016, 9/20/2016, 10/4/2016, 11/9/2016, 12/13/2016
+name: megan 4 hours
+	j: [Weekday meal asst cook (2 meals/season)] [2/2] (1.00) 2/12/2018, 2/26/2018
+
+name: michael 12 hours
+	j: [Weekday Meal cleaner] [8/8] (1.00) 1/9/2018, 1/31/2018, 2/13/2018, 2/26/2018, 3/20/2018, 3/28/2018, 4/10/2018, 4/23/2018
+
+name: michele 19 hours
+	j: [Weekday meal asst cook (2 meals/season)] [2/2] (1.00) 2/5/2018, 2/21/2018
+	j: [Weekday Meal cleaner] [10/12] (0.83) 1/2/2018, 1/9/2018, 1/16/2018, 1/23/2018, 1/30/2018, 3/6/2018, 3/13/2018, 3/27/2018, 4/3/2018, 4/17/2018
 
 name: nancy 12 hours
-	j: [Weekday meal asst cook (2 meals/season)] [6/6] (1.00) 9/14/2016, 10/26/2016, 11/9/2016, 11/14/2016, 11/29/2016, 12/21/2016
+	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 1/7/2018, 4/8/2018
+	j: [Weekday meal asst cook (2 meals/season)] [4/4] (1.00) 3/6/2018, 3/27/2018, 4/17/2018, 4/30/2018
 
-name: nicholas 12 hours
-	j: [Weekday Meal cleaner] [8/8] (1.00) 9/14/2016, 9/28/2016, 10/12/2016, 11/1/2016, 11/14/2016, 11/23/2016, 12/20/2016, 12/28/2016
+name: pam 4 hours
+	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 2/11/2018, 2/25/2018
 
-name: pam 10 hours
-	j: [Sunday head cook (two meals/season)] [2/2] (1.00) 10/16/2016, 12/18/2016
-	j: [Sunday meal asst cook (two meals/season)] [1/2] (0.50) 12/4/2016
+name: patti 6 hours
+	j: [Weekday Meal cleaner] [4/4] (1.00) 1/16/2018, 2/12/2018, 3/20/2018, 4/10/2018
 
-name: patti 10.5 hours
-	j: [Weekday Meal cleaner] [7/8] (0.88) 9/27/2016, 10/11/2016, 10/18/2016, 11/1/2016, 11/15/2016, 11/30/2016, 12/13/2016
+name: polly 16 hours
+	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 2/4/2018, 2/25/2018
+	j: [Sunday Meal Cleaner] [4/4] (1.00) 1/14/2018, 2/4/2018, 2/25/2018, 4/15/2018
+	j: [Weekday Meal cleaner] [4/4] (1.00) 1/8/2018, 1/24/2018, 3/21/2018, 4/25/2018
+	j: [Weekday Table Setter] [3/4] (0.75) 2/13/2018, 3/6/2018, 4/2/2018
 
-name: rachelp 19 hours
-	j: [Weekday head cook (two meals/season)] [2/2] (1.00) 10/24/2016, 11/7/2016
-	j: [Weekday meal asst cook (2 meals/season)] [4/4] (1.00) 9/13/2016, 10/11/2016, 11/22/2016, 12/12/2016
-	j: [Weekday Meal cleaner] [2/2] (1.00) 11/7/2016, 12/12/2016
+name: rebecca 0 hours
+	j: [Weekday Table Setter] [4/4] (1.00) 1/8/2018, 2/6/2018, 2/21/2018, 3/20/2018
 
-name: rae 16 hours
-	j: [Weekday head cook (two meals/season)] [2/2] (1.00) 9/28/2016, 11/23/2016
-	j: [Weekday meal asst cook (2 meals/season)] [4/4] (1.00) 10/12/2016, 10/19/2016, 12/6/2016, 12/20/2016
+name: rod 10 hours
+	j: [Weekday meal asst cook (2 meals/season)] [2/2] (1.00) 2/14/2018, 4/2/2018
+	j: [Weekday Meal cleaner] [4/4] (1.00) 1/17/2018, 1/30/2018, 2/14/2018, 3/13/2018
 
-name: rebecca 8 hours
-	j: [Weekday meal asst cook (2 meals/season)] [4/4] (1.00) 9/27/2016, 10/18/2016, 11/15/2016, 12/26/2016
+name: sarah 12 hours
+	j: [Weekday head cook (two meals/season)] [3/4] (0.75) 1/30/2018, 3/5/2018, 4/3/2018
 
-name: rod 7.5 hours
-	j: [Sunday Meal Cleaner] [1/4] (0.25) 10/30/2016
-	j: [Weekday Meal cleaner] [4/4] (1.00) 9/14/2016, 10/4/2016, 11/8/2016, 11/29/2016
-
-name: sharon 34 hours
-	j: [Weekday head cook (two meals/season)] [8/8] (1.00) 9/13/2016, 9/21/2016, 10/3/2016, 10/26/2016, 11/8/2016, 11/9/2016, 12/5/2016, 12/20/2016
-	j: [Weekday meal asst cook (2 meals/season)] [1/2] (0.50) 12/14/2016
+name: sharon 24 hours
+	j: [Weekday head cook (two meals/season)] [6/6] (1.00) 1/2/2018, 1/23/2018, 2/6/2018, 2/21/2018, 3/6/2018, 3/27/2018
 
 name: tammy 32 hours
-	j: [Weekday head cook (two meals/season)] [8/8] (1.00) 9/6/2016, 9/20/2016, 10/4/2016, 10/18/2016, 11/15/2016, 11/29/2016, 12/14/2016, 12/27/2016
+	j: [Weekday head cook (two meals/season)] [8/8] (1.00) 1/10/2018, 1/31/2018, 2/5/2018, 2/28/2018, 3/21/2018, 3/28/2018, 4/17/2018, 4/30/2018
 
-name: ted 13 hours
-	j: [Weekday meal asst cook (2 meals/season)] [2/2] (1.00) 10/25/2016, 11/23/2016
-	j: [Weekday Meal cleaner] [6/8] (0.75) 9/20/2016, 10/25/2016, 11/9/2016, 11/23/2016, 12/6/2016, 12/27/2016
+name: ted 6 hours
+	j: [Weekday Meal cleaner] [4/4] (1.00) 2/13/2018, 2/27/2018, 3/27/2018, 4/24/2018
 
-name: tevah 4 hours
-	j: [Weekday meal asst cook (2 meals/season)] [2/2] (1.00) 11/8/2016, 12/21/2016
+name: terrence 34 hours
+	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 2/18/2018, 3/18/2018
+	j: [Weekday meal asst cook (2 meals/season)] [6/6] (1.00) 1/10/2018, 2/5/2018, 2/21/2018, 3/27/2018, 4/11/2018, 4/23/2018
+	j: [Weekday Meal cleaner] [12/12] (1.00) 1/10/2018, 1/24/2018, 1/29/2018, 2/5/2018, 2/12/2018, 2/21/2018, 3/13/2018, 3/27/2018, 4/3/2018, 4/9/2018, 4/11/2018, 4/23/2018
 
-name: tolkien 6 hours
-	j: [Sunday Meal Cleaner] [4/4] (1.00) 9/18/2016, 10/16/2016, 11/13/2016, 12/4/2016
+name: tevah 8 hours
+	j: [Weekday head cook (two meals/season)] [2/2] (1.00) 2/26/2018, 4/2/2018
 
-REMAINING AVAILABLE SHIFTS FOR 3378 (Sunday meal asst cook (two meals/season)): 1
-REMAINING AVAILABLE SHIFTS FOR 3381 (Sunday Meal Cleaner): 6
-REMAINING AVAILABLE SHIFTS FOR 3375 (Weekday head cook (two meals/season)): 1
-REMAINING AVAILABLE SHIFTS FOR 3376 (Weekday meal asst cook (2 meals/season)): 8
-REMAINING AVAILABLE SHIFTS FOR 3380 (Weekday Meal cleaner): 10
-REMAINING AVAILABLE SHIFTS FOR 3504 (Weekday Table Setter): 16
-elapsed time: 0.9104061126709
+name: thomas 4 hours
+	j: [Sunday meal asst cook (two meals/season)] [2/2] (1.00) 1/14/2018, 2/11/2018
+
+name: yimiau 20 hours
+	j: [Sunday head cook (two meals/season)] [2/2] (1.00) 1/14/2018, 4/8/2018
+	j: [Weekday Meal cleaner] [8/8] (1.00) 1/2/2018, 1/23/2018, 2/5/2018, 2/21/2018, 3/5/2018, 3/12/2018, 3/26/2018, 4/18/2018
+
+REMAINING AVAILABLE SHIFTS FOR 4196 (Sunday Meal Cleaner): 1
+REMAINING AVAILABLE SHIFTS FOR 4190 (Weekday head cook (two meals/season)): 1
+REMAINING AVAILABLE SHIFTS FOR 4191 (Weekday meal asst cook (2 meals/season)): 2
+REMAINING AVAILABLE SHIFTS FOR 4195 (Weekday Meal cleaner): 2
+REMAINING AVAILABLE SHIFTS FOR 4184 (Weekday Table Setter): 1
+elapsed time: 0.280008077621
