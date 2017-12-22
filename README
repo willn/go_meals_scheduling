@@ -2,22 +2,19 @@ The Great Oak Meals Scheduling Survey
 ----------------------------------------
 Directions to set up the survey:
 
+# make sure that unit tests work:
+	cd tests
+	./run.sh
+	cd ..
+
 # check that there aren't uncommitted modifications in either version:
 	cd /home/gocoho/meals_scheduling/
-	git status
-	#!# cd /home/gocoho/meals_scheduling/
 	git status
 
 # Copy the git repo to the directory root:
 	cd ~
 	diff -r meals_scheduling/public/ public_html/meals_scheduling/
 	# if changes are needed...
-	cp -r ~/meals_scheduling/public/ ~/public_html/meals_scheduling/
-
-# make sure that unit tests work:
-	cd tests
-	./run.sh
-	cd ..
 
 # edit public/config.php
 	- set the appropriate DEADLINE date
@@ -29,9 +26,11 @@ Directions to set up the survey:
 # add any extra workers to the get_num_shift_overrides() function
 
 # grab the latest sqlite file from webfactional, fix permissions, and commit:
-	#!# scp gocoho@web30.webfaction.com:webapps/django/allocation/file.db public/sqlite_data/work_allocation.db
+	#!# unzip the file first...
+	scp -i ~/.ssh/id_dsa -P 1022 filedb.zip gocoho@gocoho.org:meals_scheduling/public/sqlite_data/work_allocation.db
 	chmod 644 !$
 	# sudo chgrp gocoho !$
+	git add !$
 	git commit !$
 
 # get new job IDs for the season, and update the defines for each job in config.php
@@ -47,15 +46,21 @@ Directions to set up the survey:
 	git add ... # any changed files
 	git commit
 
-# test to make sure everything works in the dev directory
+# stage everything from the meals dev repo to public_html
+	cd ~/meals_scheduling/public/
+	for i in `find . -type f`; do cp $i ~/public_html/meals_scheduling/$i; done	
+	cp -r ~/meals_scheduling/public ~/public_html/meals_scheduling/
+
+#!#
+# test to make sure everything works
 	- confirm that the calendar dates are correct
 	- confirm the holidays and meeting nights are correct
 	- fill in some entries and save them, then revert
 		* git checkout sqlite_data/work_allocation.db
-	- load listing page again to make sure the db is writeable
+	- load listing page again to make sure that the database is writeable
 
 # verify that the number of shifts counted is proper:
-	- /report.php "Number of assignments needed"
+	- view /report.php in the browser, look for "Number of assignments needed"
 
 # notify participants that the survey is ready
  
@@ -90,13 +95,20 @@ what to do at the end of the survey:
 	git add # files which changed
 	git commit
 
+- check for any changes to the codebase and optionally make commits
+	$ cd public_html/meals_scheduling
+	$ for i in `find -type f`; do diff $i ~/meals_scheduling/public/$i; done
+
 - check for any un-assigned workers
-	cd auto_assignments/
+	cd ~/meals_scheduling/auto_assignments/
 	php assignments -x
 
 - count un-filled slots:
 	php assignments.php -s > schedule.txt
 	grep XXX !$
+
+- check for hobarter ratio:
+	grep HOBART schedule.txt
 
 - Examine workers:
 	php assignments.php -w > workers.txt
@@ -107,10 +119,9 @@ what to do at the end of the survey:
 	grep OVERAGE workers.txt
 
 - find the people who aren't fully assigned:
-	egrep '(^name|\(0)' workers.txt | grep -B1 'j:'
+	egrep '(^name|\(0)' workers.txt | grep -B1 'j:' > workers_not_full.txt
 
-- check for hobarter ratio:
-	grep HOBART schedule.txt
+- make trades to get the under-assigned people swapped in replacing XXXXs
 
 - read the comments and make sure they apply cleanly with auto-checks, copy and
   paste from "Confirm results check" section, and create custom ones for anything
