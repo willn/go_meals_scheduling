@@ -52,6 +52,7 @@ class DatabaseInitializer extends DatabaseHandler {
 
 		$sql = "delete from survey_assignment where worker_id={$id}";
 		$this->dbh->exec($sql);
+		#!# need to add some error checking here... since table may not exist
 
 		// confirm this worked
 		$sql = "select count(*) from survey_assignment where worker_id={$id}";
