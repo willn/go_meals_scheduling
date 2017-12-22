@@ -14,7 +14,6 @@ class Calendar {
 	protected $assignments = array();
 
 	protected $holidays;
-	protected $skip_dates;
 
 	protected $is_report = FALSE;
 
@@ -32,9 +31,6 @@ class Calendar {
 		}
 
 		$this->holidays = get_holidays(SEASON_NAME);
-
-		global $skip_dates;
-		$this->skip_dates = $skip_dates;
 	}
 
 	public function setIsReport($setting=TRUE) {
@@ -140,7 +136,6 @@ EOHTML;
 		global $mtg_jobs;
 		global $days_of_week;
 		global $mtg_nights;
-		global $override_dates;
 
 		$current_season = get_current_season();
 
@@ -252,14 +247,16 @@ EOHTML;
 				$date_string = "{$month_num}/{$i}/" . SEASON_YEAR;
 				$cell = '';
 
+				$skip_dates = get_skip_dates();
+
 				// check for holidays
 				if (isset($this->holidays[$month_num]) &&
 					in_array($i, $this->holidays[$month_num])) {
 					$cell = '<span class="skip">holiday</span>';
 				}
 				// check for manual skip dates
-				else if (isset($this->skip_dates[$month_num]) &&
-					in_array($i, $this->skip_dates[$month_num])) {
+				else if (isset($skip_dates[$month_num]) &&
+					in_array($i, $skip_dates[$month_num])) {
 					$cell = '<span class="skip">skip</span>';
 				}
 				// sundays

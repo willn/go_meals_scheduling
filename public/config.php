@@ -22,17 +22,6 @@ define('WEEKDAY_ASST_COOK', 4191);
 define('WEEKDAY_CLEANER', 4195);
 define('WEEKDAY_TABLE_SETTER', 4184);
 
-// forced skip dates
-global $skip_dates;
-$skip_dates = array(
-);
-
-
-// have a meal on this date which wouldn't otherwise
-global $override_dates;
-$override_dates = array(
-	//11 => array(26)
-);
 
 /**
  * Get the number of shift overrides.
@@ -42,7 +31,13 @@ $override_dates = array(
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-		/* XXX example...
+		'bob' => [
+			WEEKDAY_ASST_COOK => 1,
+		],
+		'patti' => [
+			SUNDAY_CLEANER => 1,
+		],
+		/* XXX - examples
 		'willie' => [
 			WEEKDAY_ASST_COOK => 1,
 			MEETING_NIGHT_ORDERER => 1,
@@ -50,6 +45,10 @@ function get_num_shift_overrides() {
 		],
 		*/
 	];
+}
+
+function get_skip_dates() {
+	return [];
 }
 
 // If these names change, be sure to update the is_a_*_job() functions.
