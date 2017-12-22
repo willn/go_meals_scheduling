@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 
 # set the include path to be the top-level of the meals scheduling project
-set_include_path('../');
+set_include_path('../' . PATH_SEPARATOR . '../public/');
 
 require_once 'public/utils.php';
 
@@ -46,30 +46,6 @@ global $job_key_clause;
 unset($all_jobs['all']);
 
 $job_ids_clause = get_job_ids_clause();
-
-/*
-// run many combinations of numbers looking for a full allocation
-if (array_key_exists('x', $options)) {
-	foreach(range(1, 10, 2) as $a) {
-		foreach(range(1, 10, 2) as $b) {
-			foreach(range(1, 10, 2) as $c) {
-				$assignments = new Assignments($a, $b, $c);
-				$assignments->run();
-
-				$found = $assignments->getNumPlaceholders();
-				echo "FOUND: $found A:$a, B:$b, C:$c\n";
-				if ($found == 0) {
-					exit;
-				}
-			}
-		}
-	}
-}
-else {
-	$assignments = new Assignments();
-	$assignments->run();
-}
-*/
 
 $assignments = new Assignments();
 $assignments->run();
