@@ -13,3 +13,5 @@ for i in `ls *Test.php`; do
 	fi
 done
 
+tests_run=`grep 'function test' *Test.php | wc -l`
+echo "--- Number of tests run: $tests_run"
