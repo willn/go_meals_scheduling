@@ -50,5 +50,27 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 			array(strtotime('Nov 1st, 2015'), 'winter'),
 		);
 	}
+
+	/**
+	 * @dataProvider first_associative_key_provider
+	*/
+	public function test_get_first_associative_key($dates, $expected) {
+		$this->assertEquals(get_first_associative_key($dates), $expected);
+	}
+
+	public function first_associative_key_provider() {
+		return [
+			[[], NULL],
+			[['2/11/2018'=>2, '3/21/2018'=>4, '2/5/2018'=>6], '2/11/2018'],
+			[
+				[
+					'gayle' => 0.0299999999999999988897769753748434595763683319091796875,
+					'anne' => 0.01190476190476190410105772343740682117640972137451171875,
+					'polly' => 0.00609756097560975630911261902156184078194200992584228515625,
+				],
+				'gayle'
+			]
+		];
+	}
 }
 ?>

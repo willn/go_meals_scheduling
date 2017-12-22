@@ -156,4 +156,17 @@ function get_holidays() {
 	ksort($holidays);
 	return $holidays;
 }
+
+/**
+ * Get the first key from the array
+ */
+function get_first_associative_key($dict) {
+	if (empty($dict)) {
+		return NULL;
+	}
+
+	// do this in 2 steps to avoid errors / warnings
+	$tmp = array_keys($dict);
+	return array_shift($tmp);
+}
 ?>

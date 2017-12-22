@@ -6,6 +6,8 @@ define('DEFAULT_AVAIL_SCORE', 5);
 define('DEFAULT_AVOIDS_SCORE', 7);
 define('DEFAULT_PREFERS_SCORE', 4);
 
+require_once('../public/utils.php');
+
 class Schedule {
 	protected $meals = array();
 	protected $roster;
@@ -269,7 +271,7 @@ EOTXT;
 	public function fillMeal($worker_freedom) {
 		$job_id = $this->job_id;
 
-		$date = $this->getLeastPopularDate();
+		$date = get_first_associative_key($this->least_possible);
 		if ($date == '') {
 			echo "EMPTY DATE\n";
 			return FALSE;
@@ -306,11 +308,6 @@ EOTXT;
 		return TRUE;
 	}
 
-	public function getLeastPopularDate() {
-		// get the date of the least popular meal and fill it
-		return array_shift(array_keys($this->least_possible));
-	}
-
 
 	/**
 	 * Get the worker object by username from the roster.
@@ -341,6 +338,10 @@ EOTXT;
 	 *     output should be displayed.
 	 */
 	public function printResults($format='txt' ) {
+		if ($format === 'txt') {
+			$this->printTabbedHeaders();
+		}
+
 		$missed_hobarters = 0;
 		foreach($this->meals as $date=>$m) {
 			if (!$m->printResults($format)) {
@@ -353,6 +354,14 @@ EOTXT;
 			echo "MISSED HOBARTERS: {$missed_hobarters} of {$count} " . 
 				round($missed_hobarters / $count, 2) . "\n";
 		}
+	}
+
+	/**
+	 * Display table headers
+	 * XXX Unforunately, these are hard-coded for now.
+	 */
+	public function printTabbedHeaders() {
+		echo "date\thead_cook\tasst1\tasst2\tcleaner1\tcleaner2\tcleaner3\ttable_setter\n";
 	}
 
 

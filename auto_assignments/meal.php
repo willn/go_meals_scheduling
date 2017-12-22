@@ -357,7 +357,7 @@ EOTXT;
 
 		// a higher score is better
 		arsort($worker_points);
-		$username = array_shift(array_keys($worker_points));
+		$username = get_first_associative_key($worker_points);
 
 		// may need to insert a placeholder for later manual correction
 		return is_null($username) ? PLACEHOLDER : $username;
