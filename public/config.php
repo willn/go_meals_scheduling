@@ -34,6 +34,10 @@ function get_num_shift_overrides() {
 		'bob' => [
 			WEEKDAY_ASST_COOK => 1,
 		],
+        'marys' => [
+            WEEKDAY_CLEANER => 2,
+            WEEKDAY_ASST_COOK => 1,
+        ],
 		'patti' => [
 			SUNDAY_CLEANER => 1,
 		],
