@@ -36,3 +36,17 @@ snafus in piecing together a schedule. I tend to cut a small break (by not
 scheduling a single dinner) to someone who already has a bunch of dinners
 or work hours assigned already.
 
+Adding Unregistered Users
+---------------------------
+How to add an unregistered user / volunteer. This is when someone who
+isn't in the work system is taking on shift(s) after the work allocation.
+
+cd /utils/
+vi add_non_go_workers.php
+	- add workers 'usernames' to $workers array at top
+
+# run the script:
+php add_non_go_workers.php
+
+confirm that they exist in the survey system.
+
