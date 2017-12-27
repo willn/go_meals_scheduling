@@ -1,0 +1,38 @@
+Calculations
+-------------
+
+Keep in mind that some of this rounding up is both traditional, handy,
+and an artifact of our meals jobs system. I'll try to explain.
+
+It's an artifact because of "full shifts". Let's take Sunday meals because
+they're the number is smallest, and it may be the easiest to discuss. So we're
+planning on serving 16 Sunday meals through the fall. Let's do some algebra.
+
+Let M = number of meals we're trying to cover (for Sundays, 16)
+Let W = number of workers of this type assigned to each meal (e.g. 3 cleaners)
+Let S = number of meals per assigned shift (2 for cooks, 4 for cleaners)
+
+The formula would then be:
+
+(M * W) / S
+
+head cooks: (16 * 1) / 2 = 8
+asst cooks: (16 * 2) / 2 = 16
+cleaners: (16 * 3) / 4 = 12
+
+This actually doesn't show any artifacts, but shows that the original meals
+request was correct. Let's look at weekday meals next. If I'm correct,
+we'll be attempting to cover 42 weekday dinners in the fall. I may have
+counted incorrectly, please double-check.
+
+head cooks (42 * 1) / 2 = 21
+asst cooks (42 * 2) / 2 = 42
+cleaners (42 * 3) / 4 = 31.5 (which rounds up to 32)
+
+This is where we see the artifact, that we don't assign half-shifts. We
+simply round up. This is "handy" because it allows the scheduler a touch
+more flexibility, and allows me to have some leeway since there are always
+snafus in piecing together a schedule. I tend to cut a small break (by not
+scheduling a single dinner) to someone who already has a bunch of dinners
+or work hours assigned already.
+
