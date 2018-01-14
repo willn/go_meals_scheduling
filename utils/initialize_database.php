@@ -38,8 +38,10 @@ class DatabaseInitializer extends DatabaseHandler {
 	 */
 	protected function removeAetherBunny() {
 		$id = NULL;
-
-		$sql = 'select id, username from auth_user where username="aether"';
+		$auth_user_table = AUTH_USER_TABLE;
+		$sql = <<<EOSQL
+select id, username from {$auth_user_table} where username="aether"
+EOSQL;
 		foreach ($this->dbh->query($sql) as $row) {
 			$id = $row['id'];
 			break;
@@ -88,7 +90,8 @@ class DatabaseInitializer extends DatabaseHandler {
 	protected function getUsernamesFromDb() {
 		$users = array();
 		$key = 'username';
-		$sql = "SELECT {$key} FROM auth_user";
+		$auth_user_table = AUTH_USER_TABLE;
+		$sql = "SELECT {$key} FROM {$auth_user_table}";
 		foreach($this->dbh->query($sql, PDO::FETCH_ASSOC) as $row) {
 			$name = array_get($row, $key);
 			$users[$name] = TRUE;
@@ -126,8 +129,9 @@ EOSQL;
 		}
 
 		$key = 'id';
+		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
-SELECT {$key} FROM auth_user WHERE username='{$username}';
+SELECT {$key} FROM {$auth_user_table} WHERE username='{$username}';
 EOSQL;
 
 		$id = NULL;

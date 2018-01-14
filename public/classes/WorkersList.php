@@ -13,9 +13,10 @@ class WorkersList {
 	public function load() {
 		$sid = SEASON_ID;
 		$assn_table = ASSIGN_TABLE;
+		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
 			SELECT id, username, first_name, last_name
-				FROM auth_user
+				FROM {$auth_user_table}
 				WHERE id IN
 					(SELECT worker_id
 						FROM {$assn_table}

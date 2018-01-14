@@ -20,7 +20,8 @@ class DatabaseHandler {
 	 * Test the database connection
 	 */
 	public function test() {
-		$sql = 'SELECT count() FROM auth_user';
+		$auth_user_table = AUTH_USER_TABLE;
+		$sql = "SELECT count() FROM {$auth_user_table}";
 		$count = 0;
 		foreach ($this->dbh->query($sql) as $row) {
 			$count = $row[0];

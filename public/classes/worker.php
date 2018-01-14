@@ -470,8 +470,6 @@ class Worker {
 
 		$job_counts = array();
 
-		global $hours_per_job;
-		$hrs = 0;
 		$job_info = '';
 		foreach($this->assigned as $job_id=>$dates) {
 			$num_shifts = count($dates);
@@ -488,13 +486,12 @@ class Worker {
 	j: [{$name}] [{$num_shifts}/{$to_fill}] ({$ratio}) {$dates_list}
 
 EOTXT;
-				$hrs += ($hours_per_job[$job_id] * count($dates));
 			}
 		}
 
 		if ($job_info != '') {
 			print <<<EOTXT
-name: {$this->username} {$hrs} hours
+name: {$this->username}
 {$job_info}
 
 EOTXT;
@@ -561,9 +558,10 @@ EOSQL;
 	 * Query the saved comments and other special requests.
 	 */
 	public function loadComments() {
+		$table = SCHEDULE_COMMENTS_TABLE;
 		$sql = <<<EOSQL
 			SELECT *
-				FROM schedule_comments
+				FROM {$table}
 				WHERE worker_id={$this->getId()}
 EOSQL;
 		foreach ($this->dbh->query($sql) as $row) {

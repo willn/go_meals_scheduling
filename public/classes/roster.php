@@ -47,10 +47,12 @@ class Roster {
 	 * Load the special requests made for each worker.
 	 */
 	public function loadRequests() {
+		$comments_table = SCHEDULE_COMMENTS_TABLE;
+		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
 			SELECT a.username, c.avoids, c.prefers, c.clean_after_self,
 				c.bunch_shifts, c.bundle_shifts
-			FROM auth_user as a, schedule_comments as c
+			FROM {$auth_user_table} as a, {$comments_table} as c
 			WHERE c.worker_id=a.id
 			ORDER BY a.username, c.timestamp
 EOSQL;
@@ -172,9 +174,10 @@ EOSQL;
 		// set the number of shifts per assigned worker
 		$sid = SEASON_ID;
 		$assn_table = ASSIGN_TABLE;
+		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
 		SELECT u.username, a.job_id, a.instances
-			FROM {$assn_table} as a, auth_user as u
+			FROM {$assn_table} as a, {$auth_user_table} as u
 			WHERE a.season_id={$sid}
 				AND a.type="a"
 				AND a.worker_id = u.id

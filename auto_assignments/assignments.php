@@ -115,9 +115,13 @@ class Assignments {
 		global $dbh;
 
 		// load worker preferences per shift / date
+		$prefs_table = SCHEDULE_PREFS_TABLE;
+		$shifts_table = SCHEDULE_SHIFTS_TABLE;
+		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
 			SELECT s.string as date, s.job_id, a.username, p.pref
-				FROM auth_user as a, schedule_prefs as p, schedule_shifts as s
+				FROM {$auth_user_table} as a, {$prefs_table} as p,
+					{$shifts_table} as s
 				WHERE p.pref>0
 					AND a.id=p.worker_id
 					AND s.id = p.date_id

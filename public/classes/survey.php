@@ -405,7 +405,11 @@ EOHTML;
 
 
 	protected function lookupWorkerId() {
-		$sql = "select id from auth_user where username='{$this->username}'";
+		$auth_user_table = AUTH_USER_TABLE;
+		$sql = <<<EOSQL
+select id from {$auth_user_table} where username='{$this->username}'
+EOSQL;
+
 		// get this worker's ID
 		$this->worker_id = NULL;
 		foreach($this->dbh->query($sql) as $row) {
@@ -528,14 +532,14 @@ EOHTML;
 		return $num_dinners * $num_shifts_assigned;
 	}
 
-
 	/**
 	 * Save the special requests to the db
 	 */
 	protected function saveRequests() {
 		$bundle = array_get($this->requests, 'bundle_shifts', '');
+		$table = SCHEDULE_COMMENTS_TABLE;
 		$sql = <<<EOSQL
-replace into schedule_comments
+replace into {$table}
 	values(
 		{$this->worker_id},
 		datetime('now'),
@@ -555,6 +559,7 @@ EOSQL;
 	 */
 	protected function savePreferences() {
 		global $pref_names;
+		$shifts_table = SCHEDULE_SHIFTS_TABLE;
 
 		// reverse the array to process the higer priority preferences first,
 		// which puts them at the top of the prefs summary listing.
@@ -570,14 +575,16 @@ EOSQL;
 				foreach($dates as $d) {
 
 					$shift_id = NULL;
-					$sql = "select id from schedule_shifts where string='{$d}' and job_id={$task}";
+					$sql = "select id from {$shifts_table} where string='{$d}' and job_id={$task}";
 					foreach($this->dbh->query($sql) as $row) {
 						$shift_id = $row['id'];
 						break;
 					}
 
 					if (is_null($shift_id)) {
-						$insert = "replace into schedule_shifts values(NULL, '{$d}', {$task})";
+						$insert = <<<EOSQL
+REPLACE INTO {$shifts_table} VALUES(NULL, '{$d}', {$task})"
+EOSQL;
 						$this->dbh->exec($insert);
 
 						// now check to make sure that entry was saved...
@@ -597,8 +604,9 @@ EOHTML;
 						}
 					}
 
+					$prefs_table = SCHEDULE_PREFS_TABLE;
 					$replace = <<<EOSQL
-				replace into schedule_prefs values({$shift_id}, {$this->worker_id}, {$pref})
+REPLACE INTO {$prefs_table} VALUES({$shift_id}, {$this->worker_id}, {$pref})
 EOSQL;
 					$success = $this->dbh->exec($replace);
 					if ($success) {

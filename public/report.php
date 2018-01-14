@@ -57,9 +57,12 @@ $job_key_clause = ($job_key != 0) ? "AND s.job_id={$job_key}" : '';
 // --------   per-worker summary   -----------
 
 // get list of pref (available) counts:
+$prefs_table = SCHEDULE_PREFS_TABLE;
+$shifts_table = SCHEDULE_SHIFTS_TABLE;
+$auth_user_table = AUTH_USER_TABLE;
 $sql = <<<EOSQL
 	SELECT u.username as username, p.worker_id, s.job_id, count(*) as num
-		FROM schedule_prefs as p, auth_user as u, schedule_shifts as s
+		FROM {$prefs_table} as p, {$auth_user_table} as u, {$shifts_table} as s
 		WHERE u.id = p.worker_id
 			AND p.date_id=s.id
 			{$job_key_clause}
@@ -82,7 +85,7 @@ $jobs_table = SURVEY_JOB_TABLE;
 $assn_table = ASSIGN_TABLE;
 $sql = <<<EOSQL
 	SELECT u.username, a.job_id, j.description, a.instances
-		FROM {$assn_table} as a, auth_user as u, {$jobs_table} as j
+		FROM {$assn_table} as a, {$auth_user_table} as u, {$jobs_table} as j
 		WHERE a.season_id={$sid} AND
 			({$ids_clause}) AND
 			a.type="a" AND

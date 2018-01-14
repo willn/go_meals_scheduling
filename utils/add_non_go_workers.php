@@ -48,26 +48,12 @@ class AddExternalWorkers extends DatabaseHandler {
 	}
 
 	/**
-	 * Add the community column to auth_users, and assign value of 'GO' to
-	 * them to begin with.
-	protected function addCommunityColumn() {
-		// -------------- add community column to auth_user
-		$sql = 'alter table auth_user add column community varchar(2)';
-		$this->dbh->exec($sql);
-
-		$sql = 'update auth_user set community="go"';
-		$this->dbh->exec($sql);
-
-		echo "Community GO added\n";
-	}
-	 */
-
-	/**
 	 * Load the list of user IDs from auth_user
 	 */
 	protected function loadUserIds() {
 		// -------------- collect list of existing (GO) usernames
-		$sql = 'select id, username from auth_user order by id';
+		$auth_user_table = AUTH_USER_TABLE;
+		$sql = "select id, username from {$auth_user_table} order by id";
 		$this->all_workers = array();
 		$result = $this->dbh->query($sql);
 		if ($result === FALSE) {

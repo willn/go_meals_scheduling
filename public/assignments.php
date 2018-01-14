@@ -26,9 +26,12 @@ $job_ids_clause = get_job_ids_clause();
 
 // --------------------------------------------------------------
 // load all the survey prefs for every date
+$prefs_table = SCHEDULE_PREFS_TABLE;
+$shifts_table = SCHEDULE_SHIFTS_TABLE;
+$auth_user_table = AUTH_USER_TABLE;
 $sql = <<<EOSQL
 	SELECT s.string as date, s.job_id, a.username, p.pref
-		FROM auth_user as a, schedule_prefs as p, schedule_shifts as s
+		FROM {$auth_user_table} as a, {$prefs_table} as p, {$shifts_table} as s
 		WHERE p.pref>0
 			AND a.id=p.worker_id
 			AND s.id = p.date_id
@@ -57,12 +60,12 @@ $sid = SEASON_ID;
 $assn_table = ASSIGN_TABLE;
 $sql = <<<EOSQL
 SELECT u.username, a.job_id
-	FROM {$assn_table} as a, auth_user as u
+	FROM {$assn_table} as a, {$auth_user_table} as u
 	WHERE a.season_id={$sid}
 		AND u.id=a.worker_id
 		AND ({$job_ids_clause})
 		AND a.worker_id NOT IN
-			(SELECT worker_id FROM schedule_prefs GROUP BY worker_id)
+			(SELECT worker_id FROM {$prefs_table} GROUP BY worker_id)
 	GROUP BY a.worker_id, a.job_id
 EOSQL;
 
@@ -77,7 +80,7 @@ foreach($dbh->query($sql) as $row) {
 // find how many each worker has been assigned
 $sql = <<<EOSQL
 SELECT u.username, a.job_id, a.instances
-	FROM {$assn_table} as a, auth_user as u
+	FROM {$assn_table} as a, {$auth_user_table} as u
 	WHERE a.season_id={$sid}
 		AND a.type="a"
 		AND a.worker_id = u.id

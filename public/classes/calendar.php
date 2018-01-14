@@ -443,9 +443,11 @@ EOHTML;
 			return array();
 		}
 
+		$prefs_table = SCHEDULE_PREFS_TABLE;
+		$shifts_table = SCHEDULE_SHIFTS_TABLE;
 		$sql = <<<EOJS
 			select s.id, s.string, s.job_id, p.pref
-				FROM schedule_shifts as s, schedule_prefs as p
+				FROM {$shifts_table} as s, {$prefs_table} as p
 				WHERE s.id=p.date_id
 					AND worker_id={$worker_id}
 					ORDER BY s.string, s.job_id
@@ -533,9 +535,13 @@ EOHTML;
 	 */
 	function getWorkerDates() {
 		// grab all the preferences for every date
+		$prefs_table = SCHEDULE_PREFS_TABLE;
+		$shifts_table = SCHEDULE_SHIFTS_TABLE;
+		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
 			SELECT s.string, s.job_id, a.username, p.pref
-				FROM auth_user as a, schedule_prefs as p, schedule_shifts as s
+				FROM {$auth_user_table} as a, {$prefs_table} as p,
+					{$shifts_table} as s
 				WHERE p.pref>0
 					AND a.id=p.worker_id
 					AND s.id = p.date_id
@@ -573,13 +579,17 @@ EOSQL;
 		);
 
 		// render the comments
+		$comments_table = SCHEDULE_COMMENTS_TABLE;
+		$prefs_table = SCHEDULE_PREFS_TABLE;
+		$shifts_table = SCHEDULE_SHIFTS_TABLE;
+		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
 			SELECT a.username, c.*
-				FROM auth_user as a, schedule_comments as c
+				FROM {$auth_user_table} as a, {$comments_table} as c
 				WHERE c.worker_id=a.id
 					AND a.username in (SELECT u.username
-							FROM auth_user as u, schedule_prefs as p,
-								schedule_shifts as s
+							FROM {$auth_user_table} as u, {$prefs_table} as p,
+								{$shifts_table} as s
 							WHERE u.id=p.worker_id
 								AND p.date_id=s.id
 								{$job_key_clause}

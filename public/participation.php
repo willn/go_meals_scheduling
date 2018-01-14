@@ -24,9 +24,10 @@ class Respondents {
 		// all the workers who should respond:
 		$sid = SEASON_ID;
 		$assn_table = ASSIGN_TABLE;
+		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
 			SELECT a.id, a.username
-				FROM {$assn_table} as sa, auth_user as a
+				FROM {$assn_table} as sa, {$auth_user_table} as a
 				WHERE sa.season_id={$sid}
 					AND a.id=sa.worker_id
 					AND ({$this->ids_clause})
@@ -51,9 +52,11 @@ EOSQL;
 	 */
 	public function getResponders() {
 		// list of workers who are assigned.
+		$prefs_table = SCHEDULE_PREFS_TABLE;
+		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
 			SELECT a.id as id, a.username as username
-				FROM auth_user as a, schedule_prefs as p
+				FROM {$auth_user_table} as a, {$prefs_table} as p
 				WHERE a.id=p.worker_id
 				GROUP BY p.worker_id;
 EOSQL;

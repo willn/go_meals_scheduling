@@ -31,21 +31,9 @@ define('WEEKDAY_TABLE_SETTER', 4184);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-		'bob' => [
+		/*
+		'example' => [
 			WEEKDAY_ASST_COOK => 1,
-		],
-        'marys' => [
-            WEEKDAY_CLEANER => 2,
-            WEEKDAY_ASST_COOK => 1,
-        ],
-		'patti' => [
-			SUNDAY_CLEANER => 1,
-		],
-		/* XXX - examples
-		'willie' => [
-			WEEKDAY_ASST_COOK => 1,
-			MEETING_NIGHT_ORDERER => 1,
-			SUNDAY_HEAD_COOK => 1,
 		],
 		*/
 	];
@@ -104,20 +92,6 @@ function get_num_dinners_per_assignment($job_id=NULL) {
 
 	return array_get($dinners, $job_id, 0);
 }
-
-// #!# is this used anywhere?
-$hours_per_job = array(
-	MEETING_NIGHT_ORDERER => 1,
-	MEETING_NIGHT_CLEANER => 1.5,
-
-	SUNDAY_HEAD_COOK => 4,
-	SUNDAY_ASST_COOK => 2,
-	SUNDAY_CLEANER => 1.5,
-
-	WEEKDAY_HEAD_COOK => 4,
-	WEEKDAY_ASST_COOK => 2,
-	WEEKDAY_CLEANER => 1.5,
-);
 
 // job_id => array( dow => count), 1 = MON, 7 = SUN
 // per job, list number of open shifts per day of week
