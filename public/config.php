@@ -22,6 +22,8 @@ define('WEEKDAY_ASST_COOK', 4191);
 define('WEEKDAY_CLEANER', 4195);
 define('WEEKDAY_TABLE_SETTER', 4184);
 
+# Are Sunday meals treated separately from weeknights?
+define('ARE_SUNDAYS_UNIQUE', TRUE);
 
 /**
  * Get the number of shift overrides.

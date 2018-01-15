@@ -137,7 +137,7 @@ EOHTML;
 
 		$current_season = get_current_season();
 
-		$meal_days = get_meal_days();
+		$meal_days = get_weekday_meal_days();
 
 		$mtg_day_count = array();
 		foreach(array_keys($mtg_nights) as $dow) {
@@ -258,7 +258,7 @@ EOHTML;
 					$cell = '<span class="skip">skip</span>';
 				}
 				// sundays
-				else if ($day_of_week == 0) {
+				else if (ARE_SUNDAYS_UNIQUE && ($day_of_week == 0)) {
 					$this->num_shifts['sunday']++;
 
 					if (!$this->web_display) {

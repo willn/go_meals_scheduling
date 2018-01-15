@@ -14,6 +14,14 @@ define('PLACEHOLDER', 'XXXXXXXX');
 define('DOMAIN', '@gocoho.org');
 define('HAS_CONFLICT', -1);
 
+define('SUNDAY', 0);
+define('MONDAY', 1);
+define('TUESDAY', 2);
+define('WEDNESDAY', 3);
+define('THURSDAY', 4);
+define('FRIDAY', 5);
+define('SATURDAY', 6);
+
 /**
  * Get the names of the days of the week.
  */
@@ -56,11 +64,11 @@ foreach($all_jobs as $jid=>$name) {
 	}
 }
 
-define('MONDAY', 1);
-define('TUESDAY', 2);
-define('WEDNESDAY', 3);
-function get_meal_days() {
-	return array(MONDAY, TUESDAY, WEDNESDAY);
+/**
+ * Get the list of the weekdays where meals are served.
+ */
+function get_weekday_meal_days() {
+	return [MONDAY, TUESDAY, WEDNESDAY];
 }
 
 global $mtg_nights;
