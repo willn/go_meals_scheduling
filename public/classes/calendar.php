@@ -23,7 +23,6 @@ class Calendar {
 		'meeting' => 0,
 	);
 
-
 	public function __construct() {
 		// 'all' is the default, so only change if it's numeric
 		if (isset($_GET['key']) && is_numeric($_GET['key'])) {
@@ -134,7 +133,6 @@ EOHTML;
 		global $sunday_jobs;
 		global $weekday_jobs;
 		global $mtg_jobs;
-		global $days_of_week;
 		global $mtg_nights;
 
 		$current_season = get_current_season();
@@ -161,7 +159,7 @@ EOHTML;
 		// set up the labels and selectors
 
 		$day_selectors = '';
-		foreach($days_of_week as $dow) {
+		foreach(get_days_of_week() as $dow) {
 			$day_labels .= <<<EOHTML
 				<th class="day_of_week">{$dow}</th>
 EOHTML;

@@ -14,16 +14,20 @@ define('PLACEHOLDER', 'XXXXXXXX');
 define('DOMAIN', '@gocoho.org');
 define('HAS_CONFLICT', -1);
 
-global $days_of_week;
-$days_of_week = array(
-	'Sun',
-	'Mon',
-	'Tue',
-	'Wed',
-	'Thu',
-	'Fri',
-	'Sat',
-);
+/**
+ * Get the names of the days of the week.
+ */
+function get_days_of_week() {
+	return [
+		'Sun',
+		'Mon',
+		'Tue',
+		'Wed',
+		'Thu',
+		'Fri',
+		'Sat',
+	];
+}
 
 global $pref_names;
 $pref_names = array(
