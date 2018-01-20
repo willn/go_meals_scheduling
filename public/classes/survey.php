@@ -558,7 +558,7 @@ EOSQL;
 	 * Save the stated preferences.
 	 */
 	protected function savePreferences() {
-		global $pref_names;
+		$pref_names = get_pref_names();
 		$shifts_table = SCHEDULE_SHIFTS_TABLE;
 
 		// reverse the array to process the higer priority preferences first,

@@ -37,12 +37,16 @@ function get_days_of_week() {
 	];
 }
 
-global $pref_names;
-$pref_names = array(
-	0 => 'avoid',
-	1 => 'OK',
-	2 => 'prefer',
-);
+/**
+ * Get the list of the availability preferences.
+ */
+function get_pref_names() {
+	return [
+		0 => 'avoid',
+		1 => 'OK',
+		2 => 'prefer',
+	];
+}
 
 create_sqlite_connection();
 
@@ -71,15 +75,21 @@ function get_weekday_meal_days() {
 	return [MONDAY, TUESDAY, WEDNESDAY];
 }
 
-global $mtg_nights;
-// key = day of week, value = ordinal occurence of day/week
-$mtg_nights = array(
-	WEDNESDAY => 1,
-	MONDAY => 3,
-);
+/**
+ * Get the list of meeting nights.
+ * key = day of week, value = ordinal occurence of day/week
+ */
+function get_mtg_nights() {
+	return [
+		WEDNESDAY => 1,
+		MONDAY => 3,
+	];
+}
 
-// -------- function declarations here ------
 
+/**
+ * Create a sqlite connection.
+ */
 function create_sqlite_connection() {
 	global $dbh;
 	global $db_is_writable;
@@ -132,12 +142,12 @@ function get_job_ids_clause($prefix='') {
 
 function is_a_mtg_night_job($job_id) {
 	global $mtg_jobs;
-	return isset($mtg_jobs[$job_id]);
+	return array_key_exists($job_id, $mtg_jobs);
 }
 
 function is_a_sunday_job($job_id) {
 	global $sunday_jobs;
-	return isset($sunday_jobs[$job_id]);
+	return array_key_exists($job_id, $sunday_jobs);
 }
 
 function is_a_cook_job($job_id) {
@@ -153,7 +163,7 @@ function is_a_clean_job($job_id) {
 function is_a_head_cook_job($job_id) {
 	global $weekday_jobs;
 	if (isset($weekday_jobs[$job_id]) &&
-		strstr($weekday_jobs[$job_id], 'head cook')) {
+		stristr($weekday_jobs[$job_id], 'head cook')) {
 		return TRUE;
 	}
 

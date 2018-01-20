@@ -133,7 +133,7 @@ EOHTML;
 		global $sunday_jobs;
 		global $weekday_jobs;
 		global $mtg_jobs;
-		global $mtg_nights;
+		$mtg_nights = get_mtg_nights();
 
 		$current_season = get_current_season();
 
@@ -473,7 +473,7 @@ EOJS;
 	 * @param[in] saved_pref number the preference score previously saved
 	 */
 	private function renderday($date_string, $name, $key, $saved_pref) {
-		global $pref_names;
+		$pref_names = get_pref_names();
 
 		$name = preg_replace('/^.*meal /i', '', $name);
 		// shorten meal names in the survey calendar
