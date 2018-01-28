@@ -8,6 +8,8 @@ require_once "{$relative_dir}/utils.php";
 require_once "{$relative_dir}/constants.inc";
 date_default_timezone_get('America/Detroit');
 
+define('FROM_EMAIL', 'willie' . DOMAIN);
+
 /* -------- seasonal config --------- */
 define('DEADLINE', strtotime('december 21, 2017, 8:00pm'));
 

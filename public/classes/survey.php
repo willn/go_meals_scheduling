@@ -682,7 +682,7 @@ EOHTML;
 		$sent = mail($worker,
 			'Meal Scheduling Survey preferences saved',
 			strip_tags($content),
-			'From: willie@gocoho.org');
+			'From: ' . FROM_EMAIL);
 
 		if (!$sent) {
 			error_log("Unable to send email to: $to");
@@ -690,11 +690,11 @@ EOHTML;
 
 		// if user is under pref level, then send warning email
 		if (!is_null($this->insufficient_prefs_msg)) {
-			$sent = mail('willie@gocoho.org',
+			$sent = mail(FROM_EMAIL,
 				'Meal Scheduling Survey preferences saved under limit',
 				$worker . "\n" . strip_tags($content . "\n" .
 					$this->insufficient_prefs_msg),
-				'From: willie@gocoho.org');
+				'From: ' . FROM_EMAIL);
 		}
 
 		return $sent;
