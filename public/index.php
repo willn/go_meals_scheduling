@@ -46,9 +46,9 @@ EOHTML;
 else {
 	$workers = $survey->getWorkers();
 
-	$w = array_get($_GET, 'worker');
-	if (!is_null($w)) {
-		build_survey($workers, $survey, $w);
+	$worker_name = array_get($_GET, 'worker');
+	if (!is_null($worker_name)) {
+		build_survey($workers, $survey, $worker_name);
 	}
 
 	// display the menu of worker names
@@ -68,8 +68,10 @@ print <<<EOHTML
 </html>
 EOHTML;
 
+/**
+ * Display the responders summary
+ */
 function display_respondents() {
-	// display the responders summary
 	$r = new Respondents();
 	echo <<<EOHTML
 		<div class="special_info">
@@ -79,6 +81,9 @@ function display_respondents() {
 EOHTML;
 }
 
+/**
+ * Display the menu of worker names so to choose which name to save preferences.
+ */
 function display_worker_menu() {
 	$workers_list = new WorkersList();
 	$list = $workers_list->getWorkers();

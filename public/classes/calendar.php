@@ -45,10 +45,10 @@ class Calendar {
 		$this->web_display = FALSE;
 	}
 
-	public function loadAssignments() {
-		global $json_assignments_file;
-		$file = $json_assignments_file;
-
+	/**
+	 * Load the assignments from disk into memory.
+	 */
+	public function loadAssignments($file) {
 		if (!file_exists($file)) {
 			return FALSE;
 		}
@@ -56,9 +56,13 @@ class Calendar {
 		$this->assignments = json_decode(file_get_contents($file), true);
 	}
 
-	public function renderMonthsOverlay() {
-		$current_season = get_current_season();
-
+	/**
+	 * Render the "quick links" section listing the various months in the season for
+	 * quick navigation.
+	 *
+	 * @param[in] current_season array string list of the month numbers and names.
+	 */
+	public function renderMonthsOverlay($current_season) {
 		$out = '';
 		foreach($current_season as $month_num=>$month_name) {
 			$out .= <<<EOHTML
@@ -88,7 +92,7 @@ EOHTML;
 	/**
 	 * Get the weekly spacer html.
 	 */
-	protected function getWeeklySpacerHtml() {
+	public function getWeeklySpacerHtml() {
 		return <<<EOHTML
 			<td class="week_selector">
 				This week:
@@ -106,7 +110,14 @@ EOHTML;
 	 *     e.g. 'Tue'.
 	 * @return string the rendered html.
 	 */
-	protected function getWeekdaySelectorHtml($day_num, $day_of_week) {
+	public function getWeekdaySelectorHtml($day_num, $day_of_week) {
+		if (!is_numeric($day_num)) {
+			return;
+		}
+		if (empty($day_of_week)) {
+			return;
+		}
+
 		$short_day = substr($day_of_week, 0, 3);
 		return <<<EOHTML
 			<td class="weekday_selector weekday_num_{$day_num}">

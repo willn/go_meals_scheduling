@@ -187,8 +187,7 @@ EOSQL;
 	public function saveResults() {
 		$assn = $this->schedule->getAssigned();
 		$json = json_encode($assn);
-		global $json_assignments_file;
-		file_put_contents('../public/' . $json_assignments_file, $json);
+		file_put_contents('../public/' . JSON_ASSIGNMENTS_FILE, $json);
 	}
 
 

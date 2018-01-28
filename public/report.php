@@ -49,7 +49,7 @@ $job_key = (isset($_GET['key']) && is_numeric($_GET['key'])) ?
 	intval($_GET['key']) : 'all';
 $jobs_html = $calendar->getJobsIndex($job_key);
 
-$calendar->loadAssignments();
+$calendar->loadAssignments(JSON_ASSIGNMENTS_FILE);
 $calendar->setIsReport(TRUE);
 
 $job_key_clause = ($job_key != 0) ? "AND s.job_id={$job_key}" : '';
@@ -110,12 +110,10 @@ foreach($dbh->query($sql) as $row) {
 }
 
 
-global $json_assignments_file;
 $assigned_data = array();
 $assigned_counts = array();
-$file = $json_assignments_file;
-if (file_exists($file)) {
-	$assigned_data = json_decode(file_get_contents($file), true);
+if (file_exists(JSON_ASSIGNMENTS_FILE)) {
+	$assigned_data = json_decode(file_get_contents(JSON_ASSIGNMENTS_FILE), true);
 
 	// date => array(job_id => array(workers))
 	foreach($assigned_data as $date=>$info) {
@@ -264,7 +262,8 @@ EOHTML;
 EOHTML;
 }
 
-$months_overlay = $calendar->renderMonthsOverlay();
+$current_season = get_current_season();
+$months_overlay = $calendar->renderMonthsOverlay($current_season);
 
 // ---- toString section ----
 print <<<EOHTML

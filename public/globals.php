@@ -6,8 +6,7 @@ date_default_timezone_set('America/Detroit');
 require_once('utils.php');
 require_once('config.php');
 
-global $json_assignments_file;
-$json_assignments_file = 'results/' . SEASON_ID . '.json';
+define('JSON_ASSIGNMENTS_FILE', 'results/' . SEASON_ID . '.json');
 
 define('NON_RESPONSE_PREF', .5);
 define('PLACEHOLDER', 'XXXXXXXX');

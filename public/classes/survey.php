@@ -178,9 +178,10 @@ EOHTML;
 			$this->reportNoShifts();
 		}
 
+		$current_season = get_current_season();
 		return <<<EOHTML
 		<h2>Welcome, {$this->worker->getName()}</h2>
-		{$this->calendar->renderMonthsOverlay()}
+		{$this->calendar->renderMonthsOverlay($current_season)}
 		<form method="POST" action="process.php">
 			<input type="hidden" name="username" value="{$_GET['worker']}">
 			<input type="hidden" name="posted" value="1">
