@@ -8,6 +8,8 @@ require_once $relative_dir . 'globals.php';
 require_once 'WorkersList.php';
 
 class Calendar {
+	const BLANK_DAY_HTML = '<td class="blank"></td>';
+
 	protected $web_display = TRUE;
 	protected $key_filter = 'all';
 
@@ -148,61 +150,20 @@ EOHTML;
 
 		$current_season = get_current_season();
 
-		$meal_days = get_weekday_meal_days();
-
 		$mtg_day_count = array();
 		foreach(array_keys($mtg_nights) as $dow) {
 			$mtg_day_count[$dow] = 0;
 		}
 
-		$weekly_spacer = '';
 		$weekly_selector = '';
 		if (!is_null($worker)) {
 			$saved_prefs = $this->getSavedPrefs($worker->getId());
-			$weekly_spacer = '<td width="1%"><!-- weekly spacer --></td>';
 			$weekly_selector = $this->getWeeklySpacerHtml();
 		}
 
-		$blank_day = '<td class="blank"></td>';
+		$selectors = $this->renderDaySelectors(!is_null($worker));
 
-		$day_labels = '';
-		$day_num = 0;
-		// set up the labels and selectors
-
-		$day_selectors = '';
-		foreach(get_days_of_week() as $dow) {
-			$day_labels .= <<<EOHTML
-				<th class="day_of_week">{$dow}</th>
-EOHTML;
-
-			// only create the selectors when a worker is specified, meaning
-			// for survey mode
-			if (!is_null($worker)) {
-				if (in_array($day_num, array_merge(array(0), $meal_days))) {
-					$day_selectors .= $this->getWeekdaySelectorHtml($day_num, $dow);
-				}
-				else {
-					$day_selectors .= $blank_day;
-				}
-			}
-			$day_num++;
-		}
-		$day_labels = <<<EOHTML
-			<tr class="day_labels">
-				{$weekly_spacer}
-				{$day_labels}
-			</tr>
-EOHTML;
-
-		$selectors = '';
-		if (!is_null($worker)) {
-			$selectors =<<<EOHTML
-				<tr class="weekdays">
-					{$weekly_spacer}
-					{$day_selectors}
-				</tr>
-EOHTML;
-		}
+		$meal_days = get_weekday_meal_days();
 
 		$day_of_week = NULL;
 		$out = '';
@@ -231,7 +192,7 @@ EOHTML;
 					{$weekly_selector}
 EOHTML;
 			for($dw = 0; $dw < $day_of_week; $dw++) {
-				$table .= $blank_day;
+				$table .= self::BLANK_DAY_HTML;
 			}
 
 			foreach(array_keys($mtg_day_count) as $key) {
@@ -424,7 +385,6 @@ EOHTML;
 					{$month_name} {$season_year}</h3>
 				<div class="surround month_{$quarterly_month_ord}">
 					<table cellpadding="8" cellspacing="1" border="0" width="100%">
-						{$day_labels}
 						{$selectors}
 						{$table}
 					</table>
@@ -438,6 +398,56 @@ EOHTML;
 		}
 
 		return $out;
+	}
+
+	/**
+	 * #!#
+	 */
+	public function renderDaySelectors($has_worker=FALSE) {
+		$day_labels = '';
+		$day_num = 0;
+		$day_selectors = '';
+		$meal_days = get_weekday_meal_days();
+
+		foreach(get_days_of_week() as $dow) {
+			$day_labels .= <<<EOHTML
+				<th class="day_of_week">{$dow}</th>
+EOHTML;
+
+			// only create the selectors when a worker is specified, meaning
+			// for survey mode
+			if ($has_worker) {
+				if (in_array($day_num, array_merge(array(0), $meal_days))) {
+					$day_selectors .= $this->getWeekdaySelectorHtml($day_num, $dow);
+				}
+				else {
+					$day_selectors .= self::BLANK_DAY_HTML;
+				}
+			}
+			$day_num++;
+		}
+
+		$weekly_spacer = !$has_worker ? '' :
+			'<td width="1%"><!-- weekly spacer --></td>';
+
+		$day_labels = <<<EOHTML
+			<tr class="day_labels">
+				{$weekly_spacer}
+				{$day_labels}
+			</tr>
+EOHTML;
+
+		$selectors = '';
+		if ($has_worker) {
+			$selectors =<<<EOHTML
+				<tr class="weekdays">
+					{$weekly_spacer}
+					{$day_selectors}
+				</tr>
+EOHTML;
+		}
+
+		return $day_labels . "\n" . $selectors;
 	}
 
 	/*
@@ -527,6 +537,7 @@ EOHTML;
 
 	/**
 	 * Return the list of jobs as special links to filter the results.
+	 *
 	 * @param[in] job_key string Either an int representing the unique ID
 	 *     for the job to report on, or 'all' to show all jobs.
 	 * @return string HTML for displaying the list of job/links.
@@ -692,6 +703,7 @@ EOHTML;
 
 	/**
 	 * Get a select list of the various workers available.
+	 *
 	 * @param [in] id string, denotes name of DOM element and form element
 	 *     name.
 	 * @param[in] first_entry boolean, defaults to FALSE, if true,

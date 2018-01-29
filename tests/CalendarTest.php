@@ -68,6 +68,58 @@ EOHTML;
 	}
 
 	/**
+	 * @dataProvider provideRenderDaySelectors
+	 */
+	public function testRenderDaySelectors($worker, $expected) {
+		$result = $this->calendar->renderDaySelectors($worker);
+		$this->assertEquals(remove_html_whitespace($result),
+			remove_html_whitespace($expected));
+	}
+
+	public function provideRenderDaySelectors() {
+		$one = <<<EOHTML
+<tr class="day_labels">
+				<td width="1%"><!-- weekly spacer --></td>
+								<th class="day_of_week">Sun</th><th class="day_of_week">Mon</th>				<th class="day_of_week">Tue</th><th class="day_of_week">Wed</th>				<th class="day_of_week">Thu</th><th class="day_of_week">Fri</th>				<th class="day_of_week">Sat</th>
+			</tr>
+				<tr class="weekdays">
+					<td width="1%"><!-- weekly spacer --></td>
+								<td class="weekday_selector weekday_num_0">
+				Sun:<br>
+				<a class="prefer">prefer</a>
+				<a class="OK">OK</a>
+				<a class="avoid">avoid</a>
+			</td>			<td class="weekday_selector weekday_num_1">
+				Mon:<br>
+				<a class="prefer">prefer</a>
+				<a class="OK">OK</a>
+				<a class="avoid">avoid</a>
+			</td>			<td class="weekday_selector weekday_num_2">
+				Tue:<br>
+				<a class="prefer">prefer</a>
+				<a class="OK">OK</a>
+				<a class="avoid">avoid</a>
+			</td>			<td class="weekday_selector weekday_num_3">
+				Wed:<br>
+				<a class="prefer">prefer</a>
+				<a class="OK">OK</a>
+				<a class="avoid">avoid</a>
+			</td><td class="blank"></td><td class="blank"></td><td class="blank"></td>
+				</tr>
+EOHTML;
+
+		$two = <<<EOHTML
+<tr class="day_labels"><th class="day_of_week">Sun</th><th class="day_of_week">Mon</th><th class="day_of_week">Tue</th><th class="day_of_week">Wed</th><th class="day_of_week">Thu</th><th class="day_of_week">Fri</th><th class="day_of_week">Sat</th></tr>
+EOHTML;
+
+		return [
+			[TRUE, $one],
+			[FALSE, $two],
+		];
+	}
+
+
+	/**
 	 * @dataProvider provideRenderJobNameForDay
 	 */
 	public function testRenderJobNameForDay($input, $expected) {
@@ -77,6 +129,7 @@ EOHTML;
 
 	public function provideRenderJobNameForDay() {
 		return [
+			['x', 'x'],
 			['Meeting night takeout orderer', 'takeout orderer'],
 			['Meeting night cleaner', 'cleaner'],
 			['Sunday head cook (two meals/season)', 'head cook'],
@@ -87,6 +140,11 @@ EOHTML;
 			['Weekday Meal cleaner', 'cleaner'],
 			['Weekday Table Setter', 'Table Setter'],
 		];
+	}
+
+	public function testGetJobsIndex() {
+		$result = $this->calendar->getJobsIndex('all');
+		$this->assertNotEmpty($result);
 	}
 
 }
