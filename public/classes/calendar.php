@@ -486,17 +486,7 @@ EOJS;
 	private function renderday($date_string, $name, $key, $saved_pref) {
 		$pref_names = get_pref_names();
 
-		$name = preg_replace('/^.*meal /i', '', $name);
-		// shorten meal names in the survey calendar
-		$drop = array(
-			' (twice a season)',
-			'Meeting night ',
-			'Sunday ',
-			' (two meals/season)',
-		);
-		$name = str_replace($drop, '', $name);
-
-		$sel = array('', '', '');
+		$sel = ['', '', ''];
 		if (!is_numeric($saved_pref)) {
 			$saved_pref = 1;
 		}
@@ -505,7 +495,7 @@ EOJS;
 		$id = "{$date_string}_{$key}";
 		return <<<EOHTML
 			<div class="choice">
-			{$name}
+			{$this->renderJobNameForDay($name)}
 			<select name="{$date_string}_{$key}" class="preference_selection">
 				<option value="2" {$sel[2]}>{$pref_names[2]}</option>
 				<option value="1" {$sel[1]}>{$pref_names[1]}</option>
@@ -513,6 +503,26 @@ EOJS;
 			</select>
 			</div>
 EOHTML;
+	}
+
+	/**
+	 * Shorten meal names in the survey calendar for a date entry.
+	 *
+	 * @param[in] name string name of the job
+	 * @return string name to be rendered.
+	 */
+	public function renderJobNameForDay($name) {
+		$name = preg_replace('/^.*meal /i', '', $name);
+		$drop = array(
+			' (twice a season)',
+			'Meeting night ',
+			'Sunday ',
+			' (two meals/season)',
+			' (2 meals/season)',
+			'Weekday meal ',
+			'Weekday ',
+		);
+		return str_replace($drop, '', $name);
 	}
 
 	/**

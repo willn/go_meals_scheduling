@@ -67,5 +67,27 @@ EOHTML;
 		];
 	}
 
+	/**
+	 * @dataProvider provideRenderJobNameForDay
+	 */
+	public function testRenderJobNameForDay($input, $expected) {
+		$result = $this->calendar->renderJobNameForDay($input);
+		$this->assertEquals($result, $expected);
+	}
+
+	public function provideRenderJobNameForDay() {
+		return [
+			['Meeting night takeout orderer', 'takeout orderer'],
+			['Meeting night cleaner', 'cleaner'],
+			['Sunday head cook (two meals/season)', 'head cook'],
+			['Sunday meal asst cook (two meals/season)', 'asst cook'],
+			['Sunday Meal Cleaner', 'Cleaner'],
+			['Weekday head cook (two meals/season)', 'head cook'],
+			['Weekday meal asst cook (2 meals/season)', 'asst cook'],
+			['Weekday Meal cleaner', 'cleaner'],
+			['Weekday Table Setter', 'Table Setter'],
+		];
+	}
+
 }
 ?>
