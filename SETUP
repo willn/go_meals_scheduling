@@ -27,7 +27,7 @@ Directions to set up the survey:
 
 # grab the latest sqlite file from webfactional, fix permissions, and commit:
 	#!# unzip the file first...
-	scp -i ~/.ssh/id_dsa -P 1022 filedb.zip gocoho@gocoho.org:meals_scheduling/public/sqlite_data/work_allocation.db
+	scp -i ~/.ssh/id_dsa -P 1022 filedb.zip username@hostname:meals_scheduling/public/sqlite_data/work_allocation.db
 	chmod 644 !$
 	# sudo chgrp gocoho !$
 	git add !$
@@ -79,7 +79,7 @@ Directions to set up the survey:
 	25 *   *   *   *   /usr/bin/gzip -f ~/backups/work_allocation.db
 
 # set up a cronjob to copy webserver locally:
-	57 * * * * rsync -e 'ssh -p 7822' -avz fluidth1@a2ss23.a2hosting.com:meals_scheduling/ ~/backups/a2hosting/
+	57 * * * * rsync -e 'ssh -p 7822' -avz username@hostname:meals_scheduling/ ~/backups/a2hosting/
 
 # make sure the work allocation crontab is in place to copy from webserver to desktop
 
@@ -158,7 +158,7 @@ translate dale's work system user names to MESS inserts
 		- Select button
 	* Download
 	* Format: CSV and Download
-	* scp -P 7822 ~/Downloads/dump.csv fluidth1@a2ss23.a2hosting.com:
+	* scp -P 7822 ~/Downloads/dump.csv username@hostname:
 
 - rename:
 	* cat dump.csv | grep -v '"\\N"' > meals_scheduling/public/results/go_user_ids.csv

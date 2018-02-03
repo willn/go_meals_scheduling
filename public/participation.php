@@ -147,7 +147,7 @@ EOHTML;
 					$emails[] = "<b>{$name}</b>";
 					continue;
 				}
-				$emails[] = $name . '@gocoho.org';
+				$emails[] = $name . DOMAIN;
 			}
 
 			$list = implode(', ', $emails);

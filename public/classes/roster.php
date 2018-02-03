@@ -208,7 +208,7 @@ EOSQL;
 	}
 
 	/**
-	 * #!# explain @username here...
+	 * @param[in] username string the name of the user viewing the survey.
 	 */
 	protected function loadNumShiftsAssignedFromOverrides($username=NULL) {
 		global $all_jobs;
