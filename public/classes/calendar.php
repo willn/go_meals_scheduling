@@ -4,7 +4,6 @@ if (!isset($relative_dir)) {
 	$relative_dir = './';
 }
 require_once $relative_dir . 'globals.php';
-
 require_once 'WorkersList.php';
 
 class Calendar {
@@ -831,6 +830,79 @@ EOHTML;
 		}
 
 		return $this->evalDates($worker, $dates, TRUE);
+	}
+
+
+	/**
+	 * Count the number of times each shift appears.
+	 * @param[in] dates_and_shifts associative array of date to array of shifts
+	 *     needed for that meal.
+	 */
+	function getShiftsPerDate($dates_and_shifts) {
+		$summary = [];
+
+		foreach($dates_and_shifts as $date => $shifts) {
+			foreach($shifts as $job_id) {
+				$summary[$job_id]++;
+			}
+		}
+
+		return $summary;
+	}
+
+	/**
+	 * Get the number of assignments per job id.
+	 * We're looking for the number of day-types needed for the season.
+	 *
+	 * Let M = number of meals we're trying to cover (for Sundays, 12)
+	 * Let W = number of workers of this type assigned to each meal (e.g. 3 cleaners)
+	 * Let S = number of meals per assigned shift (2 for cooks, 4 for cleaners)
+	 * The formula would then be: (M * W) / S
+	 *
+	 * @param[summary] associative array, key is the job id, value is the number
+	 *    of meals during the season when this shift is assigned.
+	 */
+	function getNumberAssignmentsPerJobId($summary) {
+		$num_days = [];
+
+		foreach($summary as $job_id => $meals) {
+			$workers = get_job_instances($job_id);
+			$shifts = get_num_dinners_per_assignment($job_id);
+			$num_days[$job_id] = ceil(($meals * $workers) / $shifts);
+		}
+
+		return $num_days;
+	}
+
+	/**
+	 * Render the number of assignments, make it human readable.
+	 *
+	 * @param[in] num_assignments #!#
+	 */
+	function renderNumberAssignments($num_assignments) {
+		$out = [];
+		foreach($num_assignments as $job_id => $assignments) {
+			$out[] = get_job_name($job_id) . " {$assignments}\n";
+		}
+
+		return "<p>" . implode($out, '<br>') . "</p>";
+	}
+
+	/**
+	 * Render the season and date summary.
+	 */
+	function renderSeasonDateSummary() {
+		$this->disableWebDisplay();
+		$dates_and_shifts = $this->evalDates();
+		$summary = $this->getShiftsPerDate($dates_and_shifts);
+		$num_days = $this->getNumberAssignmentsPerJobId($summary);
+		$assns = $this->renderNumberAssignments($num_days);
+
+		$current_season = get_current_season();
+		return "<h2>season: " . SEASON_YEAR . ' ' .
+			array_shift($current_season) . ' - ' .
+			array_pop($current_season) . '</h2>' .
+			$assns;
 	}
 }
 ?>

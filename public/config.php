@@ -97,22 +97,31 @@ function get_num_dinners_per_assignment($job_id=NULL) {
 	return array_get($dinners, $job_id, 0);
 }
 
-// job_id => array( dow => count), 1 = MON, 7 = SUN
-// per job, list number of open shifts per day of week
-function get_job_instances() {
-	return [
-		MEETING_NIGHT_CLEANER => array(1=>1, 3=>1),
-		MEETING_NIGHT_ORDERER => array(1=>1, 3=>1),
+/**
+ *
+ * ??? job_id => array( dow => count), 1 = MON, 7 = SUN
+ * ??? per job, list number of open shifts per day of week
+ */
+function get_job_instances($job_id=NULL) {
+	static $instances = [
+		MEETING_NIGHT_CLEANER => 1,
+		MEETING_NIGHT_ORDERER => 1,
 
-		SUNDAY_HEAD_COOK => array(7=>1),
-		SUNDAY_ASST_COOK => array(7=>2),
-		SUNDAY_CLEANER => array(7=>3),
+		SUNDAY_HEAD_COOK => 1,
+		SUNDAY_ASST_COOK => 2,
+		SUNDAY_CLEANER => 3,
 
-		WEEKDAY_HEAD_COOK => array(1=>1, 2=>1, 3=>1, 4=>1),
-		WEEKDAY_ASST_COOK => array(1=>2, 2=>2, 3=>2, 4=>2),
-		WEEKDAY_CLEANER => array(1=>3, 2=>3, 3=>3, 4=>3),
-		WEEKDAY_TABLE_SETTER => array(1=>1, 2=>1, 3=>1, 4=>1),
+		WEEKDAY_HEAD_COOK => 1,
+		WEEKDAY_ASST_COOK => 2,
+		WEEKDAY_CLEANER => 3,
+		WEEKDAY_TABLE_SETTER => 1,
 	];
+
+	if (is_null($job_id)) {
+		return $instances;
+	}
+
+	return array_get($instances, $job_id, 0);
 }
 
 /**

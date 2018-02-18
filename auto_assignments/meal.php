@@ -58,7 +58,7 @@ class Meal {
 			}
 
 			// fill in the number of open shifts
-			$num = $job_instances[$job_id][$this->day_of_week];
+			$num = $job_instances[$job_id];
 			for($i=0; $i<$num; $i++) {
 				$this->assigned[$job_id][] = NULL;
 			}
@@ -125,8 +125,8 @@ EOTXT;
 		$job_instances = get_job_instances();
 
 		// check to see if this is the wrong date for this job
-		if (!isset($job_instances[$job_id][$this->day_of_week]) || 
-			($job_instances[$job_id][$this->day_of_week] == 0)) {
+		if (!isset($job_instances[$job_id]) || 
+			($job_instances[$job_id] == 0)) {
 			return 0;
 		}
 
@@ -158,12 +158,12 @@ EOTXT;
 
 		// if this day of week isn't defined. For example, a sunday shift on a
 		// weekday...
-		if (!isset($job_instances[$job_id][$this->day_of_week])) {
+		if (!isset($job_instances[$job_id])) {
 			return FALSE;
 		}
 
 		// if this day of week has no shifts to fill
-		$num_to_fill = $job_instances[$job_id][$this->day_of_week];
+		$num_to_fill = $job_instances[$job_id];
 		if ($num_to_fill == 0) {
 			return FALSE;
 		}

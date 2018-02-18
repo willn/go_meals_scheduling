@@ -1,6 +1,6 @@
 # do a lint check first...
 errs=0
-for i in `find ../ -name "*.php"`; do
+for i in `find ../ -name "*.php -or -name "*.inc""`; do
 	lint=`php -l $i | grep 'Errors'`;
 	[[ ! -z $lint ]] && echo "FAIL $i --> php lint issue" && let errs=errs+1
 done

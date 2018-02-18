@@ -213,7 +213,6 @@ $job_name = ($job_key != 0) ? '' : '<th>Job</th>';
 
 $meals_summary = $calendar->getNumShifts();
 
-$shift_summary_rows = '';
 ksort($per_shift);
 foreach($per_shift as $job_name=>$num_assn_shifts) {
 	// figure out how many shifts the schedule calls for on this type of meal
@@ -238,13 +237,6 @@ foreach($per_shift as $job_name=>$num_assn_shifts) {
 	$job_id = array_search($job_name, $all_jobs);
 	if ($job_id === FALSE) {
 		$all = print_r($all_jobs, TRUE);
-		$shift_summary_rows .= <<<EOHTML
-		<tr>
-			<td colspan="4">Unable to find job id for "[{$job_id}] {$job_name}"
-				<pre>{$all}</pre>
-			</td>
-		</tr>
-EOHTML;
 	}
 
 	// figure out how many assignments are needed for the season, rounding up
@@ -253,13 +245,6 @@ EOHTML;
 	$num_assns_needed = ($num_dinners_per_assn == 0) ? 0 :
 		ceil(($num_meals_in_season * $num_workers_per_shift) /
 			$num_dinners_per_assn);
-
-	$shift_summary_rows .= <<<EOHTML
-	<tr>
-		<td>{$job_name}</td>
-		<td>{$num_assns_needed}</td>
-	</tr>
-EOHTML;
 }
 
 $current_season = get_current_season();
@@ -282,18 +267,7 @@ Sundays: {$meals_summary['sunday']}
 <br> Meetings: {$meals_summary['meeting']}
 </p>
 
-<h2>Number of assignments needed:</h2>
-<table cellpadding="3" cellspacing="0" border="0" class="striped" width="100%">
-<thead>
-	<tr>
-		<th>Job Name</th>
-		<th>Num Assignments Needed</th>
-	</tr>
-</thead>
-<tbody>
-	{$shift_summary_rows}
-</tbody>
-</table>
+{$calendar->renderSeasonDateSummary()}
 
 <h2>Per-worker</h2>
 <table cellpadding="3" cellspacing="0" border="0" width="100%" id="per_worker">
@@ -318,27 +292,3 @@ Sundays: {$meals_summary['sunday']}
 </html>
 EOHTML;
 
-//display_shift_count($shift_coverage);
-
-/*
-function display_shift_count($shift_coverage) {
-	$shift_count = array();
-	// XXX not a great way of implementing this...
-	foreach($shift_coverage as $job=>$count) {
-		if (stristr($job, 'sunday')) {
-			$shift_count['sunday'] += $count;	
-		}
-		if (stristr($job, 'weekday')) {
-			$shift_count['weekday'] += $count;	
-		}
-		if (stristr($job, 'meeting')) {
-			$shift_count['meeting'] += $count;	
-		}
-		$shift_count['total'] += $count;
-	}
-
-	print_r($shift_count);
-}
-*/
-
-?>
