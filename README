@@ -175,4 +175,10 @@ Meal shifts we request:
 180 Sunday meal asst cook  (15 instances 1 HRS/Month)
 168 Sunday Meal Cleaner  (12 instances 1.5 HRS/Month)
 
+Formula for calculating the number of shifts:
+Let M = number of meals we're trying to cover (for Sundays, 12)
+Let W = number of workers of this type assigned to each meal (e.g. 3 cleaners)
+Let S = number of meals per assigned shift (2 for cooks, 4 for cleaners)
+The formula would then be: (M * W) / S
+
 
