@@ -162,45 +162,45 @@ EOHTML;
 
 	public function provideShiftsPerDate() {
 		$example1 = [
-			'10/1/2018' => [0 => 4190, 1 => 4191, 2 => 4195, 3 => 4184],
-			'10/2/2018' => [0 => 4190, 1 => 4191, 2 => 4195, 3 => 4184],
-			'10/3/2018' => [0 => 4194, 1 => 4197],
-			'10/7/2018' => [0 => 4192, 1 => 4193, 2 => 4196], // sunday
-			'10/8/2018' => [0 => 4190, 1 => 4191, 2 => 4195, 3 => 4184],
-			'10/9/2018' => [0 => 4190, 1 => 4191, 2 => 4195, 3 => 4184],
-			'10/10/2018' => [0 => 4190, 1 => 4191, 2 => 4195, 3 => 4184],
-			'10/14/2018' => [0 => 4192, 1 => 4193, 2 => 4196], // sunday
-			'10/15/2018' => [0 => 4194, 1 => 4197],
-			'10/16/2018' => [0 => 4190, 1 => 4191, 2 => 4195, 3 => 4184],
-			'10/17/2018' => [0 => 4190, 1 => 4191, 2 => 4195, 3 => 4184],
-			'10/21/2018' => [0 => 4192, 1 => 4193, 2 => 4196], // sunday
-			'10/22/2018' => [0 => 4190, 1 => 4191, 2 => 4195, 3 => 4184],
-			'10/23/2018' => [0 => 4190, 1 => 4191, 2 => 4195, 3 => 4184],
-			'10/24/2018' => [0 => 4190, 1 => 4191, 2 => 4195, 3 => 4184],
-			'10/28/2018' => [0 => 4192, 1 => 4193, 2 => 4196], // sunday
-			'10/29/2018' => [0 => 4190, 1 => 4191, 2 => 4195, 3 => 4184],
-			'10/30/2018' => [0 => 4190, 1 => 4191, 2 => 4195, 3 => 4184],
+			'10/1/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
+			'10/2/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
+			'10/3/2018' => [0 => MEETING_NIGHT_ORDERER, 1 => MEETING_NIGHT_CLEANER],
+			'10/7/2018' => [0 => SUNDAY_HEAD_COOK, 1 => SUNDAY_ASST_COOK, 2 => SUNDAY_CLEANER], // sunday
+			'10/8/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
+			'10/9/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
+			'10/10/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
+			'10/14/2018' => [0 => SUNDAY_HEAD_COOK, 1 => SUNDAY_ASST_COOK, 2 => SUNDAY_CLEANER], // sunday
+			'10/15/2018' => [0 => MEETING_NIGHT_ORDERER, 1 => MEETING_NIGHT_CLEANER],
+			'10/16/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
+			'10/17/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
+			'10/21/2018' => [0 => SUNDAY_HEAD_COOK, 1 => SUNDAY_ASST_COOK, 2 => SUNDAY_CLEANER], // sunday
+			'10/22/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
+			'10/23/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
+			'10/24/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
+			'10/28/2018' => [0 => SUNDAY_HEAD_COOK, 1 => SUNDAY_ASST_COOK, 2 => SUNDAY_CLEANER], // sunday
+			'10/29/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
+			'10/30/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
 		];
 		$result1 = [
-			4190 => 12, // WEEKDAY_HEAD_COOK
-			4191 => 12, // WEEKDAY_ASST_COOK
-			4195 => 12, // WEEKDAY_CLEANER
-			4184 => 12, // WEEKDAY_TABLE_SETTER
-			4194 => 2, // MEETING_NIGHT_ORDERER
-			4197 => 2, // MEETING_NIGHT_CLEANER
-			4192 => 4, // SUNDAY_HEAD_COOK
-			4193 => 4, // SUNDAY_ASST_COOK
-			4196 => 4, // SUNDAY_CLEANER
+			WEEKDAY_HEAD_COOK => 12, // WEEKDAY_HEAD_COOK
+			WEEKDAY_ASST_COOK => 12, // WEEKDAY_ASST_COOK
+			WEEKDAY_CLEANER => 12, // WEEKDAY_CLEANER
+			WEEKDAY_TABLE_SETTER => 12, // WEEKDAY_TABLE_SETTER
+			MEETING_NIGHT_ORDERER => 2, // MEETING_NIGHT_ORDERER
+			MEETING_NIGHT_CLEANER => 2, // MEETING_NIGHT_CLEANER
+			SUNDAY_HEAD_COOK => 4, // SUNDAY_HEAD_COOK
+			SUNDAY_ASST_COOK => 4, // SUNDAY_ASST_COOK
+			SUNDAY_CLEANER => 4, // SUNDAY_CLEANER
 		];
 
 		return [
 			[[], []],
 			[
 				[
-					'10/1/2018' => [0 => 4190, 1 => 4191, 2 => 4195, 3 => 4184],
-					'10/2/2018' => [0 => 4190, 1 => 4191, 2 => 4195, 3 => 4184],
+					'10/1/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
+					'10/2/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
 				],
-				[4190 => 2, 4191 => 2, 4195 => 2, 4184 => 2],
+				[WEEKDAY_HEAD_COOK => 2, WEEKDAY_ASST_COOK => 2, WEEKDAY_CLEANER => 2, WEEKDAY_TABLE_SETTER => 2],
 			],
 			[$example1, $result1],
 		];
@@ -209,7 +209,8 @@ EOHTML;
 	/**
 	 * @dataProvider provideGetNumberAssignmentsPerJobId
 	 */
-	public function testGetNumberAssignmentsPerJobId($input, $expected) {
+	public function testGetNumberAssignmentsPerJobId($input, $expected, $season) {
+		$this->calendar->setSeason($season);
 		$result = $this->calendar->getNumberAssignmentsPerJobId($input);
 		$debug = [
 			'input' => $input,
@@ -221,31 +222,39 @@ EOHTML;
 
 	public function provideGetNumberAssignmentsPerJobId() {
 		$input0 = [
-			4190 => 10, // WEEKDAY_HEAD_COOK
-			4191 => 10, // WEEKDAY_ASST_COOK
-			4195 => 10, // WEEKDAY_CLEANER
-			4184 => 10, // WEEKDAY_TABLE_SETTER
-			4194 => 10, // MEETING_NIGHT_ORDERER
-			4197 => 10, // MEETING_NIGHT_CLEANER
-			4192 => 10, // SUNDAY_HEAD_COOK
-			4193 => 10, // SUNDAY_ASST_COOK
-			4196 => 10, // SUNDAY_CLEANER
+			WEEKDAY_HEAD_COOK => 10, // WEEKDAY_HEAD_COOK
+			WEEKDAY_ASST_COOK => 10, // WEEKDAY_ASST_COOK
+			WEEKDAY_CLEANER => 10, // WEEKDAY_CLEANER
+			WEEKDAY_TABLE_SETTER => 10, // WEEKDAY_TABLE_SETTER
+			MEETING_NIGHT_ORDERER => 10, // MEETING_NIGHT_ORDERER
+			MEETING_NIGHT_CLEANER => 10, // MEETING_NIGHT_CLEANER
+			SUNDAY_HEAD_COOK => 10, // SUNDAY_HEAD_COOK
+			SUNDAY_ASST_COOK => 10, // SUNDAY_ASST_COOK
+			SUNDAY_CLEANER => 10, // SUNDAY_CLEANER
 		];
 		$expected0 = [
-			4190 => 5, // WEEKDAY_HEAD_COOK
-			4191 => 10, // WEEKDAY_ASST_COOK
-			4195 => 8, // WEEKDAY_CLEANER
-			4184 => 3, // WEEKDAY_TABLE_SETTER
-			4194 => 5, // MEETING_NIGHT_ORDERER
-			4197 => 5, // MEETING_NIGHT_CLEANER
-			4192 => 5, // SUNDAY_HEAD_COOK
-			4193 => 10, // SUNDAY_ASST_COOK
-			4196 => 8, // SUNDAY_CLEANER
+			WEEKDAY_HEAD_COOK => 4, // WEEKDAY_HEAD_COOK
+			WEEKDAY_ASST_COOK => 7, // WEEKDAY_ASST_COOK
+			WEEKDAY_CLEANER => 5, // WEEKDAY_CLEANER
+			WEEKDAY_TABLE_SETTER => 2, // WEEKDAY_TABLE_SETTER
+			MEETING_NIGHT_ORDERER => 4, // MEETING_NIGHT_ORDERER
+			MEETING_NIGHT_CLEANER => 4, // MEETING_NIGHT_CLEANER
+			SUNDAY_HEAD_COOK => 4, // SUNDAY_HEAD_COOK
+			SUNDAY_ASST_COOK => 7, // SUNDAY_ASST_COOK
+			SUNDAY_CLEANER => 5, // SUNDAY_CLEANER
+		];
+		$season = [
+			5 => 'May',
+			6 => 'June',
+			7 => 'July',
+			8 => 'August',
+			9 => 'September',
+			10 => 'October',
 		];
 
 		return [
-			[[], []],
-			[$input0, $expected0],
+			[[], [], [1=>'empty season test']],
+			[$input0, $expected0, $season],
 		];
 	}
 
@@ -264,15 +273,15 @@ EOHTML;
 
 	public function provideRenderNumberAssignments() {
 		$input1 = [
-			4190 => 12.0,
-			4191 => 6.0,
-			4195 => 4.0,
-			4184 => 12.0,
-			4194 => 2.0,
-			4197 => 2.0,
-			4192 => 4.0,
-			4193 => 2.0,
-			4196 => 2.0,
+			WEEKDAY_HEAD_COOK => 12.0,
+			WEEKDAY_ASST_COOK => 6.0,
+			WEEKDAY_CLEANER => 4.0,
+			WEEKDAY_TABLE_SETTER => 12.0,
+			MEETING_NIGHT_ORDERER => 2.0,
+			MEETING_NIGHT_CLEANER => 2.0,
+			SUNDAY_HEAD_COOK => 4.0,
+			SUNDAY_ASST_COOK => 2.0,
+			SUNDAY_CLEANER => 2.0,
 		];
 		$expected1 = <<<EOHTML
 <p>Weekday head cook (two meals/season) 12

@@ -12,6 +12,8 @@ require_once "{$relative_dir}/config.php";
 
 session_start();
 
+$current_season = get_current_season();
+
 require_once('display/includes/header.php');
 
 if (!isset($_SESSION['access_type'])) {
@@ -146,7 +148,8 @@ $rows = '';
 $per_shift = array();
 foreach($diffs as $key=>$diff) {
 	$row = $assignments[$key];
-	$shifts = $row['instances'] * get_num_dinners_per_assignment($row['job_id']);
+	$shifts = $row['instances'] *
+		get_num_dinners_per_assignment($current_season, $row['job_id']);
 
 	// initialize unseen job
 	if (!isset($per_shift[$row['description']])) {
@@ -247,7 +250,6 @@ foreach($per_shift as $job_name=>$num_assn_shifts) {
 			$num_dinners_per_assn);
 }
 
-$current_season = get_current_season();
 $months_overlay = $calendar->renderMonthsOverlay($current_season);
 
 // ---- toString section ----

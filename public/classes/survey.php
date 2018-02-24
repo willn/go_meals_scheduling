@@ -523,7 +523,8 @@ EOHTML;
 	 */
 	protected function getNumInstances($row) {
 		$job_id = $row['job_id'];
-		$num_dinners = get_num_dinners_per_assignment($job_id);
+		$season = get_current_season();
+		$num_dinners = get_num_dinners_per_assignment($season, $job_id);
 
 		// otherwise, look for an entry in from the db
 		$num_instances = 0;

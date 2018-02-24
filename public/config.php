@@ -88,25 +88,35 @@ $weekday_jobs = array(
 /*
  * Get how many dinners are contained within the requested job.
  *
+ * @param[in] season array list of the months in the season.
  * @param[in] job_id int the ID of the job being requested.
  * @return int the number of dinners needed for this job.
  */
-function get_num_dinners_per_assignment($job_id=NULL) {
+function get_num_dinners_per_assignment($season, $job_id=NULL) {
+	if (empty($season)) {
+		$season = get_current_season();
+	}
+
+	$num_months = count($season);
+	$clean_num = $num_months;
+	$cook_num = $num_months / 2;
+
 	// job_id => num dinners per season
-	static $dinners = array(
-		MEETING_NIGHT_CLEANER => 2,
-		MEETING_NIGHT_ORDERER => 2,
+	$dinners = [
+		MEETING_NIGHT_CLEANER => $cook_num,
+		MEETING_NIGHT_ORDERER => $cook_num,
 
-		SUNDAY_HEAD_COOK => 2,
-		SUNDAY_ASST_COOK => 2,
-		SUNDAY_CLEANER => 4,
+		SUNDAY_HEAD_COOK => $cook_num,
+		SUNDAY_ASST_COOK => $cook_num,
+		SUNDAY_CLEANER => $clean_num,
 
-		WEEKDAY_ASST_COOK => 2,
-		WEEKDAY_HEAD_COOK => 2,
-		WEEKDAY_CLEANER => 4,
-		WEEKDAY_TABLE_SETTER => 4,
-	);
+		WEEKDAY_ASST_COOK => $cook_num,
+		WEEKDAY_HEAD_COOK => $cook_num,
+		WEEKDAY_CLEANER => $clean_num,
+		WEEKDAY_TABLE_SETTER => $clean_num,
+	];
 
+	// XXX do not like this... try to replace these, so that it's only using a single return type
 	if (is_null($job_id)) {
 		return $dinners;
 	}

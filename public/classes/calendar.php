@@ -31,6 +31,16 @@ class Calendar {
 		}
 
 		$this->holidays = get_holidays(SEASON_NAME);
+		$this->season = get_current_season();
+	}
+
+	/**
+	 * Set the season's months.
+	 *
+	 * @param[in] season array list of months in the season to be used.
+	 */
+	public function setSeason($season) {
+		$this->season = $season;
 	}
 
 	public function setIsReport($setting=TRUE) {
@@ -147,8 +157,6 @@ EOHTML;
 		global $mtg_jobs;
 		$mtg_nights = get_mtg_nights();
 
-		$current_season = get_current_season();
-
 		$mtg_day_count = array();
 		foreach(array_keys($mtg_nights) as $dow) {
 			$mtg_day_count[$dow] = 0;
@@ -172,7 +180,7 @@ EOHTML;
 		$dates_and_shifts = array();
 		// for each month in the season
 		$month_count = 0;
-		foreach($current_season as $month_num=>$month_name) {
+		foreach($this->season as $month_num=>$month_name) {
 			$month_count++;
 			$month_entries = array();
 			$month_week_count = 1;
@@ -746,6 +754,11 @@ EOHTML;
 	private function list_available_workers($date_string, $cur_date, $is_sunday=FALSE) {
 		$cell = '';
 
+		if (is_null($cur_date)) {
+			error_log('no date supplied for ' . __FUNCTION__);
+			return;
+		}
+
 		$job_titles = array();
 		if ($is_sunday) {
 			global $sunday_jobs;
@@ -866,8 +879,10 @@ EOHTML;
 
 		foreach($summary as $job_id => $meals) {
 			$workers = get_job_instances($job_id);
-			$shifts = get_num_dinners_per_assignment($job_id);
-			$num_days[$job_id] = ceil(($meals * $workers) / $shifts);
+			$shifts = get_num_dinners_per_assignment($this->season, $job_id);
+			if ($shifts != 0) {
+				$num_days[$job_id] = ceil(($meals * $workers) / $shifts);
+			}
 		}
 
 		return $num_days;
@@ -897,7 +912,7 @@ EOHTML;
 		$num_days = $this->getNumberAssignmentsPerJobId($summary);
 		$assns = $this->renderNumberAssignments($num_days);
 
-		$current_season = get_current_season();
+		$current_season = $this->season;
 		return "<h2>season: " . SEASON_YEAR . ' ' .
 			array_shift($current_season) . ' - ' .
 			array_pop($current_season) . '</h2>' .
