@@ -21,7 +21,7 @@ if (($this_month == 11) || ($this_month == 12)) {
 define('SEASON_YEAR', $this_year);
 
 define('SEASON_ID', get_season_id());
-define('SEASON_NAME', get_season_name()); // summer, fall, winter
+define('SEASON_NAME', get_season_name(1520004575)); // summer, fall, winter
 
 # -------- list of sqlite tables ---------
 # tables from the work survey (read-only)

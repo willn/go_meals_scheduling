@@ -164,6 +164,9 @@ EOHTML;
 
 		$meal_days = get_weekday_meal_days();
 
+		$skip_dates = get_skip_dates();
+		$reg_day_overrides = get_regular_day_overrides();
+
 		$day_of_week = NULL;
 		$out = '';
 		$dates_and_shifts = array();
@@ -215,8 +218,6 @@ EOHTML;
 				#!# need to fix the validity of this id value
 				$date_string = "{$month_num}/{$day_num}/" . SEASON_YEAR;
 				$cell = '';
-
-				$skip_dates = get_skip_dates();
 
 				// check for holidays
 				if (isset($this->holidays[$month_num]) &&
@@ -270,26 +271,22 @@ EOHTML;
 					$ordinal_int = intval(($day_num - 1) / 7) + 1;
 					$is_mtg_night = FALSE;
 
-					$reg_meal_override = FALSE;
-					$mtg_override = FALSE;
-					/*
-					if ($month_num == 9) {
-						if ($day_num == 19) {
-							$mtg_override = TRUE;
-						}
-						else if ($day_num == 17) {
-							$reg_meal_override = TRUE;
-						}
+					$is_reg_day_override = FALSE;
+					$is_force_mtg_night = FALSE;
+					if (array_key_exists($month_num, $reg_day_overrides) &&
+						in_array($day_num, $reg_day_overrides[$month_num])) {
+							$is_reg_day_override = TRUE;
 					}
-					*/
 
-					if ($mtg_override || (!$reg_meal_override &&
+					// is this a meeting night?
+					if ($is_force_mtg_night || (!$is_reg_day_override &&
 						array_key_exists($day_of_week, $mtg_nights) &&
 						($mtg_nights[$day_of_week] == $ordinal_int))) {
 						$is_mtg_night = TRUE;
 						$this->num_shifts['meeting']++;
 						$jobs = $mtg_jobs;
 					}
+					// is this a regular weekday night?
 					else {
 						$this->num_shifts['weekday']++;
 						$jobs = $weekday_jobs;

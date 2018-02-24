@@ -11,7 +11,7 @@ date_default_timezone_get('America/Detroit');
 define('FROM_EMAIL', 'willie' . DOMAIN);
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('december 21, 2017, 8:00pm'));
+define('DEADLINE', strtotime('march 21, 2018, 8:00pm'));
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_ORDERER', 4194);
@@ -43,8 +43,25 @@ function get_num_shift_overrides() {
 	];
 }
 
+/**
+ * Get the list of dates to skip, don't schedule a meal on this date.
+ * @return array keys are the month number, values are an array of day numbers.
+ */
 function get_skip_dates() {
 	return [];
+}
+
+/**
+ * Get the list of dates to force making a regular weekday night instead of
+ * a meeting.
+ *
+ * @return array keys are the month number, values are an array of day numbers.
+ */
+function get_regular_day_overrides() {
+	return [
+		5 => [21],
+		9 => [17],
+	];
 }
 
 // If these names change, be sure to update the is_a_*_job() functions.
