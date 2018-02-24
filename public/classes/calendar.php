@@ -199,11 +199,11 @@ EOHTML;
 			}
 
 			// for each day in the current month
-			for ($i=1; $i<=$days_in_month; $i++) {
+			for ($day_num=1; $day_num<=$days_in_month; $day_num++) {
 				$tally = '';
 
 				// if this is sunday... add the row start
-				if (($day_of_week == 0) && ($i != 1)) {
+				if (($day_of_week == 0) && ($day_num != 1)) {
 					$week_num++;
 					$week_id = "week_{$week_num}_{$month_num}";
 					$table .= <<<EOHTML
@@ -213,19 +213,19 @@ EOHTML;
 				}
 
 				#!# need to fix the validity of this id value
-				$date_string = "{$month_num}/{$i}/" . SEASON_YEAR;
+				$date_string = "{$month_num}/{$day_num}/" . SEASON_YEAR;
 				$cell = '';
 
 				$skip_dates = get_skip_dates();
 
 				// check for holidays
 				if (isset($this->holidays[$month_num]) &&
-					in_array($i, $this->holidays[$month_num])) {
+					in_array($day_num, $this->holidays[$month_num])) {
 					$cell = '<span class="skip">holiday</span>';
 				}
 				// check for manual skip dates
 				else if (isset($skip_dates[$month_num]) &&
-					in_array($i, $skip_dates[$month_num])) {
+					in_array($day_num, $skip_dates[$month_num])) {
 					$cell = '<span class="skip">skip</span>';
 				}
 				// sundays
@@ -267,19 +267,21 @@ EOHTML;
 
 					// is this a meeting night?
 					// is this the nth occurence of a dow in the month?
-					$ordinal_int = intval(($i - 1) / 7) + 1;
+					$ordinal_int = intval(($day_num - 1) / 7) + 1;
 					$is_mtg_night = FALSE;
 
 					$reg_meal_override = FALSE;
 					$mtg_override = FALSE;
+					/*
 					if ($month_num == 9) {
-						if ($i == 19) {
+						if ($day_num == 19) {
 							$mtg_override = TRUE;
 						}
-						else if ($i == 17) {
+						else if ($day_num == 17) {
 							$reg_meal_override = TRUE;
 						}
 					}
+					*/
 
 					if ($mtg_override || (!$reg_meal_override &&
 						array_key_exists($day_of_week, $mtg_nights) &&
@@ -352,14 +354,14 @@ EOHTML;
 
 				$table .= <<<EOHTML
 				<td class="dow_{$day_of_week}">
-					<div class="date_number">{$i}{$tally}</div>
+					<div class="date_number">{$day_num}{$tally}</div>
 					{$cell}
 				</td>
 
 EOHTML;
 
 				// close the row at end of week (saturday)
-				if ($day_of_week == 6 || $i == $days_in_month) {
+				if ($day_of_week == 6 || $day_num == $days_in_month) {
 					$table .= "\n</tr>\n";
 					$month_week_count++;
 				}
