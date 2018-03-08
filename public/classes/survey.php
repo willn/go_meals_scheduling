@@ -178,7 +178,7 @@ EOHTML;
 			$this->reportNoShifts();
 		}
 
-		$current_season = get_current_season();
+		$current_season = get_current_season_months();
 		return <<<EOHTML
 		<h2>Welcome, {$this->worker->getName()}</h2>
 		{$this->calendar->renderMonthsOverlay($current_season)}
@@ -523,7 +523,7 @@ EOHTML;
 	 */
 	protected function getNumInstances($row) {
 		$job_id = $row['job_id'];
-		$season = get_current_season();
+		$season = get_current_season_months();
 		$num_dinners = get_num_dinners_per_assignment($season, $job_id);
 
 		// otherwise, look for an entry in from the db

@@ -94,7 +94,7 @@ $weekday_jobs = array(
  */
 function get_num_dinners_per_assignment($season, $job_id=NULL) {
 	if (empty($season)) {
-		$season = get_current_season();
+		$season = get_current_season_months();
 	}
 
 	$num_months = count($season);

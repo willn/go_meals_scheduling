@@ -31,7 +31,7 @@ function get_season_id() {
  *
  * @return array list of month names contained in the requested season.
  */
-function get_current_season() {
+function get_current_season_months() {
 	switch(SEASON_NAME) {
 		case WINTER:
 			return [

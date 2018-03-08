@@ -11,7 +11,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 	private $season = [];
 
 	public function setUp() {
-		$this->season = get_current_season();
+		$this->season = get_current_season_months();
 	}
 
 	/**

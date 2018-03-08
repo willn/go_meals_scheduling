@@ -12,7 +12,7 @@ require_once "{$relative_dir}/config.php";
 
 session_start();
 
-$current_season = get_current_season();
+$current_season = get_current_season_months();
 
 require_once('display/includes/header.php');
 

@@ -31,7 +31,7 @@ class Calendar {
 		}
 
 		$this->holidays = get_holidays(SEASON_NAME);
-		$this->season = get_current_season();
+		$this->season = get_current_season_months();
 	}
 
 	/**
