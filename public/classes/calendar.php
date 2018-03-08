@@ -31,7 +31,7 @@ class Calendar {
 		}
 
 		$this->holidays = get_holidays(SEASON_NAME);
-		$this->season = get_current_season_months();
+		$this->season_months = get_current_season_months();
 	}
 
 	/**
@@ -40,7 +40,7 @@ class Calendar {
 	 * @param[in] season array list of months in the season to be used.
 	 */
 	public function setSeason($season) {
-		$this->season = $season;
+		$this->season_months = $season;
 	}
 
 	public function setIsReport($setting=TRUE) {
@@ -180,7 +180,7 @@ EOHTML;
 		$dates_and_shifts = array();
 		// for each month in the season
 		$month_count = 0;
-		foreach($this->season as $month_num=>$month_name) {
+		foreach($this->season_months as $month_num=>$month_name) {
 			$month_count++;
 			$month_entries = array();
 			$month_week_count = 1;
@@ -879,7 +879,7 @@ EOHTML;
 
 		foreach($summary as $job_id => $meals) {
 			$workers = get_job_instances($job_id);
-			$shifts = get_num_dinners_per_assignment($this->season, $job_id);
+			$shifts = get_num_dinners_per_assignment($this->season_months, $job_id);
 			if ($shifts != 0) {
 				$num_days[$job_id] = ceil(($meals * $workers) / $shifts);
 			}
@@ -912,7 +912,7 @@ EOHTML;
 		$num_days = $this->getNumberAssignmentsPerJobId($summary);
 		$assns = $this->renderNumberAssignments($num_days);
 
-		$current_season = $this->season;
+		$current_season = $this->season_months;
 		return "<h2>season: " . SEASON_YEAR . ' ' .
 			array_shift($current_season) . ' - ' .
 			array_pop($current_season) . '</h2>' .
