@@ -24,14 +24,17 @@ class Calendar {
 		'meeting' => 0,
 	);
 
-	public function __construct() {
+	public function __construct($season_months=[]) {
 		// 'all' is the default, so only change if it's numeric
 		if (isset($_GET['key']) && is_numeric($_GET['key'])) {
 			$this->key_filter = $_GET['key'];
 		}
 
 		$this->holidays = get_holidays(SEASON_NAME);
-		$this->season_months = get_current_season_months();
+
+		if (empty($season_months)) {
+			$this->season_months = get_current_season_months();
+		}
 	}
 
 	/**

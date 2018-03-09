@@ -1,22 +1,22 @@
 <?php
 /*
  * Automated meals scheduling assignments
- * $Id: assignments.php,v 1.13 2014/08/15 21:59:30 willn Exp $
  */
 
 require_once 'globals.php';
 require_once 'classes/calendar.php';
 require_once 'assign_workers.php';
-require_once 'assign_schedule.php';
+#require_once 'assign_schedule.php';
+
 global $dbh;
 
 $r = new Roster();
-$s = new Schedule();
-$s->setRoster($r);
+$schedule = new Schedule();
+$schedule->setRoster($r);
 
 // load the dates and shifts needed
-$s->initializeShifts();
-$s->printNumMeals();
+$schedule->initializeShifts();
+$schedule->printNumMeals();
 
 // remove special case...
 unset($all_jobs['all']);
@@ -49,7 +49,7 @@ foreach($dbh->query($sql) as $row) {
 	$r->addWorker($u, $ji, $d, $p);
 
 	// only add meals which are scheduled...
-	$s->addPrefs($u, $ji, $d, $p);
+	$schedule->addPrefs($u, $ji, $d, $p);
 }
 
 
@@ -73,7 +73,7 @@ $non_respond = array();
 foreach($dbh->query($sql) as $row) {
 	// fill in 'OK' preferences for all non-responders
 	#!# only add 'default' response for dates which should contain the shift / job_id
-	$s->addNonResponder($row['username'], $row['job_id']);
+	$schedule->addNonResponder($row['username'], $row['job_id']);
 }
 
 // --------------------------------------------------------------
@@ -95,17 +95,17 @@ foreach($dbh->query($sql) as $row) {
 
 // sort
 foreach(array_keys($all_jobs) as $j) {
-	$s->setJobId($j);
+	$schedule->setJobId($j);
 	$r->setJobId($j);
 
 	// keep assigning until all the meals have been assigned
-	while ($s->sortPossible() && !$s->isFinished()) {
+	while ($schedule->sortPossible() && !$schedule->isFinished()) {
 		$worker_freedom = $r->sortAvailable();
-		$s->fillMeal($worker_freedom);
+		$schedule->fillMeal($worker_freedom);
 	}
 }
 
-$s->printResults();
+$schedule->printResults();
 $r->printResults();
 
 echo "\n-----[ the end ]-----\n";

@@ -8,6 +8,9 @@ define('DEFAULT_PREFERS_SCORE', 4);
 
 require_once('../public/utils.php');
 
+/**
+ * A Schedule object maintains the list of who has been scheduled to work on certain days.
+ */
 class Schedule {
 	protected $meals = array();
 	protected $roster;
@@ -31,8 +34,8 @@ class Schedule {
 	// make this a member variable as a cache
 	protected $dates_by_shift = array();
 
-	public function __construct() {
-		$this->calendar = new Calendar();
+	public function __construct($season_months=[]) {
+		$this->calendar = new Calendar($season_months);
 	}
 
 	/**
