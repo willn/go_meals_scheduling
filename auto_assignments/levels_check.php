@@ -3,7 +3,6 @@
  * Check that we have the proper level of assignments.
  * How many meals-shifts do we have and how many assigned worker-shifts do we
  * have?
- * $Id: levels_check.php,v 1.3 2014/04/07 00:51:54 willn Exp $
  */
 
 global $relative_dir;

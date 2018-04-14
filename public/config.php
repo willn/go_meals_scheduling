@@ -11,7 +11,7 @@ date_default_timezone_get('America/Detroit');
 define('FROM_EMAIL', 'willie' . DOMAIN);
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('march 21, 2018, 8:00pm'));
+define('DEADLINE', strtotime('april 21, 2018, 8:00pm'));
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_ORDERER', 4194);

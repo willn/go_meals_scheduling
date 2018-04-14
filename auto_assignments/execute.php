@@ -17,7 +17,6 @@ require_once 'public/utils.php';
 
 /*
  * Automated meals scheduling assignments
- * $Id: assignments.php,v 1.38 2014/11/03 02:16:29 willn Exp $
  */
 $start = microtime(TRUE);
 
