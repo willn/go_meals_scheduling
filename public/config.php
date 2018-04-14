@@ -14,15 +14,15 @@ define('FROM_EMAIL', 'willie' . DOMAIN);
 define('DEADLINE', strtotime('april 21, 2018, 8:00pm'));
 
 /* ----------- job ids --------------- */
-define('MEETING_NIGHT_ORDERER', 4194);
-define('MEETING_NIGHT_CLEANER', 4197);
-define('SUNDAY_HEAD_COOK', 4192);
-define('SUNDAY_ASST_COOK', 4193);
-define('SUNDAY_CLEANER', 4196);
-define('WEEKDAY_HEAD_COOK', 4190);
-define('WEEKDAY_ASST_COOK', 4191);
-define('WEEKDAY_CLEANER', 4195);
-define('WEEKDAY_TABLE_SETTER', 4184);
+define('MEETING_NIGHT_ORDERER', 4393);
+define('MEETING_NIGHT_CLEANER', 4396);
+define('SUNDAY_HEAD_COOK', 4391);
+define('SUNDAY_ASST_COOK', 4392);
+define('SUNDAY_CLEANER', 4395);
+define('WEEKDAY_HEAD_COOK', 4389);
+define('WEEKDAY_ASST_COOK', 4390);
+define('WEEKDAY_CLEANER', 4394);
+define('WEEKDAY_TABLE_SETTER', 4382);
 
 # Are Sunday meals treated separately from weeknights?
 define('ARE_SUNDAYS_UNIQUE', TRUE);
@@ -35,11 +35,14 @@ define('ARE_SUNDAYS_UNIQUE', TRUE);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-		/*
-		'example' => [
+		# still need: SUNDAY_CLEANER: 1, WEEKDAY_ASST_COOK: 5
+		'pam' => [
+			SUNDAY_CLEANER => 1,
+		],
+		'patti' => [
+			SUNDAY_CLEANER => 1,
 			WEEKDAY_ASST_COOK => 1,
 		],
-		*/
 	];
 }
 

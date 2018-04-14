@@ -1,5 +1,6 @@
 <?php
-require_once('../constants.php');
+require_once('../public/utils.php');
+require_once('../public/constants.inc');
 
 /*
  * Grab the list of current jobs for this season, i.e. their job IDs.

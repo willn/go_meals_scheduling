@@ -14,7 +14,10 @@ Directions to set up the survey:
 # Copy the git repo to the directory root:
 	cd ~
 	diff -r meals_scheduling/public/ public_html/meals_scheduling/
-	# if changes are needed...
+
+# if changes are needed...
+	cd ~/public_html/meals_scheduling/
+	for i in `find . -type f`; do cp ~/meals_scheduling/public/$i $i; done
 
 # edit public/config.php
 	- set the appropriate DEADLINE date
@@ -23,21 +26,30 @@ Directions to set up the survey:
 	- confirm the holiday dates (get_holidays) function is correct for
 	  the upcoming season 
 
-# add any extra workers to the get_num_shift_overrides() function
+# edit public/config.php
+	# add any extra workers to the get_num_shift_overrides() function
 
 # grab the latest sqlite file from webfactional, fix permissions, and commit:
-	#!# unzip the file first...
-	scp -i ~/.ssh/id_dsa -P 1022 filedb.zip username@hostname:meals_scheduling/public/sqlite_data/work_allocation.db
-	chmod 644 !$
+	# login to the work web UI, go to more reports, and "Download SQLite3 database from host"
+	# locally...
+	cd ~/Downloads/
+	unzip filedb.zip
+	scp -P 1022 home/django/work/db.sqlite3 gocoho@gocoho.org:meals_scheduling/public/sqlite_data/work_allocation.db
+
+	# on the remote host...
+	cd meals_scheduling/public/sqlite_data
+	chmod 644 work_allocation.db
 	# sudo chgrp gocoho !$
 	git add !$
 	git commit !$
 
 # get new job IDs for the season, and update the defines for each job in config.php
-	cd ../utils/
+	cd ../../utils/
 	php find_current_season_jobs.php
 	# copy that block and replace the previous season's entries in this file:
 	vi ../public/config.php
+
+#!#
 
 # initialize the database
 	php initialize_database.php
@@ -203,7 +215,7 @@ Development notes between seasons
 	sqlite3 !$
 
 - update the data to use the current season id:
-	update survey_assignment set season_id=11 where season_id=10;
+	update work_app_assignment set season_id=11 where season_id=10;
 
 
 How to add a user with an override.
@@ -217,11 +229,11 @@ sqlite> select id from auth_user where username='katie';
 35
 
 # get the max assignment id:
-sqlite> select max(id) from survey_assignment;
+sqlite> select max(id) from work_app_assignment;
 9254
 
 # add a new entry
-insert into survey_assignment values(9255, 23, 'a', 35, 2715, 0, 1);
-insert into survey_assignment values(max assignment + 1, season id, 'a',
+insert into work_app_assignment values(9255, 23, 'a', 35, 2715, 0, 1);
+insert into work_app_assignment values(max assignment + 1, season id, 'a',
 	username, job id, 0, 1);
 

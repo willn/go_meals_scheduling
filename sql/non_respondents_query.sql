@@ -3,7 +3,7 @@ SELECT first_name, last_name
     FROM auth_user 
     WHERE id IN
         (SELECT worker_id
-            FROM survey_assignment
+            FROM work_app_assignment
 			WHERE season_id=8
                 AND (job_id='544' or
 					job_id='545' or
