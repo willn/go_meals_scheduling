@@ -6,19 +6,19 @@ class Worker {
 	protected $last_name;
 
 	// job_id => date => pref
-	protected $avail_shifts = array();
+	protected $avail_shifts = [];
 
 	// job_id => array(dates)
-	protected $assigned = array();
+	protected $assigned = [];
 
 	// job_id => count
-	protected $num_shifts_to_fill = array();
+	protected $num_shifts_to_fill = [];
 
-	protected $requests = array();
+	protected $requests = [];
 
 	protected $adjacency_limit = 8;
-	protected $avoids = array();
-	protected $prefers = array();
+	protected $avoids = [];
+	protected $prefers = [];
 
 	protected $tasks;
 	protected $comments;
@@ -110,7 +110,7 @@ class Worker {
 	}
 
 	public function getAllPreferences() {
-		$all = array();
+		$all = [];
 		$avoids = $this->getAvoids();
 		if (!empty($avoids)) {
 			$all['avoids'] = $avoids;
@@ -183,7 +183,7 @@ class Worker {
 	 */
 	public function addAvailability($job_id, $date, $pref) {
 		if (!isset($this->avail_shifts[$job_id])) {
-			$this->avail_shifts[$job_id] = array();
+			$this->avail_shifts[$job_id] = [];
 		}
 
 		$this->avail_shifts[$job_id][$date] = $pref;
@@ -261,7 +261,7 @@ class Worker {
 	 * worker already.
 	 */
 	public function getDatesAssigned() {
-		$dates = array();
+		$dates = [];
 		foreach($this->assigned as $job_id=>$d) {
 			$dates = array_merge($dates, $d);
 		}
@@ -323,7 +323,7 @@ class Worker {
 	 * @return array of job IDs already assigned for a given date.
 	 */
 	public function getShiftsAssignedByDate($d) {
-		$shifts = array();
+		$shifts = [];
 		foreach($this->assigned as $job_id=>$dates) {
 			if (in_array($d, $dates)) {
 				$shifts[] = $job_id;
@@ -468,7 +468,7 @@ class Worker {
 			return array();
 		}
 
-		$job_counts = array();
+		$job_counts = [];
 
 		$job_info = '';
 		foreach($this->assigned as $job_id=>$dates) {
@@ -519,7 +519,7 @@ EOTXT;
 		global $all_jobs;
 		$num_shift_overrides = get_num_shift_overrides();
 
-		$each_job = array();
+		$each_job = [];
 		foreach($all_jobs as $id=>$name) {
 			$each_job[] = SURVEY_JOB_TABLE . ".id='{$id}'";
 		}
@@ -538,12 +538,12 @@ EOTXT;
 					( {$each_job_sql} );
 EOSQL;
 
-		$tasks = array();
+		$tasks = [];
 		foreach ($this->dbh->query($task_sql) as $row) {
 			$tasks[$row['id']] = $row['description'];
 		}
 
-		$addl_jobs = array();
+		$addl_jobs = [];
 		if (isset($num_shift_overrides[$this->username])) {
 			$additional = $num_shift_overrides[$this->username];
 			foreach(array_keys($additional) as $id) {
@@ -569,7 +569,7 @@ EOSQL;
 			return;
 		}
 
-		$this->comments = array();
+		$this->comments = [];
 	}
 
 	public function getComments() {
