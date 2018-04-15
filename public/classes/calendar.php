@@ -42,7 +42,7 @@ class Calendar {
 	 *
 	 * @param[in] season array list of months in the season to be used.
 	 */
-	public function setSeason($season) {
+	public function setSeasonMonths($season) {
 		$this->season_months = $season;
 	}
 

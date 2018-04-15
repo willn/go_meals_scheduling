@@ -166,7 +166,8 @@ EOSQL;
 	 * each Worker object.
 	 */
 	public function loadNumShiftsAssigned($username=NULL) {
-		$dinners_per_job = get_num_dinners_per_assignment(SEASON_ID);
+		$dinners_per_job = get_num_dinners_per_assignment(
+			get_current_season_months());
 
 		$job_ids_clause = get_job_ids_clause();
 		$user_clause = is_null($username) ? '' :

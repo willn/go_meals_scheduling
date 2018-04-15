@@ -112,7 +112,7 @@ $weekday_jobs = array(
  * @return int the number of dinners needed for this job.
  */
 function get_num_dinners_per_assignment($season, $job_id=NULL) {
-	if (empty($season)) {
+	if (empty($season) || !is_array($season)) {
 		$season = get_current_season_months();
 	}
 
