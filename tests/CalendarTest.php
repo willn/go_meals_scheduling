@@ -132,11 +132,11 @@ EOHTML;
 			['x', 'x'],
 			['Meeting night takeout orderer', 'takeout orderer'],
 			['Meeting night cleaner', 'cleaner'],
-			['Sunday head cook (two meals/season)', 'head cook'],
-			['Sunday meal asst cook (two meals/season)', 'asst cook'],
+			['Sunday head cook', 'head cook'],
+			['Sunday meal asst cook', 'asst cook'],
 			['Sunday Meal Cleaner', 'Cleaner'],
-			['Weekday head cook (two meals/season)', 'head cook'],
-			['Weekday meal asst cook (2 meals/season)', 'asst cook'],
+			['Weekday head cook', 'head cook'],
+			['Weekday meal asst cook', 'asst cook'],
 			['Weekday Meal cleaner', 'cleaner'],
 			['Weekday Table Setter', 'Table Setter'],
 		];
@@ -284,14 +284,14 @@ EOHTML;
 			SUNDAY_CLEANER => 2.0,
 		];
 		$expected1 = <<<EOHTML
-<p>Weekday head cook (two meals/season) 12
-<br>Weekday meal asst cook (2 meals/season) 6
+<p>Weekday head cook 12
+<br>Weekday meal asst cook 6
 <br>Weekday Meal cleaner 4
 <br>Weekday Table Setter 12
 <br>Meeting night takeout orderer 2
 <br>Meeting night cleaner 2
-<br>Sunday head cook (two meals/season) 4
-<br>Sunday meal asst cook (two meals/season) 2
+<br>Sunday head cook 4
+<br>Sunday meal asst cook 2
 <br>Sunday Meal Cleaner 2
 </p>
 EOHTML;

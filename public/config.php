@@ -35,13 +35,29 @@ define('ARE_SUNDAYS_UNIQUE', TRUE);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-		# still need: SUNDAY_CLEANER: 1, WEEKDAY_ASST_COOK: 5
+		/* missing:
+			SUNDAY_HEAD_COOK: 1
+			SUNDAY_CLEANER: 4
+		*/
+		'anastasia' => [
+			WEEKDAY_ASST_COOK => 3,
+		],
 		'pam' => [
 			SUNDAY_CLEANER => 1,
 		],
 		'patti' => [
 			SUNDAY_CLEANER => 1,
 			WEEKDAY_ASST_COOK => 1,
+		],
+		'tevah' => [
+			WEEKDAY_HEAD_COOK => 2,
+		],
+		'willie' => [
+			SUNDAY_HEAD_COOK => 1,
+		],
+		'yimiau' => [
+			SUNDAY_HEAD_COOK => 1,
+			WEEKDAY_HEAD_COOK => 1,
 		],
 	];
 }
@@ -76,14 +92,14 @@ $mtg_jobs = array(
 // list in order of importance
 $sunday_jobs = array(
 	// #!# note, we're looking for the string 'asst cook' in the code
-	SUNDAY_HEAD_COOK => 'Sunday head cook (two meals/season)',
-	SUNDAY_ASST_COOK => 'Sunday meal asst cook (two meals/season)',
+	SUNDAY_HEAD_COOK => 'Sunday head cook',
+	SUNDAY_ASST_COOK => 'Sunday meal asst cook',
 	SUNDAY_CLEANER => 'Sunday Meal Cleaner',
 );
 // list in order of importance
 $weekday_jobs = array(
-	WEEKDAY_HEAD_COOK => 'Weekday head cook (two meals/season)',
-	WEEKDAY_ASST_COOK => 'Weekday meal asst cook (2 meals/season)',
+	WEEKDAY_HEAD_COOK => 'Weekday head cook',
+	WEEKDAY_ASST_COOK => 'Weekday meal asst cook',
 	WEEKDAY_CLEANER => 'Weekday Meal cleaner',
 	WEEKDAY_TABLE_SETTER => 'Weekday Table Setter',
 );
