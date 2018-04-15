@@ -4,7 +4,7 @@
  * work:
  * - remove 'aetherbunny' placeholder user
  * - loads the user IDs
- * - loads the maximum work_app_assignment ID
+ * - loads the maximum ASSIGN_TABLE ID
  * - add meals scheduling tables
  */
 
@@ -52,12 +52,13 @@ EOSQL;
 			return;
 		}
 
-		$sql = "delete from work_app_assignment where worker_id={$id}";
+		$table = ASSIGN_TABLE;
+		$sql = "delete from {$table} where worker_id={$id}";
 		$this->dbh->exec($sql);
 		#!# need to add some error checking here... since table may not exist
 
 		// confirm this worked
-		$sql = "select count(*) from work_app_assignment where worker_id={$id}";
+		$sql = "select count(*) from {$table} where worker_id={$id}";
 		echo "SQL:$sql\n";
 		foreach ($this->dbh->query($sql) as $row) {
 			if ($row[0] != 0) {
@@ -152,8 +153,9 @@ EOSQL;
 		$worker_id = $this->getUserId($username);
 
 		$season_id = SEASON_ID;
+		$table = ASSIGN_TABLE;
 		$sql = <<<EOSQL
-INSERT INTO work_app_assignment
+INSERT INTO {$table}
 	(season_id, type, worker_id, job_id, instances, reason_id)
 	VALUES($season_id, 'a', '{$worker_id}', 0, 0, 0);
 EOSQL;
@@ -165,7 +167,7 @@ EOSQL;
 
 	/**
 	 * Add any users who aren't mentioned in the work database.
-	 * Two tables: auth_user and work_app_assignment
+	 * Two tables: auth_user and ASSIGN_TABLE
 	 *
 	 */
 	protected function initializeExtraWorkers() {

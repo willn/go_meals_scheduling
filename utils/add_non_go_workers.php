@@ -5,8 +5,7 @@
  * - remove 'aetherbunny' placeholder user
  * - add 'community' column
  * - loads the user IDs
- * - loads the maximum work_app_assignment ID
- * - adds TS users to the work_app_assignment table
+ * - loads the maximum ASSIGN_TABLE ID
  * - add meals scheduling tables
  */
 
@@ -76,7 +75,8 @@ class AddExternalWorkers extends DatabaseHandler {
 	 */
 	protected function loadMaxAssignmentId() {
 		// -------------- collect max assignment ID
-		$sql = 'select id from work_app_assignment order by id desc limit 1';
+		$table = ASSIGN_TABLE;
+		$sql = "select id from {$table} order by id desc limit 1";
 		$this->max_assign_id = NULL;
 		foreach ($this->dbh->query($sql) as $row) {
 			$this->max_assign_id = $row['id'];
@@ -99,8 +99,9 @@ INSERT INTO auth_user
 EOSQL;
 
 		$season_id = SEASON_ID;
+		$table = ASSIGN_TABLE;
 		$insert_assn_f = <<<EOSQL
-INSERT INTO work_app_assignment
+INSERT INTO {$table}
 	VALUES(%d, {$season_id}, 'a', %d, %d, 0, 1);
 EOSQL;
 
