@@ -585,7 +585,7 @@ EOSQL;
 
 					if (is_null($shift_id)) {
 						$insert = <<<EOSQL
-REPLACE INTO {$shifts_table} VALUES(NULL, '{$d}', {$task})"
+REPLACE INTO {$shifts_table} VALUES(NULL, '{$d}', {$task})
 EOSQL;
 						$this->dbh->exec($insert);
 
