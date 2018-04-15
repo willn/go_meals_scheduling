@@ -379,3 +379,8 @@ svg {
 .striped tbody tr:nth-child(odd) {
 	background: #eee;
 }
+
+.notice {
+	background-color: #fc6;
+	padding: 3px;
+}

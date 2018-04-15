@@ -360,10 +360,12 @@ EOHTML;
 					}
 				}
 
+				// render an individual calendar day table cell
 				$table .= <<<EOHTML
 				<td class="dow_{$day_of_week}">
 					<div class="date_number">{$day_num}{$tally}</div>
 					{$cell}
+					{$this->getNotice($month_num, $day_of_week, $cell)}
 				</td>
 
 EOHTML;
@@ -410,7 +412,29 @@ EOHTML;
 	}
 
 	/**
-	 * #!#
+	 * Get a notice message to display on certain dates.
+	 */
+	public function getNotice($month_num, $day_of_week, $cell) {
+		if (empty($cell)) {
+			return '';
+		}
+
+		$notice = '';
+		if (($day_of_week === 2) && (($month_num > 5) && ($month_num < 11)))  {
+			$notice = '<p class="notice">Farm meal night</p>';
+		}
+		return $notice;
+	}
+
+	/**
+	 * Render the HTML for the header of each month table in the calendar.
+	 * To be specific, this includes the colored row with the day names
+	 * and then the next row with the quick links to apply "prefer",
+	 * "OK", or "avoid" to all of that day of the week for this month.
+	 *
+	 * @param[in] has_worker boolean (optional, default FALSE) If TRUE,
+	 *     then this calendar is in survey mode, not report mode.
+	 * @return string HTML the html to display the calendar headers.
 	 */
 	public function renderDaySelectors($has_worker=FALSE) {
 		$day_labels = '';
