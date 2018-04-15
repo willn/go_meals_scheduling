@@ -227,7 +227,7 @@ EOHTML;
 	 * @dataProvider provideGetNumberAssignmentsPerJobId
 	 */
 	public function testGetNumberAssignmentsPerJobId($input, $expected, $season) {
-		$this->calendar->setSeason($season);
+		$this->calendar->setSeasonMonths($season);
 		$result = $this->calendar->getNumberAssignmentsPerJobId($input);
 		$debug = [
 			'input' => $input,
