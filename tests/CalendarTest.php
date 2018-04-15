@@ -21,15 +21,32 @@ class CalendarTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider provideGetWeekdaySelectorHtml
 	 */
-	public function testGetWeekdaySelectorHtml($day_num, $day_of_week) {
+	public function testGetWeekdaySelectorHtml($day_num, $day_of_week, $expected) {
 		$result = $this->calendar->getWeekdaySelectorHtml($day_num, $day_of_week);
-		$this->assertNotEmpty($result);
+		$this->assertEquals($result, $expected);
 	}
 
 	public function provideGetWeekdaySelectorHtml() {
+		$one = <<<EOHTML
+			<td class="weekday_selector weekday_num_1">
+				Tue:<br>
+				<a class="prefer">prefer</a>
+				<a class="OK">OK</a>
+				<a class="avoid">avoid</a>
+			</td>
+EOHTML;
+		$two = <<<EOHTML
+			<td class="weekday_selector weekday_num_999">
+				Sun:<br>
+				<a class="prefer">prefer</a>
+				<a class="OK">OK</a>
+				<a class="avoid">avoid</a>
+			</td>
+EOHTML;
+
 		return [
-			[1, 'Tue'],
-			[999, 'Sun'],
+			[1, 'Tue', $one],
+			[999, 'Sun', $two],
 		];
 	}
 
