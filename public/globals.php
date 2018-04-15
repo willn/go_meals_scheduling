@@ -8,7 +8,6 @@ define('JSON_ASSIGNMENTS_FILE', 'results/' . SEASON_ID . '.json');
 
 define('NON_RESPONSE_PREF', .5);
 define('PLACEHOLDER', 'XXXXXXXX');
-define('DOMAIN', '@gocoho.org');
 define('HAS_CONFLICT', -1);
 
 define('SUNDAY', 0);

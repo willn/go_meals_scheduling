@@ -8,6 +8,7 @@ require_once "{$relative_dir}/utils.php";
 require_once "{$relative_dir}/constants.inc";
 date_default_timezone_get('America/Detroit');
 
+define('DOMAIN', '@gocoho.org');
 define('FROM_EMAIL', 'willie' . DOMAIN);
 
 /* -------- seasonal config --------- */
