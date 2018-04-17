@@ -38,6 +38,26 @@ class Schedule {
 		$this->calendar = new Calendar($season_months);
 	}
 
+	public function getPossibleRatios() {
+		return $this->least_possible;
+	}
+
+	/**
+	 * Get the worker object by username from the roster.
+	 * @return Worker object.
+	 */
+	public function getWorker($username) {
+		return $this->roster->getWorker($username);
+	}
+
+	/**
+	 * Get the meals object.
+	 * This is primarily for unit-testing.
+	 */
+	public function getMeals() {
+		return $this->meals;
+	}
+
 	/**
 	 * Assign various point-type variables.
 	 * This is intended for changing the rules of the game, so that multiple
@@ -120,6 +140,7 @@ class Schedule {
 	 * job.
 	 *
 	 * @param array job_id => array( list of dates ).
+	 * @return XXX
 	 */
 	public function getDatesByShift() {
 		if (empty($this->dates_by_shift)) {
@@ -201,10 +222,6 @@ class Schedule {
 			}
 		}
 		return TRUE;
-	}
-
-	public function getPossibleRatios() {
-		return $this->least_possible;
 	}
 
 	/**
@@ -309,15 +326,6 @@ EOTXT;
 		}
 
 		return TRUE;
-	}
-
-
-	/**
-	 * Get the worker object by username from the roster.
-	 * @return Worker object.
-	 */
-	public function getWorker($username) {
-		return $this->roster->getWorker($username);
 	}
 
 
