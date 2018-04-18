@@ -101,5 +101,42 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			[32, WEEKDAY_ASST_COOK, 3],
 		];
 	}
+
+	/**
+	 * @dataProvider provide_get_job_instances
+	 */
+	public function test_get_job_instances($input, $expected) {
+		$result = get_job_instances($input);
+		$debug = [
+			'input' => $input,
+			'expected' => $expected,
+			'result' => $result,
+		];
+		$this->assertEquals($expected, $result, print_r($debug, TRUE));
+	}
+
+	public function provide_get_job_instances() {
+		$all = [
+			MEETING_NIGHT_CLEANER => 1,
+			MEETING_NIGHT_ORDERER => 1,
+
+			SUNDAY_HEAD_COOK => 1,
+			SUNDAY_ASST_COOK => 2,
+			SUNDAY_CLEANER => 3,
+
+			WEEKDAY_HEAD_COOK => 1,
+			WEEKDAY_ASST_COOK => 2,
+			WEEKDAY_CLEANER => 3,
+			WEEKDAY_TABLE_SETTER => 1,
+		];
+
+		return [
+			[NULL, $all],
+			[SUNDAY_HEAD_COOK, 1],
+			[WEEKDAY_ASST_COOK, 2],
+			[SUNDAY_CLEANER, 3],
+			[0, 0],
+		];
+	}
 }
 ?>
