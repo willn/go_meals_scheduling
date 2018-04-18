@@ -145,9 +145,13 @@ function get_num_dinners_per_assignment($season, $job_id=NULL) {
 }
 
 /**
+ * Get the number of instances of each job that is needed per dinner.
  *
- * ??? job_id => array( dow => count), 1 = MON, 7 = SUN
- * ??? per job, list number of open shifts per day of week
+ * @param[in] job_id (optional, default NULL) If NULL, then return the entire
+ *     list. If not null, anda real job id is passed in, then return the number
+ *     of shifts needed for that job id.
+ * @return array associative key-value pairs of job id to number of instances
+ *     this job is needed to staff a given dinner.
  */
 function get_job_instances($job_id=NULL) {
 	static $instances = [

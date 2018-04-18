@@ -46,10 +46,13 @@ class Meal {
 	}
 
 	/**
+	 * Initialize the shifts for this meal.
 	 * Add an empty slot for each shift to be filled for this job type.
 	 * Example: weekday asst cooks should get 2 empty slots to fill.
+	 *
+	 * @param[in] job_id_list XXX
 	 */
-	public function addShifts($job_id_list) {
+	public function initShifts($job_id_list) {
 		$job_instances = get_job_instances();
 
 		foreach(array_values($job_id_list) as $job_id) {

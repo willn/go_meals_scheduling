@@ -41,45 +41,62 @@ class MealTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @dataProvider shiftsProvider
+	 */
 	public function testAddShifts($date, $shifts, $expected) {
 		$this->meal->setDate($date);
-		$this->meal->addShifts($shifts);
+		$this->meal->initShifts($shifts);
 		$assigned = $this->meal->getAssigned();
 		$this->assertEquals($expected, $assigned,
-			print_r(array('expected' => $expected, 'assigned' => $assigned)));
+			print_r(['expected' => $expected, 'assigned' => $assigned], TRUE));
 	}
 
 	public function shiftsProvider() {
-		return array(
-			array(
+		return [
+			[
 				'12/11/2013',
-				array(0 => 100, 1 => 200),
-				array()
-			),
-			array(
-				'12/11/2013',
-				array(0 => 2095, 1 => 2098),
-				array(
-					2095 => array(0 => NULL),
-					2098 => array(0 => NULL),
-				),
-			),
-			array(
-				'12/15/2013',
-				array(0 => 2093, 1 => 2094, 2 => 2097),
-				array(
-					2093 => array(0 => NULL),
-					2094 => array(0 => NULL, 1 => NULL),
-					2097 => array(0 => NULL, 1 => NULL, 2 => NULL),
-				),
-			),
-			array(
-				'12/11/2013',
-				array(0 => 2093, 1 => 2094, 2 => 2097),
-				array(),
-			),
-		);
+				[100,200],
+				[]
+			],
+			[
+				'04/16/2018',
+				[
+					MEETING_NIGHT_CLEANER,
+					MEETING_NIGHT_ORDERER,
+				],
+				[
+					MEETING_NIGHT_CLEANER => [NULL],
+					MEETING_NIGHT_ORDERER => [NULL],
+				],
+			],
+			[
+				'04/17/2018',
+				[
+					WEEKDAY_HEAD_COOK,
+					WEEKDAY_ASST_COOK,
+					WEEKDAY_CLEANER,
+					WEEKDAY_TABLE_SETTER,
+				],
+				[
+					WEEKDAY_HEAD_COOK => [NULL],
+					WEEKDAY_ASST_COOK => [NULL, NULL],
+					WEEKDAY_CLEANER => [NULL, NULL, NULL],
+					WEEKDAY_TABLE_SETTER => [NULL],
+				],
+			],
+			[
+				'04/22/2018',
+				[
+					SUNDAY_HEAD_COOK,
+					SUNDAY_ASST_COOK,
+					SUNDAY_CLEANER,
+				],
+				[
+					SUNDAY_HEAD_COOK => [NULL],
+					SUNDAY_ASST_COOK => [NULL, NULL],
+					SUNDAY_CLEANER => [NULL, NULL, NULL],
+				],
+			],
+		];
 	}
-*/
 }
 ?>
