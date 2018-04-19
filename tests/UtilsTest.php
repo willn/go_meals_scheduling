@@ -3,6 +3,7 @@ global $relative_dir;
 $relative_dir = '../public/';
 require_once '../public/utils.php';
 require_once '../public/config.php';
+require_once '../public/globals.php';
 
 /**
  * This is simple example to ensure the testing framework functions properly.
@@ -70,6 +71,25 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 				],
 				'gayle'
 			]
+		];
+	}
+
+	/**
+	 * @dataProvider provide_get_meal_type_by_date
+	 */
+	public function test_get_meal_type_by_date($input, $expected) {
+		$result = get_meal_type_by_date($input);
+		$this->assertEquals($expected, $result);
+	}
+
+	public function provide_get_meal_type_by_date() {
+		return [
+			['', NOT_A_MEAL],
+			['07/04/2018', HOLIDAY_NIGHT],
+			#['???', SKIP_NIGHT], // current list is empty
+			['04/15/2018', SUNDAY_MEAL],
+			['04/16/2018', MEETING_NIGHT_MEAL],
+			['04/18/2018', WEEKDAY_MEAL],
 		];
 	}
 }

@@ -283,16 +283,16 @@ EOHTML;
 					$is_mtg_night = FALSE;
 
 					$is_reg_day_override = FALSE;
-					$is_force_mtg_night = FALSE;
 					if (array_key_exists($month_num, $reg_day_overrides) &&
 						in_array($day_num, $reg_day_overrides[$month_num])) {
 							$is_reg_day_override = TRUE;
 					}
 
 					// is this a meeting night?
-					if ($is_force_mtg_night || (!$is_reg_day_override &&
+					if ((!$is_reg_day_override &&
 						array_key_exists($day_of_week, $mtg_nights) &&
 						($mtg_nights[$day_of_week] == $ordinal_int))) {
+
 						$is_mtg_night = TRUE;
 						$this->num_shifts['meeting']++;
 						$jobs = $mtg_jobs;

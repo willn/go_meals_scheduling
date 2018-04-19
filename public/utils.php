@@ -73,6 +73,7 @@ function get_season_name($date=NULL) {
 	if (is_null($date)) {
 		$date = time();
 	}
+	// XXX should this be using strtotime()?
 	$month = date('n', $date);
 
 	switch($month) {
@@ -169,4 +170,73 @@ function get_first_associative_key($dict) {
 	$tmp = array_keys($dict);
 	return array_shift($tmp);
 }
+
+/**
+ * Get the type of meal for a given date.
+ * Isolate the logic for determining which kind of meal to use for a given date.
+ *
+ * @param[in] date string of the date for the given meal.
+ * @return int the number associated with a given constant for a type of meal night.
+ */
+function get_meal_type_by_date($date) {
+	$date_ts = strtotime($date);
+	if (!$date_ts) {
+		return NOT_A_MEAL;
+	}
+
+	$day_of_week = date('N', $date_ts);
+	if (!$day_of_week) {
+		return NOT_A_MEAL;
+	}
+
+	$month_num = date('n', $date_ts);
+	$day_num = date('j', $date_ts);
+	if (!$month_num || !$day_num) {
+		return NOT_A_MEAL;
+	}
+
+	// check to see if this is a holiday
+	$holidays = get_holidays(SEASON_NAME);
+	if (isset($holidays[$month_num]) &&
+		in_array($day_num, $holidays[$month_num])) {
+		return HOLIDAY_NIGHT;
+	}
+
+	// check to see if we're override skipping this date
+	$skip_dates = get_skip_dates();
+	if (isset($skip_dates[$month_num]) &&
+		in_array($day_num, $skip_dates[$month_num])) {
+		return SKIP_NIGHT;
+	}
+
+	$unique = ARE_SUNDAYS_UNIQUE ? 1 : 0;
+	if (ARE_SUNDAYS_UNIQUE && ($day_of_week == 7)) {
+		return SUNDAY_MEAL;
+	}
+
+	// this is a weekday
+	$meal_days = get_weekday_meal_days();
+	if (in_array($day_of_week, $meal_days)) {
+		$mtg_nights = get_mtg_nights();
+		$reg_day_overrides = get_regular_day_overrides();
+		$ordinal_int = intval(($day_num - 1) / 7) + 1;
+
+		$is_reg_day_override = FALSE;
+		if (array_key_exists($month_num, $reg_day_overrides) &&
+			in_array($day_num, $reg_day_overrides[$month_num])) {
+				$is_reg_day_override = TRUE;
+		}
+
+		if (!$is_reg_day_override &&
+			array_key_exists($day_of_week, $mtg_nights) &&
+			($mtg_nights[$day_of_week] == $ordinal_int)) {
+			return MEETING_NIGHT_MEAL;
+		}
+
+		return WEEKDAY_MEAL;
+	}
+
+	return NOT_A_MEAL;
+}
+
 ?>
