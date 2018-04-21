@@ -10,6 +10,25 @@ require_once '../auto_assignments/meal.php';
 class MealTest extends PHPUnit_Framework_TestCase {
 	protected $meal;
 
+	protected $shifts = [
+		[100,200],
+		[
+			MEETING_NIGHT_CLEANER,
+			MEETING_NIGHT_ORDERER,
+		],
+		[
+			WEEKDAY_HEAD_COOK,
+			WEEKDAY_ASST_COOK,
+			WEEKDAY_CLEANER,
+			WEEKDAY_TABLE_SETTER,
+		],
+		[
+			SUNDAY_HEAD_COOK,
+			SUNDAY_ASST_COOK,
+			SUNDAY_CLEANER,
+		],
+	];
+
 	public function setUp() {
 		$this->meal = new Meal('foo', '1/1/2000', 10);
 	}
@@ -54,15 +73,12 @@ class MealTest extends PHPUnit_Framework_TestCase {
 		return [
 			[
 				'12/11/2013',
-				[100,200],
+				$this->shifts[0],
 				[]
 			],
 			[
 				'04/16/2018',
-				[
-					MEETING_NIGHT_CLEANER,
-					MEETING_NIGHT_ORDERER,
-				],
+				$this->shifts[1],
 				[
 					MEETING_NIGHT_CLEANER => [NULL],
 					MEETING_NIGHT_ORDERER => [NULL],
@@ -70,12 +86,7 @@ class MealTest extends PHPUnit_Framework_TestCase {
 			],
 			[
 				'04/17/2018',
-				[
-					WEEKDAY_HEAD_COOK,
-					WEEKDAY_ASST_COOK,
-					WEEKDAY_CLEANER,
-					WEEKDAY_TABLE_SETTER,
-				],
+				$this->shifts[2],
 				[
 					WEEKDAY_HEAD_COOK => [NULL],
 					WEEKDAY_ASST_COOK => [NULL, NULL],
@@ -85,17 +96,38 @@ class MealTest extends PHPUnit_Framework_TestCase {
 			],
 			[
 				'04/22/2018',
-				[
-					SUNDAY_HEAD_COOK,
-					SUNDAY_ASST_COOK,
-					SUNDAY_CLEANER,
-				],
+				$this->shifts[3],
 				[
 					SUNDAY_HEAD_COOK => [NULL],
 					SUNDAY_ASST_COOK => [NULL, NULL],
 					SUNDAY_CLEANER => [NULL, NULL, NULL],
 				],
 			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideGetNumOpenSpacesForShift
+	 */
+	public function testGetNumOpenSpacesForShift($date, $shifts, $job_id, $expected) {
+		$this->meal->setDate($date);
+		$this->meal->initShifts($shifts);
+		$assigned = $this->meal->getNumOpenSpacesForShift($job_id);
+		$this->assertEquals($expected, $assigned,
+			print_r(['expected' => $expected, 'assigned' => $assigned], TRUE));
+	}
+
+	public function provideGetNumOpenSpacesForShift() {
+		return [
+			['04/16/2018', $this->shifts[1], MEETING_NIGHT_ORDERER, 1],
+			['04/16/2018', $this->shifts[1], MEETING_NIGHT_CLEANER, 1],
+			['04/17/2018', $this->shifts[2], WEEKDAY_HEAD_COOK, 1],
+			['04/17/2018', $this->shifts[2], WEEKDAY_ASST_COOK, 2],
+			['04/17/2018', $this->shifts[2], WEEKDAY_CLEANER, 3],
+			['04/17/2018', $this->shifts[2], WEEKDAY_TABLE_SETTER, 1],
+			['04/22/2018', $this->shifts[3], SUNDAY_HEAD_COOK, 1],
+			['04/22/2018', $this->shifts[3], SUNDAY_ASST_COOK, 2],
+			['04/22/2018', $this->shifts[3], SUNDAY_CLEANER, 3],
 		];
 	}
 }

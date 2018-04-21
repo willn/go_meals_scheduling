@@ -550,6 +550,7 @@ EOTXT;
 					$has_clean_job = TRUE;
 				}
 			}
+			// this must be for table-setters?
 			else {
 				$order = 4;
 			}

@@ -130,8 +130,7 @@ class Schedule {
 
 		foreach($this->dates_and_shifts as $date=>$shifts) {
 			$num_meals = count($this->meals);
-			#!#
-			$this->meals[$date] = new Meal($this, $date, $num_meals);
+			$this->meals[$date] = get_a_meal_object($this, $date, $num_meals);
 			$this->meals[$date]->initShifts($shifts);
 		}
 	}
