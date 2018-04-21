@@ -11,14 +11,15 @@ class Meal {
 	protected $prefer_threshold = 1.5;
 
 	// array of username => pref
-	protected $possible_workers = array();
+	protected $possible_workers = [];
 
 	// username string
-	protected $assigned = array();
+	protected $assigned = [];
 
 	// unique meal ID
 	protected $meal_num;
 
+	protected $time_of_meal;
 
 	/**
 	 * Initialize a meal.
@@ -201,14 +202,14 @@ EOTXT;
 	protected function getAvoidAndPreferWorkerList($job_id,
 		$assigned_worker_names) {
 		if (empty($assigned_worker_names)) {
-			return array();
+			return [];
 		}
 
 		$assigned_worker_objects = $this->getAssignedWorkerObjectsByJobId(
 			$job_id, $assigned_worker_names);
 
-		$avoid_list = array();
-		$prefer_list = array();
+		$avoid_list = [];
+		$prefer_list = [];
 		foreach($assigned_worker_objects as $worker) {
 			// get list of names worker does not want to work with
 			// Array ( [0] => aaron, [1] => nancy)
@@ -224,7 +225,7 @@ EOTXT;
 			}
 		}
 
-		$avoids = array();
+		$avoids = [];
 		if (!empty($avoid_list)) {
 			// flip from a list to an associative array of name => AVOID_PERSON
 			// AVOIDS: Array ( [aaron] => -2, [nancy] => -2 )
@@ -232,7 +233,7 @@ EOTXT;
 				array_fill(0, count($avoid_list), AVOID_PERSON));
 		}
 
-		$prefers = array();
+		$prefers = [];
 		if (!empty($prefer_list)) {
 			// flip from a list to an associative array of name => PREFER_PERSON
 			$prefers = array_combine(array_values($prefer_list),
@@ -249,10 +250,10 @@ EOTXT;
 			}
 		}
 
-		return array(
+		return [
 			'avoids' => $avoids,
 			'prefers' => $prefers,
-		);
+		];
 	}
 
 	/**
@@ -510,7 +511,7 @@ EOTXT;
 		$hobarter_found = FALSE;
 
 		$is_mtg_night_job = FALSE;
-		$out_jobs = array();
+		$out_jobs = [];
 		// check to make sure that all of the required instances are filled
 		foreach($this->assigned as $job_id=>$assignments) {
 			// check for un-assigned names
@@ -578,7 +579,7 @@ EOTXT;
 		case 'sql':
 			$cols = ($is_mtg_night_job) ? '(meal_date, cook, cleaner1)' :
 				'(meal_date, cook, asst1, asst2, cleaner1, cleaner2, cleaner3)';
-			$workers = array();
+			$workers = [];
 			foreach($out_jobs as $j) {
 				$workers[] = "'{$j}'";
 			}
@@ -615,7 +616,7 @@ EOTXT;
 	public function getAssignedWorkerNamesByJobId($job_id) {
 		$is_cleaning = is_a_clean_job($job_id);
 
-		$names = array();
+		$names = [];
 		foreach($this->assigned as $jid=>$job) {
 			$j_clean = is_a_clean_job($jid);
 			if ($is_cleaning !== $j_clean) {
@@ -640,12 +641,12 @@ EOTXT;
 	 * @return array list of worker objects currently assigned
 	 *     for this meal and this type of job.
 	 */
-	public function getAssignedWorkerObjectsByJobId($job_id, $names=array()) {
+	public function getAssignedWorkerObjectsByJobId($job_id, $names=[]) {
 		if (empty($names)) {
 			$names = $this->getAssignedWorkerNamesByJobId($job_id);
 		}
 
-		$workers = array();
+		$workers = [];
 		foreach ($names as $n=>$unused) {
 			$w = $this->schedule->getWorker($n);
 			if (!is_null($w)) {
@@ -654,6 +655,18 @@ EOTXT;
 		}
 		return $workers;
 	}
+}
+
+class SundayMeal extends Meal {
+	protected $time_of_meal = '5:30';
+}
+
+class WeekdayMeal extends Meal {
+	protected $time_of_meal = '6:15';
+}
+
+class MeetingNightMeal extends Meal {
+	protected $time_of_meal = '5:45';
 }
 
 ?>

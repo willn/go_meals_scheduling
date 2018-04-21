@@ -4,6 +4,7 @@ $relative_dir = '../public/';
 require_once '../public/utils.php';
 require_once '../public/config.php';
 require_once '../public/globals.php';
+require_once '../auto_assignments/schedule.php';
 
 /**
  * This is simple example to ensure the testing framework functions properly.
@@ -90,6 +91,23 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 			['04/15/2018', SUNDAY_MEAL],
 			['04/16/2018', MEETING_NIGHT_MEAL],
 			['04/18/2018', WEEKDAY_MEAL],
+		];
+	}
+
+	/**
+	 * @dataProvider provide_get_a_meal_object
+	 */
+	public function test_get_a_meal_object($date, $expected) {
+		$schedule = new Schedule();
+		$meal = get_a_meal_object($schedule, $date, 1);
+		$this->assertTrue($meal instanceof $expected);
+	}
+
+	public function provide_get_a_meal_object() {
+		return [
+			['04/15/2018', SundayMeal],
+			['04/16/2018', MeetingNightMeal],
+			['04/18/2018', WeekdayMeal],
 		];
 	}
 }

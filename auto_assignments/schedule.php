@@ -7,6 +7,7 @@ define('DEFAULT_AVOIDS_SCORE', 7);
 define('DEFAULT_PREFERS_SCORE', 4);
 
 require_once('../public/utils.php');
+require_once('../public/classes/calendar.php');
 
 /**
  * A Schedule object maintains the list of who has been scheduled to work on certain days.
@@ -129,6 +130,7 @@ class Schedule {
 
 		foreach($this->dates_and_shifts as $date=>$shifts) {
 			$num_meals = count($this->meals);
+			#!#
 			$this->meals[$date] = new Meal($this, $date, $num_meals);
 			$this->meals[$date]->initShifts($shifts);
 		}
