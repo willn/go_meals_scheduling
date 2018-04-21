@@ -190,7 +190,7 @@ class Schedule {
 		foreach($slackers as $username) {
 			$w = $this->getWorker($username);
 			if (is_null($w)) {
-				echo "worker $username does not exist\n";
+				echo "worker $username does not exist FATAL\n";
 				exit;
 			}
 			$shifts_assigned = $w->getAssignedShifts();
@@ -201,7 +201,7 @@ class Schedule {
 				$d_by_s = $dates_by_shift;
 				foreach ($d_by_s[$job_id] as $date) {
 					if (!isset($this->meals[$date])) {
-						echo "meal for date:{$date} doesn't exist\n";
+						echo "meal for date:{$date} doesn't exist FATAL\n";
 						exit;
 					}
 

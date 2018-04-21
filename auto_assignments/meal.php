@@ -79,7 +79,7 @@ class Meal {
 		if (!isset($this->assigned[$job_id])) {
 			global $all_jobs;
 			if (!isset($all_jobs[$job_id])) {
-				echo "Could not find JOB ID: {$job_id}\n";
+				echo "Could not find JOB ID: {$job_id} FATAL\n";
 				exit;
 			}
 
@@ -90,6 +90,7 @@ The job "{$all_jobs[$job_id]}" isn't scheduled for this date: {$this->date}
 U:{$username} P:{$pref}
 all jobs: {$all_jobs_out}
 assigned: {$assn_out}
+FATAL
 
 EOTXT;
 			exit;
@@ -104,7 +105,7 @@ EOTXT;
 	 */
 	public function getNumOpenSpacesForShift($job_id) {
 		if (empty($this->assigned[$job_id])) {
-			echo "no jobs assigned for this meal / job: D:{$this->date}, J:{$job_id}\n";
+			echo "no jobs assigned for this meal / job: D:{$this->date}, J:{$job_id} FATAL\n";
 			exit;
 		}
 

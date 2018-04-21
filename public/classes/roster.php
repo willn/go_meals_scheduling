@@ -139,7 +139,7 @@ EOSQL;
 	 */
 	public function sortAvailable() {
 		$j = $this->job_id;
-		$this->least_available = array();
+		$this->least_available = [];
 
 		foreach($this->workers as $u=>$w) {
 			$avail = $w->getNumAvailableShiftsRatio($j);
@@ -153,7 +153,7 @@ EOSQL;
 		// need to assign a placeholder for manual fixing later
 		if (empty($this->least_available)) {
 			$name = get_job_name($j);
-			echo PLACEHOLDER . " no more workers left for J:{$j} ({$name})\n";
+			echo "Ran out of workers, using a placeholder for {$name}\n";
 		}
 
 		asort($this->least_available);
