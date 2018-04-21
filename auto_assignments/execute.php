@@ -20,14 +20,13 @@ require_once 'public/utils.php';
  */
 $start = microtime(TRUE);
 
-$options = getopt('cijqsuw');
+$options = getopt('cijsuw');
 if (empty($options)) {
 	echo <<<EOTXT
 Usage:
 	-c	output as CSV
 	-i	output as SQL insert statements
 	-j	output to json format
-	-q  quiet mode: don't display the results (used for debugging)
 	-s	display schedule
 	-u	only unfulfilled workers
 	-w	display workers
@@ -62,8 +61,7 @@ if (array_key_exists('c', $options)) {
 	$assignments->outputCSV();
 }
 
-// quiet mode... XXX does this actually work? have value?
-if (array_key_exists('q', $options)) {
+if (array_key_exists('s', $options)) {
 	$assignments->printResults($options);
 }
 
