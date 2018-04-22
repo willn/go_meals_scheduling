@@ -369,11 +369,29 @@ EOTXT;
 	}
 
 	/**
+	 * Get the list of columns in order.
+	 */
+	public function getColumnOrder() {
+		return [
+			'date',
+			'time',
+			'communities',
+			'head_cook',
+			'asst1',
+			'asst2',
+			'cleaner1',
+			'cleaner2',
+			'cleaner3',
+			'table_setter',
+		];
+	}
+
+	/**
 	 * Display table headers
 	 * XXX Unforunately, these are hard-coded for now.
 	 */
 	public function printTabbedHeaders() {
-		echo "date\thead_cook\tasst1\tasst2\tcleaner1\tcleaner2\tcleaner3\ttable_setter\n";
+		echo implode("\t", $this->getColumnOrder()) . "\n";
 	}
 
 

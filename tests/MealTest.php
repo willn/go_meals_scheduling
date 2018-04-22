@@ -3,6 +3,7 @@ global $relative_dir;
 $relative_dir = '../public/';
 require_once '../public/config.php';
 require_once '../auto_assignments/meal.php';
+require_once '../auto_assignments/schedule.php';
 
 /**
  * This is simple example to ensure the testing framework functions properly.
@@ -30,7 +31,7 @@ class MealTest extends PHPUnit_Framework_TestCase {
 	];
 
 	public function setUp() {
-		$this->meal = new Meal('foo', '1/1/2000', 10);
+		$this->meal = new SundayMeal('foo', '04/22/2018', 10);
 	}
 
 	/**
@@ -42,11 +43,11 @@ class MealTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function datesProvider() {
-		return array(
-			array('Wed Dec 11 23:15:42 EST 2013', 4),
-			array('12/31/13', 2),
-			array('10/6/13', 7)
-		);
+		return [
+			['Wed Dec 11 11:15:42 EST 2013', 3],
+			['12/31/13', 2],
+			['10/6/13', 7]
+		];
 	}
 
 	/**
@@ -130,5 +131,23 @@ class MealTest extends PHPUnit_Framework_TestCase {
 			['04/22/2018', $this->shifts[3], SUNDAY_CLEANER, 3],
 		];
 	}
+
+	public function testGetTimes() {
+		$schedule = new Schedule();
+
+		$sunday = new SundayMeal($schedule, '04/22/2018', 123);
+		$this->assertEquals($sunday->getTime(), '5:30');
+		$this->assertEquals($sunday->getCommunities(), 'GO, SW, TS');
+
+		$weekday = new WeekdayMeal($schedule, '04/23/2018', 124);
+		$this->assertEquals($weekday->getTime(), '6:15');
+		$this->assertEquals($weekday->getCommunities(), 'GO, SW, TS');
+
+		$meeting = new MeetingNightMeal($schedule, '04/16/2018', 125);
+		$this->assertEquals($meeting->getTime(), '5:45');
+		$this->assertEquals($meeting->getCommunities(), 'GO');
+	}
+
+	#public function testGetCommunities() { }
 }
 ?>
