@@ -2,7 +2,7 @@
 define('AVOID_PERSON', -2);
 define('PREFER_PERSON', 1);
 
-class Meal {
+abstract class Meal {
 	protected $schedule;
 	protected $date;
 	protected $day_of_week;
@@ -20,6 +20,7 @@ class Meal {
 	protected $meal_num;
 
 	protected $time_of_meal;
+	protected $communities;
 
 	/**
 	 * Initialize a meal.
@@ -512,9 +513,10 @@ EOTXT;
 		$hobarter_found = FALSE;
 
 		$is_mtg_night_job = FALSE;
-		$out_jobs = [];
+		$out_data = [];
 		// check to make sure that all of the required instances are filled
 		foreach($this->assigned as $job_id=>$assignments) {
+
 			// check for un-assigned names
 			foreach($assignments as $shift_num=>$name) {
 				if (is_null($name)) {
@@ -532,15 +534,18 @@ EOTXT;
 				$assignments[] = '';
 			}
 
-			$order = NULL;
+			$order = 0;
+			$out_data[$order] = $this->getTime();
+			$order++;
+			$out_data[$order] = $this->getCommunities();
 			if (is_a_head_cook_job($job_id)) {
-				$order = 0;
+				$order = 2;
 			}
 			else if (is_a_cook_job($job_id)) {
-				$order = 1;
+				$order = 3;
 			}
 			else if (is_a_clean_job($job_id)) {
-				$order = 2;
+				$order = 4;
 				if (!$is_mtg_night_job) {
 					foreach($assignments as $shift_num=>$name) {
 						if (is_a_hobarter($name)) {
@@ -553,36 +558,36 @@ EOTXT;
 			}
 			// this must be for table-setters?
 			else {
-				$order = 4;
+				$order = 5;
 			}
 
-			if (($only_cleaners) && ($order != 2)) {
+			if (($only_cleaners) && ($order != 4)) {
 				continue;
 			}
 
 			switch($format) {
 			case 'txt':
 				$line = implode("\t", $assignments);
-				$out_jobs[$order] = $line;
+				$out_data[$order] = $line;
 				break;
 			case 'sql':
 			case 'csv':
-				$out_jobs = array_merge($out_jobs, $assignments);
+				$out_data = array_merge($out_data, $assignments);
 				break;
 			}
 		}
-		ksort($out_jobs);
+		ksort($out_data);
 
 		switch($format) {
 		case 'txt':
-			print "$this->date\t" . implode("\t", $out_jobs) . "\n";
+			print "$this->date\t" . implode("\t", $out_data) . "\n";
 			break;
 
 		case 'sql':
 			$cols = ($is_mtg_night_job) ? '(meal_date, cook, cleaner1)' :
 				'(meal_date, cook, asst1, asst2, cleaner1, cleaner2, cleaner3)';
 			$workers = [];
-			foreach($out_jobs as $j) {
+			foreach($out_data as $j) {
 				$workers[] = "'{$j}'";
 			}
 			$names = implode(', ', $workers);
@@ -591,7 +596,7 @@ EOTXT;
 			break;
 
 		case 'csv':
-			print "$this->date," . implode(',', $out_jobs) . "\n";
+			print "$this->date," . implode(',', $out_data) . "\n";
 		}
 
 		// did a hobart shift go unfilled?
@@ -657,18 +662,39 @@ EOTXT;
 		}
 		return $workers;
 	}
+
+	/**
+	 * Get the time of this meal instance.
+	 *
+	 * @return string the time of the meal.
+	 */
+	public function getTime() {
+		return $this->time_of_meal;
+	}
+
+	/**
+	 * Get the list of communities that are invited to this meal.
+	 *
+	 * @return string A comma-delimited list of short community strings.
+	 */
+	public function getCommunities() {
+		return $this->communities;
+	}
 }
 
 class SundayMeal extends Meal {
 	protected $time_of_meal = '5:30';
+	protected $communities = 'GO, SW, TS';
 }
 
 class WeekdayMeal extends Meal {
 	protected $time_of_meal = '6:15';
+	protected $communities = 'GO, SW, TS';
 }
 
 class MeetingNightMeal extends Meal {
 	protected $time_of_meal = '5:45';
+	protected $communities = 'GO';
 }
 
 ?>
