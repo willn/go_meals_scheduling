@@ -6,7 +6,6 @@ set_include_path('../' . PATH_SEPARATOR . '../public/');
 
 global $relative_dir;
 $relative_dir = '../public/';
-
 require_once $relative_dir . 'globals.php';
 require_once 'assignments.php';
 
@@ -18,7 +17,6 @@ require_once 'public/utils.php';
 /*
  * Automated meals scheduling assignments
  */
-$start = microtime(TRUE);
 
 $options = getopt('cijsuw');
 if (empty($options)) {
@@ -35,13 +33,8 @@ EOTXT;
 	exit;
 }
 
-global $relative_dir;
-$relative_dir = '../public/';
-
 // remove special case...
 unset($all_jobs['all']);
-
-$job_ids_clause = get_job_ids_clause();
 
 $assignments = new Assignments();
 $assignments->run();
@@ -61,10 +54,14 @@ if (array_key_exists('c', $options)) {
 	$assignments->outputCSV();
 }
 
+// run the schedule, output in text format
 if (array_key_exists('s', $options)) {
 	$assignments->printResults($options);
 }
 
-$end = microtime(TRUE);
-echo "elapsed time: " . ($end - $start) . "\n";
+// run the schedule and report back a summary of workers
+if (array_key_exists('w', $options)) {
+	$assignments->printResults($options);
+}
+
 ?>

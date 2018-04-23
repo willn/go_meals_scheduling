@@ -11,7 +11,7 @@ Directions to set up the survey:
 	cd /home/gocoho/meals_scheduling/
 	git status
 
-# Copy the git repo to the directory root:
+# Look for differences between work repo and production
 	cd ~
 	diff -r meals_scheduling/public/ public_html/meals_scheduling/
 
@@ -19,7 +19,7 @@ Directions to set up the survey:
 	cd ~/public_html/meals_scheduling/
 	for i in `find . -type f`; do cp ~/meals_scheduling/public/$i $i; done
 
-# edit public/config.php
+# edit ~/meals_scheduling/public/config.php
 	- set the appropriate DEADLINE date
 
 # edit public/utils.php
@@ -29,7 +29,7 @@ Directions to set up the survey:
 # edit public/config.php
 	# add any extra workers to the get_num_shift_overrides() function
 
-# grab the latest sqlite file from webfactional, fix permissions, and commit:
+# grab the latest sqlite file from work hosting, fix permissions, and commit:
 	# login to the work web UI, go to more reports, and "Download SQLite3 database from host"
 	# locally...
 	cd ~/Downloads/
@@ -49,30 +49,25 @@ Directions to set up the survey:
 	# copy that block and replace the previous season's entries in this file:
 	vi ../public/config.php
 
-#!#
-
 # initialize the database
 	php initialize_database.php
 	cd ..
 	git status
-	git add ... # any changed files
+	git add *
 	git commit
 
 # stage everything from the meals dev repo to public_html
-	cd ~/meals_scheduling/public/
-	for i in `find . -type f`; do cp $i ~/public_html/meals_scheduling/$i; done	
-	cp -r ~/meals_scheduling/public ~/public_html/meals_scheduling/
+	cd ~/public_html/meals_scheduling/
+	for i in `find . -type f`; do cp ~/meals_scheduling/public/$i $i; done
 
-#!#
 # test to make sure everything works
 	- confirm that the calendar dates are correct
+	- remove any previous dates from config.php / get_regular_day_overrides()
 	- confirm the holidays and meeting nights are correct
+	- confirm whether we want to display a farm meals night message...
 	- fill in some entries and save them, then revert
 		* git checkout sqlite_data/work_allocation.db
 	- load listing page again to make sure that the database is writeable
-
-# verify that the number of shifts counted is proper:
-	- view /report.php in the browser, look for "Number of assignments needed"
 
 # notify participants that the survey is ready
  
@@ -84,16 +79,10 @@ Directions to set up the survey:
 # set up database backup routine on the webserver:
 	mkdir ~/backups
 	chmod 700 ~/backups/
-	sudo bash
+	# sudo bash
 	crontab -e
 	# uncomment the following lines:
 	20 *   *   *   *   /bin/cp -f ~/meals_scheduling/public/sqlite_data/work_allocation.db ~/backups/
-	25 *   *   *   *   /usr/bin/gzip -f ~/backups/work_allocation.db
-
-# set up a cronjob to copy webserver locally:
-	57 * * * * rsync -e 'ssh -p 7822' -avz username@hostname:meals_scheduling/ ~/backups/a2hosting/
-
-# make sure the work allocation crontab is in place to copy from webserver to desktop
 
 - schedule a few reminders spaced out over the rest of the session to send
   reminder emails to laggards
@@ -113,17 +102,17 @@ what to do at the end of the survey:
 
 - check for any un-assigned workers
 	cd ~/meals_scheduling/auto_assignments/
-	php assignments -x
+	php execute.php -u
 
 - count un-filled slots:
-	php assignments.php -s > schedule.txt
+	php execute.php -s > results.txt
 	grep XXX !$
 
 - check for hobarter ratio:
-	grep HOBART schedule.txt
+	grep HOBART results.txt
 
 - Examine workers:
-	php assignments.php -w > workers.txt
+	php execute.php -w > workers.txt
 
 - Someone may have volunteered to take too many additional dinners.
   Reduce the number of needed volunteer / override positions mentioned
@@ -135,8 +124,9 @@ what to do at the end of the survey:
 
 - make trades to get the under-assigned people swapped in replacing XXXXs
 
-- read the comments and make sure they apply cleanly with auto-checks, copy and
-  paste from "Confirm results check" section, and create custom ones for anything
+- read the comments and make sure they apply cleanly with auto-checks
+
+- copy and paste from "Confirm results check" section, and create custom ones for anything
   that's not a personal avoid request.
 	http://gocoho.org/meals_scheduling/report.php?key=all#confirm_checks
 	* copy section
@@ -147,14 +137,13 @@ what to do at the end of the survey:
 
 - check to make sure that there are no 'table setter' assignments which conflict
   with head or asst cooking
-	* do visual check, make sure the last column isn't in the first 2
-	* cat schedule.txt | awk '{print $1 " " $2 " "  $3 " " $8}' | grep ' .* .* [^ ]'
+	* see tests/CheckForConflictsTest.php
 
 - do any swapping needed
 
 - run avoids validation:
 	cd ../utils/
-	php validate_schedule.php -f ../auto_assignments/schedule.txt
+	php validate_schedule.php -f ../auto_assignments/results.txt
 
 translate dale's work system user names to MESS inserts
 --------------------------------------------------------
