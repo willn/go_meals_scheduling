@@ -151,13 +151,15 @@ EOSQL;
 	 * Display the results on the screen
 	 */
 	public function printResults($options) {
-		$display_schedule = array_key_exists('s', $options);
-		if ($display_schedule) {
+		print_r($options);
+		// display schedule
+		if (array_key_exists('s', $options)) {
 			$this->schedule->printResults();
+			return;
 		}
 
-		$display_workers = array_key_exists('w', $options);
-		if ($display_workers) {
+		// display workers
+		if (array_key_exists('w', $options)) {
 			$only_unfilled_workers = array_key_exists('u', $options);
 			$this->roster->printResults($only_unfilled_workers);
 		}
