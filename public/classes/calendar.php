@@ -153,6 +153,9 @@ EOHTML;
 	 *     a summary of all available workers for that date.
 	 * @param[in] dates array of date/job_id/preference level listing available
 	 *     workers for the shift. Currently only used for reporting.
+	 * @return string html to render all the calendar months of the
+	 *     season... or to just return the dates_and_shifts array if
+	 *     this is not for web_display.
 	 */
 	public function evalDates($worker=NULL, $dates=NULL) {
 		global $sunday_jobs;
@@ -180,7 +183,7 @@ EOHTML;
 
 		$day_of_week = NULL;
 		$out = '';
-		$dates_and_shifts = array();
+		$dates_and_shifts = [];
 		// for each month in the season
 		$month_count = 0;
 		foreach($this->season_months as $month_num=>$month_name) {
