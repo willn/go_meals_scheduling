@@ -151,7 +151,6 @@ EOSQL;
 	 * Display the results on the screen
 	 */
 	public function printResults($options) {
-		print_r($options);
 		// display schedule
 		if (array_key_exists('s', $options)) {
 			$this->schedule->printResults();
