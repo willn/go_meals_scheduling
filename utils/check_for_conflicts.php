@@ -19,7 +19,6 @@ function parse_schedule_file($filename='schedule.txt') {
 		$out[] = array_combine($cols, $pieces);
 	}
 
-	file_put_contents('data/mega_season.json', json_encode($out));
 	return $out;
 }
 
