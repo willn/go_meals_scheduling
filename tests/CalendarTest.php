@@ -337,7 +337,7 @@ EOHTML;
 		$mega_season = json_decode($mega_season_file, TRUE);
 
 		return [
-			[NULL, NULL, $mega_season[0]],
+			[NULL, NULL, $mega_season],
 		];
 	}
 }
