@@ -218,9 +218,7 @@ function get_meal_type_by_date($date) {
 	// this is a weekday
 	$meal_days = get_weekday_meal_days();
 	if (in_array($day_of_week, $meal_days)) {
-		$mtg_nights = get_mtg_nights();
 		$reg_day_overrides = get_regular_day_overrides();
-		$ordinal_int = intval(($day_num - 1) / 7) + 1;
 
 		$is_reg_day_override = FALSE;
 		if (array_key_exists($month_num, $reg_day_overrides) &&
@@ -228,6 +226,8 @@ function get_meal_type_by_date($date) {
 				$is_reg_day_override = TRUE;
 		}
 
+		$mtg_nights = get_mtg_nights();
+		$ordinal_int = intval(($day_num - 1) / 7) + 1;
 		if (!$is_reg_day_override &&
 			array_key_exists($day_of_week, $mtg_nights) &&
 			($mtg_nights[$day_of_week] == $ordinal_int)) {
