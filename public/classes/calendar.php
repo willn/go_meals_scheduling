@@ -233,118 +233,122 @@ EOHTML;
 				$date_string = "{$month_num}/{$day_num}/" . SEASON_YEAR;
 				$cell = '';
 
-				// check for holidays
-				if (isset($this->holidays[$month_num]) &&
-					in_array($day_num, $this->holidays[$month_num])) {
-					$cell = '<span class="skip">holiday</span>';
-				}
-				// check for manual skip dates
-				else if (isset($skip_dates[$month_num]) &&
-					in_array($day_num, $skip_dates[$month_num])) {
-					$cell = '<span class="skip">skip</span>';
-				}
-				// sundays
-				else if (ARE_SUNDAYS_UNIQUE && ($day_of_week == 0)) {
-					$this->num_shifts['sunday']++;
+				$date = "{$month_num}/{$day_num}/" . SEASON_YEAR;
+				$meal_type = get_meal_type_by_date($date);
+				switch($meal_type) {
+					case HOLIDAY_NIGHT:
+						$cell = '<span class="skip">holiday</span>';
+						break;
 
-					if (!$this->web_display) {
-						$jobs_list = array_keys($sunday_jobs);
-						if (!empty($jobs_list)) {
-							$dates_and_shifts[$date_string] = $jobs_list;
+					case SKIP_NIGHT:
+						$cell = '<span class="skip">skip</span>';
+						break;
+
+					#-----------------------------------------
+					case SUNDAY_MEAL:
+						$this->num_shifts['sunday']++;
+
+						if (!$this->web_display) {
+							$dates_and_shifts = $this->addJobsToDatesAndShifts(
+								$sunday_jobs, $dates_and_shifts, $date_string);
 						}
-					}
-					else if (!is_null($worker)) {
-						foreach($sunday_jobs as $key=>$name) {
-							$saved_pref_val =
-								isset($saved_prefs[$key][$date_string]) ?
-									$saved_prefs[$key][$date_string] : NULL;
+						else if (!is_null($worker)) {
+							foreach($sunday_jobs as $key=>$name) {
+								$saved_pref_val =
+									isset($saved_prefs[$key][$date_string]) ?
+										$saved_prefs[$key][$date_string] : NULL;
 
-							// if this job is in the list of assigned tasks.
-							if (array_key_exists($key, $worker->getTasks())) {
-								$cell .= $this->renderday($date_string, $name, $key,
-									$saved_pref_val);
+								// if this job is in the list of assigned tasks.
+								if (array_key_exists($key, $worker->getTasks())) {
+									$cell .= $this->renderday($date_string, $name, $key,
+										$saved_pref_val);
+								}
 							}
 						}
-					}
-					// generate the date cell for the report
-					else if (!empty($dates) &&
-						array_key_exists($date_string, $dates)) {
-						// report the available workers
-						$tally = <<<EOHTML
+						// generate the date cell for the report
+						else if (!empty($dates) &&
+							array_key_exists($date_string, $dates)) {
+							// report the available workers
+							$tally = <<<EOHTML
 <span class="type_count">[S{$this->num_shifts['sunday']}]</span>
 EOHTML;
-						$cell = $this->list_available_workers($date_string,
-							$dates[$date_string], TRUE);
-					}
-				}
-				// process weekday meals nights
-				else if (in_array($day_of_week, $meal_days)) {
-
-					// is this a meeting night?
-					// is this the nth occurence of a dow in the month?
-					$ordinal_int = intval(($day_num - 1) / 7) + 1;
-					$is_mtg_night = FALSE;
-
-					$is_reg_day_override = FALSE;
-					if (array_key_exists($month_num, $reg_day_overrides) &&
-						in_array($day_num, $reg_day_overrides[$month_num])) {
-							$is_reg_day_override = TRUE;
-					}
-
-					// is this a meeting night?
-					if ((!$is_reg_day_override &&
-						array_key_exists($day_of_week, $mtg_nights) &&
-						($mtg_nights[$day_of_week] == $ordinal_int))) {
-
-						$is_mtg_night = TRUE;
-						$this->num_shifts['meeting']++;
-						$jobs = $mtg_jobs;
-					}
-					// is this a regular weekday night?
-					else {
-						$this->num_shifts['weekday']++;
-						$jobs = $weekday_jobs;
-					}
-
-					if (!$this->web_display) {
-						$jobs_list = array_keys($jobs);
-						if (!empty($jobs_list)) {
-							$dates_and_shifts[$date_string] = $jobs_list;
+							$cell = $this->list_available_workers($date_string,
+								$dates[$date_string], TRUE);
 						}
-					}
-					else if (!is_null($worker)) {
-						foreach($jobs as $key=>$name) {
-							$saved_pref_val =
-								isset($saved_prefs[$key][$date_string]) ?
-									$saved_prefs[$key][$date_string] : NULL;
+						break;
 
-							if (array_key_exists($key, $worker->getTasks())) {
-								// is this preference saved already?
+					#-----------------------------------------
+					case MEETING_NIGHT_MEAL:
+						$this->num_shifts['meeting']++;
 
-								$cell .= $this->renderday($date_string, $name,
-									$key, $saved_pref_val);
+						if (!$this->web_display) {
+							$dates_and_shifts = $this->addJobsToDatesAndShifts(
+								$mtg_jobs, $dates_and_shifts, $date_string);
+						}
+						else if (!is_null($worker)) {
+							foreach($jobs as $key=>$name) {
+								$saved_pref_val =
+									isset($saved_prefs[$key][$date_string]) ?
+										$saved_prefs[$key][$date_string] : NULL;
+
+								if (array_key_exists($key, $worker->getTasks())) {
+									// is this preference saved already?
+
+									$cell .= $this->renderday($date_string, $name,
+										$key, $saved_pref_val);
+								}
 							}
 						}
-					}
-					else if ($is_mtg_night) {
-						$tally = <<<EOHTML
+						else {
+							$tally = <<<EOHTML
 <span class="type_count">[M{$this->num_shifts['meeting']}]</span>
 EOHTML;
-						$cell .= '<span class="note">meeting night</span>';
-						// report the available workers
-						$cell .= $this->list_available_workers($date_string,
-							$dates[$date_string]);
-					}
-					// generate the date cell for the report
-					else if (array_key_exists($date_string, $dates)) {
-						$tally = <<<EOHTML
+							$cell .= '<span class="note">meeting night</span>';
+							// report the available workers
+							$cell .= $this->list_available_workers($date_string,
+								$dates[$date_string]);
+						}
+
+						break;
+
+					#-----------------------------------------
+					case WEEKDAY_MEAL:
+						$this->num_shifts['weekday']++;
+
+						if (in_array($day_of_week, $meal_days)) {
+							if (!$this->web_display) {
+								$dates_and_shifts = $this->addJobsToDatesAndShifts(
+									$weekday_jobs, $dates_and_shifts, $date_string);
+							}
+							else if (!is_null($worker)) {
+								foreach($jobs as $key=>$name) {
+									$saved_pref_val =
+										isset($saved_prefs[$key][$date_string]) ?
+											$saved_prefs[$key][$date_string] : NULL;
+
+									if (array_key_exists($key, $worker->getTasks())) {
+										// is this preference saved already?
+
+										$cell .= $this->renderday($date_string, $name,
+											$key, $saved_pref_val);
+									}
+								}
+							}
+						}
+						else if (array_key_exists($date_string, $dates)) {
+							// generate the date cell for the report
+							$tally = <<<EOHTML
 <span class="type_count">[W{$this->num_shifts['weekday']}]</span>
 EOHTML;
 
-						// report the available workers
-						$cell = $this->list_available_workers($date_string,
-							$dates[$date_string]);
-					}
+							// report the available workers
+							$cell = $this->list_available_workers($date_string,
+								$dates[$date_string]);
+						}
+						break;
+
+					case NOT_A_MEAL:
+						break;
 				}
 
 				// #!# suppress this display unless it's report mode...
@@ -413,6 +417,21 @@ EOHTML;
 
 		return $out;
 	}
+
+	/**
+	 * #!#
+	 */
+	public function addJobsToDatesAndShifts($list_of_jobs,
+		$dates_and_shifts, $date_string) {
+
+		$jobs_list = array_keys($list_of_jobs);
+		if (!empty($jobs_list)) {
+			$dates_and_shifts[$date_string] = $jobs_list;
+		}
+
+		return $dates_and_shifts;
+	}
+
 
 	/**
 	 * Get a notice message to display on certain dates.
