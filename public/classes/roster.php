@@ -1,5 +1,4 @@
 <?php
-set_include_path('../' . PATH_SEPARATOR . '../public/');
 require_once 'utils.php';
 
 global $dbh;

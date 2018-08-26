@@ -6,8 +6,8 @@ require_once $relative_dir . 'globals.php';
 require_once $relative_dir . 'classes/calendar.php';
 require_once $relative_dir . 'classes/worker.php';
 require_once $relative_dir . 'classes/roster.php';
+require_once $relative_dir . 'classes/meal.php';
 require_once 'schedule.php';
-require_once 'meal.php';
 
 global $dbh;
 global $job_key_clause;
