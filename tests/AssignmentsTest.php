@@ -1,4 +1,5 @@
 <?php
+set_include_path('../' . PATH_SEPARATOR . '../public/');
 global $relative_dir;
 $relative_dir = '../auto_assignments/';
 require_once '../auto_assignments/assignments.php';

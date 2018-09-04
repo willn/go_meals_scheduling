@@ -1,8 +1,9 @@
 <?php
+set_include_path('../' . PATH_SEPARATOR . '../public/');
 global $relative_dir;
 $relative_dir = '../public/';
 require_once '../public/config.php';
-require_once '../auto_assignments/meal.php';
+require_once '../public/classes/meal.php';
 require_once '../auto_assignments/schedule.php';
 
 /**

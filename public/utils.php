@@ -1,6 +1,6 @@
 <?php
 require_once 'constants.inc';
-require_once '../auto_assignments/meal.php';
+require_once 'classes/meal.php';
 
 /**
  * Get an element from an array, with a backup.
@@ -56,7 +56,7 @@ function get_current_season_months() {
 		case FALL:
 			return [
 				11=>'November',
-				12=>'December'
+				12=>'December',
 			];
 
 		case 'test':
