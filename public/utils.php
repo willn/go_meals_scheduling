@@ -58,43 +58,6 @@ function get_current_season_months() {
 				11=>'November',
 				12=>'December',
 			];
-
-		case 'test':
-			return [
-				1=>'January',
-			];
-	}
-}
-
-/**
- * #!# WTF... why is this off by 2 months?
- * Is that for planning purposes? That shouldn't be done here...
- */
-function get_season_name($date=NULL) {
-	if (is_null($date)) {
-		$date = time();
-	}
-	// XXX should this be using strtotime()?
-	$month = date('n', $date);
-
-	switch($month) {
-		case 11:
-		case 12:
-		case 1:
-		case 2:
-			return WINTER;
-
-		case 3:
-		case 4:
-		case 5:
-		case 6:
-			return SUMMER;
-
-		case 7:
-		case 8:
-		case 9:
-		case 10:
-			return FALL;
 	}
 }
 

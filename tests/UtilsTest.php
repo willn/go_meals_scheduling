@@ -34,26 +34,6 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @dataProvider provide_get_season_name
-	 */
-	public function test_get_season_name($input, $expected) {
-		$result = get_season_name($input);
-		$this->assertEquals($result, $expected);
-	}
-
-	public function provide_get_season_name() {
-		return array(
-			array(strtotime('Jan 1st, 2015'), 'winter'),
-			array(strtotime('Feb 28th, 2015'), 'winter'),
-			array(strtotime('Mar 1st, 2015'), 'summer'),
-			array(strtotime('June 30, 2015'), 'summer'),
-			array(strtotime('July 1st, 2015'), 'fall'),
-			array(strtotime('Oct 31st, 2015'), 'fall'),
-			array(strtotime('Nov 1st, 2015'), 'winter'),
-		);
-	}
-
-	/**
 	 * @dataProvider first_associative_key_provider
 	*/
 	public function test_get_first_associative_key($dates, $expected) {
