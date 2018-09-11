@@ -49,7 +49,7 @@ create_sqlite_connection();
 global $all_jobs;
 $all_jobs = array();
 $all_jobs['all'] = 'all';
-$all_jobs += $mtg_jobs + $sunday_jobs + $weekday_jobs;
+$all_jobs += get_mtg_jobs() + get_sunday_jobs() + get_weekday_jobs();
 
 global $all_cook_jobs;
 global $all_clean_jobs;
@@ -137,13 +137,11 @@ function get_job_ids_clause($prefix='') {
 }
 
 function is_a_mtg_night_job($job_id) {
-	global $mtg_jobs;
-	return array_key_exists($job_id, $mtg_jobs);
+	return array_key_exists($job_id, get_mtg_jobs());
 }
 
 function is_a_sunday_job($job_id) {
-	global $sunday_jobs;
-	return array_key_exists($job_id, $sunday_jobs);
+	return array_key_exists($job_id, get_sunday_jobs());
 }
 
 function is_a_cook_job($job_id) {
@@ -157,19 +155,19 @@ function is_a_clean_job($job_id) {
 }
 
 function is_a_head_cook_job($job_id) {
-	global $weekday_jobs;
+	$weekday_jobs = get_weekday_jobs();
 	if (isset($weekday_jobs[$job_id]) &&
 		stristr($weekday_jobs[$job_id], 'head cook')) {
 		return TRUE;
 	}
 
-	global $sunday_jobs;
+	$sunday_jobs = get_sunday_jobs();
 	if (isset($sunday_jobs[$job_id]) &&
 		strstr($sunday_jobs[$job_id], 'head cook')) {
 		return TRUE;
 	}
 
-	global $mtg_jobs;
+	$mtg_jobs = get_mtg_jobs();
 	if (isset($mtg_jobs[$job_id]) &&
 		strstr($mtg_jobs[$job_id], 'takeout orderer')) {
 		return TRUE;
@@ -184,17 +182,17 @@ function is_a_hobarter($worker) {
 }
 
 function get_job_name($job_id) {
-	global $weekday_jobs;
+	$weekday_jobs = get_weekday_jobs();
 	if (isset($weekday_jobs[$job_id])) {
 		return $weekday_jobs[$job_id];
 	}
 
-	global $sunday_jobs;
+	$sunday_jobs = get_sunday_jobs();
 	if (isset($sunday_jobs[$job_id])) {
 		return $sunday_jobs[$job_id];
 	}
 
-	global $mtg_jobs;
+	$mtg_jobs = get_mtg_jobs();
 	if (isset($mtg_jobs[$job_id])) {
 		return $mtg_jobs[$job_id];
 	}

@@ -158,9 +158,9 @@ EOHTML;
 	 *     this is not for web_display.
 	 */
 	public function evalDates($worker=NULL, $dates=NULL) {
-		global $sunday_jobs;
-		global $weekday_jobs;
-		global $mtg_jobs;
+		$sunday_jobs = get_sunday_jobs();
+		$weekday_jobs = get_weekday_jobs();
+		$mtg_jobs = get_mtg_jobs();
 		$mtg_nights = get_mtg_nights();
 
 		$mtg_day_count = array();
@@ -810,13 +810,11 @@ EOHTML;
 
 		$job_titles = array();
 		if ($is_sunday) {
-			global $sunday_jobs;
-			$job_titles = $sunday_jobs;
+			$job_titles = get_sunday_jobs();
 		}
 		else {
-			global $weekday_jobs;
-			global $mtg_jobs;
-			$job_titles = $weekday_jobs + $mtg_jobs;
+			$mtg_jobs = get_mtg_jobs();
+			$job_titles = get_weekday_jobs() + $mtg_jobs;
 		}
 
 		if ($this->key_filter != 'all') {

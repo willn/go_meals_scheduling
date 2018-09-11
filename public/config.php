@@ -84,26 +84,39 @@ function get_regular_day_overrides() {
 	];
 }
 
-// If these names change, be sure to update the is_a_*_job() functions.
-// List in order of importance.
-$mtg_jobs = array(
-	MEETING_NIGHT_ORDERER => 'Meeting night takeout orderer',
-	MEETING_NIGHT_CLEANER => 'Meeting night cleaner',
-);
+/*
+ * If these names change, be sure to update the is_a_*_job() functions.
+ * List in order of importance.
+ */
+function get_mtg_jobs() {
+	return [
+		MEETING_NIGHT_ORDERER => 'Meeting night takeout orderer',
+		MEETING_NIGHT_CLEANER => 'Meeting night cleaner',
+	];
+}
+
+/*
+ * list in order of importance
+ */
+function get_sunday_jobs() {
+	return [
+		// #!# note, we're looking for the string 'asst cook' in the code
+		SUNDAY_HEAD_COOK => 'Sunday head cook',
+		SUNDAY_ASST_COOK => 'Sunday meal asst cook',
+		SUNDAY_CLEANER => 'Sunday Meal Cleaner',
+	];
+}
+
+
 // list in order of importance
-$sunday_jobs = array(
-	// #!# note, we're looking for the string 'asst cook' in the code
-	SUNDAY_HEAD_COOK => 'Sunday head cook',
-	SUNDAY_ASST_COOK => 'Sunday meal asst cook',
-	SUNDAY_CLEANER => 'Sunday Meal Cleaner',
-);
-// list in order of importance
-$weekday_jobs = array(
-	WEEKDAY_HEAD_COOK => 'Weekday head cook',
-	WEEKDAY_ASST_COOK => 'Weekday meal asst cook',
-	WEEKDAY_CLEANER => 'Weekday Meal cleaner',
-	WEEKDAY_TABLE_SETTER => 'Weekday Table Setter',
-);
+function get_weekday_jobs() {
+	return [
+		WEEKDAY_HEAD_COOK => 'Weekday head cook',
+		WEEKDAY_ASST_COOK => 'Weekday meal asst cook',
+		WEEKDAY_CLEANER => 'Weekday Meal cleaner',
+		WEEKDAY_TABLE_SETTER => 'Weekday Table Setter',
+	];
+}
 
 /*
  * Get how many dinners are contained within the requested job.
