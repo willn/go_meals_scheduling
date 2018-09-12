@@ -1,4 +1,5 @@
 <?php
+require_once 'globals.php';
 require_once 'constants.inc';
 require_once 'classes/meal.php';
 
@@ -15,16 +16,20 @@ function array_get($array, $key, $default=NULL) {
 
 /**
  * Get the upcoming season's ID.
+ * Since the seasons are no longer mathematically predictable, this returns the
+ * highest number from the sqlite file.
  */
 function get_season_id() {
-	$start_date = 'September 1st, 2007, 12pm';
-	$start = new DateTime($start_date);
+	create_sqlite_connection();
 
-	$now = new DateTime();
-	$diff = date_diff($start, $now);
+	global $dbh;
+	$sql = 'SELECT max(id) FROM work_app_season';
+	$id = NULL;
+	foreach ($dbh->query($sql) as $row) {
+		$id = $row[0];
+	}
 
-	$out = ($diff->y * 3) + floor($diff->m / 3);
-	return $out;
+	return $id;
 }
 
 /**

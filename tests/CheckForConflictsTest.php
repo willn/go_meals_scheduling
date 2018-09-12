@@ -1,5 +1,6 @@
 <?php
 global $relative_dir;
+$relative_dir = '../public';
 require_once '../utils/check_for_conflicts.php';
 
 class CheckForConflictsTest extends PHPUnit_Framework_TestCase {
