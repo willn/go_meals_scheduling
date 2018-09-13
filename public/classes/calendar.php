@@ -186,13 +186,20 @@ EOHTML;
 		$dates_and_shifts = [];
 		// for each month in the season
 		$month_count = 0;
+		$season_year = SEASON_YEAR;
 		foreach($this->season_months as $month_num=>$month_name) {
 			$month_count++;
+
+			// if this season wraps around to another year
+			if (($month_count !== 1) && ($month_name === 'January')) {
+				$season_year++;	
+			}
+
 			$month_entries = array();
 			$month_week_count = 1;
 
 			// get unix ts
-			$start_ts = strtotime("{$month_name} 1, " . SEASON_YEAR);
+			$start_ts = strtotime("{$month_name} 1, " . $season_year);
 			$days_in_month = date('t', $start_ts);
 
 			// figure out the first day of the starting month
@@ -230,10 +237,10 @@ EOHTML;
 				}
 
 				#!# need to fix the validity of this id value
-				$date_string = "{$month_num}/{$day_num}/" . SEASON_YEAR;
+				$date_string = "{$month_num}/{$day_num}/" . $season_year;
 				$cell = '';
 
-				$date = "{$month_num}/{$day_num}/" . SEASON_YEAR;
+				$date = "{$month_num}/{$day_num}/" . $season_year;
 				$meal_type = get_meal_type_by_date($date);
 				switch($meal_type) {
 					case HOLIDAY_NIGHT:
@@ -396,7 +403,6 @@ EOHTML;
 
 			$survey = ($this->is_report) ? '' : 'survey';
 			$quarterly_month_ord = ($month_num % 4);
-			$season_year = SEASON_YEAR;
 			$out .= <<<EOHTML
 			<div id="{$month_name}" class="month_wrapper">
 				<h3 class="month {$survey}">

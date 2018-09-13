@@ -12,7 +12,7 @@ define('DOMAIN', '@gocoho.org');
 define('FROM_EMAIL', 'willie' . DOMAIN);
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('october 21, 2018, 8:00pm'));
+define('DEADLINE', strtotime('October 21, 2018, 8:00pm'));
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_ORDERER', 4393);
@@ -36,30 +36,6 @@ define('ARE_SUNDAYS_UNIQUE', TRUE);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-		/* missing:
-			SUNDAY_HEAD_COOK: 1
-			SUNDAY_CLEANER: 4
-		*/
-		'anastasia' => [
-			WEEKDAY_ASST_COOK => 3,
-		],
-		'pam' => [
-			SUNDAY_CLEANER => 1,
-		],
-		'patti' => [
-			SUNDAY_CLEANER => 1,
-			WEEKDAY_ASST_COOK => 1,
-		],
-		'tevah' => [
-			WEEKDAY_HEAD_COOK => 2,
-		],
-		'willie' => [
-			SUNDAY_HEAD_COOK => 1,
-		],
-		'yimiau' => [
-			SUNDAY_HEAD_COOK => 1,
-			WEEKDAY_HEAD_COOK => 1,
-		],
 	];
 }
 

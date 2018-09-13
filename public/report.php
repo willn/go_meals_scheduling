@@ -12,8 +12,6 @@ require_once "{$relative_dir}/config.php";
 
 session_start();
 
-$current_season = get_current_season_months();
-
 require_once('display/includes/header.php');
 
 if (!isset($_SESSION['access_type'])) {
@@ -145,6 +143,7 @@ if (file_exists(JSON_ASSIGNMENTS_FILE)) {
 // count the number of shifts actually assigned to workers
 $rows = '';
 // generate html
+$current_season = get_current_season_months();
 $per_shift = array();
 foreach($diffs as $key=>$diff) {
 	$row = $assignments[$key];

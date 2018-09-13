@@ -41,10 +41,6 @@ function get_current_season_months() {
 	switch(SEASON_NAME) {
 		case WINTER:
 			return [
-				1=>'January',
-				2=>'February',
-				3=>'March',
-				4=>'April',
 			];
 
 		case SPRING:
@@ -62,6 +58,10 @@ function get_current_season_months() {
 			return [
 				11=>'November',
 				12=>'December',
+				1=>'January',
+				2=>'February',
+				3=>'March',
+				4=>'April',
 			];
 	}
 }
@@ -84,6 +84,7 @@ function add_easter($holidays) {
  *     dates in the months.
  */
 function get_holidays() {
+	// start with static holidays
 	$holidays = [
 		1 => [1],
 		7 => [4],
@@ -93,21 +94,21 @@ function get_holidays() {
 
 	$holidays = add_easter($holidays);
 
-	// add memorial day
+	// *** memorial day ***
 	$mem_day = date('j', strtotime('last monday of May, ' . SEASON_YEAR));
 	// sunday, day before
 	$holidays[5][] = ($mem_day - 1);
 	// monday, memorial day
 	$holidays[5][] = $mem_day;
 
-	// sunday before labor day
+	// *** sunday before labor day ***
 	// if last day of aug is sunday, then next day is labor day... skip
 	$last_aug = date('D', strtotime('last day of August, ' . SEASON_YEAR));
 	if ($last_aug == 'Sun') {
 		$holidays[8][] = 31;
 	}
 
-	// labor day
+	// *** labor day ***
 	$labor_day = date('j', strtotime('first monday of September, ' . SEASON_YEAR));
 	// if the Sunday before is in Sept, then skip it
 	if ($labor_day > 1) {
@@ -115,7 +116,7 @@ function get_holidays() {
 	}
 	$holidays[9][] = $labor_day;
 
-	// thanksgiving
+	// *** thanksgiving ***
 	$thx_day = date('j', strtotime('fourth thursday of November, ' . SEASON_YEAR));
 	$holidays[11][] = $thx_day;
 	$last_sunday = date('j', strtotime('last sunday of November, ' . SEASON_YEAR));

@@ -26,7 +26,8 @@ define('SEASON_ID', get_season_id());
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SUMMER, FALL, WINTER
  */
-define('SEASON_NAME', SUMMER);
+// ###
+define('SEASON_NAME', FALL);
 
 # -------- list of sqlite tables ---------
 # tables from the work survey (read-only)

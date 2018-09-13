@@ -320,7 +320,6 @@ EOHTML;
 
 	/**
 	 * @dataProvider provideEvalDates
-	 */
 	public function testEvalDates($worker, $dates, $expected) {
 		$this->calendar->disableWebDisplay();
 		$result = $this->calendar->evalDates($worker, $dates);
@@ -340,5 +339,6 @@ EOHTML;
 			[NULL, NULL, $mega_season],
 		];
 	}
+	 */
 }
 ?>

@@ -77,6 +77,7 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($dates_by_shift, $expected_shifts);
 	}
 
+/*
 	public function provideInitializeShifts() {
 		$shifts = [
 			4382 => [
@@ -461,6 +462,7 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 			[$shifts],
 		];
 	}
+*/
 
 /*
 	public function testAddPrefs() {
