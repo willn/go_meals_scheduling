@@ -254,13 +254,12 @@ EOHTML;
 
 		return <<<EOHTML
 			<li>
-				I prefer to take a clean shift the same day
-				I do a cook shift in order to clean up after myself.<br>
+				I prefer to:<br>
 				<div class="radio_buttons">
 					<label>
 						<input type="radio" name="clean_after_self" value="yes"
 							{$requests['clean_after_self_yes']}>
-						<span>Yes</span>
+						<span>Clean the same day as cooking</span>
 					</label>
 
 					<label>
@@ -272,7 +271,7 @@ EOHTML;
 					<label>
 						<input type="radio" name="clean_after_self" value="no"
 							{$requests['clean_after_self_no']}>
-						<span>No</span>
+						<span>Avoid cleaning the same day as cooking</span>
 					</label>
 				</div>
 			</li>
@@ -336,18 +335,6 @@ EOHTML;
 				</div>
 			</div>
 
-<!--
-#!# This doesn't seem to work, so don't support it for now.
-			<p>
-				<label>
-					<input type="checkbox" name="bundle_shifts"{$bundle_checked}>
-					Please bundle my shifts together
-					<span>(i.e. I want to do all of 3 of my cooking / cleaning
-					shifts the same evening</span>
-				</label>
-			</p>
--->
-
 			{$this->renderCleanAfter($requests)}
 
 			<h3>Special Requests:</h3>
@@ -357,29 +344,10 @@ EOHTML;
 				<textarea name="comments" rows="7" cols="100">{$comments_text}</textarea>
 			</label>
 EOHTML;
-
-/*
-				<li>
-					Please group my shifts in the season:<br>
-					<input type="radio" name="bunch_shifts" value="yes"
-						id="bunch_shifts_early"{$requests['bunch_shifts_yes']}>
-						<label for="bunch_shifts_early">Early</label>
-
-					<input type="radio" name="bunch_shifts" value="dc"
-						id="bunch_shifts_dc"{$requests['bunch_shifts_dc']}>
-						<label for="bunch_shifts_dc">Don't Care</label>
-
-					<input type="radio" name="bunch_shifts" value="no"
-						id="bunch_shifts_late"{$requests['bunch_shifts_no']}>
-						<label for="bunch_shifts_late">Late</label>
-				</li>
-*/
 	}
 
-/* ------------------------------------------------ */
-
 	public function run() {
-		$this->popUsername();
+		$this->setUsername();
 		$this->lookupWorkerId();
 		$this->setWorker();
 
@@ -394,9 +362,10 @@ EOHTML;
 	}
 
 	/**
-	 * XXX This function is mis-named.
+	 * Set the username from $_POST.
+	 * Display an error and exit if username is not set.
 	 */
-	protected function popUsername() {
+	protected function setUsername() {
 		if (!isset($_POST['username'])) {
 			echo "<p class=\"error\">Missing username</p>\n";
 			exit;
