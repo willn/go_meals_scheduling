@@ -30,7 +30,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 	public function provide_get_holidays() {
 		$days = [
 			1 => [1],
-			4 => [1],
+			4 => [21],
 			5 => [27, 28],
 			7 => [4],
 			9 => [2,3],

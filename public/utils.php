@@ -35,12 +35,21 @@ function get_season_id() {
 /**
  * Get the months contained in the current season.
  *
+ * @param[in] season_name
  * @return array list of month names contained in the requested season.
  */
-function get_current_season_months() {
-	switch(SEASON_NAME) {
+function get_current_season_months($season_name=NULL) {
+	if (is_null($season_name)) {
+		$season_name = SEASON_NAME;
+	}
+
+	switch($season_name) {
 		case WINTER:
 			return [
+				1=>'January',
+				2=>'February',
+				3=>'March',
+				4=>'April',
 			];
 
 		case SPRING:
@@ -67,12 +76,32 @@ function get_current_season_months() {
 }
 
 /**
+ * Get whether this season wraps around to a new year or not.
+ * @return boolean If TRUE, then the season wraps around.
+ */
+function does_season_wrap($season_months) {
+	$count = 0;
+	foreach($season_months as $month) {
+		if (($month === 'January') && ($count !== 0)) {
+			return TRUE;
+		}
+		$count++;
+	}
+
+	return FALSE;
+}
+
+/**
  * Add the easter date to the holidates array.
  */
 function add_easter($holidays) {
+	$season = get_current_season_months();
+	$does_wrap = does_season_wrap($season);
+	$year = (!$does_wrap) ? SEASON_YEAR : (SEASON_YEAR + 1);
+
 	// add easter, which floats between march and april
-	$easter_month = date('n', easter_date(SEASON_YEAR));
-	$easter_day = date('j', easter_date(SEASON_YEAR));
+	$easter_month = date('n', easter_date($year));
+	$easter_day = date('j', easter_date($year));
 	$holidays[$easter_month][] = $easter_day;
 
 	return $holidays;

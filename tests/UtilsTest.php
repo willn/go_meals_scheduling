@@ -34,6 +34,84 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @dataProvider provide_get_current_season_months
+	 */
+	public function test_get_current_season_months($season_name) {
+		$result = get_current_season_months($season_name);
+		$this->assertNotEmpty($result);
+
+		$keys = array_keys($result);
+		foreach($keys as $k) {
+			$this->assertInternalType("int", $k);
+		}
+
+		$values = array_values($result);
+		foreach($values as $v) {
+			$this->assertInternalType("string", $v);
+		}
+	}
+
+	public function provide_get_current_season_months() {
+		return [
+			[WINTER],
+			[SPRING],
+			[SUMMER],
+			[FALL],
+		];
+	}
+
+	/**
+	 * @dataProvider provide_does_season_wrap
+	 */
+	public function test_does_season_wrap($input, $expected) {
+		$result = does_season_wrap($input);
+		$debug = [
+			'input' => $input,
+			'expected' => $expected,
+			'result' => $result,
+		];
+		$this->assertEquals($expected, $result, print_r($debug, TRUE));
+	}
+
+	public function provide_does_season_wrap() {
+		$winter = [
+			1 => 'January',
+			2 => 'February',
+			3 => 'March',
+			4 => 'April',
+		];
+		$summer = [
+			5 => 'May',
+			6 => 'June',
+			7 => 'July',
+			8 => 'August',
+		];
+		$fall = [
+			9 => 'September',
+			10 => 'October',
+			11 => 'November',
+			12 => 'December',
+		];
+
+		return [
+			[[], FALSE],
+			[$winter, FALSE],
+			[$summer, FALSE],
+			[$fall, FALSE],
+			[($fall + $winter), TRUE],
+		];
+	}
+
+	public function test_add_easter() {
+		$dates = [];
+		$result = add_easter($dates);
+		$this->assertNotEmpty($result);
+
+		$this_2019 = [4 => [21]];
+		$this->assertEquals($this_2019, $result);
+	}
+
+	/**
 	 * @dataProvider first_associative_key_provider
 	*/
 	public function test_get_first_associative_key($dates, $expected) {
