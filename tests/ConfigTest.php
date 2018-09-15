@@ -30,7 +30,8 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 	public function provide_get_holidays() {
 		$days = [
 			1 => [1],
-			4 => [21],
+			// easter changes
+			// 4 => [21],
 			5 => [27, 28],
 			7 => [4],
 			9 => [2,3],
@@ -49,12 +50,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_get_num_dinners_per_assignment($season, $job_id, $expect) {
 		$result = get_num_dinners_per_assignment($season, $job_id);
-		$debug = array(
+		$debug = [
 			'season' => $season,
 			'job_id' => $job_id,
 			'expect' => $expect,
 			'result' => $result,
-		);
+		];
 		$this->assertEquals($expect, $result, print_r($debug, TRUE));
 	}
 
@@ -72,6 +73,10 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			7 => 'July',
 			8 => 'August',
 			9 => 'September',
+		];
+		$season_2mos = [
+			11 => 'November',
+			12 => 'December',
 		];
 
 		return [
@@ -97,8 +102,15 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			[$season_4mos, WEEKDAY_CLEANER, 4],
 			[$season_4mos, WEEKDAY_TABLE_SETTER, 4],
 
-			# check for mistakes
-			[32, WEEKDAY_ASST_COOK, 3],
+			[$season_2mos, MEETING_NIGHT_CLEANER, 1],
+			[$season_2mos, MEETING_NIGHT_ORDERER, 1],
+			[$season_2mos, SUNDAY_HEAD_COOK, 1],
+			[$season_2mos, SUNDAY_ASST_COOK, 1],
+			[$season_2mos, SUNDAY_CLEANER, 2],
+			[$season_2mos, WEEKDAY_ASST_COOK, 1],
+			[$season_2mos, WEEKDAY_HEAD_COOK, 1],
+			[$season_2mos, WEEKDAY_CLEANER, 2],
+			[$season_2mos, WEEKDAY_TABLE_SETTER, 2],
 		];
 	}
 

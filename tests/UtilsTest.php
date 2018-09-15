@@ -102,13 +102,20 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 		];
 	}
 
-	public function test_add_easter() {
+	/**
+	 * @dataProvider provide_add_easter
+	 */
+	public function test_add_easter($input, $expected) {
 		$dates = [];
-		$result = add_easter($dates);
-		$this->assertNotEmpty($result);
+		$result = add_easter($dates, $input);
+		$this->assertEquals($expected, $result);
+	}
 
-		$this_2019 = [4 => [21]];
-		$this->assertEquals($this_2019, $result);
+	public function provide_add_easter() {
+		return [
+			[[], []],
+			[[3 => 'March', 4 => 'April'], [4 => [1]]],
+		];
 	}
 
 	/**

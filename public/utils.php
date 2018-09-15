@@ -67,10 +67,6 @@ function get_current_season_months($season_name=NULL) {
 			return [
 				11=>'November',
 				12=>'December',
-				1=>'January',
-				2=>'February',
-				3=>'March',
-				4=>'April',
 			];
 	}
 }
@@ -93,9 +89,28 @@ function does_season_wrap($season_months) {
 
 /**
  * Add the easter date to the holidates array.
+ *
+ * By ecclesiastical rules, which fixes the date of the equinox to March 21,
+ * the earliest possible date for Easter is March 22 and the latest possible
+ * is April 25.
+ *
+ * @param[in] holidays associative array for each months, each entry is
+ *     an array of dates within that month which are recognized as a holiday,
+ *     meaning - skip assigning that day.
+ * Example: [
+ *   10 => [31],
+ *   12 => [24,25, 31]
+ * ]
+ * @param[in] season associative array, keys are the month nums and values
+ *     are the month names.
+ * @return associative array - the same as the holidays passed in.
  */
-function add_easter($holidays) {
-	$season = get_current_season_months();
+function add_easter($holidays, $season=[]) {
+	// if Easter doesn't happen this season, then skip
+	if (!isset($season[3]) && !isset($season[4])) {
+		return $holidays;
+	}
+
 	$does_wrap = does_season_wrap($season);
 	$year = (!$does_wrap) ? SEASON_YEAR : (SEASON_YEAR + 1);
 
@@ -121,7 +136,8 @@ function get_holidays() {
 		12 => [24,25, 31],
 	];
 
-	$holidays = add_easter($holidays);
+	$season = get_current_season_months();
+	$holidays = add_easter($holidays, $season);
 
 	// *** memorial day ***
 	$mem_day = date('j', strtotime('last monday of May, ' . SEASON_YEAR));
