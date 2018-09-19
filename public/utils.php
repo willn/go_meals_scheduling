@@ -33,45 +33,6 @@ function get_season_id() {
 }
 
 /**
- * Get the months contained in the current season.
- *
- * @param[in] season_name
- * @return array list of month names contained in the requested season.
- */
-function get_current_season_months($season_name=NULL) {
-	if (is_null($season_name)) {
-		$season_name = SEASON_NAME;
-	}
-
-	switch($season_name) {
-		case WINTER:
-			return [
-				1=>'January',
-				2=>'February',
-				3=>'March',
-				4=>'April',
-			];
-
-		case SPRING:
-		case SUMMER:
-			return [	
-				5=>'May',
-				6=>'June',
-				7=>'July',
-				8=>'August',
-				9=>'September',
-				10=>'October',
-			];
-
-		case FALL:
-			return [
-				11=>'November',
-				12=>'December',
-			];
-	}
-}
-
-/**
  * Get whether this season wraps around to a new year or not.
  * @return boolean If TRUE, then the season wraps around.
  */
