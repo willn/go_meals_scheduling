@@ -1,5 +1,7 @@
 <?php
-require_once 'utils.php';
+global $relative_dir;
+
+require_once $relative_dir . 'utils.php';
 
 global $dbh;
 

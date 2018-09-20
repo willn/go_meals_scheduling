@@ -18,12 +18,8 @@ class Assignments {
 
 	/**
 	 * Construct an Assignments object.
-	 *
-	 * @param[in] a int the hobart_factor weight.
-	 * @param[in] b int avail_factor weight.
-	 * @param[in] c avoids_factor weight.
 	 */
-	public function __construct($a=NULL, $b=NULL, $c=NULL) {
+	public function __construct() {
 		$this->roster = new Roster();
 		$this->initialize();
 	}
