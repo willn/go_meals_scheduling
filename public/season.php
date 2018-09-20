@@ -20,7 +20,9 @@ define('WEEKDAY_TABLE_SETTER', 4382);
  */
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
-	return [];
+	return [
+		'willie' => [SUNDAY_HEAD_COOK => 1],
+	];
 }
 
 /**
@@ -28,7 +30,9 @@ function get_num_shift_overrides() {
  * @return array keys are the month number, values are an array of day numbers.
  */
 function get_skip_dates() {
-	return [];
+	return [
+		5 => [10, 12],
+	];
 }
 
 /**
@@ -38,7 +42,9 @@ function get_skip_dates() {
  * @return array keys are the month number, values are an array of day numbers.
  */
 function get_regular_day_overrides() {
-	return [];
+	return [
+		5 => [10, 12],
+	];
 }
 
 /**

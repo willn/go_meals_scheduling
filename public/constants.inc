@@ -13,7 +13,7 @@ define('SPRING', 'spring');
 define('FALL', 'fall');
 define('SUMMER', 'summer');
 
-$this_year = date('Y');
+$this_year = intval(date('Y'));
 $this_month = date('n');
 if (($this_month == 11) || ($this_month == 12)) {
 	$this_year++;

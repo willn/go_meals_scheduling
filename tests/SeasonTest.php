@@ -1,5 +1,10 @@
 <?php
+global $relative_dir;
+$relative_dir = '../public';
+
 require_once '../public/season.php';
+require_once '../public/utils.php';
+require_once '../public/constants.inc';
 
 /**
  * This is simple example to ensure the testing framework functions properly.
@@ -9,16 +14,18 @@ class SeasonTest extends PHPUnit_Framework_TestCase {
 		$overrides = get_num_shift_overrides();
 		$this->assertInternalType("array", $overrides);
 
-		if (!empty($overrides)) {
-			foreach($overrides as $name => $assignments) {
-				$this->assertInternalType("string", $name);
-				$this->assertInternalType("array", $assignments);
-				$this->assertNotEmpty($assignments);
+		if (empty($overrides)) {
+			return;
+		}
 
-				foreach($assignments as $job_id => $num_assign) {
-					$this->assertInternalType("int", $job_id);
-					$this->assertInternalType("int", $num_assign);
-				}
+		foreach($overrides as $name => $assignments) {
+			$this->assertInternalType("string", $name);
+			$this->assertInternalType("array", $assignments);
+			$this->assertNotEmpty($assignments);
+
+			foreach($assignments as $job_id => $num_assign) {
+				$this->assertInternalType("int", $job_id);
+				$this->assertInternalType("int", $num_assign);
 			}
 		}
 	}
@@ -27,15 +34,20 @@ class SeasonTest extends PHPUnit_Framework_TestCase {
 		$skips = get_skip_dates();
 		$this->assertInternalType("array", $skips);
 
-		if (!empty($skips)) {
-			foreach($skips as $month => $list_of_days) {
-				$this->assertInternalType("int", $month);
-				$this->assertInternalType("array", $list_of_days);
-				$this->assertNotEmpty($list_of_days);
+		if (empty($skips)) {
+			return;
+		}
 
-				foreach($list_of_days as $day) {
-					$this->assertInternalType("int", $day);
-				}
+		foreach($skips as $month => $list_of_days) {
+			$this->assertInternalType("int", $month);
+			$this->assertInternalType("array", $list_of_days);
+			$this->assertNotEmpty($list_of_days);
+
+			foreach($list_of_days as $day) {
+				$this->assertInternalType("int", $day);
+
+				$ts = mktime(0, 0, 0, $day, $month, SEASON_YEAR);
+				$this->assertNotEquals(0, $ts);
 			}
 		}
 	}
@@ -44,15 +56,20 @@ class SeasonTest extends PHPUnit_Framework_TestCase {
 		$reg_overrides = get_regular_day_overrides();
 		$this->assertInternalType("array", $reg_overrides);
 
-		if (!empty($reg_overrides)) {
-			foreach($reg_overrides as $month => $list_of_days) {
-				$this->assertInternalType("int", $month);
-				$this->assertInternalType("array", $list_of_days);
-				$this->assertNotEmpty($list_of_days);
+		if (empty($reg_overrides)) {
+			return;
+		}
 
-				foreach($list_of_days as $day) {
-					$this->assertInternalType("int", $day);
-				}
+		foreach($reg_overrides as $month => $list_of_days) {
+			$this->assertInternalType("int", $month);
+			$this->assertInternalType("array", $list_of_days);
+			$this->assertNotEmpty($list_of_days);
+
+			foreach($list_of_days as $day) {
+				$this->assertInternalType("int", $day);
+
+				$ts = mktime(0, 0, 0, $day, $month, SEASON_YEAR);
+				$this->assertNotEquals(0, $ts);
 			}
 		}
 	}
