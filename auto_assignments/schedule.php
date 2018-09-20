@@ -343,6 +343,17 @@ EOTXT;
 		return $count;
 	}
 
+	/**
+	 * Get the text of the schedule
+	 * @param[in] format string the chosen output format (txt, or sql). How the
+	 *     output should be displayed.
+	 */
+	public function getResults($format='txt' ) {
+		if ($format === 'txt') {
+			return $this->getTabbedHeaders();
+		}
+	}
+
 
 	/**
 	 * Display the schedule
@@ -350,9 +361,7 @@ EOTXT;
 	 *     output should be displayed.
 	 */
 	public function printResults($format='txt' ) {
-		if ($format === 'txt') {
-			$this->printTabbedHeaders();
-		}
+		echo $this->getResults();
 
 		$missed_hobarters = 0;
 		foreach($this->meals as $date=>$m) {
@@ -390,8 +399,8 @@ EOTXT;
 	 * Display table headers
 	 * XXX Unforunately, these are hard-coded for now.
 	 */
-	public function printTabbedHeaders() {
-		echo implode("\t", $this->getColumnOrder()) . "\n";
+	public function getTabbedHeaders() {
+		return implode("\t", $this->getColumnOrder()) . "\n";
 	}
 
 
