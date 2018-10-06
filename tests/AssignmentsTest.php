@@ -11,15 +11,31 @@ class AssignmentsTest extends PHPUnit_Framework_TestCase {
 		$this->assignments = new Assignments();
 	}
 
-	public function testInitialize() {
+	/**
+	 * @dataProvider provideRun
+	public function testRun($season_months, $expected) {
+		$this->assignments->initialize($season_months);
+		$debug = [
+			'expected' => $expected,
+			'list' => array_get($list, $key, $default),
+			'months' => $season_months,
+		];
+		// XXX this isn't doing much yet...
+		$this->assertEquals($expected, []);
+	}
+	 */
+
+	public function provideRun() {
 		$season_months = [
 			'January',
 			'February',
 			'March',
 			'April',
 		];
-		$this->assignments->initialize($season_months);
-		$this->assertEquals($expect, array_get($list, $key, $default));
+
+		return [
+			[$season_months, []],
+		];
 	}
 }
 ?>

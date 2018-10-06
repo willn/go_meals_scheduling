@@ -142,6 +142,13 @@ EOSQL;
 		return $this->schedule->getNumPlaceholders();
 	}
 
+	/**
+	 * XXX Get the results of the run
+	public function getResults() {
+		// return $this->schedule
+	}
+	 */
+
 
 	/**
 	 * Display the results on the screen

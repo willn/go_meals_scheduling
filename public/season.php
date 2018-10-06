@@ -36,14 +36,13 @@ function get_skip_dates() {
 }
 
 /**
- * Get the list of dates to force making a regular weekday night instead of
+ * Get the list of dates to force making a regular weekday night meal instead of
  * a meeting.
  *
  * @return array keys are the month number, values are an array of day numbers.
  */
 function get_regular_day_overrides() {
 	return [
-		5 => [10, 12],
 	];
 }
 

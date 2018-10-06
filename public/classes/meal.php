@@ -499,6 +499,7 @@ EOTXT;
 	 *     or csv). How the output should be displayed.
 	 * @return boolean, if false then a hobart shift was needed and not filled
 	 *     with a hobarter. TRUE either means it was filled or not needed.
+	 * #!# this should be a get... but need to figure out a way to deal with the return
 	 */
 	public function printResults($format='txt') {
 		if (empty($this->assigned)) {
