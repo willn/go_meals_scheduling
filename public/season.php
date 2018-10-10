@@ -21,7 +21,24 @@ define('WEEKDAY_TABLE_SETTER', 4382);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-		'willie' => [SUNDAY_HEAD_COOK => 1],
+		/*
+		 * XXX these 3 need to be distributed throughout the 6-month
+		 * mega season... so do a pair of 1 and 1 for each 2-mo sub-season.
+		 */
+
+		// nov-dec:
+		'maryking' => [WEEKDAY_CLEANER => 1],
+		'patti' => [WEEKDAY_CLEANER => 1],
+
+		/*
+		// jan-feb:
+		'patti' => [WEEKDAY_CLEANER => 1],
+		'rod' => [WEEKDAY_CLEANER => 1],
+
+		// mar-apr:
+		'maryking' => [WEEKDAY_CLEANER => 1],
+		'rod' => [WEEKDAY_CLEANER => 1],
+		*/
 	];
 }
 
@@ -31,7 +48,6 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		5 => [10, 12],
 	];
 }
 
