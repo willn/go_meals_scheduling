@@ -7,11 +7,11 @@ Directions to set up the survey:
 	./run.sh
 	cd ..
 
-# check that there aren't uncommitted modifications in either version:
+# check that there aren't uncommitted modifications
 	cd /home/gocoho/meals_scheduling/
 	git status
 
-# Look for differences between work repo and production
+# Look for differences between dev repo and production
 	cd ~
 	diff -r meals_scheduling/public/ public_html/meals_scheduling/
 
@@ -19,25 +19,20 @@ Directions to set up the survey:
 	cd ~/public_html/meals_scheduling/
 	for i in `find . -type f`; do cp ~/meals_scheduling/public/$i $i; done
 
-# edit ~/meals_scheduling/public/config.php
+# edit ~/meals_scheduling/public/season.php
 	- set the appropriate DEADLINE date
-
-# edit public/utils.php
-	- confirm the holiday dates (get_holidays) function is correct for
-	  the upcoming season 
-
-# edit public/config.php
-	# add any extra workers to the get_num_shift_overrides() function
+	- add any extra workers to the get_num_shift_overrides() function
 
 # grab the latest sqlite file from work hosting, fix permissions, and commit:
 	# login to the work web UI, go to more reports, and "Download SQLite3 database from host"
 	# locally...
 	cd ~/Downloads/
 	unzip filedb.zip
-	scp -P 1022 home/django/work/db.sqlite3 gocoho@gocoho.org:meals_scheduling/public/sqlite_data/work_allocation.db
+	scp -P 1022 home/django/work/db.sqlite3 gocoho@gocoho.org:meals_scheduling/public/sqlite_data/
 
 	# on the remote host...
 	cd meals_scheduling/public/sqlite_data
+	mv db.sqlite3 work_allocation.db
 	chmod 644 work_allocation.db
 	# sudo chgrp gocoho !$
 	git add !$
@@ -47,7 +42,7 @@ Directions to set up the survey:
 	cd ../../utils/
 	php find_current_season_jobs.php
 	# copy that block and replace the previous season's entries in this file:
-	vi ../public/config.php
+	vi ../public/season.php
 
 # initialize the database
 	php initialize_database.php
