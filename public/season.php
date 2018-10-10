@@ -3,15 +3,15 @@
 define('DEADLINE', strtotime('October 21, 2018, 8:00pm'));
 
 /* ----------- job ids --------------- */
-define('MEETING_NIGHT_ORDERER', 4393);
-define('MEETING_NIGHT_CLEANER', 4396);
-define('SUNDAY_HEAD_COOK', 4391);
-define('SUNDAY_ASST_COOK', 4392);
-define('SUNDAY_CLEANER', 4395);
-define('WEEKDAY_HEAD_COOK', 4389);
-define('WEEKDAY_ASST_COOK', 4390);
-define('WEEKDAY_CLEANER', 4394);
-define('WEEKDAY_TABLE_SETTER', 4382);
+define('MEETING_NIGHT_ORDERER', 4595);
+define('MEETING_NIGHT_CLEANER', 4598);
+define('SUNDAY_HEAD_COOK', 4593);
+define('SUNDAY_ASST_COOK', 4594);
+define('SUNDAY_CLEANER', 4597);
+define('WEEKDAY_HEAD_COOK', 4591);
+define('WEEKDAY_ASST_COOK', 4592);
+define('WEEKDAY_CLEANER', 4596);
+define('WEEKDAY_TABLE_SETTER', 4584);
 
 /**
  * Get the number of shift overrides.
