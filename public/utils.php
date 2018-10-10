@@ -60,14 +60,14 @@ function does_season_wrap($season_months) {
  *     meaning - skip assigning that day.
  * Example: [
  *   10 => [31],
- *   12 => [24,25, 31]
+ *   12 => [24, 25, 31]
  * ]
  * @param[in] season associative array, keys are the month nums and values
  *     are the month names.
  * @return associative array - the same as the holidays passed in.
  */
 function add_easter($holidays, $season=[]) {
-	// if Easter doesn't happen this season, then skip
+	// if Easter doesn't happen this season, then don't add anything
 	if (!isset($season[3]) && !isset($season[4])) {
 		return $holidays;
 	}
@@ -75,9 +75,10 @@ function add_easter($holidays, $season=[]) {
 	$does_wrap = does_season_wrap($season);
 	$year = (!$does_wrap) ? SEASON_YEAR : (SEASON_YEAR + 1);
 
-	// add easter, which floats between march and april
-	$easter_month = date('n', easter_date($year));
-	$easter_day = date('j', easter_date($year));
+	// get unix timestamp of easter at noon
+	$easter_ts = easter_date($year) + (12 * 60 * 60);
+	$easter_month = date('n', $easter_ts);
+	$easter_day = date('j', $easter_ts);
 	$holidays[$easter_month][] = $easter_day;
 
 	return $holidays;

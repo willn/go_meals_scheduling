@@ -87,6 +87,8 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 	public function provide_add_easter() {
 		return [
 			[[], []],
+			[[7 => 'July'], []],
+			// 2018
 			[[3 => 'March', 4 => 'April'], [4 => [1]]],
 		];
 	}
