@@ -159,8 +159,6 @@ EOHTML;
 	 */
 	public function evalDates($worker=NULL, $dates=NULL) {
 		$sunday_jobs = get_sunday_jobs();
-		$weekday_jobs = get_weekday_jobs();
-		$mtg_jobs = get_mtg_jobs();
 		$mtg_nights = get_mtg_nights();
 
 		$mtg_day_count = array();
@@ -287,10 +285,11 @@ EOHTML;
 					#-----------------------------------------
 					case MEETING_NIGHT_MEAL:
 						$this->num_shifts['meeting']++;
+						$jobs = get_mtg_jobs();
 
 						if (!$this->web_display) {
 							$dates_and_shifts = $this->addJobsToDatesAndShifts(
-								$mtg_jobs, $dates_and_shifts, $date_string);
+								$jobs, $dates_and_shifts, $date_string);
 						}
 						else if (!is_null($worker)) {
 							foreach($jobs as $key=>$name) {
@@ -323,9 +322,10 @@ EOHTML;
 						$this->num_shifts['weekday']++;
 
 						if (in_array($day_of_week, $meal_days)) {
+							$jobs = get_weekday_jobs();
 							if (!$this->web_display) {
 								$dates_and_shifts = $this->addJobsToDatesAndShifts(
-									$weekday_jobs, $dates_and_shifts, $date_string);
+									$jobs, $dates_and_shifts, $date_string);
 							}
 							else if (!is_null($worker)) {
 								foreach($jobs as $key=>$name) {
