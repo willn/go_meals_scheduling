@@ -1,6 +1,6 @@
 <?php
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('October 21, 2018, 8:00pm'));
+define('DEADLINE', strtotime('October 18, 2018, 8:00pm'));
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_ORDERER', 4595);
