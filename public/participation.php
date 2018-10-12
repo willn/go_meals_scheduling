@@ -1,5 +1,6 @@
 <?php
 require_once('globals.php');
+// XXX this should not just pull in html...
 require_once('display/includes/header.php');
 require_once('classes/calendar.php');
 
@@ -168,9 +169,11 @@ EOHTML;
 	}
 
 	/**
-	 * #!#
+	 * Render the percentage bar to display how many people have done the survey.
+	 * @param[in] percentage float (0-100)
+	 * @return svg for displaying the percentage bar.
 	 */
-	protected function renderPercentageBar($percentage) {
+	public function renderPercentageBar($percentage) {
 		$bar_width = 300;
 		$bar_height = 30;
 		$respond_share = $bar_width * ($percentage / 100);
