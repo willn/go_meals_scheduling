@@ -29,6 +29,8 @@ function get_num_shift_overrides() {
 		// nov-dec:
 		'maryking' => [WEEKDAY_CLEANER => 1],
 		'patti' => [WEEKDAY_CLEANER => 1],
+		'nancy' => [SUNDAY_ASST_COOK => -1],
+		'liam' => [SUNDAY_ASST_COOK => -1],
 
 		/*
 		// jan-feb:
