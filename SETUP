@@ -87,8 +87,10 @@ what to do at the end of the survey:
 - disable cronjobs
 
 - commit closed database:
+	cd meals_scheduling/public/sqlite_data/
+	cp ~/public_html/meals_scheduling/sqlite_data/work_allocation.db .
 	git status
-	git add # files which changed
+	git add work_allocation.db
 	git commit
 
 - check for any changes to the codebase and optionally make commits
