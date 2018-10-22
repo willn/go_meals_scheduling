@@ -56,7 +56,7 @@ class Survey {
 	 * Set the assigned worker, and load their info from the database / config
 	 * overrides.
 	 *
-	 * @param[in] workername string, the username of this user.
+	 * @param[in] username string, the username of this user.
 	 * @param[in] worker_id int, the unique ID for this worker.
 	 * @param[in] first_name string, the first name of this worker.
 	 * @param[in] last_name string, the last name of the worker.
