@@ -1,4 +1,5 @@
 <?php
+require_once 'respondents.php';
 
 /**
  * Track the list of workers.
@@ -48,6 +49,12 @@ EOSQL;
 	 */
 	public function getWorkersListAsLinks() {
 		$workers = $this->getWorkers();
+
+		/*
+		$respondents = new Respondents();
+		$slackers = $respondents->getNonResponders();
+		error_log(__FILE__ . ' ' . __LINE__ . " slackers: " . var_export($slackers, TRUE));
+		*/
 
 		$out = $lines = '';
 		$count = 0;
