@@ -151,13 +151,23 @@ EOHTML;
 	 *     the worker with the list of shifts they need to fill for each day
 	 *     that the shift is available. If not set, then use report mode and show
 	 *     a summary of all available workers for that date.
-	 * @param[in] dates array of date/job_id/preference level listing available
-	 *     workers for the shift. Currently only used for reporting.
+	 * @param[in] availability array a structured array of when people
+	 *     are available to work. The first level is the date, then the job ID,
+	 *     then the preference level (2 - prefer, 1 - OK) which points to an
+	 *     array listing the usernames who fit into that preference
+	 *     level. Currently only used for reporting.
+	 *     Example:
+	 * '11/11/2018' => [
+	 *		4597 => [
+	 *				2 => ['alice', 'bob' ],
+	 *				1 => ['charlie', 'doug', 'edward', 'fred'],
+	 *		],
+ 	 * ]
 	 * @return string html to render all the calendar months of the
 	 *     season... or to just return the dates_and_shifts array if
 	 *     this is not for web_display.
 	 */
-	public function evalDates($worker=NULL, $dates=NULL) {
+	public function evalDates($worker=NULL, $availability=NULL) {
 		$sunday_jobs = get_sunday_jobs();
 		$mtg_nights = get_mtg_nights();
 
@@ -238,8 +248,7 @@ EOHTML;
 				$date_string = "{$month_num}/{$day_num}/" . $season_year;
 				$cell = '';
 
-				$date = "{$month_num}/{$day_num}/" . $season_year;
-				$meal_type = get_meal_type_by_date($date);
+				$meal_type = get_meal_type_by_date($date_string);
 				switch($meal_type) {
 					case HOLIDAY_NIGHT:
 						$cell = '<span class="skip">holiday</span>';
@@ -271,14 +280,14 @@ EOHTML;
 							}
 						}
 						// generate the date cell for the report
-						else if (!empty($dates) &&
-							array_key_exists($date_string, $dates)) {
+						else if (!empty($availability) &&
+							array_key_exists($date_string, $availability)) {
 							// report the available workers
 							$tally = <<<EOHTML
 <span class="type_count">[S{$this->num_shifts['sunday']}]</span>
 EOHTML;
 							$cell = $this->list_available_workers($date_string,
-								$dates[$date_string], TRUE);
+								$availability[$date_string], TRUE);
 						}
 						break;
 
@@ -312,7 +321,7 @@ EOHTML;
 							$cell .= '<span class="note">meeting night</span>';
 							// report the available workers
 							$cell .= $this->list_available_workers($date_string,
-								$dates[$date_string]);
+								$availability[$date_string]);
 						}
 
 						break;
@@ -321,12 +330,19 @@ EOHTML;
 					case WEEKDAY_MEAL:
 						$this->num_shifts['weekday']++;
 
+						/*
+						 * Confirm that the day of week for the current date is an
+						 * approved day of week for this meal type.
+						 */
 						if (in_array($day_of_week, $meal_days)) {
 							$jobs = get_weekday_jobs();
+
+							// just add the dates and shifts, don't render the calendar
 							if (!$this->web_display) {
 								$dates_and_shifts = $this->addJobsToDatesAndShifts(
 									$jobs, $dates_and_shifts, $date_string);
 							}
+							// if this is for a specific worker
 							else if (!is_null($worker)) {
 								foreach($jobs as $key=>$name) {
 									$saved_pref_val =
@@ -341,8 +357,23 @@ EOHTML;
 									}
 								}
 							}
+							// generate the date cell for the report
+							else if (!empty($availability) &&
+								array_key_exists($date_string, $availability)) {
+								// report the available workers
+								$tally = <<<EOHTML
+	<span class="type_count">[S{$this->num_shifts['sunday']}]</span>
+EOHTML;
+								$cell = $this->list_available_workers($date_string,
+									$availability[$date_string], TRUE);
+							}
 						}
-						else if (array_key_exists($date_string, $dates)) {
+						/*
+						 * XXX Why does this exist? This would only happen if
+						 * there's available preferences for a non-scheduled
+						 * day of week. Would this be an override? (e.g. thursday?)
+						 */
+						else if (array_key_exists($date_string, $availability)) {
 							// generate the date cell for the report
 							$tally = <<<EOHTML
 <span class="type_count">[W{$this->num_shifts['weekday']}]</span>
@@ -350,7 +381,7 @@ EOHTML;
 
 							// report the available workers
 							$cell = $this->list_available_workers($date_string,
-								$dates[$date_string]);
+								$availability[$date_string]);
 						}
 						break;
 
@@ -646,7 +677,7 @@ EOSQL;
 			$data[] = $row;
 		}
 
-		$dates = array();
+		$dates = [];
 		foreach($data as $d) {
 			if (!array_key_exists($d['string'], $dates)) {
 				$dates[$d['string']] = array();
@@ -887,14 +918,27 @@ EOHTML;
 
 	/**
 	 * Output this calendar to a string
+	 *
+	 * @param[in] worker XXX ???
+	 * @param[in] availability array a structured array of when people
+	 *     are available to work. The first level is the date, then the job ID,
+	 *     then the preference level (2 - prefer, 1 - OK) which points to an
+	 *     array listing the usernames who fit into that preference level.
+	 *     Example:
+	 * '11/11/2018' => [
+	 *		4597 => [
+	 *				2 => ['alice', 'bob' ],
+	 *				1 => ['charlie', 'doug', 'edward', 'fred'],
+	 *		],
+ 	 * ]
 	 * @return string html to display.
 	 */
-	public function toString($worker=NULL, $dates=NULL, $show_counts=FALSE) {
-		if (is_null($worker) && empty($dates)) {
+	public function toString($worker=NULL, $availability=NULL) {
+		if (is_null($worker) && empty($availability)) {
 			return;
 		}
 
-		return $this->evalDates($worker, $dates, TRUE);
+		return $this->evalDates($worker, $availability);
 	}
 
 
