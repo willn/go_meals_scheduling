@@ -90,7 +90,7 @@ EOSQL;
 	 * Get a list of existing usernames from the database.
 	 */
 	protected function getUsernamesFromDb() {
-		$users = array();
+		$users = [];
 		$key = 'username';
 		$auth_user_table = AUTH_USER_TABLE;
 		$sql = "SELECT {$key} FROM {$auth_user_table}";
