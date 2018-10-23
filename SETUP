@@ -121,8 +121,6 @@ what to do at the end of the survey:
 
 - make trades to get the under-assigned people swapped in replacing XXXXs
 
-- read the comments and make sure they apply cleanly with auto-checks
-
 - copy and paste from "Confirm results check" section, and create custom ones for anything
   that's not a personal avoid request.
 	http://gocoho.org/meals_scheduling/report.php?key=all#confirm_checks
@@ -131,6 +129,8 @@ what to do at the end of the survey:
 	* paste
 	* chmod +x checks.sh
 	* ./checks.sh
+
+- read the comments and make sure they apply cleanly with auto-checks
 
 - check to make sure that there are no 'table setter' assignments which conflict
   with head or asst cooking
@@ -141,6 +141,12 @@ what to do at the end of the survey:
 - run avoids validation:
 	cd ../utils/
 	php validate_schedule.php -f ../auto_assignments/results.txt
+
+- copy the results file locally, then upload to google sheets
+	scp -i ~/.ssh/id_dsa -P 1022 gocoho@gocoho.org:/home/gocoho/meals_scheduling/auto_assignments/results.txt .
+
+
+
 
 translate dale's work system user names to MESS inserts
 --------------------------------------------------------
