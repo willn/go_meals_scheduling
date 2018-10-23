@@ -27,6 +27,7 @@ function get_num_shift_overrides() {
 		 */
 
 		// nov-dec:
+		// ---------------------------------
 		'maryking' => [WEEKDAY_CLEANER => 1],
 		'patti' => [WEEKDAY_CLEANER => 1],
 		'nancy' => [SUNDAY_ASST_COOK => -1],
@@ -34,12 +35,34 @@ function get_num_shift_overrides() {
 
 		/*
 		// jan-feb:
+		// ---------------------------------
 		'patti' => [WEEKDAY_CLEANER => 1],
 		'rod' => [WEEKDAY_CLEANER => 1],
+		'nancy' => [SUNDAY_ASST_COOK => -1],
+		'liam' => [SUNDAY_ASST_COOK => 1],
 
+		// leftovers from nov-dec:
+		// likely shorter "season" due to 2 big holidays...
+		'annie' => [WEEKDAY_ASST_COOK => 2],
+		'gayle' => [WEEKDAY_CLEANER => 1],
+		'gregd' => [WEEKDAY_HEAD_COOK => 1, WEEKDAY_ASST_COOK => 1],
+		'jennifer' => [WEEKDAY_ASST_COOK => 1],
+		'keithg' => [WEEKDAY_HEAD_COOK => 1],
+		'mac' => [WEEKDAY_CLEANER => 2],
+		'marta' => [WEEKDAY_ASST_COOK => 1, WEEKDAY_TABLE_SETTER => 4],
+		'marys' => [WEEKDAY_CLEANER => 1],
+		'michael' => [WEEKDAY_CLEANER => 3],
+		'tammy' => [WEEKDAY_HEAD_COOK => 1],
+		'terrence' => [WEEKDAY_CLEANER => 1],
+		*/
+
+		/*
 		// mar-apr:
+		// ---------------------------------
 		'maryking' => [WEEKDAY_CLEANER => 1],
 		'rod' => [WEEKDAY_CLEANER => 1],
+		'nancy' => [SUNDAY_ASST_COOK => -1],
+		'liam' => [SUNDAY_ASST_COOK => 1],
 		*/
 	];
 }
