@@ -34,6 +34,12 @@ Directions to set up the survey:
 	cd meals_scheduling/public/sqlite_data
 	mv db.sqlite3 work_allocation.db
 	chmod 644 work_allocation.db
+	sqlite work_allocation.db
+	sqlite> .tables
+	# drop a bunch of tables
+	sqlite> .read drops.sql
+	# confirm
+	sqlite> .tables
 	# sudo chgrp gocoho !$
 	git add !$
 	git commit !$
