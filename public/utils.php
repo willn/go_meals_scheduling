@@ -73,7 +73,7 @@ function add_easter($holidays, $season=[]) {
 	}
 
 	$does_wrap = does_season_wrap($season);
-	$year = (!$does_wrap) ? SEASON_YEAR : (SEASON_YEAR + 1);
+	$year = ($does_wrap) ? (SEASON_YEAR + 1) : SEASON_YEAR;
 
 	// get unix timestamp of easter at noon
 	$easter_ts = easter_date($year) + (12 * 60 * 60);

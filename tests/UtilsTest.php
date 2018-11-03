@@ -72,6 +72,7 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 			[$summer, FALSE],
 			[$fall, FALSE],
 			[($fall + $winter), TRUE],
+			[[12 => 'December', 1 => 'January'], TRUE],
 		];
 	}
 
@@ -88,8 +89,8 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 		return [
 			[[], []],
 			[[7 => 'July'], []],
-			// 2018
-			[[3 => 'March', 4 => 'April'], [4 => [1]]],
+			// 2019
+			[[3 => 'March', 4 => 'April'], [4 => [21]]],
 		];
 	}
 
