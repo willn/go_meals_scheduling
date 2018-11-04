@@ -23,21 +23,21 @@ class Survey {
 	protected $prefer_list;
 	protected $saved = 0;
 	protected $summary;
-	protected $results = array(
-		0 => array(),
-		1 => array(),
-		2 => array(),
-	);
+	protected $results = [
+		0 => [],
+		1 => [],
+		2 => [],
+	];
 
 	// track the number of jobs marked positively
-	protected $positive_count = array();
+	protected $positive_count = [];
 
-	protected $requests = array(
+	protected $requests = [
 		'clean_after_self' => '',
 		'bunch_shifts' => '',
 		'comments' => '',
 		'bundle_shifts' => '',
-	);
+	];
 
 	protected $is_save_request = FALSE;
 
@@ -116,7 +116,7 @@ class Survey {
 	 *     "(x) remove" link, display a "clear" link.
 	 */
 	public function getWorkerList($id, $first_entry=FALSE, $skip_user=NULL,
-		$chosen_users=array(), $only_user=FALSE) {
+		$chosen_users=[], $only_user=FALSE) {
 
 		return $this->calendar->getWorkerList($id, $first_entry,
 			$skip_user, $chosen_users, $only_user);
@@ -130,12 +130,12 @@ class Survey {
 		$tasks = $this->worker->getTasks();
 		$shifts = $this->worker->getNumShiftsToFill();
 
-		$out = array();
+		$out = [];
 		foreach($tasks as $id=>$name) {
-			$out[$id] = array(
+			$out[$id] = [
 				'name' => $name,
 				'instances' => $shifts[$id],
-			);
+			];
 		}
 		return $out;
 	}
@@ -282,8 +282,8 @@ EOHTML;
 		$comments_text = $this->worker->getCommentsText();
 		$comments_info = $this->worker->getComments();
 
-		$questions = array('clean_after_self', 'bunch_shifts');
-		$answers = array('yes', 'dc', 'no');
+		$questions = ['clean_after_self', 'bunch_shifts'];
+		$answers = ['yes', 'dc', 'no'];
 		foreach($questions as $q) {
 			$found = FALSE;
 			foreach($answers as $a) {
@@ -424,7 +424,7 @@ EOSQL;
 	}
 
 	protected function lookupAvoidList() {
-		$avoids = array();
+		$avoids = [];
 		if (!empty($_POST['avoid_worker'])) {
 			$this->avoid_list = implode(',',
 				$_POST['avoid_worker']);
@@ -433,7 +433,7 @@ EOSQL;
 	}
 
 	protected function lookupPreferList() {
-		$prefers = array();
+		$prefers = [];
 		if (!empty($_POST['prefer_worker'])) {
 			$this->prefer_list = implode(',',
 				$_POST['prefer_worker']);
@@ -447,7 +447,7 @@ EOSQL;
 	 */
 	protected function confirmWorkLoad() {
 		global $all_jobs;
-		$insufficient_prefs = array();
+		$insufficient_prefs = [];
 
 		$num_shifts_to_fill = $this->worker->getNumShiftsToFill();
 		foreach($num_shifts_to_fill as $job_id => $num_instances) {
