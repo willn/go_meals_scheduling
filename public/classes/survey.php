@@ -509,12 +509,13 @@ EOHTML;
 	protected function saveRequests() {
 		$bundle = array_get($this->requests, 'bundle_shifts', '');
 		$table = SCHEDULE_COMMENTS_TABLE;
+		$comments = $this->dbh->quote($this->requests['comments']);
 		$sql = <<<EOSQL
 replace into {$table}
 	values(
 		{$this->worker_id},
 		datetime('now'),
-		'{$this->requests['comments']}',
+		{$comments},
 		'{$this->avoid_list}',
 		'{$this->prefer_list}',
 		'{$this->requests['clean_after_self']}',
