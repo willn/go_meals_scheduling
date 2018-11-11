@@ -132,6 +132,8 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 			['04/15/2018', SUNDAY_MEAL],
 			['04/16/2018', MEETING_NIGHT_MEAL],
 			['04/18/2018', WEEKDAY_MEAL],
+
+			['2018/04/18', WEEKDAY_MEAL],
 		];
 	}
 

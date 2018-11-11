@@ -111,7 +111,8 @@ function build_survey($workers, $survey, $get_w) {
 	$all_jobs = get_sunday_jobs() + get_weekday_jobs() + get_mtg_jobs();
 
 	$w = array_get($workers, $get_w);
-	$survey->setWorker($w['username'], $w['id'], $w['first_name'], $w['last_name']);
+	$survey->setWorker($w['username'], $w['id']);
+	$survey->loadWorkerInfo($w['first_name'], $w['last_name']);
 
 	print $survey->toString();
 }

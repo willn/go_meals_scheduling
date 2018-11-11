@@ -245,7 +245,7 @@ EOHTML;
 				}
 
 				#!# need to fix the validity of this id value
-				$date_string = "{$month_num}/{$day_num}/" . $season_year;
+				$date_string = "{$month_num}/{$day_num}/{$season_year}";
 				$cell = '';
 
 				$meal_type = get_meal_type_by_date($date_string);
@@ -286,7 +286,7 @@ EOHTML;
 							$tally = <<<EOHTML
 <span class="type_count">[S{$this->num_shifts['sunday']}]</span>
 EOHTML;
-							$cell = $this->list_available_workers($date_string,
+							$cell = $this->list_available_workers(
 								$availability[$date_string], TRUE);
 						}
 						break;
@@ -320,7 +320,7 @@ EOHTML;
 EOHTML;
 							$cell .= '<span class="note">meeting night</span>';
 							// report the available workers
-							$cell .= $this->list_available_workers($date_string,
+							$cell .= $this->list_available_workers(
 								$availability[$date_string]);
 						}
 
@@ -364,7 +364,7 @@ EOHTML;
 								$tally = <<<EOHTML
 	<span class="type_count">[S{$this->num_shifts['sunday']}]</span>
 EOHTML;
-								$cell = $this->list_available_workers($date_string,
+								$cell = $this->list_available_workers(
 									$availability[$date_string], TRUE);
 							}
 						}
@@ -380,7 +380,7 @@ EOHTML;
 EOHTML;
 
 							// report the available workers
-							$cell = $this->list_available_workers($date_string,
+							$cell = $this->list_available_workers(
 								$availability[$date_string]);
 						}
 						break;
@@ -598,7 +598,7 @@ EOJS;
 		return <<<EOHTML
 			<div class="choice">
 			{$this->renderJobNameForDay($name)}
-			<select name="{$date_string}_{$key}" class="preference_selection">
+			<select name="date_{$date_string}_{$key}" class="preference_selection">
 				<option value="2" {$sel[2]}>{$pref_names[2]}</option>
 				<option value="1" {$sel[1]}>{$pref_names[1]}</option>
 				<option value="0" {$sel[0]}>{$pref_names[0]}</option>
@@ -837,7 +837,7 @@ EOHTML;
 	/*
 	 * reporting feature - list the workers available for this day
 	 */
-	private function list_available_workers($date_string, $cur_date, $is_sunday=FALSE) {
+	private function list_available_workers($cur_date, $is_sunday=FALSE) {
 		$cell = '';
 
 		if (is_null($cur_date)) {

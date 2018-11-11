@@ -1,15 +1,17 @@
 <?php
+global $relative_dir;
+if (!isset($relative_dir)) {
+	$relative_dir = './';
+}
+require_once $relative_dir . 'globals.php';
 
-require_once 'globals.php';
-require_once 'display/includes/header.php';
-
-require_once 'classes/calendar.php';
-require_once 'classes/roster.php';
-require_once 'classes/worker.php';
-require_once 'classes/WorkersList.php';
+require_once $relative_dir . 'classes/calendar.php';
+require_once $relative_dir . 'classes/roster.php';
+require_once $relative_dir . 'classes/worker.php';
+require_once $relative_dir . 'classes/WorkersList.php';
 
 class Survey {
-	protected $worker;
+	protected $worker_obj;
 	protected $calendar;
 	protected $roster;
 
@@ -19,8 +21,6 @@ class Survey {
 
 	protected $dbh;
 
-	protected $avoid_list;
-	protected $prefer_list;
 	protected $saved = 0;
 	protected $summary;
 	protected $results = [
@@ -32,11 +32,11 @@ class Survey {
 	// track the number of jobs marked positively
 	protected $positive_count = [];
 
-	protected $requests = [
-		'clean_after_self' => '',
-		'bunch_shifts' => '',
-		'comments' => '',
-		'bundle_shifts' => '',
+	protected $request_keys = [
+		'bunch_shifts' => NULL,
+		'bundle_shifts' => NULL,
+		'clean_after_self' => NULL,
+		'comments' => NULL,
 	];
 
 	protected $is_save_request = FALSE;
@@ -53,17 +53,12 @@ class Survey {
 	}
 
 	/**
-	 * Set the assigned worker, and load their info from the database / config
-	 * overrides.
+	 * Set the assigned worker, and 
 	 *
 	 * @param[in] username string, the username of this user.
 	 * @param[in] worker_id int, the unique ID for this worker.
-	 * @param[in] first_name string, the first name of this worker.
-	 * @param[in] last_name string, the last name of the worker.
 	 */
-	public function setWorker($username=NULL, $worker_id=NULL,
-		$first_name=NULL, $last_name=NULL) {
-
+	public function setWorker($username=NULL, $worker_id=NULL) {
 		if (is_null($username)) {
 			if (is_null($this->username)) {
 				echo "Missing username in setWorker!\n";
@@ -79,18 +74,30 @@ class Survey {
 			}
 			$worker_id = $this->worker_id;
 		}
+		else if (is_null($this->worker_id)) {
+			$this->worker_id = $worker_id;
+		}
+	}
 
-		$this->roster->loadNumShiftsAssigned($username);
-		$this->worker = $this->roster->getWorker($username);
-		if (is_null($this->worker)) {
+	/**
+	 * Load the worker's info from the database / config overrides.
+	 *
+	 * @param[in] username the worker's username.
+	 * @param[in] first_name string, the first name of this worker.
+	 * @param[in] last_name string, the last name of the worker.
+	 */
+	public function loadWorkerInfo($first_name=NULL, $last_name=NULL) {
+		$this->roster->loadNumShiftsAssigned($this->username);
+		$this->worker_obj = $this->roster->getWorker($this->username);
+		if (is_null($this->worker_obj)) {
 			$this->reportNoShifts();
 		}
 
-		$this->worker->setId($worker_id);
+		$this->worker_obj->setId($this->worker_id);
 
 		if (!is_null($first_name) || !is_null($last_name)) {
 			$this->name = "{$first_name} {$last_name}";
-			$this->worker->setNames($first_name, $last_name);
+			$this->worker_obj->setNames($first_name, $last_name);
 		}
 	}
 
@@ -127,8 +134,8 @@ class Survey {
 	 * worker was assigned.
 	 */
 	public function getShifts() {
-		$tasks = $this->worker->getTasks();
-		$shifts = $this->worker->getNumShiftsToFill();
+		$tasks = $this->worker_obj->getTasks();
+		$shifts = $this->worker_obj->getNumShiftsToFill();
 
 		$out = [];
 		foreach($tasks as $id=>$name) {
@@ -160,13 +167,14 @@ EOHTML;
 	}
 
 	public function toString() {
-		if (is_null($this->worker)) {
+		if (is_null($this->worker_obj)) {
 			$this->reportNoShifts();
 		}
 
+		// if the user is trying to save, display results and get out
 		if ($this->is_save_request) {
 			$out = $this->renderSaved();
-			$this->sendEmail($this->worker->getUsername(), $out);
+			$this->sendEmail($this->worker_obj->getUsername(), $out);
 			return <<<EOHTML
 <div class="saved_notification">{$out}</div>
 EOHTML;
@@ -180,14 +188,14 @@ EOHTML;
 
 		$current_season = get_current_season_months();
 		return <<<EOHTML
-		<h2>Welcome, {$this->worker->getName()}</h2>
+		<h2>Welcome, {$this->worker_obj->getName()}</h2>
 		{$this->calendar->renderMonthsOverlay($current_season)}
 		<form method="POST" action="process.php">
 			<input type="hidden" name="username" value="{$_GET['worker']}">
 			<input type="hidden" name="posted" value="1">
 			{$this->renderRequests()}
 			{$shifts_summary}
-			{$this->calendar->toString($this->worker)}
+			{$this->calendar->toString($this->worker_obj)}
 			<button class="pill" type="submit" value="Save" id="end">Save</button>
 		</form>
 EOHTML;
@@ -213,7 +221,7 @@ EOHTML;
 	 * @return string rendered html for the clean after cook form input option.
 	 */
 	protected function renderCleanAfter($requests) {
-		$tasks = $this->worker->getTasks();
+		$tasks = $this->worker_obj->getTasks();
 
 		$sunday_cook = $sunday_clean = FALSE;
 		$weekday_cook = $weekday_clean = FALSE;
@@ -279,8 +287,8 @@ EOHTML;
 	}
 
 	public function renderRequests() {
-		$comments_text = $this->worker->getCommentsText();
-		$comments_info = $this->worker->getComments();
+		$comments_text = $this->worker_obj->getCommentsText();
+		$comments_info = $this->worker_obj->getComments();
 
 		$questions = ['clean_after_self', 'bunch_shifts'];
 		$answers = ['yes', 'dc', 'no'];
@@ -308,13 +316,13 @@ EOHTML;
 		$avoids = array_flip($avoids);
 		$avoids = array_fill_keys(array_keys($avoids), 1);
 		$avoid_worker_selector = $this->getWorkerList('avoid_worker', FALSE,
-			$this->worker->getUsername(), $avoids);
+			$this->worker_obj->getUsername(), $avoids);
 
 		$prefers = explode(',', array_get($comments_info, 'prefers', ''));
 		$prefers = array_flip($prefers);
 		$prefers = array_fill_keys(array_keys($prefers), 1);
 		$prefer_worker_selector = $this->getWorkerList('prefer_worker', FALSE,
-			$this->worker->getUsername(), $prefers);
+			$this->worker_obj->getUsername(), $prefers);
 
 		$bundle_checked = (array_get($comments_info, 'bundle_shifts') == 'on') ?
 				' checked' : '';
@@ -346,34 +354,43 @@ EOHTML;
 EOHTML;
 	}
 
-	public function run() {
-		$this->setUsername();
+	/**
+	 * #!#
+	 */
+	public function run($post) {
+		if (isset($_POST['posted'])) {
+			$this->is_save_request = TRUE;
+		}
+
+		$this->setUsername($post);
 		$this->lookupWorkerId();
 		$this->setWorker();
+		$this->loadWorkerInfo();
 
-		$this->lookupAvoidList();
-		$this->lookupPreferList();
-		$this->processPost();
+		$this->processDates($post);
 		$this->confirmWorkLoad();
 
 		// save the survey
-		$this->saveRequests();
+		$this->saveRequests($post);
 		$this->savePreferences();
 	}
 
 	/**
-	 * Set the username from $_POST.
+	 * Set the username from POST.
 	 * Display an error and exit if username is not set.
 	 */
-	protected function setUsername() {
-		if (!isset($_POST['username'])) {
+	protected function setUsername($post) {
+		if (!isset($post['username'])) {
 			echo "<p class=\"error\">Missing username</p>\n";
 			exit;
 		}
-		$this->username = $_POST['username'];
+		$this->username = $post['username'];
 	}
 
-
+	/**
+	 * Lookup the worker's ID from the database, set that to the worker_id
+	 * member variable.
+	 */
 	protected function lookupWorkerId() {
 		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
@@ -388,31 +405,19 @@ EOSQL;
 		}
 	}
 
-	protected function processPost() {
-		// is this a posting? save that and delete from POST.
-		if (isset($_POST['posted'])) {
-			$this->is_save_request = TRUE;
-			unset($_POST['posted']);
-		}
-
-		// deal with special requests first, then delete them from POST.
-		foreach(array_keys($this->requests) as $r) {
-			if (!isset($_POST[$r])) {
+	/**
+	 * Process the dates which have been submitted.
+	 *
+	 * @param[in] post associative array of key-value pairs which were submitted.
+	 */
+	protected function processDates($post) {
+		foreach($post as $key=>$choice) {
+			// skip anything that's not a date
+			if (empty(strstr($key, 'date_'))) {
 				continue;
 			}
 
-			// #!# $this->requests[$r] = sqlite_escape_string($_POST[$r]);
-			$this->requests[$r] = $_POST[$r];
-			unset($_POST[$r]);
-		}
-
-		// process the remaining post vars
-		foreach($_POST as $key=>$choice) {
-			if ($key == 'username') {
-				continue;
-			}
-
-			list($date_string, $task) = explode('_', $key);
+			list($prefix, $date_string, $task) = explode('_', $key);
 			$this->results[$choice][$task][] = $date_string;
 			if ($choice > 0) {
 				if (!isset($this->positive_count[$task])) {
@@ -420,24 +425,6 @@ EOSQL;
 				}
 				$this->positive_count[$task]++;
 			}
-		}
-	}
-
-	protected function lookupAvoidList() {
-		$avoids = [];
-		if (!empty($_POST['avoid_worker'])) {
-			$this->avoid_list = implode(',',
-				$_POST['avoid_worker']);
-			unset($_POST['avoid_worker']);
-		}
-	}
-
-	protected function lookupPreferList() {
-		$prefers = [];
-		if (!empty($_POST['prefer_worker'])) {
-			$this->prefer_list = implode(',',
-				$_POST['prefer_worker']);
-			unset($_POST['prefer_worker']);
 		}
 	}
 
@@ -449,7 +436,7 @@ EOSQL;
 		global $all_jobs;
 		$insufficient_prefs = [];
 
-		$num_shifts_to_fill = $this->worker->getNumShiftsToFill();
+		$num_shifts_to_fill = $this->worker_obj->getNumShiftsToFill();
 		foreach($num_shifts_to_fill as $job_id => $num_instances) {
 			$pos_count = !array_key_exists($job_id, $this->positive_count) ? 0 :
 				$this->positive_count[$job_id];
@@ -506,24 +493,47 @@ EOHTML;
 	/**
 	 * Save the special requests to the db
 	 */
-	protected function saveRequests() {
-		$bundle = array_get($this->requests, 'bundle_shifts', '');
+	protected function saveRequests($post) {
+		$sql = $this->getSaveRequestsSQL($post);
+		$this->dbh->exec($sql);
+	}
+
+	/**
+	 * Generate the SQL needed to save the special requests to the database.
+	 *
+	 * @param[in] requests associative array with key-value pairs of
+	 *     the various special requests that workers can make.
+	 * @return string the SQL generated.
+	 */
+	public function getSaveRequestsSQL($post) {
+		// deal with special requests first
+		foreach(array_keys($this->request_keys) as $r) {
+			if (!isset($post[$r])) {
+				continue;
+			}
+
+			$this->request_keys[$r] = $post[$r];
+		}
+
+		$avoid_list = implode(',', $post['avoid_worker']);
+		$prefer_list = implode(',', $post['prefer_worker']);
+
+		$bundle = array_get($post, 'bundle_shifts', '');
 		$table = SCHEDULE_COMMENTS_TABLE;
-		$comments = $this->dbh->quote($this->requests['comments']);
-		$sql = <<<EOSQL
+		$comments = $this->dbh->quote($post['comments']);
+		return <<<EOSQL
 replace into {$table}
 	values(
 		{$this->worker_id},
 		datetime('now'),
 		{$comments},
-		'{$this->avoid_list}',
-		'{$this->prefer_list}',
-		'{$this->requests['clean_after_self']}',
-		'{$this->requests['bunch_shifts']}',
+		'{$avoid_list}',
+		'{$prefer_list}',
+		'{$post['clean_after_self']}',
+		'{$post['bunch_shifts']}',
 		'{$bundle}'
 	)
 EOSQL;
-		$this->dbh->exec($sql);
 	}
 
 	/**
