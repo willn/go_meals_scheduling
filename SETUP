@@ -215,6 +215,10 @@ Development notes between seasons
 - update the data to use the current season id:
 	update work_app_assignment set season_id=11 where season_id=10;
 
+# create some entries (cook & clean) for testing of survey
+# sqlite> insert into work_app_assignment values(NULL, 'a', 3, 4592, 1, 33, 59);
+# sqlite> insert into work_app_assignment values(NULL, 'a', 1, 4596, 1, 33, 59);
+
 
 How to add a user with an override.
 -------------------------------------
@@ -241,4 +245,5 @@ insert into work_app_assignment values(
         "worker_id"
 );
 insert into work_app_assignment values(13623, '', 1, 4594, 0, 33, 164);
+
 
