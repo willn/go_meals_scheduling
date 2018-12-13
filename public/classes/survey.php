@@ -82,7 +82,6 @@ class Survey {
 	/**
 	 * Load the worker's info from the database / config overrides.
 	 *
-	 * @param[in] username the worker's username.
 	 * @param[in] first_name string, the first name of this worker.
 	 * @param[in] last_name string, the last name of the worker.
 	 */
@@ -147,8 +146,11 @@ class Survey {
 		return $out;
 	}
 
-
-	public function getShiftsSummaryHtml() {
+	/**
+	 * Render the shifts summary to html
+	 * @return string the summary of shifts to work.
+	 */
+	public function renderShiftsSummaryHtml() {
 		$shifts = $this->getShifts();
 		if (empty($shifts)) {
 			return NULL;
@@ -181,7 +183,7 @@ EOHTML;
 		}
 
 		// query for this worker's tasks.
-		$shifts_summary = $this->getShiftsSummaryHtml();
+		$shifts_summary = $this->renderShiftsSummaryHtml();
 		if (is_null($shifts_summary)) {
 			$this->reportNoShifts();
 		}
@@ -567,6 +569,7 @@ EOSQL;
 						$insert = <<<EOSQL
 REPLACE INTO {$shifts_table} VALUES(NULL, '{$d}', {$task})
 EOSQL;
+						// XXX add some escaping here
 						$this->dbh->exec($insert);
 
 						// now check to make sure that entry was saved...
@@ -590,6 +593,7 @@ EOHTML;
 					$replace = <<<EOSQL
 REPLACE INTO {$prefs_table} VALUES({$shift_id}, {$this->worker_id}, {$pref})
 EOSQL;
+					// XXX add some escaping here
 					$success = $this->dbh->exec($replace);
 					if ($success) {
 						$this->saved++;
