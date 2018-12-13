@@ -1,6 +1,6 @@
 <?php
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('December 12, 2018, 8:00pm'));
+define('DEADLINE', strtotime('December 19, 2018, 8:00pm'));
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_ORDERER', 4595);
@@ -26,49 +26,65 @@ function get_num_shift_overrides() {
 		 * mega season... so do a pair of 1 and 1 for each 2-mo sub-season.
 		 */
 
+		/*
 		// nov-dec:
 		// ---------------------------------
 		'maryking' => [WEEKDAY_CLEANER => 1],
 		'patti' => [WEEKDAY_CLEANER => 1],
 		'nancy' => [SUNDAY_ASST_COOK => -1],
 		'liam' => [SUNDAY_ASST_COOK => 1],
+		*/
 
-		/*
 		// jan-feb:
 		// ---------------------------------
-		'patti' => [WEEKDAY_CLEANER => 1],
-		'rod' => [WEEKDAY_CLEANER => 1],
-		'nancy' => [SUNDAY_ASST_COOK => -1],
-		'liam' => [SUNDAY_ASST_COOK => 1],
-
-		// leftovers from nov-dec:
-		// likely shorter "season" due to 2 big holidays...
-		'annie' => [WEEKDAY_ASST_COOK => 2],
-		'gayle' => [WEEKDAY_CLEANER => 1],
-		'gregd' => [WEEKDAY_HEAD_COOK => 1, WEEKDAY_ASST_COOK => 1],
+		'annie' => [
+			WEEKDAY_ASST_COOK => 2,
+			SUNDAY_CLEANER => 1
+		],
+		'dan' => [SUNDAY_CLEANER => 1],
+		// gayle needs half-load for the sub-season, out Feb
+		'gayle' => [
+			SUNDAY_CLEANER => -3,
+			WEEKDAY_CLEANER => -3,
+			WEEKDAY_ASST_COOK => -1,
+			WEEKDAY_TABLE_SETTER => -3
+		],
+		'gregd' => [
+			WEEKDAY_HEAD_COOK => 1,
+			WEEKDAY_ASST_COOK => 1
+		],
 		'jennifer' => [
 			WEEKDAY_ASST_COOK => 1,
-			WEEKDAY_HEAD_COOK => 1,
+			WEEKDAY_HEAD_COOK => 1
 		],
+		'liam' => [SUNDAY_ASST_COOK => 1],
 		'mac' => [WEEKDAY_CLEANER => 2],
-		'marta' => [WEEKDAY_ASST_COOK => 1, WEEKDAY_TABLE_SETTER => 4],
+		'marta' => [
+			WEEKDAY_ASST_COOK => 1,
+			WEEKDAY_TABLE_SETTER => 4
+		],
 		'marys' => [WEEKDAY_CLEANER => 1],
 		'michael' => [WEEKDAY_CLEANER => 3],
+		'nancy' => [SUNDAY_ASST_COOK => -1],
+		'patti' => [WEEKDAY_CLEANER => 1],
+		'rod' => [WEEKDAY_CLEANER => 1],
 		'tammy' => [WEEKDAY_HEAD_COOK => 1],
 		'terrence' => [WEEKDAY_CLEANER => 1],
-
-		// swaps:
-
-
-		*/
+		'thomas' => [SUNDAY_CLEANER => 1],
 
 		/*
 		// mar-apr:
 		// ---------------------------------
-		'maryking' => [WEEKDAY_CLEANER => 1],
-		'rod' => [WEEKDAY_CLEANER => 1],
-		'nancy' => [SUNDAY_ASST_COOK => -1],
+		'gayle' => [WEEKDAY_CLEANER => 1],
 		'liam' => [SUNDAY_ASST_COOK => 1],
+		'maryking' => [WEEKDAY_CLEANER => 1],
+		'nancy' => [SUNDAY_ASST_COOK => -1],
+		'rod' => [WEEKDAY_CLEANER => 1],
+
+		// borrowed for part 2 from part 3
+		'dan' => [SUNDAY_CLEANER => -1],
+		'annie' => [SUNDAY_CLEANER => -1],
+		'thomas' => [SUNDAY_CLEANER => -1],
 		*/
 	];
 }
