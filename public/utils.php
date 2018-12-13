@@ -3,6 +3,8 @@ require_once 'globals.php';
 require_once 'constants.inc';
 require_once 'classes/meal.php';
 
+define('SEASON_ID', get_season_id());
+
 /**
  * Get an element from an array, with a backup.
  */
