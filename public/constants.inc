@@ -21,8 +21,6 @@ if (($this_month == 11) || ($this_month == 12)) {
 }
 define('SEASON_YEAR', $this_year);
 
-define('SEASON_ID', get_season_id());
-
 # -------- list of sqlite tables ---------
 # tables from the work survey (read-only)
 define('SURVEY_JOB_TABLE', 'work_app_job');
