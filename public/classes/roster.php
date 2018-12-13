@@ -1,6 +1,5 @@
 <?php
 global $relative_dir;
-
 require_once $relative_dir . 'utils.php';
 
 global $dbh;
@@ -31,10 +30,24 @@ class Roster {
 			$this->total_labor_avail[$job_id] = 0;
 		}
 
-		$current_season = get_current_season_months();
+		$this->setShifts(SEASON_NAME);
+	}
+
+	/**
+	 * Get how many "shifts" per season there should be for the current season.
+	 */
+	public function setShifts($season_name=NULL) {
+		$current_season = NULL;
+		if (is_null($season_name)) {
+			$current_season = get_current_season_months();
+		}
+		else {
+			$current_season = get_current_season_months($season_name);
+		}
+
 		if (empty($current_season)) {
-			echo "no months assigned to current season\n";
-			exit;
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
+				" no months assigned to current season: " . SEASON_NAME);
 		}
 		$this->num_shifts_per_season = count($current_season);
 	}
@@ -294,6 +307,14 @@ EOSQL;
 		}
 
 		return $out;
+	}
+
+	/**
+	 * Accessor for number of shifts per season.
+	 * Mainly for unit testing.
+	 */
+	public function getNumShiftsPerSeason() {
+		return $this->num_shifts_per_season;
 	}
 
 	/**
