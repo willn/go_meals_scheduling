@@ -47,15 +47,13 @@ function get_num_shift_overrides() {
 		// ---------------------------------
 		'annie' => [
 			WEEKDAY_ASST_COOK => 2,
-			SUNDAY_CLEANER => 1
 		],
-		'dan' => [SUNDAY_CLEANER => 1],
 		// gayle needs half-load for the sub-season, out Feb
 		'gayle' => [
-			SUNDAY_CLEANER => -3,
-			WEEKDAY_CLEANER => -3,
+			SUNDAY_CLEANER => -1,
+			WEEKDAY_CLEANER => -2,
 			WEEKDAY_ASST_COOK => -1,
-			WEEKDAY_TABLE_SETTER => -3
+			WEEKDAY_TABLE_SETTER => -1
 		],
 		'gregd' => [
 			WEEKDAY_HEAD_COOK => 1,
@@ -63,13 +61,13 @@ function get_num_shift_overrides() {
 		],
 		'jennifer' => [
 			WEEKDAY_ASST_COOK => 1,
-			WEEKDAY_HEAD_COOK => 1
+			WEEKDAY_HEAD_COOK => 1,
 		],
 		'liam' => [SUNDAY_ASST_COOK => 1],
 		'mac' => [WEEKDAY_CLEANER => 2],
 		'marta' => [
 			WEEKDAY_ASST_COOK => 1,
-			WEEKDAY_TABLE_SETTER => 4
+			WEEKDAY_TABLE_SETTER => 4,
 		],
 		'marys' => [WEEKDAY_CLEANER => 1],
 		'michael' => [WEEKDAY_CLEANER => 3],
