@@ -1,6 +1,14 @@
 <?php
+require_once 'constants.inc';
+
 /* -------- seasonal config --------- */
 define('DEADLINE', strtotime('December 19, 2018, 8:00pm'));
+
+/*
+ * SEASON_NAME is used to lookup the months involved.
+ * Possible answers are: SUMMER, FALL, WINTER, SPRING
+ */
+define('SEASON_NAME', WINTER);
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_ORDERER', 4595);
@@ -125,11 +133,14 @@ function get_current_season_months($season_name=NULL) {
 			return [
 				1=>'January',
 				2=>'February',
+			];
+
+		case SPRING:
+			return [
 				3=>'March',
 				4=>'April',
 			];
 
-		case SPRING:
 		case SUMMER:
 			return [	
 				5=>'May',
@@ -145,6 +156,9 @@ function get_current_season_months($season_name=NULL) {
 				11=>'November',
 				12=>'December',
 			];
+
+		default:
+			return;
 	}
 }
 
