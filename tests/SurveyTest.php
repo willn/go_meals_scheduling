@@ -9,7 +9,9 @@ require_once '../auto_assignments/assignments.php';
 global $relative_dir;
 $relative_dir = '../public/';
 require_once '../public/config.php';
+require_once '../public/globals.php';
 require_once '../public/classes/survey.php';
+require_once 'testing_utils.php';
 
 class SurveyTest extends PHPUnit_Framework_TestCase {
 	private $assignments;
@@ -17,6 +19,49 @@ class SurveyTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
 		$this->survey = new Survey();
 		$this->survey->setWorker('willie', 59);
+	}
+
+	/**
+	 * @dataProvider provideRenderShiftsSummaryHtml
+	 */
+	public function testRenderShiftsSummaryHtml($input, $expected) {
+		$result = $this->survey->renderShiftsSummaryHtml($input);
+		$this->assertEquals(remove_html_whitespace($expected), 
+			remove_html_whitespace($result));
+	}
+
+	public function provideRenderShiftsSummaryHtml() {
+		$ex1 = [
+			4597 => [
+				"name" => "Sunday Meal Cleaner (6 meals\/instance)",
+				"instances" => 9,
+			],
+			4596 => [
+				"name" => "Weekday Meal cleaner (6 meals\/instance)",
+				"instances" => 8,
+			],
+			4592 => [
+				"name" => "Weekday asst cook (3 meals\/instance)",
+				"instances" => 7,
+			],
+			4584 => [
+				"name" => "Weekday table setter (6 meals\/instance)",
+				"instances" => 6,
+			],
+		];
+		$out1 = <<<EOHTML
+<div class="shift_instances">
+	<h4>Assigned Meals:</h4>
+	<div>9 Sunday Meal Cleaner</div>
+	<div>8 Weekday Meal cleaner</div>
+	<div>7 Weekday asst cook</div>
+	<div>6 Weekday table setter</div>
+</div>
+EOHTML;
+
+		return [
+			[$ex1, $out1],
+		];
 	}
 
 	/**

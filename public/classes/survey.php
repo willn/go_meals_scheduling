@@ -50,6 +50,9 @@ class Survey {
 
 		global $dbh;
 		$this->dbh = $dbh;
+		if (is_null($dbh)) {
+			$this->dbh = create_sqlite_connection();
+		}
 	}
 
 	/**
@@ -150,15 +153,15 @@ class Survey {
 	 * Render the shifts summary to html
 	 * @return string the summary of shifts to work.
 	 */
-	public function renderShiftsSummaryHtml() {
-		$shifts = $this->getShifts();
+	public function renderShiftsSummaryHtml($shifts) {
 		if (empty($shifts)) {
 			return NULL;
 		}
 
 		$out = '';
 		foreach($shifts as $id=>$info) {
-			$out .= "<div>{$info['instances']} {$info['name']}</div>";
+			$short_name = preg_replace("/ \(.*/", '', $info['name']);
+			$out .= "<div>{$info['instances']} {$short_name}</div>";
 		}
 		return <<<EOHTML
 			<div class="shift_instances">
@@ -183,7 +186,8 @@ EOHTML;
 		}
 
 		// query for this worker's tasks.
-		$shifts_summary = $this->renderShiftsSummaryHtml();
+		$shifts = $this->getShifts();
+		$shifts_summary = $this->renderShiftsSummaryHtml($shifts);
 		if (is_null($shifts_summary)) {
 			$this->reportNoShifts();
 		}

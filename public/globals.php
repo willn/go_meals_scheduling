@@ -44,7 +44,7 @@ function get_pref_names() {
 	];
 }
 
-create_sqlite_connection();
+$dbh = create_sqlite_connection();
 
 global $all_jobs;
 $all_jobs = array();
@@ -87,7 +87,6 @@ function get_mtg_nights() {
  * Create a sqlite connection.
  */
 function create_sqlite_connection() {
-	global $dbh;
 	global $db_is_writable;
 	$db_is_writable = FALSE;
 
@@ -112,6 +111,8 @@ function create_sqlite_connection() {
 		echo "problem loading sqlite file [$db_fullpath]: {$e->getMessage()}\n";
 		exit;
 	}
+
+	return $dbh;
 }
 
 // create the job IDs 'OR' clause

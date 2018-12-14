@@ -18,6 +18,7 @@ class SeasonTest extends PHPUnit_Framework_TestCase {
 			return;
 		}
 
+		// test that the overrides array is structured properly
 		foreach($overrides as $name => $assignments) {
 			$this->assertInternalType("string", $name);
 			$this->assertInternalType("array", $assignments);

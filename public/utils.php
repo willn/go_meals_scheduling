@@ -22,9 +22,8 @@ function array_get($array, $key, $default=NULL) {
  * highest number from the sqlite file.
  */
 function get_season_id() {
-	create_sqlite_connection();
+	$dbh = create_sqlite_connection();
 
-	global $dbh;
 	$sql = 'SELECT max(id) FROM work_app_season';
 	$id = NULL;
 	foreach ($dbh->query($sql) as $row) {
