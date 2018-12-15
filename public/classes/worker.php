@@ -146,7 +146,7 @@ class Worker {
 			return;
 		}
 
-		// add additional shifts if they were already set
+		// add additional shifts if they were already set (can be negative)
 		$this->num_shifts_to_fill[$job_id] += $instances;
 	}
 
@@ -159,6 +159,9 @@ class Worker {
 		return array_keys($this->num_shifts_to_fill);
 	}
 
+	/**
+	 * #!#
+	 */
 	public function getNumShiftsToFill() {
 		return $this->num_shifts_to_fill;
 	}
@@ -517,7 +520,6 @@ EOTXT;
 	 */
 	protected function loadTasks() {
 		global $all_jobs;
-		$num_shift_overrides = get_num_shift_overrides();
 
 		$each_job = [];
 		foreach($all_jobs as $id=>$name) {
@@ -544,6 +546,7 @@ EOSQL;
 		}
 
 		$addl_jobs = [];
+		$num_shift_overrides = get_num_shift_overrides();
 		if (isset($num_shift_overrides[$this->username])) {
 			$additional = $num_shift_overrides[$this->username];
 			foreach(array_keys($additional) as $id) {
