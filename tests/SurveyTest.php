@@ -52,10 +52,10 @@ class SurveyTest extends PHPUnit_Framework_TestCase {
 		$out1 = <<<EOHTML
 <div class="shift_instances">
 	<h4>Assigned Meals:</h4>
-	<div>9 Sunday Meal Cleaner</div>
-	<div>8 Weekday Meal cleaner</div>
-	<div>7 Weekday asst cook</div>
-	<div>6 Weekday table setter</div>
+	<div>9 meal(s) of Sunday Meal Cleaner</div>
+	<div>8 meal(s) of Weekday Meal cleaner</div>
+	<div>7 meal(s) of Weekday asst cook</div>
+	<div>6 meal(s) of Weekday table setter</div>
 </div>
 EOHTML;
 
