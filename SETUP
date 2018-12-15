@@ -36,6 +36,11 @@ Directions to set up the survey:
 	cd ../
 	git diff | view -
 
+# You may need to adjust the season's months:
+	edit public/season.php
+	change the SEASON_NAME
+	examine get_current_season_months()
+
 
 # SEASON-START:
 # grab the latest sqlite file from work hosting, fix permissions, and commit:
