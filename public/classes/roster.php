@@ -6,7 +6,7 @@ global $dbh;
 
 // -----------------------------------
 class Roster {
-	protected $workers = array();
+	protected $workers = [];
 	protected $job_id;
 	protected $dbh;
 	protected $num_shifts_per_season = 0;
@@ -180,6 +180,11 @@ EOSQL;
 	 * each Worker object.
 	 */
 	public function loadNumShiftsAssigned($username=NULL) {
+		$this->loadNumShiftsAssignedFromDatabase($username);
+		$this->loadNumShiftsAssignedFromOverrides($username);
+	}
+
+	public function loadNumShiftsAssignedFromDatabase($username=NULL) {
 		$dinners_per_job = get_num_dinners_per_assignment(
 			get_current_season_months());
 
@@ -206,24 +211,25 @@ EOSQL;
 		foreach($this->dbh->query($sql) as $row) {
 			$count++;
 
-			$u = $row['username'];
+			$username = $row['username'];
 			$job_id = $row['job_id'];
-			$w = $this->getWorker($u);
+			$worker = $this->getWorker($username);
 
 			// determine the number of shifts across the season
 			$num_instances = isset($dinners_per_job[$job_id]) ?
 				($row['instances'] * $dinners_per_job[$job_id]) : 
 				($row['instances'] * $this->num_shifts_per_season);
-			$w->addNumShiftsAssigned($job_id, $num_instances);
+			$worker->addNumShiftsAssigned($job_id, $num_instances);
 			$this->total_labor_avail[$job_id] += $num_instances;
 		}
-
-		$this->loadNumShiftsAssignedFromOverrides($username);
 
 		return TRUE;
 	}
 
 	/**
+	 * Get the number of shifts a worker has been assigned from the
+	 * overrides list, and add those to the list of shifts assigned.
+	 *
 	 * @param[in] username string the name of the user viewing the survey.
 	 */
 	protected function loadNumShiftsAssignedFromOverrides($username=NULL) {
@@ -242,15 +248,15 @@ EOSQL;
 			}
 		}
 
-		foreach($shift_overrides as $u => $jobs) {
-			$w = $this->getWorker($u);
+		foreach($shift_overrides as $or_username => $jobs) {
+			$worker = $this->getWorker($or_username);
 
 			foreach($jobs as $job_id=>$instances) {
 				if (!isset($all_jobs[$job_id])) {
 					echo "Could not find job ID: $job_id\n";
 					continue;
 				}
-				$w->addNumShiftsAssigned($job_id, $instances);
+				$worker->addNumShiftsAssigned($job_id, $instances);
 				$this->total_labor_avail[$job_id] += $instances;
 			}
 		}
