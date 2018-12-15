@@ -24,7 +24,7 @@ Directions to set up the survey:
 	- add any extra workers to the get_num_shift_overrides() function
 
 # MID-SEASON:
-# if this is mid-season, then follow these directions and skip the SEASON-START section
+# if this is mid-season, then follow these directions and skip to END-SEASON-START section
 
 # clear out existing tables
 	cd sqlite_data/
@@ -77,13 +77,14 @@ Directions to set up the survey:
 	git add *
 	git commit
 
+# END-SEASON-START
 # stage everything from the meals dev repo to public_html
 	cd ~/public_html/meals_scheduling/
 	for i in `find . -type f`; do cp ~/meals_scheduling/public/$i $i; done
 
 # test to make sure everything works
 	- confirm that the calendar dates are correct
-	- remove any previous dates from config.php / get_regular_day_overrides()
+	- remove any previous dates from season.php / get_regular_day_overrides()
 	- confirm the holidays and meeting nights are correct
 	- confirm whether we want to display a farm meals night message...
 	- fill in some entries and save them, then revert
