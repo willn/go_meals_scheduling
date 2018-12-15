@@ -70,8 +70,22 @@ class SurveyTest extends PHPUnit_Framework_TestCase {
 </div>
 EOHTML;
 
+		$ex2 = [
+			4597 => [
+				"name" => "Mtg takeout/potluck orderer(3 meals/instance)",
+				"instances" => 1,
+			],
+		];
+		$out2 = <<<EOHTML
+<div class="shift_instances">
+	<h4>Assigned Meals:</h4>
+	<div>1 meal(s) of Mtg takeout/potluck orderer</div>
+</div>
+EOHTML;
+
 		return [
 			[$ex1, $out1],
+			[$ex2, $out2],
 		];
 	}
 

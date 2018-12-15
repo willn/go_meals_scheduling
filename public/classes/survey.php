@@ -177,7 +177,7 @@ class Survey {
 
 		$out = '';
 		foreach($shifts as $id=>$info) {
-			$short_name = preg_replace("/ \(.*/", '', $info['name']);
+			$short_name = preg_replace("/ ?\(.*/", '', $info['name']);
 			$out .= "<div>{$info['instances']} meal(s) of {$short_name}</div>";
 		}
 		return <<<EOHTML
