@@ -62,7 +62,10 @@ class Survey {
 	 * @param[in] worker_id int, the unique ID for this worker.
 	 */
 	public function setWorker($username=NULL, $worker_id=NULL) {
-		if (is_null($username)) {
+		if (!is_null($username)) {
+			$this->username = $username;
+		}
+		else {
 			if (is_null($this->username)) {
 				echo "Missing username in setWorker!\n";
 				exit;
@@ -70,16 +73,26 @@ class Survey {
 			$username = $this->username;
 		}
 
-		if (is_null($worker_id)) {
+		if (!is_null($worker_id)) {
+			$this->worker_id = $worker_id;
+		}
+		else {
 			if (is_null($this->worker_id)) {
 				echo "Missing worker_id in setWorker!\n";
 				exit;
 			}
 			$worker_id = $this->worker_id;
 		}
-		else if (is_null($this->worker_id)) {
-			$this->worker_id = $worker_id;
-		}
+	}
+
+	/**
+	 * Get the current worker's info.
+	 */
+	public function getCurrentWorkerInfo() {
+		return [
+			'username' => $this->username,
+			'worker_id' => $this->worker_id,
+		];
 	}
 
 	/**
@@ -105,6 +118,8 @@ class Survey {
 
 	/**
 	 * Get the list of workers.
+	 * XXX how is this different from getWorkerList?
+	 *
 	 * @return array list of workers.
 	 */
 	public function getWorkers() {
@@ -114,6 +129,8 @@ class Survey {
 
 	/**
 	 * Get a select list of the various workers available.
+	 * XXX how is this different from getWorkers?
+	 *
 	 * @param [in] id string, denotes name of DOM element and form element
 	 *     name.
 	 * @param[in] first_entry boolean, defaults to FALSE, if true,
@@ -161,7 +178,7 @@ class Survey {
 		$out = '';
 		foreach($shifts as $id=>$info) {
 			$short_name = preg_replace("/ \(.*/", '', $info['name']);
-			$out .= "<div>{$info['instances']} {$short_name}</div>";
+			$out .= "<div>{$info['instances']} meal(s) of {$short_name}</div>";
 		}
 		return <<<EOHTML
 			<div class="shift_instances">
