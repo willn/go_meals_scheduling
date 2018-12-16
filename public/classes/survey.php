@@ -309,6 +309,12 @@ EOHTML;
 EOHTML;
 	}
 
+	/**
+	 * Render the special requests section.
+	 * For example, prefer/avoid working with someone, clean after cooking, etc.
+	 *
+	 * @return string HTML to display the special requests form.
+	 */
 	public function renderRequests() {
 		$comments_text = $this->worker_obj->getCommentsText();
 		$comments_info = $this->worker_obj->getComments();

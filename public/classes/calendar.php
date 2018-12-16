@@ -410,7 +410,7 @@ EOHTML;
 				<td class="dow_{$day_of_week}">
 					<div class="date_number">{$day_num}{$tally}</div>
 					{$cell}
-					{$this->getNotice($month_num, $day_of_week, $cell)}
+					{$this->getMessage($month_num, $day_of_week, $cell)}
 				</td>
 
 EOHTML;
@@ -473,7 +473,7 @@ EOHTML;
 	/**
 	 * Get a notice message to display on certain dates.
 	 */
-	public function getNotice($month_num, $day_of_week, $cell) {
+	public function getMessage($month_num, $day_of_week, $cell) {
 		if (empty($cell)) {
 			return '';
 		}
@@ -617,7 +617,7 @@ EOHTML;
 		$name = preg_replace('/^.*meal /i', '', $name);
 		$drop = array(
 			' (twice a season)',
-			'Meeting night ',
+			// 'Meeting night ',
 			'Sunday ',
 			' (two meals/season)',
 			' (2 meals/season)',

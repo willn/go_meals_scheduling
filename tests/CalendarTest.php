@@ -147,8 +147,8 @@ EOHTML;
 	public function provideRenderJobNameForDay() {
 		return [
 			['x', 'x'],
-			['Meeting night takeout orderer', 'takeout orderer'],
-			['Meeting night cleaner', 'cleaner'],
+			['Meeting night takeout orderer', 'Meeting night takeout orderer'],
+			['Meeting night cleaner', 'Meeting night cleaner'],
 			['Sunday head cook', 'head cook'],
 			['Sunday meal asst cook', 'asst cook'],
 			['Sunday Meal Cleaner', 'Cleaner'],
