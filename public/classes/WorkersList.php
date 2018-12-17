@@ -10,6 +10,7 @@ class WorkersList {
 	/*
 	 * Find all of the worker names. We need even those who don't have shifts
 	 * this season in case they have overrides.
+	 * XXX isn't this redundant...?
 	 */
 	public function load() {
 		$sid = SEASON_ID;

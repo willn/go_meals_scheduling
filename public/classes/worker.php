@@ -160,7 +160,7 @@ class Worker {
 	}
 
 	/**
-	 * #!#
+	 * Get the number of shifts this worker needs to fill.
 	 */
 	public function getNumShiftsToFill() {
 		return $this->num_shifts_to_fill;

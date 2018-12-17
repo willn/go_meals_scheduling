@@ -1,6 +1,7 @@
 <?php
 global $relative_dir;
 require_once $relative_dir . 'utils.php';
+require_once $relative_dir . 'classes/worker.php';
 
 global $dbh;
 
@@ -24,8 +25,12 @@ class Roster {
 	public function __construct() {
 		global $dbh;
 		$this->dbh = $dbh;
+		if (is_null($dbh)) {
+			$this->dbh = create_sqlite_connection();
+		}
 
 		global $all_jobs;
+		// initialize all jobs to zeroes
 		foreach(array_keys($all_jobs) as $job_id) {
 			$this->total_labor_avail[$job_id] = 0;
 		}
@@ -152,24 +157,24 @@ EOSQL;
 	 * @return array list of workers sorted by schedule availability
 	 */
 	public function sortAvailable() {
-		$j = $this->job_id;
 		$this->least_available = [];
 
-		foreach($this->workers as $u=>$w) {
-			$avail = $w->getNumAvailableShiftsRatio($j);
+		foreach($this->workers as $username=>$worker) {
+			$avail = $worker->getNumAvailableShiftsRatio($this->job_id);
 			if ($avail == 0) {
 				continue;
 			}
 
-			$this->least_available[$u] = $avail;
+			$this->least_available[$username] = $avail;
 		}
 
 		// need to assign a placeholder for manual fixing later
 		if (empty($this->least_available)) {
-			$name = get_job_name($j);
+			$name = get_job_name($this->job_id);
 			echo "Ran out of workers, using a placeholder for {$name}\n";
 		}
 
+		// Sort the list of workers by username (key)
 		asort($this->least_available);
 		return $this->least_available;
 	}
@@ -222,8 +227,6 @@ EOSQL;
 			$worker->addNumShiftsAssigned($job_id, $num_instances);
 			$this->total_labor_avail[$job_id] += $num_instances;
 		}
-
-		return TRUE;
 	}
 
 	/**
@@ -262,6 +265,35 @@ EOSQL;
 		}
 	}
 
+	/**
+	 * Get the total labor available.
+	 *
+	 * @return associative array, where the keys are the job IDs
+	 *    (including 'all') and the values are the number of times
+	 *    that the workers have cumulatively been assigned to work for
+	 *    these jobs. This is the count of the total labor available.
+	 */
+	public function getTotalLaborAvailable() {
+		return $this->total_labor_avail;
+	}
+
+	/**
+	 * Get the list of workers and their number of shifts to fill.
+	 *
+	 * @return associative array where keys are usernames and values
+	 *     are an associative array of job ids -> number of shifts to fill.
+	 *     Example:
+     *     'someone' => [
+	 *         4596 => 7,
+	 *         4594 => 1,
+	 *     ],
+	 */
+	public function getWorkerShiftsToFill() {
+		return array_map(
+			function($worker) { return $worker->getNumShiftsToFill(); },
+			$this->workers);
+	}
+
 
 	/**
 	 * Get the worker object based on username.
@@ -278,7 +310,12 @@ EOSQL;
 	}
 
 	/**
-	 * #!#
+	 * Given a username, instantiate a new Worker object and add it to the list.
+	 * The workers list is an associative array, where the keys are
+	 * usernames and the values are Worker objects.
+	 *
+	 * @param[in] username string the username for the worker.
+	 * @return Worker object, the corresponding Worker object.
 	 */
 	public function addWorker($username) {
 		$w = new Worker($username);
