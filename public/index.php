@@ -86,8 +86,6 @@ EOHTML;
  */
 function display_worker_menu() {
 	$workers_list = new WorkersList();
-	$list = $workers_list->getWorkers();
-
 	if (empty($workers_list)) {
 		echo "<h2>No workers configured</h2>\n";
 		return;
