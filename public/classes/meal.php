@@ -199,7 +199,7 @@ EOTXT;
 	 * who is already assigned to this meal.
 	 *
 	 * @param[in] job_id int the number of the job to get preferences for.
-	 * @return array key-value pairs, one for 'avoid', another for 'prefer'.
+	 * @return array key-value pairs, one for 'avoid_workers', another for 'prefer'.
 	 */
 	protected function getAvoidAndPreferWorkerList($job_id,
 		$assigned_worker_names) {
@@ -210,14 +210,14 @@ EOTXT;
 		$assigned_worker_objects = $this->getAssignedWorkerObjectsByJobId(
 			$job_id, $assigned_worker_names);
 
-		$avoid_list = [];
+		$avoid_workers_list = [];
 		$prefer_list = [];
 		foreach($assigned_worker_objects as $worker) {
 			// get list of names worker does not want to work with
 			// Array ( [0] => aaron, [1] => nancy)
 			$av_list = $worker->getAvoids();
 			if (!empty($av_list)) {
-				$avoid_list = array_merge($avoid_list, $av_list);
+				$avoid_workers_list = array_merge($avoid_workers_list, $av_list);
 			}
 
 			// get list of names worker wants to work with
@@ -227,12 +227,12 @@ EOTXT;
 			}
 		}
 
-		$avoids = [];
-		if (!empty($avoid_list)) {
+		$avoid_workers = [];
+		if (!empty($avoid_workers_list)) {
 			// flip from a list to an associative array of name => AVOID_PERSON
 			// AVOIDS: Array ( [aaron] => -2, [nancy] => -2 )
-			$avoids = array_combine(array_values($avoid_list),
-				array_fill(0, count($avoid_list), AVOID_PERSON));
+			$avoid_workers = array_combine(array_values($avoid_workers_list),
+				array_fill(0, count($avoid_workers_list), AVOID_PERSON));
 		}
 
 		$prefers = [];
@@ -243,17 +243,17 @@ EOTXT;
 		}
 
 		// look for contention of preferences. Resolve by combining the two.
-		if (!empty($avoids) && !empty($prefers)) {
-			foreach($avoids as $name=>$value) {
+		if (!empty($avoid_workers) && !empty($prefers)) {
+			foreach($avoid_workers as $name=>$value) {
 				if (isset($prefers[$name])) {
 					unset($prefers[$name]);
-					$avoids[$name] = AVOID_PERSON + PREFER_PERSON;
+					$avoid_workers[$name] = AVOID_PERSON + PREFER_PERSON;
 				}
 			}
 		}
 
 		return [
-			'avoids' => $avoids,
+			'avoids' => $avoid_workers,
 			'prefers' => $prefers,
 		];
 	}

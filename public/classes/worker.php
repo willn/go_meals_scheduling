@@ -17,7 +17,7 @@ class Worker {
 	protected $requests = [];
 
 	protected $adjacency_limit = 8;
-	protected $avoids = [];
+	protected $avoid_workers = [];
 	protected $prefers = [];
 
 	protected $tasks;
@@ -76,13 +76,13 @@ class Worker {
 
 	/**
 	 * Set the list of people to avoid assignments with.
-	 * @param[in] avoids array listing usernames to avoid assignments.
+	 * @param[in] avoid_workers array listing usernames to avoid assignments.
 	 */
-	public function setAvoids($avoids) {
-		if ($avoids == '') {
+	public function setAvoids($avoid_workers) {
+		if ($avoid_workers == '') {
 			return;
 		}
-		$this->avoids = $avoids;
+		$this->avoid_workers = $avoid_workers;
 	}
 
 	/**
@@ -90,7 +90,7 @@ class Worker {
 	 * @return array list of usernames.
 	 */
 	public function getAvoids() {
-		return $this->avoids;
+		return $this->avoid_workers;
 	}
 
 	/**
@@ -111,9 +111,9 @@ class Worker {
 
 	public function getAllPreferences() {
 		$all = [];
-		$avoids = $this->getAvoids();
-		if (!empty($avoids)) {
-			$all['avoids'] = $avoids;
+		$avoid_workers = $this->getAvoids();
+		if (!empty($avoid_workers)) {
+			$all['avoid_workers'] = $avoid_workers;
 		}
 
 		$prefers = $this->getPrefers();
@@ -181,7 +181,7 @@ class Worker {
 	 * @param[in] job_id int the ID of the shift
 	 * @param[in] date string date of availability
 	 * @param[in] pref num the preference level of the worker. 
-	 *     (prefer = 2, OK = 1, no response = .5, avoid = 0), see also
+	 *     (prefer = 2, OK = 1, no response = .5, avoid_shift = 0), see also
 	 *     NON_RESPONSE_PREF.
 	 */
 	public function addAvailability($job_id, $date, $pref) {

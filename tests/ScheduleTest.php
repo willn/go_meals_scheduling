@@ -39,12 +39,13 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider pointFactorsProvider
 	 */
-	public function testSetPointFactors($hobart, $avail, $avoids, $prefer) {
-		$this->schedule->setPointFactors($hobart, $avail, $avoids);
+	public function testSetPointFactors($hobart, $avail, $avoid_workers, $prefer) {
+		$this->schedule->setPointFactors($hobart, $avail, $avoid_workers);
 		$expected = [
 			'hobart' => !is_null($hobart) ? $hobart : DEFAULT_HOBART_SCORE,
 			'avail' => !is_null($avail) ? $avail : DEFAULT_AVAIL_SCORE,
-			'avoids' => !is_null($avoids) ? $avoids : DEFAULT_AVOIDS_SCORE,
+			'avoid_workers' => !is_null($avoid_workers) ? $avoid_workers :
+				DEFAULT_AVOID_WORKER_SCORE,
 			'prefers' => !is_null($prefer) ? $prefer : DEFAULT_PREFERS_SCORE,
 		];
 

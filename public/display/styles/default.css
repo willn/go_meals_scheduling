@@ -213,7 +213,7 @@ label span {
 	margin-right: 5px;
 }
 
-.prefer, .OK, .avoid {
+.prefer, .OK, .avoid_shift {
 	padding: 3px;
 	margin: 0px;
 }
@@ -224,7 +224,7 @@ a.prefer:hover {
 a.OK:hover {
 	background: #ee6;
 }
-a.avoid:hover {
+a.avoid_shift:hover {
 	background: #f77;
 }
 

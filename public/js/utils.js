@@ -34,7 +34,7 @@ Survey = {
 		Survey.enableWeekdaySelect();
 		Survey.enableWeekSelect();
 
-		$('#avoid_worker, #prefer_worker').select2({
+		$('#avoid_workers, #prefer_worker').select2({
 			placeholder: 'Select one or more names',
 			width: 350,
 		}).on('change', Survey.workerPrefChange);
@@ -57,7 +57,7 @@ Survey = {
 			otherList, i, vals;
 
 		if (currentId == 'prefer_worker') {
-			otherId = 'avoid_worker';
+			otherId = 'avoid_workers';
 			otherName = 'Avoids';
 		}
 
@@ -80,7 +80,7 @@ Survey = {
 	},
 
 	/**
-	 * Get the <select> options, or prefer / ok / avoids.
+	 * Get the <select> options, or prefer / ok / avoid shift.
 	 */
 	getSelectOptions: function() {
 		var first_select = $('.choice select')[0];
@@ -135,7 +135,7 @@ Survey = {
 				'<p class="month_mark_all">mark entire month: \
 					<a class="prefer">prefer<\/a> \
 					<a class="ok">OK<\/a> \
-					<a class="avoid">avoid<\/a><\/p>'
+					<a class="avoid_shift">avoid<\/a><\/p>'
 			);
 		});
 	},

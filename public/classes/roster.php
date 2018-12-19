@@ -70,8 +70,8 @@ class Roster {
 		$comments_table = SCHEDULE_COMMENTS_TABLE;
 		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
-			SELECT a.username, c.avoids, c.prefers, c.clean_after_self,
-				c.bunch_shifts, c.bundle_shifts
+			SELECT a.username, c.avoids as avoid_workers, c.prefers,
+				c.clean_after_self, c.bunch_shifts, c.bundle_shifts
 			FROM {$auth_user_table} as a, {$comments_table} as c
 			WHERE c.worker_id=a.id
 			ORDER BY a.username, c.timestamp
@@ -83,8 +83,8 @@ EOSQL;
 				continue;
 			}
 
-			if (!empty($row['avoids'])) {
-				$w->setAvoids(explode(',', $row['avoids']));
+			if (!empty($row['avoid_workers'])) {
+				$w->setAvoids(explode(',', $row['avoid_workers']));
 			}
 			if (!empty($row['prefers'])) {
 				$w->setPrefers(explode(',', $row['prefers']));
@@ -341,12 +341,12 @@ EOSQL;
 	public function getAllAvoids() {
 		$out = array();
 		foreach($this->workers as $w) {
-			$avoids = $w->getAvoids();
-			if (empty($avoids)) {
+			$avoid_workers = $w->getAvoids();
+			if (empty($avoid_workers)) {
 				continue;
 			}
 
-			$out[$w->getUsername()] = $avoids;
+			$out[$w->getUsername()] = $avoid_workers;
 		}
 
 		return $out;

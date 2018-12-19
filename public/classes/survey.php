@@ -341,11 +341,11 @@ EOHTML;
 		}
 
 		// generate list of workers
-		$avoids = explode(',', array_get($comments_info, 'avoids', ''));
-		$avoids = array_flip($avoids);
-		$avoids = array_fill_keys(array_keys($avoids), 1);
-		$avoid_worker_selector = $this->getWorkerList('avoid_worker', FALSE,
-			$this->worker_obj->getUsername(), $avoids);
+		$avoid_workers = explode(',', array_get($comments_info, 'avoids', ''));
+		$avoid_workers = array_flip($avoid_workers);
+		$avoid_workers = array_fill_keys(array_keys($avoid_workers), 1);
+		$avoid_workers_selector = $this->getWorkerList('avoid_workers', FALSE,
+			$this->worker_obj->getUsername(), $avoid_workers);
 
 		$prefers = explode(',', array_get($comments_info, 'prefers', ''));
 		$prefers = array_flip($prefers);
@@ -361,7 +361,7 @@ EOHTML;
 				<div class="d_cell pad">
 					<label id="avoid_workers">
 						<span>Avoid scheduling with: (e.g. housemates)</span>
-						{$avoid_worker_selector}
+						{$avoid_workers_selector}
 					</label>
 				</div>
 				<div class="d_cell pad">
@@ -544,7 +544,7 @@ EOHTML;
 			$this->request_keys[$r] = $post[$r];
 		}
 
-		$avoid_list = implode(',', $post['avoid_worker']);
+		$avoid_list = implode(',', $post['avoid_workers']);
 		$prefer_list = implode(',', $post['prefer_worker']);
 
 		$bundle = array_get($post, 'bundle_shifts', '');

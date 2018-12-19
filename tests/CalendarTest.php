@@ -32,7 +32,7 @@ class CalendarTest extends PHPUnit_Framework_TestCase {
 				Tue:<br>
 				<a class="prefer">prefer</a>
 				<a class="OK">OK</a>
-				<a class="avoid">avoid</a>
+				<a class="avoid_shift">avoid</a>
 			</td>
 EOHTML;
 		$two = <<<EOHTML
@@ -40,7 +40,7 @@ EOHTML;
 				Sun:<br>
 				<a class="prefer">prefer</a>
 				<a class="OK">OK</a>
-				<a class="avoid">avoid</a>
+				<a class="avoid_shift">avoid</a>
 			</td>
 EOHTML;
 
@@ -105,22 +105,22 @@ EOHTML;
 				Sun:<br>
 				<a class="prefer">prefer</a>
 				<a class="OK">OK</a>
-				<a class="avoid">avoid</a>
+				<a class="avoid_shift">avoid</a>
 			</td>			<td class="weekday_selector weekday_num_1">
 				Mon:<br>
 				<a class="prefer">prefer</a>
 				<a class="OK">OK</a>
-				<a class="avoid">avoid</a>
+				<a class="avoid_shift">avoid</a>
 			</td>			<td class="weekday_selector weekday_num_2">
 				Tue:<br>
 				<a class="prefer">prefer</a>
 				<a class="OK">OK</a>
-				<a class="avoid">avoid</a>
+				<a class="avoid_shift">avoid</a>
 			</td>			<td class="weekday_selector weekday_num_3">
 				Wed:<br>
 				<a class="prefer">prefer</a>
 				<a class="OK">OK</a>
-				<a class="avoid">avoid</a>
+				<a class="avoid_shift">avoid</a>
 			</td><td class="blank"></td><td class="blank"></td><td class="blank"></td>
 				</tr>
 EOHTML;

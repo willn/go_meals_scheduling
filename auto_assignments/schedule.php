@@ -1,9 +1,9 @@
 <?php
-define('PREFER_TO_AVOID_RATIO', .55);
+define('PREFER_TO_AVOID_WORKER_RATIO', .55);
 
 define('DEFAULT_HOBART_SCORE', 7);
 define('DEFAULT_AVAIL_SCORE', 5);
-define('DEFAULT_AVOIDS_SCORE', 7);
+define('DEFAULT_AVOID_WORKER_SCORE', 7);
 define('DEFAULT_PREFERS_SCORE', 4);
 
 require_once('../public/utils.php');
@@ -21,7 +21,7 @@ class Schedule {
 	protected $point_factors = array(
 		'hobart' => DEFAULT_HOBART_SCORE,
 		'avail' => DEFAULT_AVAIL_SCORE,
-		'avoids' => DEFAULT_AVOIDS_SCORE,
+		'avoid_workers' => DEFAULT_AVOID_WORKER_SCORE,
 		'prefers' => DEFAULT_PREFERS_SCORE,
 	);
 
@@ -68,11 +68,11 @@ class Schedule {
 	 *     hobart factor.
 	 * @param[in] avail_factor int the amount of points to assign towards
 	 *     availability.
-	 * @param[in] avoids_factor int the amount of points to assign towards
-	 *     avoids.
+	 * @param[in] avoid_workers_factor int the amount of points to assign towards
+	 *     avoiding working with someone.
 	 */
 	public function setPointFactors($hobart_factor=NULL,
-		$avail_factor=NULL, $avoids_factor=NULL) {
+		$avail_factor=NULL, $avoid_workers_factor=NULL) {
 
 		if (!is_null($hobart_factor)) {
 			$this->point_factors['hobart'] = $hobart_factor;
@@ -80,10 +80,10 @@ class Schedule {
 		if (!is_null($avail_factor)) {
 			$this->point_factors['avail'] = $avail_factor;
 		}
-		if (!is_null($avoids_factor)) {
-			$this->point_factors['avoids'] = $avoids_factor;
+		if (!is_null($avoid_workers_factor)) {
+			$this->point_factors['avoid_workers'] = $avoid_workers_factor;
 			$this->point_factors['prefers'] =
-				$this->point_factors['avoids'] * PREFER_TO_AVOID_RATIO;
+				$this->point_factors['avoid_workers'] * PREFER_TO_AVOID_WORKER_RATIO;
 		}
 	}
 

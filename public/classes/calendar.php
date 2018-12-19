@@ -112,7 +112,7 @@ EOHTML;
 				This week:
 				<a class="prefer">prefer</a>
 				<a class="OK">OK</a>
-				<a class="avoid">avoid</a>
+				<a class="avoid_shift">avoid</a>
 			</td>
 EOHTML;
 	}
@@ -138,7 +138,7 @@ EOHTML;
 				{$short_day}:<br>
 				<a class="prefer">prefer</a>
 				<a class="OK">OK</a>
-				<a class="avoid">avoid</a>
+				<a class="avoid_shift">avoid</a>
 			</td>
 EOHTML;
 	}
@@ -489,7 +489,7 @@ EOHTML;
 	 * Render the HTML for the header of each month table in the calendar.
 	 * To be specific, this includes the colored row with the day names
 	 * and then the next row with the quick links to apply "prefer",
-	 * "OK", or "avoid" to all of that day of the week for this month.
+	 * "OK", or "avoid_shift" to all of that day of the week for this month.
 	 *
 	 * @param[in] has_worker boolean (optional, default FALSE) If TRUE,
 	 *     then this calendar is in survey mode, not report mode.
@@ -693,7 +693,7 @@ EOSQL;
 
 	public function getWorkerComments($job_key_clause) {
 		$special_prefs = array(
-			'avoids',
+			'avoid_workers',
 			'prefers',
 			'clean_after_self',
 			'bunch_shifts',
@@ -739,11 +739,11 @@ EOSQL;
 
 				// generate check script lines
 				switch($req) {
-				case 'avoids':
-					$avoids = explode(',', $row[$req]);
-					foreach($avoids as $av) {
+				case 'avoid_workers':
+					$avoid_workers = explode(',', $row[$req]);
+					foreach($avoid_workers as $av) {
 						$checks[] = $check_separator;
-						$checks[] = "echo '{$username}' avoids '{$av}'";
+						$checks[] = "echo '{$username}' avoid workers '{$av}'";
 						$checks[] = "grep '{$username}' " . RESULTS_FILE .
 							" | grep '{$av}'";
 					}
