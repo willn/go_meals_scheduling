@@ -13,7 +13,7 @@ require_once('../public/classes/calendar.php');
  * A Schedule object maintains the list of who has been scheduled to work on certain days.
  */
 class Schedule {
-	protected $meals = array();
+	protected $meals = [];
 	protected $roster;
 	protected $job_id;
 	protected $calendar;
@@ -26,14 +26,14 @@ class Schedule {
 	);
 
 	// which shifts happen on which dates
-	protected $dates_and_shifts = array();
+	protected $dates_and_shifts = [];
 
 	// the most difficult shifts to fill
 	// date => job_id => counts
-	protected $least_possible = array();
+	protected $least_possible = [];
 
 	// make this a member variable as a cache
-	protected $dates_by_shift = array();
+	protected $dates_by_shift = [];
 
 	public function __construct($season_months=[]) {
 		$this->calendar = new Calendar($season_months);
@@ -425,7 +425,7 @@ EOTXT;
 	 *     to jobs for the meal on that date.
 	 */
 	public function getAssigned() {
-		$assignments = array();
+		$assignments = [];
 		foreach($this->meals as $date=>$m) {
 			$assignments[$date] = $m->getAssigned();
 		}
