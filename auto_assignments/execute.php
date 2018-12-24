@@ -56,12 +56,12 @@ if (array_key_exists('c', $options)) {
 
 // run the schedule, output in text format
 if (array_key_exists('s', $options)) {
-	$assignments->printResults($options);
+	$assignments->printSchedule($options);
 }
 
 // run the schedule and report back a summary of workers
 if (array_key_exists('w', $options)) {
-	$assignments->printResults($options);
+	$assignments->printWorkers($options);
 }
 
 ?>

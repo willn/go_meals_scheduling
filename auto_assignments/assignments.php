@@ -151,20 +151,18 @@ EOSQL;
 
 
 	/**
-	 * Display the results on the screen
+	 * Display the assigned schedule.
 	 */
-	public function printResults($options) {
-		// display schedule
-		if (array_key_exists('s', $options)) {
-			$this->schedule->printResults();
-			return;
-		}
+	public function printSchedule($options) {
+		$this->schedule->printResults();
+	}
 
-		// display workers
-		if (array_key_exists('w', $options)) {
-			$only_unfilled_workers = array_key_exists('u', $options);
-			$this->roster->printResults($only_unfilled_workers);
-		}
+	/**
+	 * Display the list of workers and how they're allocated.
+	 */
+	public function printWorkers($options) {
+		$only_unfilled_workers = array_key_exists('u', $options);
+		$this->roster->printResults($only_unfilled_workers);
 	}
 
 
