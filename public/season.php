@@ -29,69 +29,28 @@ define('WEEKDAY_TABLE_SETTER', 4584);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-		/*
-		 * XXX these 3 need to be distributed throughout the 6-month
-		 * mega season... so do a pair of 1 and 1 for each 2-mo sub-season.
-		 */
-
-		/*
-		// nov-dec:
-		// ---------------------------------
-		'maryking' => [WEEKDAY_CLEANER => 1],
-		'patti' => [WEEKDAY_CLEANER => 1],
-		'nancy' => [SUNDAY_ASST_COOK => -1],
-		'liam' => [SUNDAY_ASST_COOK => 1],
-		*/
-
-		// jan-feb:
-		// ---------------------------------
-		'annie' => [
-			WEEKDAY_ASST_COOK => 2,
-		],
-		// gayle needs half-load for the sub-season, out Feb
-		'gayle' => [
-			SUNDAY_CLEANER => -1,
-			WEEKDAY_CLEANER => -2,
-			WEEKDAY_ASST_COOK => -1,
-			WEEKDAY_TABLE_SETTER => -1
-		],
-		'gregd' => [
-			WEEKDAY_HEAD_COOK => 1,
-			WEEKDAY_ASST_COOK => 1
-		],
-		'jennifer' => [
-			WEEKDAY_ASST_COOK => 1,
-			WEEKDAY_HEAD_COOK => 1,
-		],
-		'liam' => [SUNDAY_ASST_COOK => 1],
-		'mac' => [WEEKDAY_CLEANER => 2],
-		'marta' => [
-			WEEKDAY_ASST_COOK => 1,
-			WEEKDAY_TABLE_SETTER => 4,
-		],
-		'marys' => [WEEKDAY_CLEANER => 1],
-		'michael' => [WEEKDAY_CLEANER => 3],
-		'nancy' => [SUNDAY_ASST_COOK => -1],
-		'patti' => [WEEKDAY_CLEANER => 1],
-		'rod' => [WEEKDAY_CLEANER => 1],
-		'tammy' => [WEEKDAY_HEAD_COOK => 1],
-		'terrence' => [WEEKDAY_CLEANER => 1],
-		'thomas' => [SUNDAY_CLEANER => 1],
-
-		/*
 		// mar-apr:
 		// ---------------------------------
-		'gayle' => [WEEKDAY_CLEANER => 1],
-		'liam' => [SUNDAY_ASST_COOK => 1],
-		'maryking' => [WEEKDAY_CLEANER => 1],
-		'nancy' => [SUNDAY_ASST_COOK => -1],
-		'rod' => [WEEKDAY_CLEANER => 1],
-
-		// borrowed for part 2 from part 3
-		'dan' => [SUNDAY_CLEANER => -1],
 		'annie' => [SUNDAY_CLEANER => -1],
+		'dan' => [WEEKDAY_CLEANER => 1],
+		'gayle' => [WEEKDAY_CLEANER => 1],
+		'gregd' => [
+			WEEKDAY_HEAD_COOK => 1,
+			WEEKDAY_ASST_COOK => 2
+		],
+		'jan' => [WEEKDAY_ASST_COOK => 1],
+		'jennifer' => [MEETING_NIGHT_CLEANER => 1],
+		'kelly' => [WEEKDAY_HEAD_COOK => 1],
+		'liam' => [SUNDAY_ASST_COOK => 1],
+		'lindsay' => [WEEKDAY_ASST_COOK => 1],
+		'mac' => [WEEKDAY_CLEANER => 1],
+		'marta' => [WEEKDAY_TABLE_SETTER => 2],
+		'maryking' => [WEEKDAY_CLEANER => 1],
+		'michael' => [WEEKDAY_CLEANER => 2],
+		'nancy' => [SUNDAY_ASST_COOK => -1],
+		'nicholas' => [MEETING_NIGHT_CLEANER => -1],
+		'rod' => [WEEKDAY_CLEANER => 1],
 		'thomas' => [SUNDAY_CLEANER => -1],
-		*/
 	];
 }
 
