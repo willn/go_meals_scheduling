@@ -6,7 +6,6 @@ require_once '../utils/check_for_conflicts.php';
 class CheckForConflictsTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider provide_parse_schedule_file
-	 */
 	public function test_parse_schedule_file($filename, $expected) {
 		$result = parse_schedule_file($filename);
 		$this->assertEquals($expected, $result);
@@ -20,6 +19,7 @@ class CheckForConflictsTest extends PHPUnit_Framework_TestCase {
 			['data/schedule.tsv', json_decode($mega, TRUE)],
 		];
 	}
+	 */
 
 	/**
 	 * @dataProvider provide_check_for_table_setter_conflicts
