@@ -365,14 +365,13 @@ EOHTML;
 	<span class="type_count">[S{$this->num_shifts['sunday']}]</span>
 EOHTML;
 								$cell = $this->list_available_workers(
-									$availability[$date_string], TRUE);
+									$availability[$date_string]);
 							}
 						}
 						/*
 						 * XXX Why does this exist? This would only happen if
 						 * there's available preferences for a non-scheduled
 						 * day of week. Would this be an override? (e.g. thursday?)
-						 */
 						else if (array_key_exists($date_string, $availability)) {
 							// generate the date cell for the report
 							$tally = <<<EOHTML
@@ -383,6 +382,7 @@ EOHTML;
 							$cell = $this->list_available_workers(
 								$availability[$date_string]);
 						}
+						 */
 						break;
 
 					case NOT_A_MEAL:
@@ -835,12 +835,18 @@ EOHTML;
 	}
 
 	/*
-	 * reporting feature - list the workers available for this day
+	 * Reporting feature - list the workers available for this day
+	 *
+	 * @param[in] cur_date_jobs associative array, keys are the job IDs,
+	 *     the value is an associative array. That array consists of
+	 *     keys which are the positive preferences and (2 or 1) and the list
+	 *     of usernames who left that preference in alphabetical order.
+	 * @param[in] is_sunday boolean IF this date is a sunday or not.
 	 */
-	private function list_available_workers($cur_date, $is_sunday=FALSE) {
+	public function list_available_workers($cur_date_jobs, $is_sunday=FALSE) {
 		$cell = '';
 
-		if (is_null($cur_date)) {
+		if (is_null($cur_date_jobs)) {
 			error_log('no date supplied for ' . __FUNCTION__);
 			return;
 		}
@@ -856,15 +862,15 @@ EOHTML;
 
 		if ($this->key_filter != 'all') {
 			// don't figure out a listing for a non-supported day of week
-			if (!isset($cur_date[$this->key_filter])) {
+			if (!isset($cur_date_jobs[$this->key_filter])) {
 				return;
 			}
 
-			$cur_date = array($this->key_filter =>
-				$cur_date[$this->key_filter]);
+			$cur_date_jobs = array($this->key_filter =>
+				$cur_date_jobs[$this->key_filter]);
 		}
 
-		foreach($cur_date as $job=>$info) {
+		foreach($cur_date_jobs as $job=>$info) {
 			// don't report anything for an empty day
 			if (empty($info)) {
 				if (isset($job_titles[$job])) {
@@ -880,6 +886,7 @@ EOHTML;
 
 			// list people who prefer the job first
 			if (array_key_exists(2, $info)) {
+				// XXX
 				$cell .= '<div class="highlight">prefer:<ul><li>' . 
 					implode("</li>\n<li>\n", $info[2]) . 
 					"</li></ul></div>\n";
