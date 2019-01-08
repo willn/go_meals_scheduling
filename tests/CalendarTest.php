@@ -319,6 +319,235 @@ EOHTML;
 	}
 
 	/**
+	 * @dataProvider provide_list_available_workers
+	 */
+	public function test_list_available_workers($cur_date_jobs, $is_sunday, $expected) {
+		// $this->calendar->disableWebDisplay();
+		$result = $this->calendar->list_available_workers($cur_date_jobs, $is_sunday);
+		$debug = [
+			'input' => $input,
+			'result' => $result,
+			'expected' => $expected,
+		];
+		$this->assertEquals($expected, $result, print_r($debug, TRUE));
+	}
+
+	public function provide_list_available_workers() {
+		$sun_1 = [
+			4594 => [
+				2 => [0 => 'fatima'],
+				1 => [
+					0 => 'keithg',
+					1 => 'megan',
+					2 => 'nancy',
+					3 => 'terrence',
+				],
+			],
+			4593 => [
+				2 => [0 => 'maryking'],
+				1 => [
+					0 => 'dan',
+					1 => 'drew',
+					2 => 'keithg',
+					3 => 'tevah',
+				],
+			],
+			4597 => [
+				1 => [
+					0 => 'amyh',
+					1 => 'annie',
+					2 => 'bennie',
+					3 => 'dan',
+					4 => 'debbi',
+					5 => 'mac',
+				],
+			],
+		];
+
+		$sun_cell = <<<EOHTML
+<h3 class="jobname">Sunday meal asst cook</h3>
+<div class="highlight">prefer:<ul><li>fatima</li></ul></div>
+<div class="OK">OK:<ul><li>keithg</li>
+<li>
+megan</li>
+<li>
+nancy</li>
+<li>
+terrence</li></ul></div>
+<h3 class="jobname">Sunday head cook</h3>
+<div class="highlight">prefer:<ul><li>maryking</li></ul></div>
+<div class="OK">OK:<ul><li>dan</li>
+<li>
+drew</li>
+<li>
+keithg</li>
+<li>
+tevah</li></ul></div>
+<h3 class="jobname">Sunday Meal Cleaner</h3>
+<div class="OK">OK:<ul><li>amyh</li>
+<li>
+annie</li>
+<li>
+bennie</li>
+<li>
+dan</li>
+<li>
+debbi</li>
+<li>
+mac</li></ul></div>
+
+EOHTML;
+
+		$mtg_1 = [
+		  4598 => [
+			1 => [
+			  0 => 'dan',
+			  1 => 'nicholas',
+			],
+			],
+			4595 => [
+				1 => [
+				  0 => 'gail',
+				  1 => 'katie',
+				  2 => 'rebecca',
+				],
+			],
+		];
+
+		$mtg_cell = <<<EOHTML
+<h3 class="jobname">Meeting night cleaner</h3>
+<div class="OK">OK:<ul><li>dan</li>
+<li>
+nicholas</li></ul></div>
+<h3 class="jobname">Meeting night takeout orderer</h3>
+<div class="OK">OK:<ul><li>gail</li>
+<li>
+katie</li>
+<li>
+rebecca</li></ul></div>
+
+EOHTML;
+
+		$wkd_1 = [
+		  4591 => [
+			2 => [0 => 'sharon'],
+			1 => [
+			  0 => 'catherine',
+			  1 => 'emilyadama',
+			  2 => 'keithg',
+			  3 => 'tammy',
+			],
+		],
+		4592 => [
+			1 => [
+				0 => 'annie',
+				1 => 'catherine',
+				2 => 'dan',
+				3 => 'drew',
+				4 => 'glenn',
+				5 => 'keithg',
+				6 => 'marta',
+				7 => 'nancy',
+				8 => 'rod',
+				9 => 'tevah',
+			],
+		],
+		4596 => [
+			1 => [
+				0 => 'catherine',
+				1 => 'dan',
+				2 => 'drew',
+				3 => 'glenn',
+				4 => 'jillian',
+				5 => 'keithg',
+				6 => 'mac',
+				7 => 'mario',
+				8 => 'michael',
+				9 => 'rod',
+			],
+		],
+		4584 => [
+			1 => [
+				0 => 'hermann',
+				1 => 'marta',
+				2 => 'megan',
+				3 => 'nancy',
+				4 => 'nicholas',
+			],
+		],
+	];
+
+	$wkd_cell = <<<EOHTML
+<h3 class="jobname">Weekday head cook</h3>
+<div class="highlight">prefer:<ul><li>sharon</li></ul></div>
+<div class="OK">OK:<ul><li>catherine</li>
+<li>
+emilyadama</li>
+<li>
+keithg</li>
+<li>
+tammy</li></ul></div>
+<h3 class="jobname">Weekday meal asst cook</h3>
+<div class="OK">OK:<ul><li>annie</li>
+<li>
+catherine</li>
+<li>
+dan</li>
+<li>
+drew</li>
+<li>
+glenn</li>
+<li>
+keithg</li>
+<li>
+marta</li>
+<li>
+nancy</li>
+<li>
+rod</li>
+<li>
+tevah</li></ul></div>
+<h3 class="jobname">Weekday Meal cleaner</h3>
+<div class="OK">OK:<ul><li>catherine</li>
+<li>
+dan</li>
+<li>
+drew</li>
+<li>
+glenn</li>
+<li>
+jillian</li>
+<li>
+keithg</li>
+<li>
+mac</li>
+<li>
+mario</li>
+<li>
+michael</li>
+<li>
+rod</li></ul></div>
+<h3 class="jobname">Weekday Table Setter</h3>
+<div class="OK">OK:<ul><li>hermann</li>
+<li>
+marta</li>
+<li>
+megan</li>
+<li>
+nancy</li>
+<li>
+nicholas</li></ul></div>
+
+EOHTML;
+
+		return [
+			[$sun_1, TRUE, $sun_cell],
+			[$mtg_1, FALSE, $mtg_cell],
+			[$wkd_1, FALSE, $wkd_cell],
+		];
+	}
+
+	/**
 	 * @dataProvider provideEvalDates
 	public function testEvalDates($worker, $dates, $expected) {
 		$this->calendar->disableWebDisplay();
