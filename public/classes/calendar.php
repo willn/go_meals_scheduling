@@ -886,7 +886,6 @@ EOHTML;
 
 			// list people who prefer the job first
 			if (array_key_exists(2, $info)) {
-				// XXX
 				$cell .= '<div class="highlight">prefer:<ul><li>' . 
 					implode("</li>\n<li>\n", $info[2]) . 
 					"</li></ul></div>\n";
