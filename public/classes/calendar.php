@@ -691,14 +691,23 @@ EOSQL;
 		return $dates;
 	}
 
+	/**
+	 * Render the "admin" comments section.
+	 * This displays a summary of all of the workers who submitted a survey.
+	 * This includes the username, the time/date of their last submission,
+	 * and preferences such as avoid/prefer to work with people, prefer/avoid
+	 * to clean after cooking and then any other loose comments they've made.
+	 *
+	 * @param[in] job_key_clause XXX
+	 */
 	public function getWorkerComments($job_key_clause) {
-		$special_prefs = array(
-			'avoid_workers',
+		$special_prefs = [
+			'avoids',
 			'prefers',
 			'clean_after_self',
 			'bunch_shifts',
 			'bundle_shifts',
-		);
+		];
 
 		// render the comments
 		$comments_table = SCHEDULE_COMMENTS_TABLE;
@@ -718,7 +727,6 @@ EOSQL;
 							GROUP BY u.username)
 				ORDER BY a.username, c.timestamp
 EOSQL;
-		$comments = array();
 		$out = "<h2 id=\"worker_comments\">Comments</h2>\n";
 		$checks = array();
 		$check_separator = 'echo "-----------";';
@@ -739,7 +747,7 @@ EOSQL;
 
 				// generate check script lines
 				switch($req) {
-				case 'avoid_workers':
+				case 'avoids':
 					$avoid_workers = explode(',', $row[$req]);
 					foreach($avoid_workers as $av) {
 						$checks[] = $check_separator;
@@ -772,10 +780,9 @@ EOSQL;
 				}
 			}
 
-			$comments[] = $row;
-			$remark = stripslashes($row['comments']);
-			$content = (empty($requests) && empty($remark)) ? '' :
-				"<p>{$requests}<br>{$remark}</p>\n";
+			$freeform_remark = stripslashes($row['comments']);
+			$content = (empty($requests) && empty($freeform_remark)) ? '' :
+				"<p>{$requests}<br>{$freeform_remark}</p>\n";
 
 			$out .= <<<EOHTML
 		<fieldset>
