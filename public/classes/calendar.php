@@ -12,17 +12,26 @@ class Calendar {
 	protected $web_display = TRUE;
 	protected $key_filter = 'all';
 
-	protected $assignments = array();
+	protected $assignments = [];
 
 	protected $holidays;
 
 	protected $is_report = FALSE;
 
-	protected $num_shifts = array(
+	protected $num_shifts = [
 		'sunday' => 0,
 		'weekday' => 0,
 		'meeting' => 0,
-	);
+	];
+
+	protected $special_prefs = [
+		'avoids',
+		'prefers',
+		'clean_after_self',
+		'bunch_shifts',
+		'bundle_shifts',
+	];
+
 
 	public function __construct($season_months=[]) {
 		// 'all' is the default, so only change if it's numeric
@@ -171,7 +180,7 @@ EOHTML;
 		$sunday_jobs = get_sunday_jobs();
 		$mtg_nights = get_mtg_nights();
 
-		$mtg_day_count = array();
+		$mtg_day_count = [];
 		foreach(array_keys($mtg_nights) as $dow) {
 			$mtg_day_count[$dow] = 0;
 		}
@@ -203,7 +212,7 @@ EOHTML;
 				$season_year++;	
 			}
 
-			$month_entries = array();
+			$month_entries = [];
 			$month_week_count = 1;
 
 			// get unix ts
@@ -509,7 +518,7 @@ EOHTML;
 			// only create the selectors when a worker is specified, meaning
 			// for survey mode
 			if ($has_worker) {
-				if (in_array($day_num, array_merge(array(0), $meal_days))) {
+				if (in_array($day_num, array_merge([0], $meal_days))) {
 					$day_selectors .= $this->getWeekdaySelectorHtml($day_num, $dow);
 				}
 				else {
@@ -551,7 +560,7 @@ EOHTML;
 	 */
 	private function getSavedPrefs($worker_id) {
 		if (!is_numeric($worker_id)) {
-			return array();
+			return [];
 		}
 
 		$prefs_table = SCHEDULE_PREFS_TABLE;
@@ -565,10 +574,10 @@ EOHTML;
 EOJS;
 
 		global $dbh;
-		$data = array();
+		$data = [];
 		foreach ($dbh->query($sql) as $row) {
 			if (!array_key_exists($row['job_id'], $data)) {
-				$data[$row['job_id']] = array();
+				$data[$row['job_id']] = [];
 			}
 			$data[$row['job_id']][$row['string']] = $row['pref'];
 		}
@@ -615,7 +624,7 @@ EOHTML;
 	 */
 	public function renderJobNameForDay($name) {
 		$name = preg_replace('/^.*meal /i', '', $name);
-		$drop = array(
+		$drop = [
 			' (twice a season)',
 			// 'Meeting night ',
 			'Sunday ',
@@ -623,7 +632,7 @@ EOHTML;
 			' (2 meals/season)',
 			'Weekday meal ',
 			'Weekday ',
-		);
+		];
 		return str_replace($drop, '', $name);
 	}
 
@@ -671,7 +680,7 @@ EOHTML;
 					p.pref DESC,
 					a.username ASC;
 EOSQL;
-		$data = array();
+		$data = [];
 		global $dbh;
 		foreach($dbh->query($sql) as $row) {
 			$data[] = $row;
@@ -680,10 +689,10 @@ EOSQL;
 		$dates = [];
 		foreach($data as $d) {
 			if (!array_key_exists($d['string'], $dates)) {
-				$dates[$d['string']] = array();
+				$dates[$d['string']] = [];
 			}
 			if (!array_key_exists($d['job_id'], $dates[$d['string']])) {
-				$dates[$d['string']][$d['job_id']] = array();
+				$dates[$d['string']][$d['job_id']] = [];
 			}
 			$dates[$d['string']][$d['job_id']][$d['pref']][] = $d['username'];
 		}
@@ -692,23 +701,20 @@ EOSQL;
 	}
 
 	/**
-	 * Render the "admin" comments section.
-	 * This displays a summary of all of the workers who submitted a survey.
-	 * This includes the username, the time/date of their last submission,
-	 * and preferences such as avoid/prefer to work with people, prefer/avoid
-	 * to clean after cooking and then any other loose comments they've made.
+	 * Get the comments saved by the workers.
+	 * First, load the data, then render it.
+	 */
+	public function getWorkerComments($job_key_clause) {
+		$data = $this->loadWorkerComments($job_key_clause);
+		return $this->renderWorkerComments($data);
+	}
+
+	/**
+	 * Load all worker's preferences from the database.
 	 *
 	 * @param[in] job_key_clause XXX
 	 */
-	public function getWorkerComments($job_key_clause) {
-		$special_prefs = [
-			'avoids',
-			'prefers',
-			'clean_after_self',
-			'bunch_shifts',
-			'bundle_shifts',
-		];
-
+	public function loadWorkerComments($job_key_clause) {
 		// render the comments
 		$comments_table = SCHEDULE_COMMENTS_TABLE;
 		$prefs_table = SCHEDULE_PREFS_TABLE;
@@ -727,15 +733,43 @@ EOSQL;
 							GROUP BY u.username)
 				ORDER BY a.username, c.timestamp
 EOSQL;
-		$out = "<h2 id=\"worker_comments\">Comments</h2>\n";
-		$checks = array();
-		$check_separator = 'echo "-----------";';
+
+		$request_keys = [
+			'username',
+			'comments',
+			'timestamp',
+		];
+		$request_keys = array_merge($request_keys, $this->special_prefs);
+
+		$data = [];
 		global $dbh;
 		foreach($dbh->query($sql) as $row) {
+			$entry = [];
+			foreach($request_keys as $key) {
+				$entry[$key] = $row[$key];
+			}
+			$data[] = $entry;
+		}
+		return $data;
+	}
+
+	/**
+	 * Render the "admin" comments section.
+	 * This displays a summary of all of the workers who submitted a survey.
+	 * This includes the username, the time/date of their last submission,
+	 * and preferences such as avoid/prefer to work with people, prefer/avoid
+	 * to clean after cooking and then any other loose comments they've made.
+	 */
+	public function renderWorkerComments($data) {
+		$checks = [];
+		$check_separator = 'echo "-----------";';
+
+		$out = "<h2 id=\"worker_comments\">Comments</h2>\n";
+		foreach($data as $row) {
 			$username = $row['username'];
 
 			$requests = '';
-			foreach($special_prefs as $req) {
+			foreach($this->special_prefs as $req) {
 				if (empty($row[$req])) {
 					continue;
 				}
@@ -773,7 +807,7 @@ EOSQL;
 					$checks[] = "grep '{$username}.*{$username}' " . RESULTS_FILE;
 					break;
 
-				/* not sure if these are used right now
+				/* These aren't currently used...
 				case 'bunch_shifts':
 				case 'bundle_shifts':
 				*/
@@ -797,6 +831,7 @@ EOHTML;
 <h2 id="confirm_checks">Confirm results check</h2>
 <div class="confirm_results">{$check_script}</div>
 EOHTML;
+error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " out:{$out} {$check_script}");
 		return $out . $check_script;
 	}
 
@@ -814,7 +849,7 @@ EOHTML;
 	 *     "(x) remove" link, display a "clear" link.
 	 */
 	public function getWorkerList($id, $first_entry=FALSE, $skip_user=NULL,
-		$chosen=array(), $only_user=FALSE) {
+		$chosen=[], $only_user=FALSE) {
 
 		$worker_list = new WorkersList();
 		$workers = $worker_list->getWorkers();
@@ -858,7 +893,7 @@ EOHTML;
 			return;
 		}
 
-		$job_titles = array();
+		$job_titles = [];
 		if ($is_sunday) {
 			$job_titles = get_sunday_jobs();
 		}
@@ -873,8 +908,8 @@ EOHTML;
 				return;
 			}
 
-			$cur_date_jobs = array($this->key_filter =>
-				$cur_date_jobs[$this->key_filter]);
+			$cur_date_jobs = [$this->key_filter =>
+				$cur_date_jobs[$this->key_filter]];
 		}
 
 		foreach($cur_date_jobs as $job=>$info) {
