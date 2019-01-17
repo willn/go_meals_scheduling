@@ -1,0 +1,52 @@
+[
+	{
+		"username":"apples",
+		"timestamp":"2018-12-22 21:39:00",
+		"comments":"",
+		"avoids":"",
+		"prefers":"",
+		"clean_after_self":"",
+		"bunch_shifts":"",
+		"bundle_shifts":""
+	},
+	{
+		"username":"bananas",
+		"timestamp":"2018-12-18 23:19:47",
+		"comments":"",
+		"avoids":"cherries",
+		"prefers":"apples,donuts,eggplant",
+		"clean_after_self":"",
+		"bunch_shifts":"",
+		"bundle_shifts":""
+	},
+	{
+		"username":"cherries",
+		"timestamp":"2018-12-18 23:19:04",
+		"comments":"",
+		"avoids":"",
+		"prefers":"apples",
+		"clean_after_self":"",
+		"bunch_shifts":"",
+		"bundle_shifts":""
+	},
+	{
+		"username":"donuts",
+		"timestamp":"2018-12-22 01:47:37",
+		"comments":"",
+		"avoids":"apples",
+		"prefers":"",
+		"clean_after_self":"no",
+		"bunch_shifts":"",
+		"bundle_shifts":""
+	},
+	{
+		"username":"eggplant",
+		"comments":"There is so much to comment on around here!",
+		"timestamp":"2018-12-15 12:33:15",
+		"avoids":"",
+		"prefers":"",
+		"clean_after_self":"",
+		"bunch_shifts":"",
+		"bundle_shifts":""
+	}
+]
