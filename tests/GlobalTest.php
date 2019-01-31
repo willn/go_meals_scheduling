@@ -16,16 +16,24 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(count($prefs), 3, print_r($debug, TRUE));
 	}
 
+	public function test_get_weekday_meal_days() {
+		$days = get_weekday_meal_days();
+		$this->assertInternalType('array', $days);
+		$this->assertNotEmpty($days);
+	}
+
 	public function test_get_mtg_nights() {
 		$mtgs = get_mtg_nights();
 		$this->assertInternalType('array', $mtgs);
 		$this->assertEquals(count($mtgs), 2, print_r($debug, TRUE));
 	}
 
-	public function test_get_weekday_meal_days() {
-		$days = get_weekday_meal_days();
-		$this->assertInternalType('array', $days);
-		$this->assertNotEmpty($days);
+	/**
+	 * Test that creating a sqlite connection returns a PDO instance.
+	 */
+	public function test_create_sqlite_connection() {
+		$dbh = create_sqlite_connection();
+		$this->assertInstanceOf(PDO, $dbh);
 	}
 
 	/**
