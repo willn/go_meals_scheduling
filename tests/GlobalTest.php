@@ -37,7 +37,7 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @dataProvider get_is_a_mtg_night_job
+	 * @dataProvider provide_get_is_a_mtg_night_job
 	 */
 	public function test_is_a_mtg_night_job($job_id, $expected) {
 		$result = is_a_mtg_night_job($job_id);
@@ -49,7 +49,7 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function get_is_a_mtg_night_job() {
+	public function provide_get_is_a_mtg_night_job() {
 		return [
 			[0, FALSE],
 			[MEETING_NIGHT_ORDERER, TRUE],
