@@ -36,38 +36,6 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 		$this->assertArrayHasKey(WEEKDAY_TABLE_SETTER, $jobs);
 	}
 
-
-	/**
-	 * @dataProvider provide_get_holidays
-	 */
-	public function test_get_holidays($expect) {
-		$result = get_holidays();
-		$debug = [
-			'input' => $input,
-			'expect' => $expect,
-			'result' => $result,
-		];
-		$this->assertEquals($expect, $result, print_r($debug, TRUE));
-	}
-
-	public function provide_get_holidays() {
-		$days = [
-			1 => [1],
-			// easter changes
-			// 4 => [21],
-			5 => [26, 27],
-			7 => [4],
-			9 => [1, 2],
-			10 => [31],
-			11 => [28],
-			12 => [24, 25, 31],
-		];
-
-		return array(
-			[$days],
-		);
-	}
-
 	/**
 	 * @dataProvider provide_get_num_dinners_per_assignment
 	 */
@@ -172,6 +140,16 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			[SUNDAY_CLEANER, 3],
 			[0, 0],
 		];
+	}
+
+	/**
+	 * Test that the hobarters list works.
+	 */
+	public function test_get_hobarters(){
+		$workers = get_hobarters();
+		$this->assertEquals(TRUE, is_array($workers));
+		$this->assertCount(13, $workers);
+		$this->assertContains('willie', $workers);
 	}
 }
 ?>

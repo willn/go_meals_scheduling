@@ -126,14 +126,12 @@ function get_job_instances($job_id=NULL) {
  */
 function get_hobarters() {
 	return [
-		'bill',
+		// 'bill',
 		'debbi',
 		'erik',
 		'hope',
 		'jillian',
-		'kate',
 		'kathyboblitt',
-		'kevink',
 		'mac',
 		'maryking',
 		'patti',
