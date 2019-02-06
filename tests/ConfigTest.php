@@ -11,6 +11,33 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 	private $season = [];
 
 	/**
+	 * Test that the functions which return list of jobs and their names work.
+	 */
+	public function test_get_jobs() {
+		$jobs = get_mtg_jobs();
+		$this->assertEquals(TRUE, is_array($jobs));
+		$this->assertCount(2, $jobs);
+		$this->assertArrayHasKey(MEETING_NIGHT_ORDERER, $jobs);
+		$this->assertArrayHasKey(MEETING_NIGHT_CLEANER, $jobs);
+
+		$jobs = get_sunday_jobs();
+		$this->assertEquals(TRUE, is_array($jobs));
+		$this->assertCount(3, $jobs);
+		$this->assertArrayHasKey(SUNDAY_HEAD_COOK, $jobs);
+		$this->assertArrayHasKey(SUNDAY_ASST_COOK, $jobs);
+		$this->assertArrayHasKey(SUNDAY_CLEANER, $jobs);
+
+		$jobs = get_weekday_jobs();
+		$this->assertEquals(TRUE, is_array($jobs));
+		$this->assertCount(4, $jobs);
+		$this->assertArrayHasKey(WEEKDAY_HEAD_COOK, $jobs);
+		$this->assertArrayHasKey(WEEKDAY_ASST_COOK, $jobs);
+		$this->assertArrayHasKey(WEEKDAY_CLEANER, $jobs);
+		$this->assertArrayHasKey(WEEKDAY_TABLE_SETTER, $jobs);
+	}
+
+
+	/**
 	 * @dataProvider provide_get_holidays
 	 */
 	public function test_get_holidays($expect) {
