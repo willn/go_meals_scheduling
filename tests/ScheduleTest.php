@@ -4,7 +4,6 @@ global $relative_dir;
 $relative_dir = '../public/';
 require_once '../public/config.php';
 require_once '../auto_assignments/schedule.php';
-require_once '../public/classes/sqlite_interface.php';
 require_once '../public/classes/calendar.php';
 require_once '../public/classes/meal.php';
 
