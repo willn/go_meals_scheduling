@@ -391,7 +391,10 @@ EOHTML;
 			$this->is_save_request = TRUE;
 		}
 
-		$this->setUsername($post);
+		if (!is_null($this->setUsername($post))) {
+			exit;
+		}
+
 		$this->lookupWorkerId();
 		$this->setWorker();
 		$this->loadWorkerInfo();
@@ -408,12 +411,12 @@ EOHTML;
 	 * Set the username from POST.
 	 * Display an error and exit if username is not set.
 	 */
-	protected function setUsername($post) {
+	public function setUsername($post) {
 		if (!isset($post['username'])) {
-			echo "<p class=\"error\">Missing username</p>\n";
-			exit;
+			return "<p class=\"error\">Missing username</p>\n";
 		}
 		$this->username = $post['username'];
+		return NULL;
 	}
 
 	/**

@@ -14,6 +14,10 @@ class SurveyTest extends PHPUnit_Framework_TestCase {
 		$this->survey->setWorker('testuser', 59);
 	}
 
+	public function testConstruct() {
+		$this->assertInstanceOf(Survey, $this->survey);
+	}
+
 	/**
 	 * @dataProvider provideSetWorker
 	 */	
@@ -31,6 +35,12 @@ class SurveyTest extends PHPUnit_Framework_TestCase {
 			[NULL, NULL, ['username' => 'testuser', 'worker_id' => 59]],
 		];
 	}
+
+	/*
+	public function testGetWorkers() {
+		$list = $this->survey->getWorkers();
+	}
+	*/
 
 	/**
 	 * @dataProvider provideRenderShiftsSummaryHtml
@@ -86,6 +96,28 @@ EOHTML;
 		return [
 			[$ex1, $out1],
 			[$ex2, $out2],
+		];
+	}
+
+	/**
+	 * @dataProvider provideSetUsername
+	 */
+	public function testSetUsername($input, $expected) {
+		$result = $this->survey->setUsername($input);
+		$this->assertEquals($expected, $result);
+	}
+
+	public function provideSetUsername() {
+		$err = '<p class="error">Missing username</p>' . "\n";
+
+		return [
+			[['username' => 'test'], NULL],
+
+			['', $err],
+			['XXX', $err],
+			[[], $err],
+			[['asdf'=>1], $err],
+			[['username'], $err],
 		];
 	}
 
