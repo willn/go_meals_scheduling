@@ -18,6 +18,10 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 		$this->schedule = new Schedule();
 	}
 
+	public function testConstruct() {
+		$this->assertInstanceOf(Schedule, $this->schedule);
+	}
+
 	/**
 	 * @dataProvider jobIdsProvider
 	 */
@@ -65,7 +69,7 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @dataProvider provideInitializeShifts
+	 * XXX dataProvider provideInitializeShifts
 	public function testInitializeShifts($expected_shifts) {
 		$this->schedule->initializeShifts();
 		$num_meals = $this->schedule->getNumMeals();
@@ -465,12 +469,18 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 /*
 	public function testAddPrefs() {
 		$this->schedule->initializeShifts();
-
 		$date = '10/15/2018';
 		$this->schedule->addPrefs('testuser', 4396, $date, 1);
 		$meals = $this->schedule->getMeals();
-		$cur_meal = new Meal($this->schedule, $date, 90);
-		$this->assertEquals($meals[$date], $cur_meal);
+
+
+		$cur_meal = new WeekdayMeal($this->schedule, $date, 90);
+		$debug = [
+			'meals' => $meals,
+			'date' => $date,
+			// 'cur' => $cur_meal,
+		];
+		// $this->assertEquals($meals[$date], $cur_meal, print_r($debug, TRUE));
 	}
 */
 
