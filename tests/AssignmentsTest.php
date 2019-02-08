@@ -11,19 +11,21 @@ class AssignmentsTest extends PHPUnit_Framework_TestCase {
 		$this->assignments = new Assignments();
 	}
 
+	public function testConstruct() {
+		$this->assertInstanceOf(Assignments, $this->assignments);
+	}
+
 	/**
 	 * @dataProvider provideRun
 	public function testRun($season_months, $expected) {
 		$this->assignments->initialize($season_months);
 		$debug = [
 			'expected' => $expected,
-			'list' => array_get($list, $key, $default),
 			'months' => $season_months,
 		];
 		// XXX this isn't doing much yet...
-		$this->assertEquals($expected, []);
+		$this->assertEquals($expected, 'XXX', print_r($debug, TRUE));
 	}
-	 */
 
 	public function provideRun() {
 		$season_months = [
@@ -34,8 +36,9 @@ class AssignmentsTest extends PHPUnit_Framework_TestCase {
 		];
 
 		return [
-			[$season_months, []],
+			[$season_months, 'XXX'],
 		];
 	}
+	 */
 }
 ?>
