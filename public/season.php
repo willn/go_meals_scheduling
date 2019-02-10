@@ -32,24 +32,32 @@ function get_num_shift_overrides() {
 		// mar-apr:
 		// ---------------------------------
 		'annie' => [SUNDAY_CLEANER => -1],
+		'catherine' => [WEEKDAY_HEAD_COOK => 1],
+		'dale' => [WEEKDAY_ASST_COOK => 1],
 		'dan' => [WEEKDAY_CLEANER => 1],
 		'gayle' => [WEEKDAY_CLEANER => 1],
 		'gregd' => [
 			WEEKDAY_HEAD_COOK => 1,
 			WEEKDAY_ASST_COOK => 2
 		],
+		'james' => [SUNDAY_ASST_COOK => 2],
 		'jan' => [WEEKDAY_ASST_COOK => 1],
 		'jennifer' => [MEETING_NIGHT_CLEANER => 1],
 		'kelly' => [WEEKDAY_HEAD_COOK => 1],
 		'liam' => [SUNDAY_ASST_COOK => 1],
 		'lindsay' => [WEEKDAY_ASST_COOK => 1],
 		'mac' => [WEEKDAY_CLEANER => 1],
-		'marta' => [WEEKDAY_TABLE_SETTER => 2],
+		'marta' => [
+			WEEKDAY_TABLE_SETTER => -10,
+			WEEKDAY_ASST_COOK => -3,
+			SUNDAY_ASST_COOK => -2,
+		],
 		'maryking' => [WEEKDAY_CLEANER => 1],
 		'michael' => [WEEKDAY_CLEANER => 2],
 		'nancy' => [SUNDAY_ASST_COOK => -1],
 		'nicholas' => [MEETING_NIGHT_CLEANER => -1],
 		'rod' => [WEEKDAY_CLEANER => 1],
+		'sharon' => [WEEKDAY_HEAD_COOK => -1],
 		'thomas' => [SUNDAY_CLEANER => -1],
 	];
 }
