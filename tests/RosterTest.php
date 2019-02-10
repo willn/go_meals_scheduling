@@ -15,8 +15,8 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * Note: this may need to be adjusted each season or sub-season.
 	 */
-	public function testLoadNumShiftsAssigned() {
-		$result = $this->roster->getTotalLaborAvailable();
+	public function testGetTotalLaborAvailable() {
+		$labor = $this->roster->getTotalLaborAvailable();
 		$current = [
 			'all' => 0,
 			MEETING_NIGHT_ORDERER => 4,
@@ -25,196 +25,37 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 			SUNDAY_ASST_COOK => 16,
 			SUNDAY_CLEANER => 22,
 			WEEKDAY_HEAD_COOK => 23,
-			WEEKDAY_ASST_COOK => 45,
+			WEEKDAY_ASST_COOK => 43,
 			WEEKDAY_CLEANER => 67,
-			WEEKDAY_TABLE_SETTER => 22,
+			WEEKDAY_TABLE_SETTER => 10,
 		];
-		$this->assertEquals($current, $result, 'line: ' . __LINE__);
+		$this->assertEquals($current, $labor, 'line: ' . __LINE__);
 
-/*
-		$result = $this->roster->getWorkerShiftsToFill();
-		$current = [
-			'amyh' => [
-				4597 => 2,
-			],
-			'annie' => [
-				4597 => 4,
-				4592 => 7,
-			],
-			'augustd' => [
-				4592 => 1,
-			],
-			'bennie' => [
-				4597 => 2,
-				4596 => 6,
-			],
-			'catherine' => [
-				4596 => 2,
-				4592 => 1,
-				4591 => 1,
-			],
-			'dale' => [
-				4591 => 2,
-			],
-			'dan' => [
-				4597 => 4,
-				4596 => 2,
-				4592 => 2,
-				4598 => 1,
-				4593 => 1,
-			],
-			'debbi' => [
-				4597 => 2,
-			],
-			'drew' => [
-				4596 => 2,
-				4592 => 1,
-				4593 => 1,
-			],
-			'emilyadama' => [
-				4591 => 2,
-			],
-			'eric' => [
-				4593 => 2,
-			],
-			'fatima' => [
-				4597 => 2,
-				4594 => 4,
-			],
-			'gail' => [
-				4595 => 1,
-			],
-			'gayle' => [
-				4597 => 1,
-				4596 => 2,
-				4592 => 1,
-				4584 => 1,
-			],
-			'glenn' => [
-				4596 => 2,
-				4592 => 2,
-			],
-			'gregd' => [
-				4592 => 4,
-				4591 => 3,
-				4598 => 1,
-				4596 => 2,
-			],
-			'hermann' => [
-				4584 => 2,
-			],
-			'iand' => [
-				4592 => 1,
-			],
-			'jan' => [
-				4592 => 4,
-				4591 => 1,
-			],
-			'jennifer' => [
-				4592 => 4,
-				4591 => 2,
-				4598 => 1,
-			],
-			'jillian' => [
-				4596 => 2,
-			],
-			'katie' => [
-				4595 => 1,
-			],
-			'keithg' => [
-				4596 => 4,
-				4592 => 1,
-				4591 => 2,
-				4593 => 1,
-				4594 => 1,
-			],
-			'kelly' => [
-				4591 => 4,
-			],
-			'lindsay' => [
-				4594 => 5,
-				4595 => 1,
-			],
-			'mac' => [
-				4596 => 10,
-				4597 => 2,
-			],
-			'mario' => [
-				4596 => 2,
-			],
-			'marta' => [
-				4592 => 4,
-				4584 => 12,
-				4594 => 2,
-			],
-			'maryking' => [
-				4593 => 2,
-			],
-			'marys' => [
-				4596 => 3,
-				4592 => 3,
-			],
-			'megan' => [
-				4584 => 2,
-				4594 => 1,
-			],
-			'michael' => [
-				4596 => 11,
-			],
-			'nancy' => [
-				4592 => 2,
-				4584 => 2,
-				4594 => 0,
-			],
-			'nicholas' => [
-				4584 => 4,
-				4598 => 1,
-			],
-			'pam' => [
-				4597 => 2,
-				4594 => 1,
-			],
-			'patti' => [
-				4592 => 1,
-				4596 => 1,
-			],
-			'polly' => [
-				4596 => 2,
-				4592 => 3,
-			],
-			'rebecca' => [
-				4595 => 1,
-			],
-			'rod' => [
-				4596 => 5,
-				4592 => 2,
-			],
-			'sharon' => [
-				4591 => 3,
-			],
-			'tammy' => [
-				4591 => 4,
-			],
-			'ted' => [
-				4596 => 2,
-			],
-			'terrence' => [
-				4596 => 7,
-				4594 => 1,
-			],
-			'tevah' => [
-				4592 => 1,
-				4593 => 1,
-			],
-			'thomas' => [
-				4597 => 3,
-			],
-			'liam' => [
-				4594 => 1,
-			],
-		];
-		$this->assertEquals($current, $result, 'line: ' . __LINE__);
-*/
+		// ----- get worker shifts to fill
+		$shifts = $this->roster->getWorkerShiftsToFill();
+		$this->assertGreaterThan(1, count($shifts));
+
+		$summary = [];
+		foreach($shifts as $worker => $assignments) {
+			$this->assertInternalType('string', $worker);
+			$this->assertNotEmpty($assignments);
+
+			foreach($assignments as $job_id => $assn_count) {
+				$this->assertInternalType('int', $job_id);
+				$this->assertInternalType('int', $assn_count);
+
+				// if empty, initialize
+				if (!array_key_exists($job_id, $summary)) {
+					$summary[$job_id] = 0;
+				}
+				$summary[$job_id] += $assn_count;
+			}
+		}
+
+		unset($labor['all']);
+		ksort($labor);
+		ksort($summary);
+		$this->assertEquals($labor, $summary);
 	}
 
 	/**
