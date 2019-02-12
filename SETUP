@@ -20,8 +20,10 @@ Directions to set up the survey:
 	- set the appropriate DEADLINE date
 	- add any extra workers to the get_num_shift_overrides() function
 
+# --------------------
 # MID-SEASON:
-# if this is mid-season, then follow these directions and skip to END-SEASON-START section
+# if this is mid-season, follow these directions, then skip to END-SEASON-START section
+# --------------------
 
 # clear out existing tables
 	cd public/sqlite_data/
@@ -35,11 +37,17 @@ Directions to set up the survey:
 
 # You may need to adjust the season's months:
 	edit public/season.php
-	change the SEASON_NAME
+	maybe change the SEASON_NAME?
 	examine get_current_season_months()
 
+# commit all above changes
 
+# skip to END-SEASON-START
+
+
+# --------------------
 # SEASON-START:
+# --------------------
 # grab the latest sqlite file from work hosting, fix permissions, and commit:
 	# login to the work web UI, go to more reports, and "Download SQLite3 database from host"
 	# locally...
@@ -74,7 +82,10 @@ Directions to set up the survey:
 	git add *
 	git commit
 
+
+# --------------------
 # END-SEASON-START
+# --------------------
 # stage everything from the meals dev repo to public_html
 	cd ~/public_html/meals_scheduling/
 	for i in `find . -type f`; do cp ~/meals_scheduling_dev/public/$i $i; done
