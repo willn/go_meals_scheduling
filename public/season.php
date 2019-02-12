@@ -8,7 +8,7 @@ define('DEADLINE', strtotime('Feb 20, 2018, 8:00pm'));
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SUMMER, FALL, WINTER, SPRING
  */
-define('SEASON_NAME', WINTER);
+define('SEASON_NAME', SPRING);
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_ORDERER', 4595);
