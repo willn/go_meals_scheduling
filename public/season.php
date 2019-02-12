@@ -2,7 +2,7 @@
 require_once 'constants.inc';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('Feb 20, 2018, 8:00pm'));
+define('DEADLINE', strtotime('Feb 20, 2019, 8:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
