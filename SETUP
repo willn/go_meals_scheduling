@@ -8,18 +8,15 @@ Directions to set up the survey:
 	cd ..
 
 # check that there aren't uncommitted modifications
-	cd /home/gocoho/meals_scheduling/
+	cd /home/gocoho/meals_scheduling_dev/
 	git status
 
-# Look for differences between dev repo and production
-	cd ~
-	diff -r meals_scheduling/public/ public_html/meals_scheduling/
+# if changes are needed... blast it and re-copy
+	cd ~/public_html/
+	rm -rf meals_scheduling/
+	cp -r ~/meals_scheduling_dev/public/ meals_scheduling/
 
-# if changes are needed...
-	cd ~/public_html/meals_scheduling/
-	for i in `find . -type f`; do cp ~/meals_scheduling/public/$i $i; done
-
-# edit ~/meals_scheduling/public/season.php
+# edit ~/meals_scheduling_dev/public/season.php
 	- set the appropriate DEADLINE date
 	- add any extra workers to the get_num_shift_overrides() function
 
@@ -27,12 +24,12 @@ Directions to set up the survey:
 # if this is mid-season, then follow these directions and skip to END-SEASON-START section
 
 # clear out existing tables
-	cd sqlite_data/
+	cd public/sqlite_data/
 	sqlite3 work_allocation.db
 	DELETE from schedule_comments;
 	DELETE FROM schedule_prefs;
 	DELETE from schedule_shifts;
-	exit;
+	// exit sqlite
 	cd ../
 	git diff | view -
 
@@ -48,10 +45,10 @@ Directions to set up the survey:
 	# locally...
 	cd ~/Downloads/
 	unzip filedb.zip
-	scp -P 1022 home/django/work/db.sqlite3 gocoho@gocoho.org:meals_scheduling/public/sqlite_data/
+	scp -P 1022 home/django/work/db.sqlite3 gocoho@gocoho.org:meals_scheduling_dev/public/sqlite_data/
 
 	# on the remote host...
-	cd meals_scheduling/public/sqlite_data
+	cd meals_scheduling_dev/public/sqlite_data
 	mv db.sqlite3 work_allocation.db
 	chmod 644 work_allocation.db
 	sqlite work_allocation.db
@@ -80,7 +77,7 @@ Directions to set up the survey:
 # END-SEASON-START
 # stage everything from the meals dev repo to public_html
 	cd ~/public_html/meals_scheduling/
-	for i in `find . -type f`; do cp ~/meals_scheduling/public/$i $i; done
+	for i in `find . -type f`; do cp ~/meals_scheduling_dev/public/$i $i; done
 
 # test to make sure everything works
 	- confirm that the calendar dates are correct
@@ -104,7 +101,7 @@ Directions to set up the survey:
 	# sudo bash
 	crontab -e
 	# uncomment the following lines:
-	20 *   *   *   *   /bin/cp -f ~/meals_scheduling/public/sqlite_data/work_allocation.db ~/backups/
+	20 *   *   *   *   /bin/cp -f ~/meals_scheduling_dev/public/sqlite_data/work_allocation.db ~/backups/
 
 - schedule a few reminders spaced out over the rest of the session to send
   reminder emails to laggards
@@ -114,17 +111,17 @@ what to do at the end of the survey:
 - disable cronjobs
 
 - commit closed database:
-	cd meals_scheduling/public/sqlite_data/
+	cd meals_scheduling_dev/public/sqlite_data/
 	cp ~/public_html/meals_scheduling/sqlite_data/work_allocation.db .
 	git status
 	git commit work_allocation.db
 
 - check for any changes to the codebase and optionally make commits
 	$ cd public_html/meals_scheduling
-	$ for i in `find -type f`; do diff $i ~/meals_scheduling/public/$i; done
+	$ for i in `find -type f`; do diff $i ~/meals_scheduling_dev/public/$i; done
 
 - check for any un-assigned workers
-	cd ~/meals_scheduling/auto_assignments/
+	cd ~/meals_scheduling_dev/auto_assignments/
 	php execute.php -u
 
 - count un-filled slots:
@@ -171,7 +168,7 @@ what to do at the end of the survey:
 	php validate_schedule.php -f ../auto_assignments/results.txt
 
 - copy the results file locally, then upload to google sheets
-	scp -i ~/.ssh/id_dsa -P 1022 gocoho@gocoho.org:/home/gocoho/meals_scheduling/auto_assignments/results.txt .
+	scp -i ~/.ssh/id_dsa -P 1022 gocoho@gocoho.org:/home/gocoho/meals_scheduling_dev/auto_assignments/results.txt .
 
 
 
@@ -193,11 +190,11 @@ translate dale's work system user names to MESS inserts
 	* scp -P 7822 ~/Downloads/dump.csv username@hostname:
 
 - rename:
-	* cat dump.csv | grep -v '"\\N"' > meals_scheduling/public/results/go_user_ids.csv
+	* cat dump.csv | grep -v '"\\N"' > meals_scheduling_dev/public/results/go_user_ids.csv
 	* rm dump.csv
 
 - extract just the alternate IDs:
-	* cd meals_scheduling/public/results/
+	* cd meals_scheduling_dev/public/results/
 	* cat go_user_ids.csv | cut -d\, -f4 | cut -d\" -f2 | sort -u > go_mess_names.txt
 
 - extract the scheduled names:
