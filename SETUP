@@ -40,7 +40,9 @@ Directions to set up the survey:
 	maybe change the SEASON_NAME?
 	examine get_current_season_months()
 
-# commit all above changes
+# verify and commmit
+	run unit tests & fix if needed
+	git commit
 
 # skip to END-SEASON-START
 

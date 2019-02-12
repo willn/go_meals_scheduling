@@ -111,7 +111,7 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 		$days = [
 			1 => [1],
 			// easter changes
-			// 4 => [21],
+			4 => [21],
 			5 => [26, 27],
 			7 => [4],
 			9 => [1, 2],
