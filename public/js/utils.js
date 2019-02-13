@@ -34,7 +34,7 @@ Survey = {
 		Survey.enableWeekdaySelect();
 		Survey.enableWeekSelect();
 
-		$('#avoid_workers, #prefer_worker').select2({
+		$('#avoid_workers_section, #prefer_worker_section').select2({
 			placeholder: 'Select one or more names',
 			width: 350,
 		}).on('change', Survey.workerPrefChange);

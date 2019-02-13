@@ -359,13 +359,13 @@ EOHTML;
 		return <<<EOHTML
 			<div class="d_table">
 				<div class="d_cell pad">
-					<label id="avoid_workers">
+					<label id="avoid_workers_section">
 						<span>Avoid scheduling with: (e.g. housemates)</span>
 						{$avoid_workers_selector}
 					</label>
 				</div>
 				<div class="d_cell pad">
-					<label id="prefer_workers">
+					<label id="prefer_workers_section">
 						<span>Prefer to schedule with: (e.g. housemates)</span>
 						{$prefer_worker_selector}
 					</label>
