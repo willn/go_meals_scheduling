@@ -476,7 +476,7 @@ EOHTML;
 		],
 	];
 
-	$wkd_cell = <<<EOHTML
+	$weekend_cell = <<<EOHTML
 <h3 class="jobname">Weekday head cook</h3>
 <div class="highlight">prefer:<ul><li>sharon</li></ul></div>
 <div class="OK">OK:<ul><li>catherine</li>
@@ -542,7 +542,7 @@ EOHTML;
 		return [
 			[$sun_1, TRUE, $sun_cell],
 			[$mtg_1, FALSE, $mtg_cell],
-			[$wkd_1, FALSE, $wkd_cell],
+			[$wkd_1, FALSE, $weekend_cell],
 		];
 	}
 
