@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 	<title>Meals Scheduling Survey and Reporting</title>
 	<link rel="stylesheet" href="display/styles/default.css" type="text/css">

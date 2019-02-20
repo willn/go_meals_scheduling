@@ -34,7 +34,7 @@ Survey = {
 		Survey.enableWeekdaySelect();
 		Survey.enableWeekSelect();
 
-		$('#avoid_workers_section, #prefer_worker_section').select2({
+		$('#avoid_workers, #prefer_workers').select2({
 			placeholder: 'Select one or more names',
 			width: 350,
 		}).on('change', Survey.workerPrefChange);
@@ -49,14 +49,14 @@ Survey = {
 	 */
 	workerPrefChange: function(e) {
 		var currentId = $(this).attr('id'),
-			otherId = 'prefer_worker',
+			otherId = 'prefer_workers',
 			otherName = 'Prefer',
 			added = e.added,
 			removed = e.removed,
 			found = false,
 			otherList, i, vals;
 
-		if (currentId == 'prefer_worker') {
+		if (currentId == 'prefer_workers') {
 			otherId = 'avoid_workers';
 			otherName = 'Avoids';
 		}

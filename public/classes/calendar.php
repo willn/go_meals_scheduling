@@ -448,7 +448,7 @@ EOHTML;
 				<h3 class="month {$survey}">
 					{$month_name} {$season_year}</h3>
 				<div class="surround month_{$quarterly_month_ord}">
-					<table cellpadding="8" cellspacing="1" border="0" width="100%">
+					<table>
 						{$selectors}
 						{$table}
 					</table>

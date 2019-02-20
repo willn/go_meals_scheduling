@@ -61,6 +61,13 @@ td {
 	margin: 10px 0px;
 }
 
+.surround table {
+	border: 0;
+	border-spacing: 1px;
+	border-collapse: unset;
+	width: 100%;
+}
+
 .surround.month_1 {
 	background: #30B336;
 }
@@ -72,6 +79,10 @@ td {
 }
 .surround.month_0 {
 	background: #408Af9;
+}
+
+.surround td, .surround th {
+	padding: 8px;
 }
 
 .choice {

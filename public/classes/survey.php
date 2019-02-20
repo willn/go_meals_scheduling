@@ -350,7 +350,7 @@ EOHTML;
 		$prefers = explode(',', array_get($comments_info, 'prefers', ''));
 		$prefers = array_flip($prefers);
 		$prefers = array_fill_keys(array_keys($prefers), 1);
-		$prefer_worker_selector = $this->getWorkerList('prefer_worker', FALSE,
+		$prefer_workers_selector = $this->getWorkerList('prefer_workers', FALSE,
 			$this->worker_obj->getUsername(), $prefers);
 
 		$bundle_checked = (array_get($comments_info, 'bundle_shifts') == 'on') ?
@@ -367,7 +367,7 @@ EOHTML;
 				<div class="d_cell pad">
 					<label id="prefer_workers_section">
 						<span>Prefer to schedule with: (e.g. housemates)</span>
-						{$prefer_worker_selector}
+						{$prefer_workers_selector}
 					</label>
 				</div>
 			</div>
@@ -548,7 +548,7 @@ EOHTML;
 		}
 
 		$avoid_list = implode(',', $post['avoid_workers']);
-		$prefer_list = implode(',', $post['prefer_worker']);
+		$prefer_list = implode(',', $post['prefer_workers']);
 
 		$bundle = array_get($post, 'bundle_shifts', '');
 		$table = SCHEDULE_COMMENTS_TABLE;
