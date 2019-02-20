@@ -19,8 +19,8 @@
 <?php
 if (isset($_REQUEST['worker'])) {
 	echo <<<EOHTML
-	<script type="text/javascript" src="js/utils.js"></script>
-	<script type="text/javascript" src="js/survey_library.js"></script>
+	<script src="js/utils.js"></script>
+	<script src="js/survey_library.js"></script>
 EOHTML;
 }
 ?>
