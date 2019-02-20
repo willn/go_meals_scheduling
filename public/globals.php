@@ -108,7 +108,7 @@ function create_sqlite_connection() {
 		$dbh->setAttribute(PDO::ATTR_TIMEOUT, $timeout);
 	}
 	catch(PDOException $e) {
-		echo "problem loading sqlite file [$db_fullpath]: {$e->getMessage()}\n";
+		echo "problem loading sqlite file " . getcwd() . "/{$db_fullpath} {$e->getMessage()}\n";
 		exit;
 	}
 
