@@ -17,19 +17,20 @@ class WorkersList {
 		$assn_table = ASSIGN_TABLE;
 		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
-			SELECT id, username, first_name, last_name
+			SELECT id, username
 				FROM {$auth_user_table}
 				WHERE id IN
 					(SELECT worker_id
 						FROM {$assn_table}
 						WHERE season_id={$sid}
 						GROUP BY worker_id)
-				ORDER BY first_name, username
+				ORDER BY username
 EOSQL;
 
-		global $dbh;
-		$this->workers = array();
-		foreach ($dbh->query($sql) as $row) {
+		// global $dbh;
+		$dbh = create_sqlite_connection();
+		$this->workers = [];
+		foreach ($dbh->query($sql, PDO::FETCH_ASSOC) as $row) {
 			$this->workers[$row['username']] = $row;
 		}
 	}
@@ -50,12 +51,6 @@ EOSQL;
 	 */
 	public function getWorkersListAsLinks() {
 		$workers = $this->getWorkers();
-
-		/*
-		$respondents = new Respondents();
-		$slackers = $respondents->getNonResponders();
-		error_log(__FILE__ . ' ' . __LINE__ . " slackers: " . var_export($slackers, TRUE));
-		*/
 
 		$out = $lines = '';
 		$count = 0;
