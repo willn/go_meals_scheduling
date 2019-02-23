@@ -125,10 +125,6 @@ what to do at the end of the survey:
 	git status
 	git commit work_allocation.db
 
-- check for any changes to the codebase and optionally make commits
-	$ cd public_html/meals_scheduling
-	$ for i in `find -type f`; do diff $i ~/meals_scheduling_dev/public/$i; done
-
 - check for any un-assigned workers
 	cd ~/meals_scheduling_dev/auto_assignments/
 	php execute.php -u
