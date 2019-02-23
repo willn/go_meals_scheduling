@@ -35,6 +35,46 @@ class MealTest extends PHPUnit_Framework_TestCase {
 		$this->meal = new SundayMeal('foo', '04/22/2018', 10);
 	}
 
+	public function testConstructors() {
+		$sunday = new SundayMeal('foo', '04/22/2018', 10);
+		$this->assertInstanceOf(SundayMeal, $sunday);
+
+		$weekday = new WeekdayMeal('foo', '04/23/2018', 10);
+		$this->assertInstanceOf(WeekdayMeal, $weekday);
+
+		$mtg = new MeetingNightMeal('foo', '04/25/2018', 10);
+		$this->assertInstanceOf(MeetingNightMeal, $mtg);
+	}
+
+	/**
+	 * @dataProvider pointFactorsProvider
+	 */
+	public function testSetPointFactors($hobart, $avail, $avoid_workers, $prefer) {
+		$this->meal->setPointFactors($hobart, $avail, $avoid_workers);
+		$expected = [
+			'hobart' => !is_null($hobart) ? $hobart : DEFAULT_HOBART_SCORE,
+			'avail' => !is_null($avail) ? $avail : DEFAULT_AVAIL_SCORE,
+			'avoid_workers' => !is_null($avoid_workers) ? $avoid_workers :
+				DEFAULT_AVOID_WORKER_SCORE,
+			'prefers' => !is_null($prefer) ? $prefer : DEFAULT_PREFERS_SCORE,
+		];
+
+		$this->assertEquals($this->meal->getPointFactors(), $expected);
+	}
+
+	public function pointFactorsProvider() {
+		// hobart_factor, avail_factor, avoids_factor
+		return [
+			[NULL, NULL, NULL, NULL],
+			[NULL, 1, 2, 1.1],
+			[1, NULL, 2, 1.1],
+			[1, 2, NULL, DEFAULT_PREFERS_SCORE],
+			[0, 0, 0, 0],
+			[1, 1, 1, .55],
+			[1, 1, 10, 5.5],
+		];
+	}
+
 	/**
 	 * @dataProvider datesProvider
 	 */

@@ -31,7 +31,6 @@ class Assignments {
 	 */
 	public function initialize($season_months=[]) {
 		$this->schedule = new Schedule($season_months);
-		$this->schedule->setPointFactors($a, $b, $c);
 		$this->schedule->setRoster($this->roster);
 
 		$this->roster->setSchedule($this->schedule);

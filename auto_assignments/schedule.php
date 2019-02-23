@@ -18,13 +18,6 @@ class Schedule {
 	protected $job_id;
 	protected $calendar;
 
-	protected $point_factors = array(
-		'hobart' => DEFAULT_HOBART_SCORE,
-		'avail' => DEFAULT_AVAIL_SCORE,
-		'avoid_workers' => DEFAULT_AVOID_WORKER_SCORE,
-		'prefers' => DEFAULT_PREFERS_SCORE,
-	);
-
 	// which shifts happen on which dates
 	protected $dates_and_shifts = [];
 
@@ -57,42 +50,6 @@ class Schedule {
 	 */
 	public function getMeals() {
 		return $this->meals;
-	}
-
-	/**
-	 * Assign various point-type variables.
-	 * This is intended for changing the rules of the game, so that multiple
-	 * runs can be processed and each one would turn out a little differently.
-	 *
-	 * @param[in] hobart_factor int the amount of points to assign towards the
-	 *     hobart factor.
-	 * @param[in] avail_factor int the amount of points to assign towards
-	 *     availability.
-	 * @param[in] avoid_workers_factor int the amount of points to assign towards
-	 *     avoiding working with someone.
-	 */
-	public function setPointFactors($hobart_factor=NULL,
-		$avail_factor=NULL, $avoid_workers_factor=NULL) {
-
-		if (!is_null($hobart_factor)) {
-			$this->point_factors['hobart'] = $hobart_factor;
-		}
-		if (!is_null($avail_factor)) {
-			$this->point_factors['avail'] = $avail_factor;
-		}
-		if (!is_null($avoid_workers_factor)) {
-			$this->point_factors['avoid_workers'] = $avoid_workers_factor;
-			$this->point_factors['prefers'] =
-				$this->point_factors['avoid_workers'] * PREFER_TO_AVOID_WORKER_RATIO;
-		}
-	}
-
-	/**
-	 * This is intended for changing the rules of the game, so that multiple
-	 * runs can be processed and each one would turn out a little differently.
-	 */
-	public function getPointFactors() {
-		return $this->point_factors;
 	}
 
 	/**

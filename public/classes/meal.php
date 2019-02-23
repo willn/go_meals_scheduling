@@ -10,6 +10,13 @@ abstract class Meal {
 	// ratio threshold below which 'ok' should trump 'prefer'
 	protected $prefer_threshold = 1.5;
 
+	protected $point_factors = [
+		'hobart' => DEFAULT_HOBART_SCORE,
+		'avail' => DEFAULT_AVAIL_SCORE,
+		'avoid_workers' => DEFAULT_AVOID_WORKER_SCORE,
+		'prefers' => DEFAULT_PREFERS_SCORE,
+	];
+
 	// array of username => pref
 	protected $possible_workers = [];
 
@@ -100,6 +107,41 @@ EOTXT;
 		$this->possible_workers[$job_id][$username] = $pref;
 	}
 
+	/**
+	 * Assign various point-type variables.
+	 * This is intended for changing the rules of the game, so that multiple
+	 * runs can be processed and each one would turn out a little differently.
+	 *
+	 * @param[in] hobart_factor int the amount of points to assign towards the
+	 *     hobart factor.
+	 * @param[in] avail_factor int the amount of points to assign towards
+	 *     availability.
+	 * @param[in] avoid_workers_factor int the amount of points to assign towards
+	 *     avoiding working with someone.
+	 */
+	public function setPointFactors($hobart_factor=NULL,
+		$avail_factor=NULL, $avoid_workers_factor=NULL) {
+
+		if (!is_null($hobart_factor)) {
+			$this->point_factors['hobart'] = $hobart_factor;
+		}
+		if (!is_null($avail_factor)) {
+			$this->point_factors['avail'] = $avail_factor;
+		}
+		if (!is_null($avoid_workers_factor)) {
+			$this->point_factors['avoid_workers'] = $avoid_workers_factor;
+			$this->point_factors['prefers'] =
+				$this->point_factors['avoid_workers'] * PREFER_TO_AVOID_WORKER_RATIO;
+		}
+	}
+
+	/**
+	 * This is intended for changing the rules of the game, so that multiple
+	 * runs can be processed and each one would turn out a little differently.
+	 */
+	public function getPointFactors() {
+		return $this->point_factors;
+	}
 
 	/**
 	 * Find out how many slots are empty for a given job id.
@@ -272,7 +314,7 @@ EOTXT;
 			$assigned_worker_names);
 
 		// find the value of each characteristic (globally set per instance)
-		$point_factors = $this->schedule->getPointFactors();
+		$point_factors = $this->getPointFactors();
 
 		// if the person has marked a lot of people to avoid or prefer to work
 		// with, then that will carry less weight than if they only mark 1

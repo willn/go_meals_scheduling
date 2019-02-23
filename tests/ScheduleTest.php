@@ -40,35 +40,6 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @dataProvider pointFactorsProvider
-	 */
-	public function testSetPointFactors($hobart, $avail, $avoid_workers, $prefer) {
-		$this->schedule->setPointFactors($hobart, $avail, $avoid_workers);
-		$expected = [
-			'hobart' => !is_null($hobart) ? $hobart : DEFAULT_HOBART_SCORE,
-			'avail' => !is_null($avail) ? $avail : DEFAULT_AVAIL_SCORE,
-			'avoid_workers' => !is_null($avoid_workers) ? $avoid_workers :
-				DEFAULT_AVOID_WORKER_SCORE,
-			'prefers' => !is_null($prefer) ? $prefer : DEFAULT_PREFERS_SCORE,
-		];
-
-		$this->assertEquals($this->schedule->getPointFactors(), $expected);
-	}
-
-	public function pointFactorsProvider() {
-		// hobart_factor, avail_factor, avoids_factor
-		return [
-			[NULL, NULL, NULL, NULL],
-			[NULL, 1, 2, 1.1],
-			[1, NULL, 2, 1.1],
-			[1, 2, NULL, DEFAULT_PREFERS_SCORE],
-			[0, 0, 0, 0],
-			[1, 1, 1, .55],
-			[1, 1, 10, 5.5],
-		];
-	}
-
-	/**
 	 * XXX dataProvider provideInitializeShifts
 	public function testInitializeShifts($expected_shifts) {
 		$this->schedule->initializeShifts();
