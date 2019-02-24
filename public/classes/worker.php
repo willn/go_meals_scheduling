@@ -59,6 +59,8 @@ class Worker {
 	/**
 	 * Get the name of the worker - either their full name, or their username
 	 * if their full name is not set.
+	 *
+	 * @return string "first last" OR username
 	 */
 	public function getName() {
 		return ($this->first_name != '') ?
