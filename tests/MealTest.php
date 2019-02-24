@@ -49,11 +49,10 @@ class MealTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider pointFactorsProvider
 	 */
-	public function testSetPointFactors($hobart, $avail, $avoid_workers, $prefer) {
-		$this->meal->setPointFactors($hobart, $avail, $avoid_workers);
+	public function testSetPointFactors($hobart, $avoid_workers, $prefer) {
+		$this->meal->setPointFactors($hobart, $avoid_workers);
 		$expected = [
 			'hobart' => !is_null($hobart) ? $hobart : DEFAULT_HOBART_SCORE,
-			'avail' => !is_null($avail) ? $avail : DEFAULT_AVAIL_SCORE,
 			'avoid_workers' => !is_null($avoid_workers) ? $avoid_workers :
 				DEFAULT_AVOID_WORKER_SCORE,
 			'prefers' => !is_null($prefer) ? $prefer : DEFAULT_PREFERS_SCORE,
@@ -63,15 +62,15 @@ class MealTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function pointFactorsProvider() {
-		// hobart_factor, avail_factor, avoids_factor
+		// hobart_factor, avoids_factor
 		return [
-			[NULL, NULL, NULL, NULL],
-			[NULL, 1, 2, 1.1],
-			[1, NULL, 2, 1.1],
-			[1, 2, NULL, DEFAULT_PREFERS_SCORE],
-			[0, 0, 0, 0],
-			[1, 1, 1, .55],
-			[1, 1, 10, 5.5],
+			[NULL, NULL, NULL],
+			[NULL, 2, 1.1],
+			[1, 2, 1.1],
+			[1, NULL, DEFAULT_PREFERS_SCORE],
+			[0, 0, 0],
+			[1, 1, .55],
+			[1, 10, 5.5],
 		];
 	}
 

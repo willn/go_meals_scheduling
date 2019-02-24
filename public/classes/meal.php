@@ -3,7 +3,6 @@ define('AVOID_PERSON', -2);
 define('PREFER_PERSON', 1);
 
 define('DEFAULT_HOBART_SCORE', 7);
-define('DEFAULT_AVAIL_SCORE', 5);
 define('DEFAULT_AVOID_WORKER_SCORE', 7);
 define('DEFAULT_PREFERS_SCORE', 4);
 
@@ -17,7 +16,6 @@ abstract class Meal {
 
 	protected $point_factors = [
 		'hobart' => DEFAULT_HOBART_SCORE,
-		'avail' => DEFAULT_AVAIL_SCORE,
 		'avoid_workers' => DEFAULT_AVOID_WORKER_SCORE,
 		'prefers' => DEFAULT_PREFERS_SCORE,
 	];
@@ -125,13 +123,10 @@ EOTXT;
 	 *     avoiding working with someone.
 	 */
 	public function setPointFactors($hobart_factor=NULL,
-		$avail_factor=NULL, $avoid_workers_factor=NULL) {
+		$avoid_workers_factor=NULL) {
 
 		if (!is_null($hobart_factor)) {
 			$this->point_factors['hobart'] = $hobart_factor;
-		}
-		if (!is_null($avail_factor)) {
-			$this->point_factors['avail'] = $avail_factor;
 		}
 		if (!is_null($avoid_workers_factor)) {
 			$this->point_factors['avoid_workers'] = $avoid_workers_factor;
