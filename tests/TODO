@@ -1,7 +1,5 @@
 ./public/classes/worker.php:40:	public function isPlaceholder() {
 ./public/classes/worker.php:44:	public function debugLogSummary() {
-./public/classes/worker.php:54:	public function setNames($first, $last) {
-./public/classes/worker.php:63:	public function getName() {
 ./public/classes/worker.php:81:	public function setAvoids($avoid_workers) {
 ./public/classes/worker.php:92:	public function getAvoids() {
 ./public/classes/worker.php:100:	public function setPrefers($prefers) {
