@@ -11,9 +11,6 @@ abstract class Meal {
 	protected $date;
 	protected $day_of_week;
 
-	// ratio threshold below which 'ok' should trump 'prefer'
-	protected $prefer_threshold = 1.5;
-
 	protected $point_factors = [
 		'hobart' => DEFAULT_HOBART_SCORE,
 		'avoid_workers' => DEFAULT_AVOID_WORKER_SCORE,
