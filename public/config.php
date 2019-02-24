@@ -91,6 +91,8 @@ function get_num_dinners_per_assignment($season, $job_id=NULL) {
 /**
  * Get the number of instances of each job that is needed per dinner.
  *
+ * XXX this should not be hard-coded, but instead derived from database queries...
+ *
  * @param[in] job_id (optional, default NULL) If NULL, then return the entire
  *     list. If not null, anda real job id is passed in, then return the number
  *     of shifts needed for that job id.
