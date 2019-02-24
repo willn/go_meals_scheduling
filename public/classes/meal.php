@@ -2,6 +2,11 @@
 define('AVOID_PERSON', -2);
 define('PREFER_PERSON', 1);
 
+define('DEFAULT_HOBART_SCORE', 7);
+define('DEFAULT_AVAIL_SCORE', 5);
+define('DEFAULT_AVOID_WORKER_SCORE', 7);
+define('DEFAULT_PREFERS_SCORE', 4);
+
 abstract class Meal {
 	protected $schedule;
 	protected $date;

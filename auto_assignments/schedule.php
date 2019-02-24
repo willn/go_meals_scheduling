@@ -1,11 +1,6 @@
 <?php
 define('PREFER_TO_AVOID_WORKER_RATIO', .55);
 
-define('DEFAULT_HOBART_SCORE', 7);
-define('DEFAULT_AVAIL_SCORE', 5);
-define('DEFAULT_AVOID_WORKER_SCORE', 7);
-define('DEFAULT_PREFERS_SCORE', 4);
-
 require_once('../public/utils.php');
 require_once('../public/classes/calendar.php');
 
