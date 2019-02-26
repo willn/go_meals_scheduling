@@ -68,10 +68,13 @@ function does_season_wrap($season_months) {
  * @return associative array - the same as the holidays passed in.
  */
 function add_easter($holidays, $season=[]) {
+	/*
+	XXX why did I skip adding easter? Is it for an end of year season?
 	// if Easter doesn't happen this season, then don't add anything
 	if (!isset($season[3]) && !isset($season[4])) {
 		return $holidays;
 	}
+	*/
 
 	$does_wrap = does_season_wrap($season);
 	$year = ($does_wrap) ? (SEASON_YEAR + 1) : SEASON_YEAR;
