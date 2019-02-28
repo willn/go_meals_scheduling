@@ -25,8 +25,6 @@ class Worker {
 
 	protected $dbh;
 
-	protected $is_placeholder = FALSE;
-
 	/**
 	 *
 	 */
@@ -35,10 +33,6 @@ class Worker {
 
 		global $dbh;
 		$this->dbh = $dbh;
-	}
-
-	public function isPlaceholder() {
-		return $this->is_placeholder;
 	}
 
 	public function debugLogSummary() {
@@ -282,11 +276,6 @@ class Worker {
 	 *     assigned yet.
 	 */
 	public function getAdjancencyScore($date) {
-		// placeholders don't matter for adjacency
-		if ($this->isPlaceholder()) {
-			return 0;
-		}
-
 		$assigned = $this->getDatesAssigned();
 		if (empty($assigned)) {
 			return 0;
