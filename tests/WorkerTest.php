@@ -71,5 +71,35 @@ class WorkerTest extends PHPUnit_Framework_TestCase {
 		$shifts = $this->worker->getAssignedShifts();
 		$this->assertEquals([123, 456], $shifts);
 	}
+
+	public function testAddAvailability() {
+		$result = $this->worker->getAvailability();
+		$this->assertEquals([], $result);
+
+		$date1 = '3/18/2019';
+		$this->worker->addAvailability(123, $date1, 1);
+		$result = $this->worker->getAvailability();
+		$this->assertEquals([123 => [$date1 => 1]], $result);
+
+		$date2 = '3/19/2019';
+		$this->worker->addAvailability(456, $date2, 2);
+		$result = $this->worker->getAvailability();
+		$this->assertEquals([123 => [$date1 => 1], 456 => [$date2 => 2]], $result);
+
+		$this->worker->addAvailability(123, $date2, 2);
+		$result = $this->worker->getAvailability();
+		$this->assertEquals([123 => [$date1 => 1, $date2 => 2], 456 =>
+			[$date2 => 2]], $result);
+
+		$this->worker->addAvailability(999, $date2, .5);
+		$result = $this->worker->getAvailability();
+		$this->assertEquals([123 => [$date1 => 1, $date2 => 2], 456 =>
+			[$date2 => 2], 999 => [$date2 => .5]], $result);
+
+		$this->worker->addAvailability(999, $date1, 0);
+		$result = $this->worker->getAvailability();
+		$this->assertEquals([123 => [$date1 => 1, $date2 => 2], 456 =>
+			[$date2 => 2], 999 => [$date1 => 0, $date2 => .5]], $result);
+	}
 }
 ?>
