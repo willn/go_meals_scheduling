@@ -41,5 +41,29 @@ class WorkerTest extends PHPUnit_Framework_TestCase {
 		$this->worker->setId($id);
 		$this->assertEquals($this->worker->getId(), $id); 
 	}
+
+	/*
+	public function testGetAllPreferences() {
+		$result = $this->worker->getAllPreferences();
+		$this->assertEquals('XXX', $result);
+	}
+	*/
+
+	public function testAddNumShiftsAssigned() {
+		$result = $this->worker->getNumShiftsToFill();
+		$this->assertEquals([], $result);
+
+		$this->worker->addNumShiftsAssigned(123, 3);
+		$result = $this->worker->getNumShiftsToFill();
+		$this->assertEquals([123 => 3], $result);
+
+		$this->worker->addNumShiftsAssigned(123, 1);
+		$result = $this->worker->getNumShiftsToFill();
+		$this->assertEquals([123 => 4], $result);
+
+		$this->worker->addNumShiftsAssigned(456, 2);
+		$result = $this->worker->getNumShiftsToFill();
+		$this->assertEquals([123 => 4, 456 => 2], $result);
+	}
 }
 ?>
