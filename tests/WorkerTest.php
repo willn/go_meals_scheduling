@@ -56,14 +56,20 @@ class WorkerTest extends PHPUnit_Framework_TestCase {
 		$this->worker->addNumShiftsAssigned(123, 3);
 		$result = $this->worker->getNumShiftsToFill();
 		$this->assertEquals([123 => 3], $result);
+		$shifts = $this->worker->getAssignedShifts();
+		$this->assertEquals([123], $shifts);
 
 		$this->worker->addNumShiftsAssigned(123, 1);
 		$result = $this->worker->getNumShiftsToFill();
 		$this->assertEquals([123 => 4], $result);
+		$shifts = $this->worker->getAssignedShifts();
+		$this->assertEquals([123], $shifts);
 
 		$this->worker->addNumShiftsAssigned(456, 2);
 		$result = $this->worker->getNumShiftsToFill();
 		$this->assertEquals([123 => 4, 456 => 2], $result);
+		$shifts = $this->worker->getAssignedShifts();
+		$this->assertEquals([123, 456], $shifts);
 	}
 }
 ?>
