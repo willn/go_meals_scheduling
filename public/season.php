@@ -29,42 +29,6 @@ define('WEEKDAY_TABLE_SETTER', 4584);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-		// mar-apr:
-		// ---------------------------------
-		'annie' => [
-			SUNDAY_CLEANER => -1,
-			WEEKDAY_ASST_COOK => 2,
-		],
-		'catherine' => [WEEKDAY_HEAD_COOK => 1],
-		'dale' => [WEEKDAY_ASST_COOK => 1],
-		'dan' => [WEEKDAY_CLEANER => 1],
-		'gayle' => [WEEKDAY_CLEANER => 1],
-		'gregd' => [
-			WEEKDAY_HEAD_COOK => 1,
-			WEEKDAY_ASST_COOK => 2
-		],
-		'james' => [SUNDAY_ASST_COOK => 2],
-		'jan' => [WEEKDAY_ASST_COOK => 1],
-		'jennifer' => [MEETING_NIGHT_CLEANER => 1],
-		'kelly' => [WEEKDAY_HEAD_COOK => 1],
-		'liam' => [SUNDAY_ASST_COOK => 1],
-		'lindsay' => [WEEKDAY_ASST_COOK => 1],
-		'mac' => [WEEKDAY_CLEANER => 1],
-		'marta' => [
-			WEEKDAY_TABLE_SETTER => -10,
-			WEEKDAY_ASST_COOK => -3,
-			SUNDAY_ASST_COOK => -2,
-		],
-		'maryking' => [WEEKDAY_CLEANER => 1],
-		'michael' => [WEEKDAY_CLEANER => 2],
-		'nancy' => [
-			SUNDAY_ASST_COOK => -1,
-			WEEKDAY_ASST_COOK => -2,
-		],
-		'nicholas' => [MEETING_NIGHT_CLEANER => -1],
-		'rod' => [WEEKDAY_CLEANER => 1],
-		'sharon' => [WEEKDAY_HEAD_COOK => -1],
-		'thomas' => [SUNDAY_CLEANER => -1],
 	];
 }
 
@@ -102,21 +66,22 @@ function get_current_season_months($season_name=NULL) {
 	switch($season_name) {
 		case WINTER:
 			return [
-				1=>'January',
-				2=>'February',
-			];
-
-		case SPRING:
-			return [
 				3=>'March',
 				4=>'April',
 			];
 
-		case SUMMER:
-			return [	
+		case SPRING:
+			return [
 				5=>'May',
 				6=>'June',
 				7=>'July',
+				8=>'August',
+				9=>'September',
+				10=>'October',
+			];
+
+		case SUMMER:
+			return [	
 				8=>'August',
 				9=>'September',
 				10=>'October',
@@ -126,6 +91,8 @@ function get_current_season_months($season_name=NULL) {
 			return [
 				11=>'November',
 				12=>'December',
+				1=>'January',
+				2=>'February',
 			];
 
 		default:
