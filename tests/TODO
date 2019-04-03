@@ -4,11 +4,8 @@
 ./public/classes/worker.php:100:	public function setPrefers($prefers) {
 ./public/classes/worker.php:108:	public function getPrefers() {
 ./public/classes/worker.php:112:	public function getAllPreferences() {
-./public/classes/worker.php:143:	public function addNumShiftsAssigned($job_id, $instances) {
 ./public/classes/worker.php:158:	public function getAssignedShifts() {
-./public/classes/worker.php:165:	public function getNumShiftsToFill() {
 ./public/classes/worker.php:174:	public function setRequests($requests) {
-./public/classes/worker.php:187:	public function addAvailability($job_id, $date, $pref) {
 ./public/classes/worker.php:202:	public function addNonResponsePrefs($dates_by_shift) {
 ./public/classes/worker.php:219:	public function getUsername() {
 ./public/classes/worker.php:228:	public function getNumShiftsOpen($job_id) {

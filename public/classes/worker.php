@@ -105,6 +105,9 @@ class Worker {
 		return $this->prefers;
 	}
 
+	/**
+	 * Get a list of all the preferences.
+	 */
 	public function getAllPreferences() {
 		$all = [];
 		$avoid_workers = $this->getAvoids();
@@ -186,6 +189,13 @@ class Worker {
 		}
 
 		$this->avail_shifts[$job_id][$date] = $pref;
+	}
+
+	/**
+	 * Get the list of availability. Used for unit tests.
+	 */
+	public function getAvailability() {
+		return $this->avail_shifts;
 	}
 
 
