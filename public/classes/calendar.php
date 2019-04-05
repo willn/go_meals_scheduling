@@ -831,7 +831,6 @@ EOHTML;
 <h2 id="confirm_checks">Confirm results check</h2>
 <div class="confirm_results">{$check_script}</div>
 EOHTML;
-error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " out:{$out} {$check_script}");
 		return $out . $check_script;
 	}
 
