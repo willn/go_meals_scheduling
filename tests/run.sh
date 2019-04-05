@@ -10,7 +10,7 @@ if [ "$errs" -gt 0 ]
 then
 	exit
 fi
-echo "all files pass lint $files_checked"
+echo "PASS all files pass lint $files_checked"
 
 # now run phpunit
 for i in `ls *Test.php`; do
