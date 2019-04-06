@@ -73,13 +73,14 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 		return [
 			[$season_6mos, 'undefined entry', 0],
 
-			[$season_6mos, MEETING_NIGHT_CLEANER, 3],
-			[$season_6mos, MEETING_NIGHT_ORDERER, 3],
-			[$season_6mos, SUNDAY_HEAD_COOK, 3],
-			[$season_6mos, SUNDAY_ASST_COOK, 3],
+			// 6-month seasons use a different algorithm
+			[$season_6mos, MEETING_NIGHT_CLEANER, 2],
+			[$season_6mos, MEETING_NIGHT_ORDERER, 2],
+			[$season_6mos, SUNDAY_HEAD_COOK, 2],
+			[$season_6mos, SUNDAY_ASST_COOK, 2],
 			[$season_6mos, SUNDAY_CLEANER, 6],
-			[$season_6mos, WEEKDAY_ASST_COOK, 3],
-			[$season_6mos, WEEKDAY_HEAD_COOK, 3],
+			[$season_6mos, WEEKDAY_ASST_COOK, 2],
+			[$season_6mos, WEEKDAY_HEAD_COOK, 2],
 			[$season_6mos, WEEKDAY_CLEANER, 6],
 			[$season_6mos, WEEKDAY_TABLE_SETTER, 6],
 

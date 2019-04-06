@@ -50,7 +50,8 @@ function get_weekday_jobs() {
 }
 
 /*
- * Get how many dinners are contained within the requested job.
+ * Get how many dinners are contained within the requested job, for a
+ * "bundled assignment".
  *
  * @param[in] season array list of the months in the season.
  * @param[in] job_id int the ID of the job being requested.
@@ -62,23 +63,44 @@ function get_num_dinners_per_assignment($season, $job_id=NULL) {
 	}
 
 	$num_months = count($season);
-	$clean_num = $num_months;
-	$cook_num = $num_months / 2;
 
-	// job_id => num dinners per season
-	$dinners = [
-		MEETING_NIGHT_CLEANER => $cook_num,
-		MEETING_NIGHT_ORDERER => $cook_num,
+	// XXX should this be pulled dynamically from the database?
 
-		SUNDAY_HEAD_COOK => $cook_num,
-		SUNDAY_ASST_COOK => $cook_num,
-		SUNDAY_CLEANER => $clean_num,
+	// 6-mo seasons get bunches of 2 cooks, 6 cleans 
+	if ($num_months === 6) {
+		$dinners = [
+			MEETING_NIGHT_CLEANER => 2,
+			MEETING_NIGHT_ORDERER => 2,
 
-		WEEKDAY_ASST_COOK => $cook_num,
-		WEEKDAY_HEAD_COOK => $cook_num,
-		WEEKDAY_CLEANER => $clean_num,
-		WEEKDAY_TABLE_SETTER => $clean_num,
-	];
+			SUNDAY_HEAD_COOK => 2,
+			SUNDAY_ASST_COOK => 2,
+			SUNDAY_CLEANER => 6,
+
+			WEEKDAY_ASST_COOK => 2,
+			WEEKDAY_HEAD_COOK => 2,
+			WEEKDAY_CLEANER => 6,
+			WEEKDAY_TABLE_SETTER => 6,
+		];
+	}
+	else {
+		$clean_num = $num_months;
+		$cook_num = $num_months / 2;
+
+		// job_id => num dinners per season
+		$dinners = [
+			MEETING_NIGHT_CLEANER => $cook_num,
+			MEETING_NIGHT_ORDERER => $cook_num,
+
+			SUNDAY_HEAD_COOK => $cook_num,
+			SUNDAY_ASST_COOK => $cook_num,
+			SUNDAY_CLEANER => $clean_num,
+
+			WEEKDAY_ASST_COOK => $cook_num,
+			WEEKDAY_HEAD_COOK => $cook_num,
+			WEEKDAY_CLEANER => $clean_num,
+			WEEKDAY_TABLE_SETTER => $clean_num,
+		];
+	}
 
 	// XXX do not like this... try to replace these, so that it's only using a single return type
 	if (is_null($job_id)) {
@@ -91,10 +113,8 @@ function get_num_dinners_per_assignment($season, $job_id=NULL) {
 /**
  * Get the number of instances of each job that is needed per dinner.
  *
- * XXX this should not be hard-coded, but instead derived from database queries...
- *
  * @param[in] job_id (optional, default NULL) If NULL, then return the entire
- *     list. If not null, anda real job id is passed in, then return the number
+ *     list. If not null, and a real job id is passed in, then return the number
  *     of shifts needed for that job id.
  * @return array associative key-value pairs of job id to number of instances
  *     this job is needed to staff a given dinner.
