@@ -65,6 +65,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			8 => 'August',
 			9 => 'September',
 		];
+		$season_3mos = [
+			5 => 'May',
+			6 => 'June',
+			7 => 'July',
+		];
 		$season_2mos = [
 			11 => 'November',
 			12 => 'December',
@@ -93,6 +98,16 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			[$season_4mos, WEEKDAY_HEAD_COOK, 2],
 			[$season_4mos, WEEKDAY_CLEANER, 4],
 			[$season_4mos, WEEKDAY_TABLE_SETTER, 4],
+
+			[$season_3mos, MEETING_NIGHT_CLEANER, 1.5],
+			[$season_3mos, MEETING_NIGHT_ORDERER, 1.5],
+			[$season_3mos, SUNDAY_HEAD_COOK, 1.5],
+			[$season_3mos, SUNDAY_ASST_COOK, 1.5],
+			[$season_3mos, SUNDAY_CLEANER, 3],
+			[$season_3mos, WEEKDAY_ASST_COOK, 1.5],
+			[$season_3mos, WEEKDAY_HEAD_COOK, 1.5],
+			[$season_3mos, WEEKDAY_CLEANER, 3],
+			[$season_3mos, WEEKDAY_TABLE_SETTER, 3],
 
 			[$season_2mos, MEETING_NIGHT_CLEANER, 1],
 			[$season_2mos, MEETING_NIGHT_ORDERER, 1],
