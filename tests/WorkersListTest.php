@@ -27,9 +27,13 @@ class WorkersListTest extends PHPUnit_Framework_TestCase {
 		foreach($result as $worker=>$info) {
 			$this->assertNotEmpty($worker);
 			
-			$this->assertCount(2, $info);
+			// number of fields per worker record
+			$this->assertCount(4, $info);
+
 			$this->assertNotEmpty($info['id']);
 			$this->assertNotEmpty($info['username']);
+			$this->assertNotEmpty($info['first_name']);
+			$this->assertNotEmpty($info['last_name']);
 		}
 	}
 }

@@ -16,8 +16,10 @@ class WorkersList {
 		$sid = SEASON_ID;
 		$assn_table = ASSIGN_TABLE;
 		$auth_user_table = AUTH_USER_TABLE;
+
+		// request the first and last name for the select2 avoid/prefer workers
 		$sql = <<<EOSQL
-			SELECT id, username
+			SELECT id, username, first_name, last_name
 				FROM {$auth_user_table}
 				WHERE id IN
 					(SELECT worker_id
