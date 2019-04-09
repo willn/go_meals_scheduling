@@ -394,7 +394,7 @@ EOHTML;
 
 	public function provide_list_available_workers() {
 		$sun_1 = [
-			4594 => [
+			SUNDAY_ASST_COOK => [
 				2 => [0 => 'fatima'],
 				1 => [
 					0 => 'keithg',
@@ -403,7 +403,7 @@ EOHTML;
 					3 => 'terrence',
 				],
 			],
-			4593 => [
+			SUNDAY_HEAD_COOK => [
 				2 => [0 => 'maryking'],
 				1 => [
 					0 => 'dan',
@@ -412,7 +412,7 @@ EOHTML;
 					3 => 'tevah',
 				],
 			],
-			4597 => [
+			SUNDAY_CLEANER => [
 				1 => [
 					0 => 'amyh',
 					1 => 'annie',
@@ -459,13 +459,13 @@ mac</li></ul></div>
 EOHTML;
 
 		$mtg_1 = [
-		  4598 => [
+		  MEETING_NIGHT_CLEANER => [
 			1 => [
 			  0 => 'dan',
 			  1 => 'nicholas',
 			],
 			],
-			4595 => [
+			MEETING_NIGHT_ORDERER => [
 				1 => [
 				  0 => 'gail',
 				  1 => 'katie',
@@ -489,7 +489,7 @@ rebecca</li></ul></div>
 EOHTML;
 
 		$wkd_1 = [
-		  4591 => [
+		  WEEKDAY_HEAD_COOK => [
 			2 => [0 => 'sharon'],
 			1 => [
 			  0 => 'catherine',
@@ -497,47 +497,47 @@ EOHTML;
 			  2 => 'keithg',
 			  3 => 'tammy',
 			],
-		],
-		4592 => [
-			1 => [
-				0 => 'annie',
-				1 => 'catherine',
-				2 => 'dan',
-				3 => 'drew',
-				4 => 'glenn',
-				5 => 'keithg',
-				6 => 'marta',
-				7 => 'nancy',
-				8 => 'rod',
-				9 => 'tevah',
 			],
-		],
-		4596 => [
-			1 => [
-				0 => 'catherine',
-				1 => 'dan',
-				2 => 'drew',
-				3 => 'glenn',
-				4 => 'jillian',
-				5 => 'keithg',
-				6 => 'mac',
-				7 => 'mario',
-				8 => 'michael',
-				9 => 'rod',
+			WEEKDAY_ASST_COOK => [
+				1 => [
+					0 => 'annie',
+					1 => 'catherine',
+					2 => 'dan',
+					3 => 'drew',
+					4 => 'glenn',
+					5 => 'keithg',
+					6 => 'marta',
+					7 => 'nancy',
+					8 => 'rod',
+					9 => 'tevah',
+				],
 			],
-		],
-		4584 => [
-			1 => [
-				0 => 'hermann',
-				1 => 'marta',
-				2 => 'megan',
-				3 => 'nancy',
-				4 => 'nicholas',
+			WEEKDAY_CLEANER => [
+				1 => [
+					0 => 'catherine',
+					1 => 'dan',
+					2 => 'drew',
+					3 => 'glenn',
+					4 => 'jillian',
+					5 => 'keithg',
+					6 => 'mac',
+					7 => 'mario',
+					8 => 'michael',
+					9 => 'rod',
+				],
 			],
-		],
-	];
+			WEEKDAY_TABLE_SETTER => [
+				1 => [
+					0 => 'hermann',
+					1 => 'marta',
+					2 => 'megan',
+					3 => 'nancy',
+					4 => 'nicholas',
+				],
+			],
+		];
 
-	$weekend_cell = <<<EOHTML
+		$weekend_cell = <<<EOHTML
 <h3 class="jobname">Weekday head cook</h3>
 <div class="highlight">prefer:<ul><li>sharon</li></ul></div>
 <div class="OK">OK:<ul><li>catherine</li>
