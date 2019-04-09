@@ -2,7 +2,7 @@
 require_once 'constants.inc';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('Feb 22, 2019, 8:00pm'));
+define('DEADLINE', strtotime('Apr 18, 2019, 8:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
@@ -11,15 +11,15 @@ define('DEADLINE', strtotime('Feb 22, 2019, 8:00pm'));
 define('SEASON_NAME', SPRING);
 
 /* ----------- job ids --------------- */
-define('MEETING_NIGHT_ORDERER', 4595);
-define('MEETING_NIGHT_CLEANER', 4598);
-define('SUNDAY_HEAD_COOK', 4593);
-define('SUNDAY_ASST_COOK', 4594);
-define('SUNDAY_CLEANER', 4597);
-define('WEEKDAY_HEAD_COOK', 4591);
-define('WEEKDAY_ASST_COOK', 4592);
-define('WEEKDAY_CLEANER', 4596);
-define('WEEKDAY_TABLE_SETTER', 4584);
+define('MEETING_NIGHT_ORDERER', 4805);
+define('MEETING_NIGHT_CLEANER', 4808);
+define('SUNDAY_HEAD_COOK', 4803);
+define('SUNDAY_ASST_COOK', 4804);
+define('SUNDAY_CLEANER', 4807);
+define('WEEKDAY_HEAD_COOK', 4801);
+define('WEEKDAY_ASST_COOK', 4802);
+define('WEEKDAY_CLEANER', 4806);
+define('WEEKDAY_TABLE_SETTER', 4794);
 
 /**
  * Get the number of shift overrides.
