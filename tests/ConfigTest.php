@@ -99,25 +99,28 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			[$season_4mos, WEEKDAY_CLEANER, 4],
 			[$season_4mos, WEEKDAY_TABLE_SETTER, 4],
 
-			[$season_3mos, MEETING_NIGHT_CLEANER, 1.5],
-			[$season_3mos, MEETING_NIGHT_ORDERER, 1.5],
-			[$season_3mos, SUNDAY_HEAD_COOK, 1.5],
-			[$season_3mos, SUNDAY_ASST_COOK, 1.5],
+			[$season_3mos, MEETING_NIGHT_CLEANER, 2],
+			[$season_3mos, MEETING_NIGHT_ORDERER, 2],
+			[$season_3mos, SUNDAY_HEAD_COOK, 2],
+			[$season_3mos, SUNDAY_ASST_COOK, 2],
 			[$season_3mos, SUNDAY_CLEANER, 3],
-			[$season_3mos, WEEKDAY_ASST_COOK, 1.5],
-			[$season_3mos, WEEKDAY_HEAD_COOK, 1.5],
+			[$season_3mos, WEEKDAY_ASST_COOK, 2],
+			[$season_3mos, WEEKDAY_HEAD_COOK, 2],
 			[$season_3mos, WEEKDAY_CLEANER, 3],
 			[$season_3mos, WEEKDAY_TABLE_SETTER, 3],
 
+			/*
+			 * Dropped support for 2 month seasons
 			[$season_2mos, MEETING_NIGHT_CLEANER, 1],
 			[$season_2mos, MEETING_NIGHT_ORDERER, 1],
 			[$season_2mos, SUNDAY_HEAD_COOK, 1],
 			[$season_2mos, SUNDAY_ASST_COOK, 1],
-			[$season_2mos, SUNDAY_CLEANER, 2],
 			[$season_2mos, WEEKDAY_ASST_COOK, 1],
 			[$season_2mos, WEEKDAY_HEAD_COOK, 1],
-			[$season_2mos, WEEKDAY_CLEANER, 2],
+			*/
+			[$season_2mos, SUNDAY_CLEANER, 2],
 			[$season_2mos, WEEKDAY_TABLE_SETTER, 2],
+			[$season_2mos, WEEKDAY_CLEANER, 2],
 		];
 	}
 

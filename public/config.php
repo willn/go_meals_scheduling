@@ -66,41 +66,23 @@ function get_num_dinners_per_assignment($season, $job_id=NULL) {
 
 	// XXX should this be pulled dynamically from the database?
 
-	// 6-mo seasons get bunches of 2 cooks, 6 cleans 
-	if ($num_months === 6) {
-		$dinners = [
-			MEETING_NIGHT_CLEANER => 2,
-			MEETING_NIGHT_ORDERER => 2,
+	/*
+	 * This supports 6, 4, and 3 month seasons.
+	 * Dropped support for 2 month seasons.
+	 */
+	$dinners = [
+		MEETING_NIGHT_CLEANER => 2,
+		MEETING_NIGHT_ORDERER => 2,
 
-			SUNDAY_HEAD_COOK => 2,
-			SUNDAY_ASST_COOK => 2,
-			SUNDAY_CLEANER => 6,
+		SUNDAY_ASST_COOK => 2,
+		SUNDAY_CLEANER => $num_months,
+		SUNDAY_HEAD_COOK => 2,
 
-			WEEKDAY_ASST_COOK => 2,
-			WEEKDAY_HEAD_COOK => 2,
-			WEEKDAY_CLEANER => 6,
-			WEEKDAY_TABLE_SETTER => 6,
-		];
-	}
-	else {
-		$clean_num = $num_months;
-		$cook_num = $num_months / 2;
-
-		// job_id => num dinners per season
-		$dinners = [
-			MEETING_NIGHT_CLEANER => $cook_num,
-			MEETING_NIGHT_ORDERER => $cook_num,
-
-			SUNDAY_HEAD_COOK => $cook_num,
-			SUNDAY_ASST_COOK => $cook_num,
-			SUNDAY_CLEANER => $clean_num,
-
-			WEEKDAY_ASST_COOK => $cook_num,
-			WEEKDAY_HEAD_COOK => $cook_num,
-			WEEKDAY_CLEANER => $clean_num,
-			WEEKDAY_TABLE_SETTER => $clean_num,
-		];
-	}
+		WEEKDAY_ASST_COOK => 2,
+		WEEKDAY_CLEANER => $num_months,
+		WEEKDAY_HEAD_COOK => 2,
+		WEEKDAY_TABLE_SETTER => $num_months,
+	];
 
 	// XXX do not like this... try to replace these, so that it's only using a single return type
 	if (is_null($job_id)) {

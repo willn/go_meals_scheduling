@@ -1012,7 +1012,7 @@ EOHTML;
 	 *
 	 * Let M = number of meals we're trying to cover (for Sundays, 12)
 	 * Let W = number of workers of this type assigned to each meal (e.g. 3 cleaners)
-	 * Let S = number of meals per assigned shift (2 for cooks, 4 for cleaners)
+	 * Let S = number of meals per assigned shift (2 for cooks, 1 per month for cleaners)
 	 * The formula would then be: (M * W) / S
 	 *
 	 * @param[summary] associative array, key is the job id, value is the number
