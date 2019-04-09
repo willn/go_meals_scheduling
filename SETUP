@@ -48,6 +48,8 @@ Directions to set up the survey:
 # grab the latest sqlite file from work hosting, fix permissions, and commit:
 	# login to the work web UI, go to more reports, and "Download SQLite3 database from host"
 	# locally...
+	open http://gocoho.tklapp.com/download/database/
+	# download the latest sqlite file
 	cd ~/Downloads/
 	unzip filedb.zip
 	scp -P 1022 home/django/work/db.sqlite3 gocoho@gocoho.org:meals_scheduling_dev/public/sqlite_data/
@@ -62,6 +64,8 @@ Directions to set up the survey:
 	sqlite> .read drops.sql
 	# confirm
 	sqlite> .tables
+		# there should be 4 tables:
+		# auth_user, work_app_job, work_app_assignment, work_app_season
 	# sudo chgrp gocoho !$
 	git add !$
 	git commit !$
@@ -75,6 +79,9 @@ Directions to set up the survey:
 # initialize the database
 	php initialize_database.php
 	cd ..
+	cd tests/
+	./run.sh
+	# if all unit tests pass, then commit
 	git status
 	git add *
 	git commit
