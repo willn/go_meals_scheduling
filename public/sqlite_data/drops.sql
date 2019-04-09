@@ -16,3 +16,4 @@ drop table work_app_quotarequest;
 drop table work_app_reason;
 drop table work_app_surveycomment;
 drop table work_app_surveyresponse;
+VACUUM;
