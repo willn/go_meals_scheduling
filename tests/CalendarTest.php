@@ -134,6 +134,34 @@ EOHTML;
 		];
 	}
 
+	/**
+	 * @dataProvider provideAddMessage
+	 */
+	public function testAddMessage($month_num, $day_of_week, $expected) {
+		$result = $this->calendar->addMessage($month_num, $day_of_week);
+		$this->assertEquals($expected, $result);
+	}
+
+	public function provideAddMessage() {
+		return [
+			// cell is empty
+			[NULL, NULL, ''],
+
+			// non tuesdays
+			[MONDAY, MARCH, ''],
+			[WEDNESDAY, MARCH, ''],
+			[TUESDAY, MAY, ''],
+			[MONDAY, JULY, ''],
+
+			// non-summer season months
+			[TUESDAY, MARCH, ''],
+			[TUESDAY, DECEMBER, ''],
+
+			// middle of summer
+			[TUESDAY, JULY, Calendar::FARM_MSG],
+			[TUESDAY, OCTOBER, Calendar::FARM_MSG],
+		];
+	}
 
 	/**
 	 * @dataProvider provideRenderJobNameForDay

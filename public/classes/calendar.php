@@ -8,6 +8,7 @@ require_once 'WorkersList.php';
 
 class Calendar {
 	const BLANK_DAY_HTML = '<td class="blank"></td>';
+	const FARM_MSG = '<p class="notice">Farm meal night</p>';
 
 	protected $web_display = TRUE;
 	protected $key_filter = 'all';
@@ -415,11 +416,12 @@ EOHTML;
 				}
 
 				// render an individual calendar day table cell
+				$message = empty($cell) ? '' : 
+					$this->addMessage($day_of_week, $month_num);
 				$table .= <<<EOHTML
 				<td class="dow_{$day_of_week}">
 					<div class="date_number">{$day_num}{$tally}</div>
-					{$cell}
-					{$this->getMessage($month_num, $day_of_week, $cell)}
+					{$cell}{$message}
 				</td>
 
 EOHTML;
@@ -480,16 +482,15 @@ EOHTML;
 
 
 	/**
-	 * Get a notice message to display on certain dates.
+	 * Add a notice message to display on certain dates.
+	 *
+	 * @param[in] day_ok_week the number of the current day of the week.
+	 * @param[in] month_num the number of the current month.
 	 */
-	public function getMessage($month_num, $day_of_week, $cell) {
-		if (empty($cell)) {
-			return '';
-		}
-
+	public function addMessage($day_of_week, $month_num) {
 		$notice = '';
-		if (($day_of_week === 2) && (($month_num > 5) && ($month_num < 11)))  {
-			$notice = '<p class="notice">Farm meal night</p>';
+		if (($day_of_week === TUESDAY) && (($month_num > MAY) && ($month_num < NOVEMBER)))  {
+			$notice = self::FARM_MSG;
 		}
 		return $notice;
 	}
