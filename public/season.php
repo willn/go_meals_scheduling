@@ -75,9 +75,6 @@ function get_current_season_months($season_name=NULL) {
 				5=>'May',
 				6=>'June',
 				7=>'July',
-				8=>'August',
-				9=>'September',
-				10=>'October',
 			];
 
 		case SUMMER:
