@@ -44,7 +44,7 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 
 			foreach($assignments as $job_id => $assn_count) {
 				$this->assertInternalType('int', $job_id);
-				$this->assertInternalType('int', $assn_count);
+				$this->assertGreaterThan(0, intval($assn_count));
 
 				// if empty, initialize
 				if (!array_key_exists($job_id, $summary)) {
