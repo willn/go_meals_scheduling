@@ -1016,17 +1016,18 @@ EOHTML;
 	 * Let S = number of meals per assigned shift (2 for cooks, 1 per month for cleaners)
 	 * The formula would then be: (M * W) / S
 	 *
-	 * @param[summary] associative array, key is the job id, value is the number
+	 * @param[in] summary associative array, key is the job id, value is the number
 	 *    of meals during the season when this shift is assigned.
 	 */
-	function getNumberAssignmentsPerJobId($summary) {
+	function getNumberAssignmentsPerJobId($summary, $sub_season_factor) {
 		$num_days = [];
 
 		foreach($summary as $job_id => $meals) {
 			$workers = get_job_instances($job_id);
-			$shifts = get_num_dinners_per_assignment($this->season_months, $job_id);
+			$shifts = get_num_dinners_per_assignment($this->season_months,
+				$job_id, $sub_season_factor);
 			if ($shifts != 0) {
-				$num_days[$job_id] = ceil(($meals * $workers) / $shifts);
+				$num_days[$job_id] = ceil((($meals * $workers) / $shifts));
 			}
 		}
 
@@ -1054,7 +1055,7 @@ EOHTML;
 		$this->disableWebDisplay();
 		$dates_and_shifts = $this->evalDates();
 		$summary = $this->getShiftsPerDate($dates_and_shifts);
-		$num_days = $this->getNumberAssignmentsPerJobId($summary);
+		$num_days = $this->getNumberAssignmentsPerJobId($summary, SUB_SEASON_FACTOR);
 		$assns = $this->renderNumberAssignments($num_days);
 
 		$current_season = $this->season_months;

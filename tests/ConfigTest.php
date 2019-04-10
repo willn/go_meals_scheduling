@@ -39,8 +39,10 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider provide_get_num_dinners_per_assignment
 	 */
-	public function test_get_num_dinners_per_assignment($season, $job_id, $expect) {
-		$result = get_num_dinners_per_assignment($season, $job_id);
+	public function test_get_num_dinners_per_assignment($season, $job_id,
+		$sub_season_factor, $expect) {
+
+		$result = get_num_dinners_per_assignment($season, $job_id, $sub_season_factor);
 		$debug = [
 			'season' => $season,
 			'job_id' => $job_id,
@@ -76,51 +78,49 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 		];
 
 		return [
-			[$season_6mos, 'undefined entry', 0],
-
 			// 6-month seasons use a different algorithm
-			[$season_6mos, MEETING_NIGHT_CLEANER, 2],
-			[$season_6mos, MEETING_NIGHT_ORDERER, 2],
-			[$season_6mos, SUNDAY_HEAD_COOK, 2],
-			[$season_6mos, SUNDAY_ASST_COOK, 2],
-			[$season_6mos, SUNDAY_CLEANER, 6],
-			[$season_6mos, WEEKDAY_ASST_COOK, 2],
-			[$season_6mos, WEEKDAY_HEAD_COOK, 2],
-			[$season_6mos, WEEKDAY_CLEANER, 6],
-			[$season_6mos, WEEKDAY_TABLE_SETTER, 6],
+			[$season_6mos, MEETING_NIGHT_CLEANER, 1, 2],
+			[$season_6mos, MEETING_NIGHT_ORDERER, 1, 2],
+			[$season_6mos, SUNDAY_HEAD_COOK, 1, 2],
+			[$season_6mos, SUNDAY_ASST_COOK, 1, 2],
+			[$season_6mos, SUNDAY_CLEANER, 1, 6],
+			[$season_6mos, WEEKDAY_ASST_COOK, 1, 2],
+			[$season_6mos, WEEKDAY_HEAD_COOK, 1, 2],
+			[$season_6mos, WEEKDAY_CLEANER, 1, 6],
+			[$season_6mos, WEEKDAY_TABLE_SETTER, 1, 6],
 
-			[$season_4mos, MEETING_NIGHT_CLEANER, 2],
-			[$season_4mos, MEETING_NIGHT_ORDERER, 2],
-			[$season_4mos, SUNDAY_HEAD_COOK, 2],
-			[$season_4mos, SUNDAY_ASST_COOK, 2],
-			[$season_4mos, SUNDAY_CLEANER, 4],
-			[$season_4mos, WEEKDAY_ASST_COOK, 2],
-			[$season_4mos, WEEKDAY_HEAD_COOK, 2],
-			[$season_4mos, WEEKDAY_CLEANER, 4],
-			[$season_4mos, WEEKDAY_TABLE_SETTER, 4],
+			[$season_4mos, MEETING_NIGHT_CLEANER, 1, 2],
+			[$season_4mos, MEETING_NIGHT_ORDERER, 1, 2],
+			[$season_4mos, SUNDAY_HEAD_COOK, 1, 2],
+			[$season_4mos, SUNDAY_ASST_COOK, 1, 2],
+			[$season_4mos, SUNDAY_CLEANER, 1, 4],
+			[$season_4mos, WEEKDAY_ASST_COOK, 1, 2],
+			[$season_4mos, WEEKDAY_HEAD_COOK, 1, 2],
+			[$season_4mos, WEEKDAY_CLEANER, 1, 4],
+			[$season_4mos, WEEKDAY_TABLE_SETTER, 1, 4],
 
-			[$season_3mos, MEETING_NIGHT_CLEANER, 2],
-			[$season_3mos, MEETING_NIGHT_ORDERER, 2],
-			[$season_3mos, SUNDAY_HEAD_COOK, 2],
-			[$season_3mos, SUNDAY_ASST_COOK, 2],
-			[$season_3mos, SUNDAY_CLEANER, 3],
-			[$season_3mos, WEEKDAY_ASST_COOK, 2],
-			[$season_3mos, WEEKDAY_HEAD_COOK, 2],
-			[$season_3mos, WEEKDAY_CLEANER, 3],
-			[$season_3mos, WEEKDAY_TABLE_SETTER, 3],
+			[$season_3mos, MEETING_NIGHT_CLEANER, .5, 1],
+			[$season_3mos, MEETING_NIGHT_ORDERER, .5, 1],
+			[$season_3mos, SUNDAY_HEAD_COOK, .5, 1],
+			[$season_3mos, SUNDAY_ASST_COOK, .5, 1],
+			[$season_3mos, SUNDAY_CLEANER, .5, 3],
+			[$season_3mos, WEEKDAY_ASST_COOK, .5, 1],
+			[$season_3mos, WEEKDAY_HEAD_COOK, .5, 1],
+			[$season_3mos, WEEKDAY_CLEANER, .5, 3],
+			[$season_3mos, WEEKDAY_TABLE_SETTER, .5, 3],
 
 			/*
 			 * Dropped support for 2 month seasons
-			[$season_2mos, MEETING_NIGHT_CLEANER, 1],
-			[$season_2mos, MEETING_NIGHT_ORDERER, 1],
-			[$season_2mos, SUNDAY_HEAD_COOK, 1],
-			[$season_2mos, SUNDAY_ASST_COOK, 1],
-			[$season_2mos, WEEKDAY_ASST_COOK, 1],
-			[$season_2mos, WEEKDAY_HEAD_COOK, 1],
+			[$season_2mos, MEETING_NIGHT_CLEANER, .33, 1],
+			[$season_2mos, MEETING_NIGHT_ORDERER, .33, 1],
+			[$season_2mos, SUNDAY_HEAD_COOK, .33, 1],
+			[$season_2mos, SUNDAY_ASST_COOK, .33, 1],
+			[$season_2mos, WEEKDAY_ASST_COOK, .33, 1],
+			[$season_2mos, WEEKDAY_HEAD_COOK, .33, 1],
 			*/
-			[$season_2mos, SUNDAY_CLEANER, 2],
-			[$season_2mos, WEEKDAY_TABLE_SETTER, 2],
-			[$season_2mos, WEEKDAY_CLEANER, 2],
+			[$season_2mos, SUNDAY_CLEANER, .33, 2],
+			[$season_2mos, WEEKDAY_TABLE_SETTER, .33, 2],
+			[$season_2mos, WEEKDAY_CLEANER, .33, 2],
 		];
 	}
 

@@ -55,9 +55,15 @@ function get_weekday_jobs() {
  *
  * @param[in] season array list of the months in the season.
  * @param[in] job_id int the ID of the job being requested.
+ * @param[in] sub_season_factor number (default 1) if the jobs were assigned
+ *     across an entire season, but we're only scheduling part of it,
+ *     then this would be a fractional number (<1). Split the number of
+ *     jobs according to the factor.
  * @return int the number of dinners needed for this job.
  */
-function get_num_dinners_per_assignment($season, $job_id=NULL) {
+function get_num_dinners_per_assignment($season, $job_id=NULL,
+	$sub_season_factor=1) {
+
 	if (empty($season) || !is_array($season)) {
 		$season = get_current_season_months();
 	}
@@ -83,6 +89,20 @@ function get_num_dinners_per_assignment($season, $job_id=NULL) {
 		WEEKDAY_HEAD_COOK => 2,
 		WEEKDAY_TABLE_SETTER => $num_months,
 	];
+
+	if ($sub_season_factor < 1) {
+		$adjust_jobs = [
+			MEETING_NIGHT_CLEANER,
+			MEETING_NIGHT_ORDERER,
+			SUNDAY_ASST_COOK,
+			SUNDAY_HEAD_COOK,
+			WEEKDAY_ASST_COOK,
+			WEEKDAY_HEAD_COOK,
+		];
+		foreach($adjust_jobs as $job) {
+			$dinners[$job] = ceil($dinners[$job] * $sub_season_factor);
+		}
+	}
 
 	// XXX do not like this... try to replace these, so that it's only using a single return type
 	if (is_null($job_id)) {

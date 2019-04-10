@@ -253,9 +253,12 @@ EOHTML;
 	/**
 	 * @dataProvider provideGetNumberAssignmentsPerJobId
 	 */
-	public function testGetNumberAssignmentsPerJobId($input, $expected, $season) {
+	public function testGetNumberAssignmentsPerJobId($input,
+		$sub_season_factor, $expected, $season) {
+
 		$this->calendar->setSeasonMonths($season);
-		$result = $this->calendar->getNumberAssignmentsPerJobId($input);
+		$result = $this->calendar->getNumberAssignmentsPerJobId($input,
+			$sub_season_factor);
 		$debug = [
 			'input' => $input,
 			'expected' => $expected,
@@ -297,28 +300,28 @@ EOHTML;
 			10 => 'October',
 		];
 
-		// 3 month (sub-seasons) use half of a special allocation
+		// 3-month seasons is half of a special 6mo allocation
 		$input_3mo = [
 			WEEKDAY_HEAD_COOK => 10, // WEEKDAY_HEAD_COOK
 			WEEKDAY_ASST_COOK => 10, // WEEKDAY_ASST_COOK
-			WEEKDAY_CLEANER => 9, // WEEKDAY_CLEANER
+			WEEKDAY_CLEANER => 10, // WEEKDAY_CLEANER
 			WEEKDAY_TABLE_SETTER => 9, // WEEKDAY_TABLE_SETTER
 			MEETING_NIGHT_ORDERER => 10, // MEETING_NIGHT_ORDERER
 			MEETING_NIGHT_CLEANER => 10, // MEETING_NIGHT_CLEANER
 			SUNDAY_HEAD_COOK => 10, // SUNDAY_HEAD_COOK
 			SUNDAY_ASST_COOK => 10, // SUNDAY_ASST_COOK
-			SUNDAY_CLEANER => 9, // SUNDAY_CLEANER
+			SUNDAY_CLEANER => 10, // SUNDAY_CLEANER
 		];
 		$expected_3mo = [
-			WEEKDAY_HEAD_COOK => 5.0, // WEEKDAY_HEAD_COOK
-			WEEKDAY_ASST_COOK => 10.0, // WEEKDAY_ASST_COOK
-			WEEKDAY_CLEANER => 9.0, // WEEKDAY_CLEANER
+			WEEKDAY_HEAD_COOK => 10.0, // WEEKDAY_HEAD_COOK
+			WEEKDAY_ASST_COOK => 20.0, // WEEKDAY_ASST_COOK
+			WEEKDAY_CLEANER => 10.0, // WEEKDAY_CLEANER
 			WEEKDAY_TABLE_SETTER => 3.0, // WEEKDAY_TABLE_SETTER
-			MEETING_NIGHT_ORDERER => 5.0, // MEETING_NIGHT_ORDERER
-			MEETING_NIGHT_CLEANER => 5.0, // MEETING_NIGHT_CLEANER
-			SUNDAY_HEAD_COOK => 5.0, // SUNDAY_HEAD_COOK
-			SUNDAY_ASST_COOK => 10.0, // SUNDAY_ASST_COOK
-			SUNDAY_CLEANER => 9.0, // SUNDAY_CLEANER
+			MEETING_NIGHT_ORDERER => 10.0, // MEETING_NIGHT_ORDERER
+			MEETING_NIGHT_CLEANER => 10.0, // MEETING_NIGHT_CLEANER
+			SUNDAY_HEAD_COOK => 10.0, // SUNDAY_HEAD_COOK
+			SUNDAY_ASST_COOK => 20.0, // SUNDAY_ASST_COOK
+			SUNDAY_CLEANER => 10.0, // SUNDAY_CLEANER
 		];
 		$season_3mo = [
 			5 => 'May',
@@ -356,10 +359,10 @@ EOHTML;
 		];
 
 		return [
-			[[], [], [1=>'empty season test']],
-			[$input_6mo, $expected_6mo, $season_6mo],
-			[$input_3mo, $expected_3mo, $season_3mo],
-			[$input_4mo, $expected_4mo, $season_4mo],
+			[[], 1, [], [1=>'empty season test']],
+			[$input_6mo, 1, $expected_6mo, $season_6mo],
+			[$input_3mo, .5, $expected_3mo, $season_3mo],
+			[$input_4mo, 1, $expected_4mo, $season_4mo],
 		];
 	}
 

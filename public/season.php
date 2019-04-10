@@ -10,6 +10,9 @@ define('DEADLINE', strtotime('Apr 18, 2019, 8:00pm'));
  */
 define('SEASON_NAME', SPRING);
 
+// If this is a whole season, then 1, half .5, etc.
+define('SUB_SEASON_FACTOR', .5);
+
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_ORDERER', 4805);
 define('MEETING_NIGHT_CLEANER', 4808);

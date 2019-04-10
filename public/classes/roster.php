@@ -191,7 +191,7 @@ EOSQL;
 
 	public function loadNumShiftsAssignedFromDatabase($username=NULL) {
 		$dinners_per_job = get_num_dinners_per_assignment(
-			get_current_season_months());
+			get_current_season_months(), NULL, SUB_SEASON_FACTOR);
 
 		$job_ids_clause = get_job_ids_clause();
 		$user_clause = is_null($username) ? '' :
