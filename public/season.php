@@ -59,7 +59,8 @@ function get_num_shift_overrides() {
 		Perhaps some of these could be converted?
 		Perhaps a new member could pick up some of the above?
 		*/
-	}
+	];
+}
 
 /**
  * Get the list of dates to skip, don't schedule a meal on this date.
