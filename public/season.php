@@ -33,8 +33,8 @@ function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
 		'annie' => [
-			SUNDAY_ASST_COOK => -2
-			SUNDAY_HEAD_COOK => 2
+			SUNDAY_ASST_COOK => -2,
+			SUNDAY_HEAD_COOK => 2,
 		],
 		// jake will be working 3 of his 4 dinners in the 1st sub-season
 		'jake' => [
