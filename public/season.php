@@ -32,8 +32,34 @@ define('WEEKDAY_TABLE_SETTER', 4794);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-	];
-}
+		'annie' => [SUNDAY_ASST_COOK => -4],
+		// jake will be working 3 of his 4 dinners in the 1st sub-season
+		'jake' => [
+			SUNDAY_ASST_COOK => 3,
+			WEEKDAY_ASST_COOK => -4,
+		],
+
+		/*
+		* for the second sub-season, we'll still have some mess to deal with:
+		Cancel: 1 full weekday meal
+		- 1 dinners of "Weekday head cook"
+		- 2 dinners of "Weekday asst cook"
+		- 1 dinners of "Weekday table setter"
+		- 3 dinners of "Weekday Meal cleaner"
+
+		However, we would also be short:
+		- 2 dinners of "Weekday head cook"
+		- 4 dinners of "Weekday asst cook"
+		- 2 dinners of "Weekday table setter"
+
+		We would have this extra labor:
+		- 4 dinners of "Weekday asst cook"
+		- 6 dinners of "Weekday Meal cleaner"
+
+		Perhaps some of these could be converted?
+		Perhaps a new member could pick up some of the above?
+		*/
+	}
 
 /**
  * Get the list of dates to skip, don't schedule a meal on this date.
