@@ -35,13 +35,14 @@ function get_num_shift_overrides() {
 		'annie' => [SUNDAY_ASST_COOK => -2],
 		// jake will be working 3 of his 4 dinners in the 1st sub-season
 		'jake' => [
+			WEEKDAY_ASST_COOK => -2,
 			SUNDAY_ASST_COOK => 3,
-			WEEKDAY_ASST_COOK => -4,
 		],
 
 		/*
 		* for the second sub-season, we'll still have some mess to deal with:
 		'annie' => [SUNDAY_ASST_COOK => -2],
+		'jake' => [WEEKDAY_ASST_COOK => -2],
 
 		Cancel: 1 full weekday meal
 		- 1 dinners of "Weekday head cook"
