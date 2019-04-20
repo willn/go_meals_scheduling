@@ -2,7 +2,7 @@
 require_once 'constants.inc';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('Apr 18, 2019, 8:00pm'));
+define('DEADLINE', strtotime('Apr 18, 2019, 9:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
@@ -32,7 +32,7 @@ define('WEEKDAY_TABLE_SETTER', 4794);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-		'annie' => [SUNDAY_ASST_COOK => -4],
+		'annie' => [SUNDAY_ASST_COOK => -2],
 		// jake will be working 3 of his 4 dinners in the 1st sub-season
 		'jake' => [
 			SUNDAY_ASST_COOK => 3,
@@ -41,6 +41,8 @@ function get_num_shift_overrides() {
 
 		/*
 		* for the second sub-season, we'll still have some mess to deal with:
+		'annie' => [SUNDAY_ASST_COOK => -2],
+
 		Cancel: 1 full weekday meal
 		- 1 dinners of "Weekday head cook"
 		- 2 dinners of "Weekday asst cook"
