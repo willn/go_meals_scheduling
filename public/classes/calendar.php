@@ -200,6 +200,7 @@ EOHTML;
 		 * XXX Implement skip dates. Don't display selection options
 		 * for this date if we know in advance that we'll be cancelling
 		 * a meal on this date. Similar functionality to holidays.
+		 * https://github.com/willn/go_meals_scheduling/issues/17
 		 */
 		$skip_dates = get_skip_dates();
 		$reg_day_overrides = get_regular_day_overrides();
@@ -663,7 +664,9 @@ EOHTML;
 <li><a href="{$dir}/report.php?key={$key}">{$label}</a></li>
 EOHTML;
 		}
-		return $jobs_html;
+		return <<<EOHTML
+<ul id="filter_overlay">{$jobs_html}</ul>
+EOHTML;
 	}
 
 

@@ -189,6 +189,11 @@ EOHTML;
 	public function testGetJobsIndex() {
 		$result = $this->calendar->getJobsIndex('all');
 		$this->assertNotEmpty($result);
+
+		$out = <<<EOHTML
+<ul id="filter_overlay"><li><a href="/meals_scheduling/report.php?key=all">all</a></li><li><a href="/meals_scheduling/report.php?key=MEETING_NIGHT_ORDERER">Meeting night takeout orderer</a></li><li><a href="/meals_scheduling/report.php?key=MEETING_NIGHT_CLEANER">Meeting night cleaner</a></li><li><a href="/meals_scheduling/report.php?key=SUNDAY_HEAD_COOK">Sunday head cook</a></li><li><a href="/meals_scheduling/report.php?key=SUNDAY_ASST_COOK">Sunday meal asst cook</a></li><li><a href="/meals_scheduling/report.php?key=SUNDAY_CLEANER">Sunday Meal Cleaner</a></li><li><a href="/meals_scheduling/report.php?key=WEEKDAY_HEAD_COOK">Weekday head cook</a></li><li><a href="/meals_scheduling/report.php?key=WEEKDAY_ASST_COOK">Weekday meal asst cook</a></li><li><a href="/meals_scheduling/report.php?key=WEEKDAY_CLEANER">Weekday Meal cleaner</a></li><li><a href="/meals_scheduling/report.php?key=WEEKDAY_TABLE_SETTER">Weekday Table Setter</a></li></ul>
+EOHTML;
+		$this->assertEquals($result, $out);
 	}
 
 	/**

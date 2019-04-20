@@ -47,7 +47,6 @@ require_once('participation.php');
 $calendar = new Calendar();
 $job_key = (isset($_GET['key']) && is_numeric($_GET['key'])) ?
 	intval($_GET['key']) : 'all';
-$jobs_html = $calendar->getJobsIndex($job_key);
 
 $calendar->loadAssignments(JSON_ASSIGNMENTS_FILE);
 $calendar->setIsReport(TRUE);
@@ -255,7 +254,7 @@ $months_overlay = $calendar->renderMonthsOverlay($current_season);
 print <<<EOHTML
 <h2>Meals Schedule Reporting</h2>
 {$months_overlay}
-<ul>{$jobs_html}</ul>
+{$calendar->getJobsIndex($job_key)}
 <div class="responses">{$responses}</div>
 {$cal_string}
 {$comments}
@@ -287,7 +286,7 @@ Sundays: {$meals_summary['sunday']}
 </tbody>
 </table>
 
-<ul id="end">{$jobs_html}</ul>
+<ul id="end"></ul>
 
 </body>
 </html>
