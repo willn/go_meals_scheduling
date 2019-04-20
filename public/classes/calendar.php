@@ -196,6 +196,11 @@ EOHTML;
 
 		$meal_days = get_weekday_meal_days();
 
+		/*
+		 * XXX Implement skip dates. Don't display selection options
+		 * for this date if we know in advance that we'll be cancelling
+		 * a meal on this date. Similar functionality to holidays.
+		 */
 		$skip_dates = get_skip_dates();
 		$reg_day_overrides = get_regular_day_overrides();
 
