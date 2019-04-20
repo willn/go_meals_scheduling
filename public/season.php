@@ -32,17 +32,35 @@ define('WEEKDAY_TABLE_SETTER', 4794);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-		'annie' => [SUNDAY_ASST_COOK => -2],
+		'annie' => [
+			SUNDAY_ASST_COOK => -2
+			SUNDAY_HEAD_COOK => 2
+		],
 		// jake will be working 3 of his 4 dinners in the 1st sub-season
 		'jake' => [
 			WEEKDAY_ASST_COOK => -2,
 			SUNDAY_ASST_COOK => 3,
 		],
 
+		'ema' => [
+			WEEKDAY_TABLE_SETTER => -12,
+		],
+
+		'jan' => [
+			WEEKDAY_ASST_COOK => -6,
+			WEEKDAY_HEAD_COOK => -6,
+		],
+
 		/*
 		* for the second sub-season, we'll still have some mess to deal with:
-		'annie' => [SUNDAY_ASST_COOK => -2],
+		'annie' => [
+			SUNDAY_ASST_COOK => -2,
+			SUNDAY_HEAD_COOK => -1
+		],
 		'jake' => [WEEKDAY_ASST_COOK => -2],
+		'lindsay' => [SUNDAY_ASST_COOK => 1],
+		'megan' => [SUNDAY_HEAD_COOK => 1],
+		'yimiau' => [SUNDAY_HEAD_COOK => 1],
 
 		Cancel: 1 full weekday meal
 		- 1 dinners of "Weekday head cook"
@@ -66,11 +84,13 @@ function get_num_shift_overrides() {
 }
 
 /**
- * Get the list of dates to skip, don't schedule a meal on this date.
+ * Get the list of dates to skip or cancel, don't schedule a meal on this date.
  * @return array keys are the month number, values are an array of day numbers.
  */
 function get_skip_dates() {
 	return [
+		6 => [3, 24],
+		7 => [22],
 	];
 }
 
