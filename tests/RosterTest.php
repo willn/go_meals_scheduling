@@ -16,22 +16,28 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 	 * Note: this may need to be adjusted each season or sub-season.
 	 */
 	public function testGetTotalLaborAvailable() {
-		$labor = $this->roster->getTotalLaborAvailable();
-/*
 		$current = [
 			'all' => 0,
-			MEETING_NIGHT_ORDERER => 0,
-			MEETING_NIGHT_CLEANER => 0,
-			SUNDAY_HEAD_COOK => 0,
-			SUNDAY_ASST_COOK => 0,
-			SUNDAY_CLEANER => 0,
-			WEEKDAY_HEAD_COOK => 0,
-			WEEKDAY_ASST_COOK => 0,
-			WEEKDAY_CLEANER => 0,
-			WEEKDAY_TABLE_SETTER => 0,
+			MEETING_NIGHT_ORDERER => 6,
+			MEETING_NIGHT_CLEANER => 6,
+			SUNDAY_HEAD_COOK => 13,
+			SUNDAY_ASST_COOK => 25,
+			SUNDAY_CLEANER => 36,
+			WEEKDAY_HEAD_COOK => 34,
+			WEEKDAY_ASST_COOK => 64,
+			WEEKDAY_CLEANER => 99,
+			WEEKDAY_TABLE_SETTER => 33,
 		];
-		$this->assertEquals($current, $labor, 'line: ' . __LINE__);
-*/
+
+		$labor = $this->roster->getTotalLaborAvailable();
+		$this->assertEquals($labor, $current);
+	}
+
+	/**
+	 * Note: this may need to be adjusted each season or sub-season.
+	 */
+	public function testLaborNeedsFilled() {
+		$labor = $this->roster->getTotalLaborAvailable();
 
 		// ----- get worker shifts to fill
 		$shifts = $this->roster->getWorkerShiftsToFill();
@@ -99,9 +105,8 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 			[SPRING, count(get_current_season_months(SPRING))],
 			[SUMMER, count(get_current_season_months(SUMMER))],
 			[FALL, count(get_current_season_months(FALL))],
-			['nothing', NULL],
 
-			// the current season is 2 months
+			['nothing', count(get_current_season_months())],
 			[NULL, count(get_current_season_months())],
 		];
 	}
