@@ -42,19 +42,15 @@ class Roster {
 	 * Get how many "shifts" per season there should be for the current season.
 	 */
 	public function setShifts($season_name=NULL) {
-		$current_season = NULL;
-		if (is_null($season_name)) {
-			$current_season = get_current_season_months();
-		}
-		else {
-			$current_season = get_current_season_months($season_name);
-		}
+		$months = is_valid_season_name($season_name) ?
+			get_current_season_months($season_name) :
+			get_current_season_months();
 
-		if (empty($current_season)) {
+		if (empty($months)) {
 			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
 				" no months assigned to current season: " . SEASON_NAME);
 		}
-		$this->num_shifts_per_season = count($current_season);
+		$this->num_shifts_per_season = count($months);
 	}
 
 
