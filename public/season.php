@@ -8,7 +8,7 @@ define('DEADLINE', strtotime('Apr 18, 2019, 9:00pm'));
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SUMMER, FALL, WINTER, SPRING
  */
-define('SEASON_NAME', SPRING);
+define('SEASON_NAME', SUMMER);
 
 // If this is a whole season, then 1, half .5, etc.
 define('SUB_SEASON_FACTOR', .5);
@@ -39,18 +39,9 @@ function get_num_shift_overrides() {
 		'dan' => [
 			WEEKDAY_ASST_COOK => 2,
 		],
-		// dropped-out
-		'ema' => [
-			WEEKDAY_TABLE_SETTER => -12,
-		],
 		'jake' => [
 			WEEKDAY_ASST_COOK => -2,
 			SUNDAY_ASST_COOK => 3,
-		],
-		// dropped-out
-		'jan' => [
-			WEEKDAY_ASST_COOK => -6,
-			WEEKDAY_HEAD_COOK => -6,
 		],
 		'rod' => [
 			WEEKDAY_ASST_COOK => 1,
