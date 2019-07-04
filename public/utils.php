@@ -235,4 +235,20 @@ function get_a_meal_object($schedule, $date, $meal_num) {
 	}
 }
 
+/**
+ * Check to see if this is a valid season name.
+ * @return boolean if this is a valid season name.
+ */
+function is_valid_season_name($season) {
+	switch($season) {
+		case WINTER:
+		case SPRING:
+		case SUMMER:
+		case FALL:
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
 ?>

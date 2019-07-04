@@ -184,5 +184,31 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 			['04/18/2018', WeekdayMeal],
 		];
 	}
+
+	/**
+	 * @dataProvider provide_is_valid_season_name
+	 */
+	public function test_is_valid_season_name($name, $expected) {
+		$result = is_valid_season_name($name);
+		$this->assertEquals($result, $expected);
+	}
+
+	public function provide_is_valid_season_name() {
+		return [
+			[SPRING, TRUE],
+			[SUMMER, TRUE],
+			[FALL, TRUE],
+			[WINTER, TRUE],
+
+			// mis-spelling of summer
+			[SUMMMER, FALSE],
+			[SPRINT, FALSE],
+			[NULL, FALSE],
+			['XXX', FALSE],
+			[123, FALSE],
+			['', FALSE],
+			[[], FALSE],
+		];
+	}
 }
 ?>
