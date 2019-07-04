@@ -720,26 +720,20 @@ EOHTML;
 	}
 
 	/**
-	 * @dataProvider provideEvalDates
-	public function testEvalDates($worker, $dates, $expected) {
-		$this->calendar->disableWebDisplay();
-		$result = $this->calendar->evalDates($worker, $dates);
-		$debug = [
-			'input' => $input,
-			'result' => $result,
-			'expected' => $expected,
-		];
-		$this->assertEquals($expected, $result, print_r($debug, TRUE));
-	}
-
-	public function provideEvalDates() {
-		$mega_season_file = file_get_contents('data/eval_dates_mega_season.json');
-		$mega_season = json_decode($mega_season_file, TRUE);
-
-		return [
-			[NULL, NULL, $mega_season],
-		];
-	}
+	 * Test that the dates returned from the calendar fit the proper form.
 	 */
+	public function testEvalDates() {
+		$this->calendar->disableWebDisplay();
+		$dates_and_shifts = $this->calendar->evalDates();
+		$this->assertNotEmpty($dates_and_shifts);
+
+		foreach($dates_and_shifts as $date => $shifts) {
+			$this->assertStringMatchesFormat('%d/%d/%d', $date);
+			$this->assertNotEmpty($shifts);
+			foreach($shifts as $id) {
+				$this->assertGreaterThan(1000, $id);
+			}
+		}
+	}
 }
 ?>
