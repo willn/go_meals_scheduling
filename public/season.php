@@ -36,46 +36,86 @@ function get_num_shift_overrides() {
 			SUNDAY_ASST_COOK => -2,
 			SUNDAY_HEAD_COOK => 2,
 		],
-		// jake will be working 3 of his 4 dinners in the 1st sub-season
+		'dan' => [
+			WEEKDAY_ASST_COOK => 2,
+		],
+		// dropped-out
+		'ema' => [
+			WEEKDAY_TABLE_SETTER => -12,
+		],
 		'jake' => [
 			WEEKDAY_ASST_COOK => -2,
 			SUNDAY_ASST_COOK => 3,
 		],
-
-		'ema' => [
-			WEEKDAY_TABLE_SETTER => -12,
-		],
-
+		// dropped-out
 		'jan' => [
 			WEEKDAY_ASST_COOK => -6,
 			WEEKDAY_HEAD_COOK => -6,
 		],
+		'rod' => [
+			WEEKDAY_ASST_COOK => 1,
+		],
+		'sharon' => [
+			WEEKDAY_HEAD_COOK => 1,
+		],
+		'ted' => [
+			WEEKDAY_HEAD_COOK => 1,
+		],
 
 		/*
-		* for the second sub-season, we'll still have some mess to deal with:
+		* add/remove shifts used for borrowing in 1st sub-season:
 		'annie' => [
 			SUNDAY_ASST_COOK => -2,
 			SUNDAY_HEAD_COOK => -1
+			WEEKDAY_TABLE_SETTER => 2,
+		],
+		'bennie' => [
+			WEEKDAY_CLEANER => 2,
+		],
+		'dan' => [
+			WEEKDAY_ASST_COOK => -2,
+			WEEKDAY_CLEANER => 1,
+		],
+		'gayle' => [
+			WEEKDAY_CLEANER => 1,
+		],
+		'hermann' => [
+			WEEKDAY_TABLE_SETTER => -1,
 		],
 		'jake' => [WEEKDAY_ASST_COOK => -2],
-		'lindsay' => [SUNDAY_ASST_COOK => 1],
+		'marys' => [
+			WEEKDAY_CLEANER => 1,
+		],
 		'megan' => [SUNDAY_HEAD_COOK => 1],
-		'yimiau' => [SUNDAY_HEAD_COOK => 1],
+		'michael' => [
+			WEEKDAY_CLEANER => 1,
+		],
+		'nancy' => [
+			WEEKDAY_TABLE_SETTER => -1,
+		],
+		'polly' => [
+			WEEKDAY_CLEANER => 2,
+		],
+		'rod' => [
+			WEEKDAY_ASST_COOK => -1,
+		],
+		'sharon' => [
+			WEEKDAY_HEAD_COOK => -1,
+		],
+		'ted' => [
+			WEEKDAY_HEAD_COOK => -1,
+		],
 
-		Cancel: 1 full weekday meal
-		- 1 dinners of "Weekday head cook"
-		- 2 dinners of "Weekday asst cook"
-		- 1 dinners of "Weekday table setter"
-		- 3 dinners of "Weekday Meal cleaner"
-
-		However, we would also be short:
-		- 2 dinners of "Weekday head cook"
-		- 4 dinners of "Weekday asst cook"
-		- 2 dinners of "Weekday table setter"
+		Extra labor likely needed for the 2nd sub-season:
+		- 3 dinners of Weekday head cook
+		- 6 dinners of Weekday asst cook
+		- 3 dinners of Weekday table setter
+		- 3 dinners of Weekday Meal cleaner
+		- 1 dinner of Sunday asst cook
 
 		We would have this extra labor:
-		- 4 dinners of "Weekday asst cook"
-		- 6 dinners of "Weekday Meal cleaner"
+		- 4 dinners of Weekday asst cook
+		- 6 dinners of Weekday Meal cleaner
 
 		Perhaps some of these could be converted?
 		Perhaps a new member could pick up some of the above?
