@@ -437,6 +437,11 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 	}
 	 */
 
+	public function testGetDatesByShift() {
+		$result = $this->schedule->getDatesByShift();
+		// XXX this doesn't seem to be working right now...
+	}
+
 /*
 	public function testAddPrefs() {
 		$this->schedule->initializeShifts();

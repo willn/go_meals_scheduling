@@ -87,7 +87,6 @@ class Schedule {
 		}
 	}
 
-
 	/**
 	 * Get the list of shifts (job IDs) and the dates listed for that type of
 	 * job.
@@ -96,6 +95,7 @@ class Schedule {
 	 * @return XXX
 	 */
 	public function getDatesByShift() {
+		// XXX this looks wrong... :(
 		if (empty($this->dates_by_shift)) {
 			foreach($this->dates_and_shifts as $date=>$shifts) {
 				foreach($shifts as $index=>$job_id) {
