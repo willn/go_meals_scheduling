@@ -35,12 +35,15 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * Note: this may need to be adjusted each season or sub-season.
+	 * XXX This is checking for a consistency between the workers array and
+	 * the roster array... how / why are those different?
 	 */
-	public function testLaborNeedsFilled() {
+	public function testRosterAndWorkerAssignmentsSynced() {
 		$labor = $this->roster->getTotalLaborAvailable();
 
 		// ----- get worker shifts to fill
 		$shifts = $this->roster->getWorkerShiftsToFill();
+		// complain if shifts is empty
 		$this->assertGreaterThan(1, count($shifts));
 
 		$summary = [];
