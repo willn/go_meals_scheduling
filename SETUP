@@ -13,6 +13,7 @@ Directions to set up the survey:
 
 # edit ~/meals_scheduling_dev/public/season.php
 	- set the appropriate DEADLINE date
+	- set the SUB_SEASON_FACTOR
 	- add any extra workers to the get_num_shift_overrides() function
 
 # --------------------
@@ -88,22 +89,22 @@ Directions to set up the survey:
 
 
 # --------------------
-# END-SEASON-START
+# END-OF-SEASON-START
 # --------------------
 # stage everything from the meals dev repo to public_html
-	cd ~meals_scheduling_dev/
+	cd ~/meals_scheduling_dev/
 	- remove any previous dates from public/season.php - get_regular_day_overrides()
 	- confirm whether we want to display a farm meals night message...
 	git status
 	# commit changes
-	...
 	cd ~/public_html/
 	rm -rf meals_scheduling/
 	cp -r ~/meals_scheduling_dev/public/ meals_scheduling/
 
-# test to make sure everything works
+# test to make sure everything works, view in web browser
 	- confirm that the calendar dates are correct
 	- confirm the holidays and meeting nights are correct
+	- I have too many meals for a half season!
 	- fill in some entries and save them, then revert
 		* cp ~/meals_scheduling_dev/public/sqlite_data/work_allocation.db \
 			~/public_html/meals_scheduling/sqlite_data/work_allocation.db
@@ -140,6 +141,9 @@ what to do at the end of the survey:
 	php execute.php -s > results.txt
 	grep XXX !$
 
+- if some need to be cancelled, this would be a good time to look for the hardest to fill days:
+	grep 'XXXXXXXX.*XXXXXXXX' results.txt
+
 - check for hobarter ratio:
 	grep HOBART results.txt
 
@@ -155,33 +159,40 @@ what to do at the end of the survey:
 	egrep '(^name|\(0)' workers.txt | grep -B1 'j:' > workers_not_full.txt
 
 - download a copy of the schedule, and upload it to google drive
+	# on localhost
+	cd ~/Desktop/
+	scp -i ~/.ssh/id_dsa -P \
+		1022 gocoho@gocoho.org:/home/gocoho/meals_scheduling_dev/auto_assignments/results.txt .
 
 - try to move the under-assigned workers to fill the 'XXX' spots, making trades
 
 - copy and paste from "Confirm results check" section, and create custom ones for anything
   that's not a personal avoid request.
-	http://gocoho.org/meals_scheduling/report.php?key=all#confirm_checks
-	* copy section
-	* vi checks.sh
-	* paste
-	* chmod +x checks.sh
-	* ./checks.sh
+	1) Export from google spreadsheet, download as tab-delimited
+		* rename file to schedule.txt
+	2) go to http://gocoho.org/meals_scheduling/report.php?key=all#confirm_checks
+		* copy section of text
+		* vi checks.sh
+		* paste
+		* chmod +x checks.sh
+		* ./checks.sh | more
 
 - read the comments and make sure they apply cleanly with auto-checks
 
 - check to make sure that there are no 'table setter' assignments which conflict
   with head or asst cooking
+	* Export from google spreadsheet, download as tab-delimited
 	* see tests/CheckForConflictsTest.php
+	* #!# need a test to ensure that nobody is double-scheduled... like head & asst or table setter
 
 - do any swapping needed
 
 - run avoids validation:
+	# is this needed with the new unit tests?
 	cd ../utils/
-	php validate_schedule.php -f ../auto_assignments/results.txt
+	php validate_schedule.php -f ../tests/data/schedule.tsv
 
-- copy the results file locally, then upload to google sheets
-	scp -i ~/.ssh/id_dsa -P 1022 gocoho@gocoho.org:/home/gocoho/meals_scheduling_dev/auto_assignments/results.txt .
-
+- upload any changes to google sheets and announce it
 
 
 
