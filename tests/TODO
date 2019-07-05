@@ -37,7 +37,6 @@
 ./public/classes/calendar.php:58:	public function setIsReport($setting=TRUE) {
 ./public/classes/calendar.php:67:	public function disableWebDisplay() {
 ./public/classes/calendar.php:74:	public function loadAssignments($file) {
-./public/classes/calendar.php:179:	public function evalDates($worker=NULL, $availability=NULL) {
 ./public/classes/calendar.php:470:	public function addJobsToDatesAndShifts($list_of_jobs,
 ./public/classes/calendar.php:485:	public function getMessage($month_num, $day_of_week, $cell) {
 ./public/classes/calendar.php:561:	private function getSavedPrefs($worker_id) {
