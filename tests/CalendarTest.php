@@ -2,6 +2,7 @@
 global $relative_dir;
 $relative_dir = '../public/';
 require_once '../public/config.php';
+require_once '../public/season.php';
 require_once '../public/classes/calendar.php';
 require_once 'testing_utils.php';
 
@@ -191,7 +192,7 @@ EOHTML;
 		$this->assertNotEmpty($result);
 
 		$out = <<<EOHTML
-<ul id="filter_overlay"><li><a href="/meals_scheduling/report.php?key=all">all</a></li><li><a href="/meals_scheduling/report.php?key=MEETING_NIGHT_ORDERER">Meeting night takeout orderer</a></li><li><a href="/meals_scheduling/report.php?key=MEETING_NIGHT_CLEANER">Meeting night cleaner</a></li><li><a href="/meals_scheduling/report.php?key=SUNDAY_HEAD_COOK">Sunday head cook</a></li><li><a href="/meals_scheduling/report.php?key=SUNDAY_ASST_COOK">Sunday meal asst cook</a></li><li><a href="/meals_scheduling/report.php?key=SUNDAY_CLEANER">Sunday Meal Cleaner</a></li><li><a href="/meals_scheduling/report.php?key=WEEKDAY_HEAD_COOK">Weekday head cook</a></li><li><a href="/meals_scheduling/report.php?key=WEEKDAY_ASST_COOK">Weekday meal asst cook</a></li><li><a href="/meals_scheduling/report.php?key=WEEKDAY_CLEANER">Weekday Meal cleaner</a></li><li><a href="/meals_scheduling/report.php?key=WEEKDAY_TABLE_SETTER">Weekday Table Setter</a></li></ul>
+<ul id="filter_overlay"><li><a href="/meals_scheduling/report.php?key=all">all</a></li><li><a href="/meals_scheduling/report.php?key=4805">Meeting night takeout orderer</a></li><li><a href="/meals_scheduling/report.php?key=4808">Meeting night cleaner</a></li><li><a href="/meals_scheduling/report.php?key=4803">Sunday head cook</a></li><li><a href="/meals_scheduling/report.php?key=4804">Sunday meal asst cook</a></li><li><a href="/meals_scheduling/report.php?key=4807">Sunday Meal Cleaner</a></li><li><a href="/meals_scheduling/report.php?key=4801">Weekday head cook</a></li><li><a href="/meals_scheduling/report.php?key=4802">Weekday meal asst cook</a></li><li><a href="/meals_scheduling/report.php?key=4806">Weekday Meal cleaner</a></li><li><a href="/meals_scheduling/report.php?key=4794">Weekday Table Setter</a></li></ul>
 EOHTML;
 		$this->assertEquals($result, $out);
 	}
