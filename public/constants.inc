@@ -42,4 +42,6 @@ define('SUNDAY_MEAL', 3);
 define('WEEKDAY_MEAL', 4);
 define('MEETING_NIGHT_MEAL', 5);
 
+define('ALL_ID', 'all');
+
 ?>

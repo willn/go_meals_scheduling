@@ -120,7 +120,7 @@ EOSQL;
 	 * Sort the dates and workers' availabilities then make assignments.
 	 */
 	public function makeAssignments() {
-		global $all_jobs;
+		$all_jobs = get_all_jobs();
 
 		foreach(array_keys($all_jobs) as $j) {
 			$this->schedule->setJobId($j);

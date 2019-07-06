@@ -465,7 +465,7 @@ EOSQL;
 	 * shifts to fulfill their assignment.
 	 */
 	protected function confirmWorkLoad() {
-		global $all_jobs;
+		$all_jobs = get_all_jobs();
 		$insufficient_prefs = [];
 
 		$num_shifts_to_fill = $this->worker_obj->getNumShiftsToFill();

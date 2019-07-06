@@ -59,13 +59,10 @@ function get_pref_names() {
 
 $dbh = create_sqlite_connection();
 
-global $all_jobs;
-$all_jobs = array();
-$all_jobs['all'] = 'all';
-$all_jobs += get_mtg_jobs() + get_sunday_jobs() + get_weekday_jobs();
-
 global $all_cook_jobs;
 global $all_clean_jobs;
+
+$all_jobs = get_all_jobs();
 foreach($all_jobs as $jid=>$name) {
 	if ((stripos($name, 'cook') !== FALSE) ||
 		(stripos($name, 'takeout orderer') !== FALSE)) {
@@ -75,6 +72,16 @@ foreach($all_jobs as $jid=>$name) {
 		(stripos($name, 'Meeting night cleaner') !== FALSE)) {
 		$all_clean_jobs[] = $jid;
 	}
+}
+
+/**
+ * Get a list of all of the jobs
+ */
+function get_all_jobs() {
+	$all_jobs = [];
+	$all_jobs['all'] = 'all';
+	$all_jobs += get_mtg_jobs() + get_sunday_jobs() + get_weekday_jobs();
+	return $all_jobs;
 }
 
 /**
@@ -130,7 +137,7 @@ function create_sqlite_connection() {
 
 // create the job IDs 'OR' clause
 function get_job_ids_clause($prefix='') {
-	global $all_jobs;
+	$all_jobs = get_all_jobs();
 
 	if ($prefix != '') {
 		$len = strlen($prefix);

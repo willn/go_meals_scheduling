@@ -651,7 +651,7 @@ EOHTML;
 	 * @return string HTML for displaying the list of job/links.
 	 */
 	public function getJobsIndex($job_key) {
-		global $all_jobs;
+		$all_jobs = get_all_jobs();
 
 		$jobs_html = '';
 		foreach($all_jobs as $key=>$label) {

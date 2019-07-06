@@ -85,7 +85,7 @@ abstract class Meal {
 	public function addWorkerPref($username, $job_id, $pref) {
 		// only add prefs for shifts which are defined on this date.
 		if (!isset($this->assigned[$job_id])) {
-			global $all_jobs;
+			$all_jobs = get_all_jobs();
 			if (!isset($all_jobs[$job_id])) {
 				echo "Could not find JOB ID: {$job_id} FATAL\n";
 				exit;

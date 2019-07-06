@@ -16,6 +16,20 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(count($prefs), 3, print_r($debug, TRUE));
 	}
 
+	public function test_get_all_jobs() {
+		$jobs = get_all_jobs();
+		$this->assertEquals(10, count($jobs));
+
+		foreach($jobs as $id => $name) {
+			// convert this one string to an int
+			if ($id === ALL_ID) {
+				$id = 1;
+			}
+			$this->assertInternalType("int", $id);
+			$this->assertInternalType("string", $name);
+		}
+	}
+
 	public function test_get_weekday_meal_days() {
 		$days = get_weekday_meal_days();
 		$this->assertInternalType('array', $days);

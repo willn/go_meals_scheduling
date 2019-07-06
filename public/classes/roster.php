@@ -29,7 +29,7 @@ class Roster {
 			$this->dbh = create_sqlite_connection();
 		}
 
-		global $all_jobs;
+		$all_jobs = get_all_jobs();
 		// initialize all jobs to zeroes
 		foreach(array_keys($all_jobs) as $job_id) {
 			$this->total_labor_avail[$job_id] = 0;
@@ -209,7 +209,8 @@ EOSQL;
 EOSQL;
 
 		$count = 0;
-		foreach($this->dbh->query($sql) as $row) {
+		$results = $this->dbh->query($sql);
+		foreach($results as $row) {
 			$count++;
 
 			$username = $row['username'];
@@ -232,7 +233,7 @@ EOSQL;
 	 * @param[in] username string the name of the user viewing the survey.
 	 */
 	protected function loadNumShiftsAssignedFromOverrides($username=NULL) {
-		global $all_jobs;
+		$all_jobs = get_all_jobs();
 		$num_shift_overrides = get_num_shift_overrides();
 
 		// set the number of shifts in overrides - additional shift volunteers
@@ -362,7 +363,7 @@ EOSQL;
      *     workers and their jobs which have unfilled shifts.
 	 */
 	public function printResults($only_unfilled_workers=FALSE) {
-		global $all_jobs;
+		$all_jobs = get_all_jobs();
 		$num_jobs_assigned = [];
 		foreach(array_keys($all_jobs) as $job_id) {
 			$num_jobs_assigned[$job_id] = 0;

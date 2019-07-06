@@ -520,7 +520,7 @@ EOTXT;
 	 * overrides.
 	 */
 	protected function loadTasks() {
-		global $all_jobs;
+		$all_jobs = get_all_jobs();
 
 		$each_job = [];
 		foreach($all_jobs as $id=>$name) {

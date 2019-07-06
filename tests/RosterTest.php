@@ -2,6 +2,7 @@
 global $relative_dir;
 $relative_dir = '../public/';
 
+require_once '../public/season.php';
 require_once '../public/classes/roster.php';
 
 class RosterTest extends PHPUnit_Framework_TestCase {
