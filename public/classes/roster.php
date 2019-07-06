@@ -13,13 +13,13 @@ class Roster {
 	protected $num_shifts_per_season = 0;
 
 	// job_id => username => counts
-	protected $least_available = array();
+	protected $least_available = [];
 
 	protected $schedule;
 
-	protected $total_labor_avail = array();
+	protected $total_labor_avail = [];
 
-	protected $requests = array();
+	protected $requests = [];
 
 
 	public function __construct() {
@@ -241,7 +241,7 @@ EOSQL;
 
 		if ($username) {
 			// XXX why is this being overridden?
-			$shift_overrides = array();
+			$shift_overrides = [];
 			if (isset($num_shift_overrides[$username])) {
 				$shift_overrides = array($username => $num_shift_overrides[$username]);
 			}
@@ -324,7 +324,7 @@ EOSQL;
 	 * @return array of usernames.
 	 */
 	public function getNonResponderNames() {
-		$list = array();
+		$list = [];
 		foreach($this->workers as $u=>$w) {
 			if (!$w->hasResponded()) {
 				$list[] = $u;
@@ -335,7 +335,7 @@ EOSQL;
 	}
 
 	public function getAllAvoids() {
-		$out = array();
+		$out = [];
 		foreach($this->workers as $w) {
 			$avoid_workers = $w->getAvoids();
 			if (empty($avoid_workers)) {
@@ -363,7 +363,7 @@ EOSQL;
 	 */
 	public function printResults($only_unfilled_workers=FALSE) {
 		global $all_jobs;
-		$num_jobs_assigned = array();
+		$num_jobs_assigned = [];
 		foreach(array_keys($all_jobs) as $job_id) {
 			$num_jobs_assigned[$job_id] = 0;
 		}
