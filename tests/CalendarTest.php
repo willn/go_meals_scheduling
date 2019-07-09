@@ -335,6 +335,35 @@ EOHTML;
 			7 => 'July',
 		];
 
+		// 3-month season for summer 2019 (part 2)
+		$input_3mo_s19 = [
+			WEEKDAY_HEAD_COOK => 32, // WEEKDAY_HEAD_COOK
+			WEEKDAY_ASST_COOK => 32, // WEEKDAY_ASST_COOK
+			WEEKDAY_CLEANER => 32, // WEEKDAY_CLEANER
+			WEEKDAY_TABLE_SETTER => 32, // WEEKDAY_TABLE_SETTER
+			MEETING_NIGHT_ORDERER => 6, // MEETING_NIGHT_ORDERER
+			MEETING_NIGHT_CLEANER => 6, // MEETING_NIGHT_CLEANER
+			SUNDAY_HEAD_COOK => 12, // SUNDAY_HEAD_COOK
+			SUNDAY_ASST_COOK => 12, // SUNDAY_ASST_COOK
+			SUNDAY_CLEANER => 12, // SUNDAY_CLEANER
+		];
+		$expected_3mo_s19 = [
+			WEEKDAY_HEAD_COOK => 32, // WEEKDAY_HEAD_COOK
+			WEEKDAY_ASST_COOK => 64, // WEEKDAY_ASST_COOK
+			WEEKDAY_CLEANER => 32, // WEEKDAY_CLEANER
+			WEEKDAY_TABLE_SETTER => 11, // WEEKDAY_TABLE_SETTER
+			MEETING_NIGHT_ORDERER => 6, // MEETING_NIGHT_ORDERER
+			MEETING_NIGHT_CLEANER => 6, // MEETING_NIGHT_CLEANER
+			SUNDAY_HEAD_COOK => 12, // SUNDAY_HEAD_COOK
+			SUNDAY_ASST_COOK => 24, // SUNDAY_ASST_COOK
+			SUNDAY_CLEANER => 12, // SUNDAY_CLEANER
+		];
+		$season_3mo_s19 = [
+			8 => 'August',
+			9 => 'September',
+			10 => 'October',
+		];
+
 		$input_4mo = [
 			WEEKDAY_HEAD_COOK => 10, // WEEKDAY_HEAD_COOK
 			WEEKDAY_ASST_COOK => 10, // WEEKDAY_ASST_COOK
@@ -368,6 +397,7 @@ EOHTML;
 			[[], 1, [], [1=>'empty season test']],
 			[$input_6mo, 1, $expected_6mo, $season_6mo],
 			[$input_3mo, .5, $expected_3mo, $season_3mo],
+			[$input_3mo_s19, .5, $expected_3mo_s19, $season_3mo_s19],
 			[$input_4mo, 1, $expected_4mo, $season_4mo],
 		];
 	}
