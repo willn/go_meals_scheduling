@@ -125,10 +125,10 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @dataProvider provide_get_job_instances
+	 * @dataProvider provide_get_num_workers_per_job_per_meal
 	 */
-	public function test_get_job_instances($input, $expected) {
-		$result = get_job_instances($input);
+	public function test_get_num_workers_per_job_per_meal($input, $expected) {
+		$result = get_num_workers_per_job_per_meal($input);
 		$debug = [
 			'input' => $input,
 			'expected' => $expected,
@@ -137,7 +137,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function provide_get_job_instances() {
+	public function provide_get_num_workers_per_job_per_meal() {
 		$all = [
 			MEETING_NIGHT_CLEANER => 1,
 			MEETING_NIGHT_ORDERER => 1,
