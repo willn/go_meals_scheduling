@@ -113,7 +113,7 @@ function get_num_dinners_per_assignment($season, $job_id=NULL,
 }
 
 /**
- * Get the number of instances of each job that is needed per dinner.
+ * Get the number of workers per job per meal.
  *
  * @param[in] job_id (optional, default NULL) If NULL, then return the entire
  *     list. If not null, and a real job id is passed in, then return the number
@@ -121,7 +121,7 @@ function get_num_dinners_per_assignment($season, $job_id=NULL,
  * @return array associative key-value pairs of job id to number of instances
  *     this job is needed to staff a given dinner.
  */
-function get_job_instances($job_id=NULL) {
+function get_num_workers_per_job_per_meal($job_id=NULL) {
 	static $instances = [
 		MEETING_NIGHT_CLEANER => 1,
 		MEETING_NIGHT_ORDERER => 1,

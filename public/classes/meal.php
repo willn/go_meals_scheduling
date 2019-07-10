@@ -62,7 +62,7 @@ abstract class Meal {
 	 * @param[in] job_id_list XXX
 	 */
 	public function initShifts($job_id_list) {
-		$job_instances = get_job_instances();
+		$job_instances = get_num_workers_per_job_per_meal();
 
 		foreach(array_values($job_id_list) as $job_id) {
 			if (empty($job_instances[$job_id])) {
@@ -167,7 +167,7 @@ EOTXT;
 	 * @return float the popularity / open spot ratio
 	 */
 	public function getNumPossibleWorkerRatio($job_id) {
-		$job_instances = get_job_instances();
+		$job_instances = get_num_workers_per_job_per_meal();
 
 		// check to see if this is the wrong date for this job
 		if (!isset($job_instances[$job_id]) || 
@@ -199,7 +199,7 @@ EOTXT;
 	 * (Meal)
 	 */
 	public function hasOpenShifts($job_id) {
-		$job_instances = get_job_instances();
+		$job_instances = get_num_workers_per_job_per_meal();
 
 		// if this day of week isn't defined. For example, a sunday shift on a
 		// weekday...
