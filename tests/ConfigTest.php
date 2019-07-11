@@ -37,12 +37,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @dataProvider provide_get_num_dinners_per_assignment
+	 * @dataProvider provide_get_num_meals_per_assignment
 	 */
-	public function test_get_num_dinners_per_assignment($season, $job_id,
+	public function test_get_num_meals_per_assignment($season, $job_id,
 		$sub_season_factor, $expect) {
 
-		$result = get_num_dinners_per_assignment($season, $job_id, $sub_season_factor);
+		$result = get_num_meals_per_assignment($season, $job_id, $sub_season_factor);
 		$debug = [
 			'season' => $season,
 			'job_id' => $job_id,
@@ -52,7 +52,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($expect, $result, print_r($debug, TRUE));
 	}
 
-	public function provide_get_num_dinners_per_assignment() {
+	public function provide_get_num_meals_per_assignment() {
 		$season_6mos = [
 			5 => 'May',
 			6 => 'June',

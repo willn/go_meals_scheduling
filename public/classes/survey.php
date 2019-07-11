@@ -512,14 +512,14 @@ EOHTML;
 	protected function getNumInstances($row) {
 		$job_id = $row['job_id'];
 		$season = get_current_season_months();
-		$num_dinners = get_num_dinners_per_assignment($season, $job_id);
+		$num_meals = get_num_meals_per_assignment($season, $job_id);
 
 		// otherwise, look for an entry in from the db
 		$num_instances = 0;
 		$num_shifts_assigned = $row['instances'];
 
 		// how many shifts are needed?
-		return $num_dinners * $num_shifts_assigned;
+		return $num_meals * $num_shifts_assigned;
 	}
 
 	/**

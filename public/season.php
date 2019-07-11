@@ -98,15 +98,15 @@ function get_num_shift_overrides() {
 		],
 
 		Extra labor likely needed for the 2nd sub-season:
-		- 3 dinners of Weekday head cook
-		- 6 dinners of Weekday asst cook
-		- 3 dinners of Weekday table setter
-		- 3 dinners of Weekday Meal cleaner
-		- 1 dinner of Sunday asst cook
+		- 3 meals of Weekday head cook
+		- 6 meals of Weekday asst cook
+		- 3 meals of Weekday table setter
+		- 3 meals of Weekday Meal cleaner
+		- 1 meal of Sunday asst cook
 
 		We would have this extra labor:
-		- 4 dinners of Weekday asst cook
-		- 6 dinners of Weekday Meal cleaner
+		- 4 meals of Weekday asst cook
+		- 6 meals of Weekday Meal cleaner
 
 		Perhaps some of these could be converted?
 		Perhaps a new member could pick up some of the above?

@@ -22,7 +22,7 @@ cleaners: (16 * 3) / 4 = 12
 
 This actually doesn't show any artifacts, but shows that the original meals
 request was correct. Let's look at weekday meals next. If I'm correct,
-we'll be attempting to cover 42 weekday dinners in the fall. I may have
+we'll be attempting to cover 42 weekday meals in the fall. I may have
 counted incorrectly, please double-check.
 
 head cooks (42 * 1) / 2 = 21
@@ -33,7 +33,7 @@ This is where we see the artifact, that we don't assign half-shifts. We
 simply round up. This is "handy" because it allows the scheduler a touch
 more flexibility, and allows me to have some leeway since there are always
 snafus in piecing together a schedule. I tend to cut a small break (by not
-scheduling a single dinner) to someone who already has a bunch of dinners
+scheduling a single meal) to someone who already has a bunch of meals
 or work hours assigned already.
 
 Adding Unregistered Users

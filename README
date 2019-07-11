@@ -4,9 +4,9 @@ Structural Diagram:
 https://www.draw.io/#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fwilln%2Fgo_meals_scheduling%2Fmaster%2Fdraw_io.xml
 
 Terms:
-* assignment - a collection of dinners assigned to a person as a block
-    * example: head cook - 2 dinners per season
-* dinner - an event where someone works to cook or clean for a single date
+* assignment - a collection of meals assigned to a person as a block
+    * example: head cook - 2 meals per season
+* meal - an event where someone works to cook or clean for a single date
     * example: Wednesday, July 1st, 2016 at 6:15pm
 * shift - an instance of a type of worker at a given meal
     * this one has some ambiguous meaning, so I try not to use it
@@ -106,8 +106,8 @@ Duties for each season:
                 1. example: current job being examined is assistant cook, and they already have a cleaning shift for that date, do they have that preference checked?
             5. their availability score, this depends on how many shifts they've been assigned, and how "available" their schedule is.
                 1. examples:
-                    1. Wanda should clean 4 dinners, and is available to work 21 dates
-                    2. James should clean for 8 dinners, and is available to work 9 dates
+                    1. Wanda should clean 4 meals, and is available to work 21 dates
+                    2. James should clean for 8 meals, and is available to work 9 dates
                 2. James would get a higher score for this date
             6. If this is a group-clean job (not a meeting night cleaner or cook), and they're named as a preferred hobarter, and no other preferred hobarter is assigned already
             7. check to see if other people who are already assigned to work this half of meal have marked this worker with a

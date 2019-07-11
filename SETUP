@@ -150,7 +150,7 @@ what to do at the end of the survey:
 - Examine workers:
 	php execute.php -w > workers.txt
 
-- Someone may have volunteered to take too many additional dinners.
+- Someone may have volunteered to take too many additional meals.
   Reduce the number of needed volunteer / override positions mentioned
   with this:
 	grep OVERAGE workers.txt

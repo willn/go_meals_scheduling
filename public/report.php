@@ -147,7 +147,7 @@ $per_shift = array();
 foreach($diffs as $key=>$diff) {
 	$row = $assignments[$key];
 	$shifts = $row['instances'] *
-		get_num_dinners_per_assignment($current_season, $row['job_id']);
+		get_num_meals_per_assignment($current_season, $row['job_id']);
 
 	// initialize unseen job
 	if (!isset($per_shift[$row['description']])) {
@@ -242,10 +242,10 @@ foreach($per_shift as $job_name=>$num_assn_shifts) {
 
 	// figure out how many assignments are needed for the season, rounding up
 	$num_meals_in_season = $meals_summary[$meal_type];
-	$num_dinners_per_assn = get_num_dinners_per_assignment($current_season, $job_id);
-	$num_assns_needed = ($num_dinners_per_assn == 0) ? 0 :
+	$num_meals_per_assn = get_num_meals_per_assignment($current_season, $job_id);
+	$num_assns_needed = ($num_meals_per_assn == 0) ? 0 :
 		ceil(($num_meals_in_season * $num_workers_per_shift) /
-			$num_dinners_per_assn);
+			$num_meals_per_assn);
 }
 
 $months_overlay = $calendar->renderMonthsOverlay($current_season);

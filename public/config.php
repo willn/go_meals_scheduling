@@ -50,7 +50,7 @@ function get_weekday_jobs() {
 }
 
 /*
- * Get how many dinners are contained within the requested job, for a
+ * Get how many meals are contained within the requested job, for a
  * "bundled assignment".
  *
  * @param[in] season array list of the months in the season.
@@ -59,9 +59,9 @@ function get_weekday_jobs() {
  *     across an entire season, but we're only scheduling part of it,
  *     then this would be a fractional number (<1). Split the number of
  *     jobs according to the factor.
- * @return int the number of dinners needed for this job.
+ * @return int the number of meals needed for this job.
  */
-function get_num_dinners_per_assignment($season, $job_id=NULL,
+function get_num_meals_per_assignment($season, $job_id=NULL,
 	$sub_season_factor=1) {
 
 	if (empty($season) || !is_array($season)) {
@@ -76,7 +76,7 @@ function get_num_dinners_per_assignment($season, $job_id=NULL,
 	 * This supports 6, 4, and 3 month seasons.
 	 * Dropped support for 2 month seasons.
 	 */
-	$dinners = [
+	$meals = [
 		MEETING_NIGHT_CLEANER => 2,
 		MEETING_NIGHT_ORDERER => 2,
 
@@ -100,16 +100,16 @@ function get_num_dinners_per_assignment($season, $job_id=NULL,
 			WEEKDAY_HEAD_COOK,
 		];
 		foreach($adjust_jobs as $job) {
-			$dinners[$job] = ceil($dinners[$job] * $sub_season_factor);
+			$meals[$job] = ceil($meals[$job] * $sub_season_factor);
 		}
 	}
 
 	// XXX do not like this... try to replace these, so that it's only using a single return type
 	if (is_null($job_id)) {
-		return $dinners;
+		return $meals;
 	}
 
-	return array_get($dinners, $job_id, 0);
+	return array_get($meals, $job_id, 0);
 }
 
 /**
@@ -119,7 +119,7 @@ function get_num_dinners_per_assignment($season, $job_id=NULL,
  *     list. If not null, and a real job id is passed in, then return the number
  *     of shifts needed for that job id.
  * @return array associative key-value pairs of job id to number of instances
- *     this job is needed to staff a given dinner.
+ *     this job is needed to staff a given meal.
  */
 function get_num_workers_per_job_per_meal($job_id=NULL) {
 	static $instances = [
