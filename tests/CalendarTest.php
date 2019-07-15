@@ -768,31 +768,63 @@ EOHTML;
 	}
 
 	/**
-	 * @dataProvider provideGetNumDays
+	 * @dataProvider provideGetNumShiftsNeeded
+	 * XXX is this named properly?
+	 * What exact values do we get out of this anyways? #!!#
 	 */
-	public function testGetNumDays($expected) {
-		$result = $this->calendar->getNumDays();
+	public function testGetNumShiftsNeeded($expected) {
+		$result = $this->calendar->getNumShiftsNeeded();
 		ksort($result);
 		ksort($expected);
 		$this->assertEquals($expected, $result);
 	}
 
-	public function provideGetNumDays() {
+	/**
+	 * (num meals * num instances)
+	 */
+	public function provideGetNumShiftsNeeded() {
 		$current = [
 			WEEKDAY_HEAD_COOK => 32, // WEEKDAY_HEAD_COOK
 			WEEKDAY_ASST_COOK => 64, // WEEKDAY_ASST_COOK
-			WEEKDAY_CLEANER => 32, // WEEKDAY_CLEANER
-			WEEKDAY_TABLE_SETTER => 11, // WEEKDAY_TABLE_SETTER
+			WEEKDAY_CLEANER => 96, // WEEKDAY_CLEANER
+			WEEKDAY_TABLE_SETTER => 32, // WEEKDAY_TABLE_SETTER
+
 			MEETING_NIGHT_ORDERER => 6, // MEETING_NIGHT_ORDERER
 			MEETING_NIGHT_CLEANER => 6, // MEETING_NIGHT_CLEANER
+
 			SUNDAY_HEAD_COOK => 12, // SUNDAY_HEAD_COOK
 			SUNDAY_ASST_COOK => 24, // SUNDAY_ASST_COOK
-			SUNDAY_CLEANER => 12, // SUNDAY_CLEANER
+			SUNDAY_CLEANER => 36, // SUNDAY_CLEANER
 		];
 
 		return [
 			[$current],
 		];
 	}
+
+    /**
+     * @dataProvider provideRenderSeasonDateSummary
+     */
+    public function testRenderSeasonDateSummary($expected) {
+        $result = $this->calendar->renderSeasonDateSummary();
+        $this->assertEquals($expected, $result);
+    }
+
+    public function provideRenderSeasonDateSummary() {
+		$out = '<h2>season: 2019 August - October</h2><p>Sunday head cook 12
+<br>Sunday meal asst cook 24
+<br>Sunday Meal Cleaner 12
+<br>Weekday head cook 32
+<br>Weekday meal asst cook 64
+<br>Weekday Meal cleaner 32
+<br>Weekday Table Setter 11
+<br>Meeting night takeout orderer 6
+<br>Meeting night cleaner 6
+</p>';
+
+        return [
+            [$out],
+        ];
+    }
 }
 ?>
