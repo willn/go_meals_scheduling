@@ -40,6 +40,9 @@ function get_num_shift_overrides() {
 		'bennie' => [
 			WEEKDAY_CLEANER => 2,
 		],
+		'bobm' => [
+			SUNDAY_ASST_COOK => 2,
+		],
 		'dan' => [
 			WEEKDAY_ASST_COOK => -2,
 			WEEKDAY_CLEANER => 1,
@@ -69,6 +72,9 @@ function get_num_shift_overrides() {
 		],
 		'sharon' => [
 			WEEKDAY_HEAD_COOK => -1,
+		],
+		'suzette' => [
+			WEEKDAY_ASST_COOK => 7,
 		],
 		'ted' => [
 			WEEKDAY_ASST_COOK => -1,
