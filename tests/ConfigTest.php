@@ -36,6 +36,20 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 		$this->assertArrayHasKey(WEEKDAY_TABLE_SETTER, $jobs);
 	}
 
+	public function test_get_all_jobs() {
+		$jobs = get_all_jobs();
+		$this->assertEquals(10, count($jobs));
+
+		foreach($jobs as $id => $name) {
+			// convert this one string to an int
+			if ($id === ALL_ID) {
+				$id = 1;
+			}
+			$this->assertInternalType("int", $id);
+			$this->assertInternalType("string", $name);
+		}
+	}
+
 	/**
 	 * @dataProvider provide_get_num_meals_per_assignment
 	 */

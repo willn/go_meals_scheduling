@@ -49,6 +49,16 @@ function get_weekday_jobs() {
 	];
 }
 
+/**
+ * Get a list of all of the jobs
+ */
+function get_all_jobs() {
+	$all_jobs = [];
+	$all_jobs['all'] = 'all';
+	$all_jobs += get_mtg_jobs() + get_sunday_jobs() + get_weekday_jobs();
+	return $all_jobs;
+}
+
 /*
  * Get how many meals are contained within the requested job, for a
  * "bundled assignment".
