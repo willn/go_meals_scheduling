@@ -29,13 +29,22 @@ class Roster {
 			$this->dbh = create_sqlite_connection();
 		}
 
+		$this->initLaborCount();
+
+		$this->setShifts(SEASON_NAME);
+	}
+
+	/**
+	 * Initialize the total_labor_avail array with zeroes for each job ID.
+	 */
+	public function initLaborCount() {
+		$this->total_labor_avail = [];
+
 		$all_jobs = get_all_jobs();
 		// initialize all jobs to zeroes
 		foreach(array_keys($all_jobs) as $job_id) {
 			$this->total_labor_avail[$job_id] = 0;
 		}
-
-		$this->setShifts(SEASON_NAME);
 	}
 
 	/**
@@ -181,11 +190,21 @@ EOSQL;
 	 * each Worker object.
 	 */
 	public function loadNumShiftsAssigned($username=NULL) {
-		$this->loadNumShiftsAssignedFromDatabase($username);
-		$this->loadNumShiftsAssignedFromOverrides($username);
+		$this->initLaborCount();
+		$this->loadNumMealsFromDatabase($username);
+		$this->loadNumMealsFromOverrides($username);
 	}
 
-	public function loadNumShiftsAssignedFromDatabase($username=NULL) {
+	/**
+	 * Load the number of meals from the database.
+	 * This converts the "assignment bundles" to the number of actual
+	 * meals per person and applies the SUB_SEASON_FACTOR (to cut long
+	 * seasons in half) if needed.
+	 *
+	 * @param[in] username string (optional defaults to NULL). The name
+	 *     of the worker to filter by. If not set, then get all.
+	 */
+	public function loadNumMealsFromDatabase($username=NULL) {
 		$meals_per_job = get_num_meals_per_assignment(
 			get_current_season_months(), NULL, SUB_SEASON_FACTOR);
 
@@ -218,8 +237,12 @@ EOSQL;
 			$worker = $this->getWorker($username);
 
 			// determine the number of shifts across the season
+			if (!isset($meals_per_job[$job_id])) {
+				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " unable to find job id :{$job_id} in meals_per_job:" . var_export($meals_per_job, TRUE));
+				exit;
+			}
 			$num_instances = isset($meals_per_job[$job_id]) ?
-				($row['instances'] * $meals_per_job[$job_id]) : 
+				($row['instances'] * $meals_per_job[$job_id]) :
 				($row['instances'] * $this->num_shifts_per_season);
 			$worker->addNumShiftsAssigned($job_id, $num_instances);
 			$this->total_labor_avail[$job_id] += $num_instances;
@@ -227,12 +250,12 @@ EOSQL;
 	}
 
 	/**
-	 * Get the number of shifts a worker has been assigned from the
+	 * Get the number of meals a worker has been assigned from the
 	 * overrides list, and add those to the list of shifts assigned.
 	 *
 	 * @param[in] username string the name of the user viewing the survey.
 	 */
-	protected function loadNumShiftsAssignedFromOverrides($username=NULL) {
+	protected function loadNumMealsFromOverrides($username=NULL) {
 		$all_jobs = get_all_jobs();
 		$num_shift_overrides = get_num_shift_overrides();
 
@@ -264,11 +287,12 @@ EOSQL;
 
 	/**
 	 * Get the total labor available.
+	 * These numbers reflect the total number of meal events, i.e. shifts.
 	 *
 	 * @return associative array, where the keys are the job IDs
 	 *    (including 'all') and the values are the number of times
 	 *    that the workers have cumulatively been assigned to work for
-	 *    these jobs. This is the count of the total labor available.
+	 *    these jobs.
 	 */
 	public function getTotalLaborAvailable() {
 		return $this->total_labor_avail;

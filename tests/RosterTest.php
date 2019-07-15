@@ -4,34 +4,81 @@ $relative_dir = '../public/';
 
 require_once '../public/season.php';
 require_once '../public/classes/roster.php';
+require_once '../public/classes/calendar.php';
 
 class RosterTest extends PHPUnit_Framework_TestCase {
 	private $roster;
+	private $labor;
 
 	public function setUp() {
+		$this->loadLabor();
+	}
+
+	private function loadLabor() {
 		$this->roster = new Roster();
 		$this->roster->loadNumShiftsAssigned();
+		$this->labor = $this->roster->getTotalLaborAvailable();
+		ksort($this->labor);
 	}
 
 	/**
+	 * @dataProvider provideLoadNumAssignmentsFromDatabase
+	 */
+	public function testLoadNumAssignmentsFromDatabase($expected) {
+		$this->roster->initLaborCount();
+		$this->roster->loadNumMealsFromDatabase();
+		$db_labor = $this->roster->getTotalLaborAvailable();
+
+		ksort($db_labor);
+		ksort($expected);
+		$this->assertEquals($db_labor, $expected);
+	}
+
+	public function provideLoadNumAssignmentsFromDatabase() {
+		return [
+			[
+				[
+					'all' => 0,
+					WEEKDAY_TABLE_SETTER => 33,
+					WEEKDAY_HEAD_COOK => 32.0,
+					WEEKDAY_ASST_COOK => 63.0,
+					SUNDAY_HEAD_COOK => 11.0,
+					SUNDAY_ASST_COOK => 24.0,
+					MEETING_NIGHT_ORDERER => 6.0,
+					WEEKDAY_CLEANER => 99,
+					SUNDAY_CLEANER => 36, 
+					MEETING_NIGHT_CLEANER => 6,
+				]
+			]
+		];
+	}
+
+	/**
+	 * @dataProvider provideGetTotalLaborAvailable
 	 * Note: this may need to be adjusted each season or sub-season.
 	 */
-	public function testGetTotalLaborAvailable() {
-		$current = [
-			'all' => 0,
-			MEETING_NIGHT_ORDERER => 6,
-			MEETING_NIGHT_CLEANER => 6,
-			SUNDAY_HEAD_COOK => 13,
-			SUNDAY_ASST_COOK => 25,
-			SUNDAY_CLEANER => 36,
-			WEEKDAY_HEAD_COOK => 34,
-			WEEKDAY_ASST_COOK => 64,
-			WEEKDAY_CLEANER => 99,
-			WEEKDAY_TABLE_SETTER => 33,
-		];
+	public function testGetTotalLaborAvailable($expected) {
+		$this->loadLabor();
+		$this->assertEquals($this->labor, $expected);
+	}
 
-		$labor = $this->roster->getTotalLaborAvailable();
-		$this->assertEquals($labor, $current);
+	public function provideGetTotalLaborAvailable() {
+		return [
+			[
+				[
+					'all' => 0,
+					WEEKDAY_TABLE_SETTER => 33,
+					WEEKDAY_HEAD_COOK => 31.0,
+					WEEKDAY_ASST_COOK => 57.0,
+					SUNDAY_HEAD_COOK => 11.0,
+					SUNDAY_ASST_COOK => 22.0,
+					MEETING_NIGHT_ORDERER => 6.0,
+					WEEKDAY_CLEANER => 107,
+					SUNDAY_CLEANER => 36, 
+					MEETING_NIGHT_CLEANER => 6.0,
+				]
+			]
+		];
 	}
 
 	/**
@@ -40,8 +87,6 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 	 * the roster array... how / why are those different?
 	 */
 	public function testRosterAndWorkerAssignmentsSynced() {
-		$labor = $this->roster->getTotalLaborAvailable();
-
 		// ----- get worker shifts to fill
 		$shifts = $this->roster->getWorkerShiftsToFill();
 		// complain if shifts is empty
@@ -74,23 +119,25 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 			}
 		}
 
-		unset($labor['all']);
-		ksort($labor);
+		unset($this->labor['all']);
 		ksort($summary);
-		$this->assertEquals($labor, $summary);
+		$this->assertEquals($this->labor, $summary);
 	}
 
 	/**
 	 * XXX Unfortunately, this doesn't do anything interesting until there
-	 * are some available shifts data available.
+	 * are some available shifts data available... meaning that someone
+	 * has filled out a survey.
+	 */
 	public function testSortAvailable() {
 		$result = $this->roster->sortAvailable($input);
-		$this->assertEquals(['aaa'], $result);
+		$this->assertEquals([], $result);
 	}
-	 */
 
 	/**
 	 * @dataProvider provideGetNumShiftsPerSeason
+	 * How many meals should each job get over the season?
+	 * XXX I'm not sure if this is testing what we want it to...?
 	 */
 	public function testGetNumShiftsPerSeason($input, $expected) {
 		$this->roster->setShifts($input);
@@ -113,6 +160,50 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 			['nothing', count(get_current_season_months())],
 			[NULL, count(get_current_season_months())],
 		];
+	}
+
+	/**
+	 * @dataProvider provideCompareLabor
+	 *
+	 * Confirm whether there is enough labor for the amount of shifts that need
+	 * to be filled for the season.
+	 */
+	public function testCompareLabor($job_id, $assigned_labor, $need) {
+		$all_jobs = get_all_jobs();
+		$debug = func_get_args();
+		$debug['job_name'] = $all_jobs[$job_id];
+		$deficit = $need - $assigned_labor;
+
+		// XXX display the job name here...
+		$this->assertGreaterThanOrEqual($deficit, 0);
+	}
+
+	public function provideCompareLabor() {
+		$all_jobs = get_all_jobs();
+
+		// how much labor is available?
+		$this->loadLabor();
+
+		// how much labor is needed?
+		$calendar = new Calendar();
+		$num_shifts_needed = $calendar->getNumShiftsNeeded();
+		ksort($num_shifts_needed);
+
+		$counts = [];
+		foreach($num_shifts_needed as $job_id => $need) {
+			$assigned_labor = $this->labor[$job_id];
+			$success = ($need >= $assigned_labor);
+
+			// this is relevant as an ordered list, not an associative array
+			$counts[] = [
+				'job_id' => $job_id,
+				'assigned' => $assigned_labor,
+				'need' => $need,
+				'diff' => ($need - $assigned_labor),
+				'job_name' => $all_jobs[$job_id],
+			];
+		}
+		return $counts;
 	}
 }
 ?>
