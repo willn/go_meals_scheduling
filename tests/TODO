@@ -45,7 +45,7 @@
 ./public/classes/calendar.php:707:	public function getWorkerComments($job_key_clause) {
 ./public/classes/calendar.php:717:	public function loadWorkerComments($job_key_clause) {
 ./public/classes/calendar.php:851:	public function getWorkerList($id, $first_entry=FALSE, $skip_user=NULL,
-./public/classes/calendar.php:947:	public function getNumShifts() {
+./public/classes/calendar.php:947:	public function getDayTypeCounts() {
 ./public/classes/calendar.php:954:	public function getShiftCounts() {
 ./public/classes/calendar.php:984:	public function toString($worker=NULL, $availability=NULL) {
 ./public/classes/calendar.php:1053:	function renderSeasonDateSummary() {

@@ -103,6 +103,8 @@ foreach($dbh->query($sql) as $row) {
 	$row['num_prefs'] = $num_prefs;
 	$assignments[$user_job] = $row;
 
+	// figure out how many meals one should work based on their assignments
+	// XXX this ought to be extracted into a function... one ought to exist already.
 	$shifts = $row['instances'] * 4;
 	$diffs[$user_job] = ($shifts > 0) ?
 		round($num_prefs / $shifts, 2) : 0;
@@ -212,7 +214,7 @@ if ($_SESSION['access_type'] == 'admin') {
 
 $job_name = ($job_key != 0) ? '' : '<th>Job</th>';
 
-$meals_summary = $calendar->getNumShifts();
+$meals_summary = $calendar->getDayTypeCounts();
 
 ksort($per_shift);
 foreach($per_shift as $job_name=>$num_assn_shifts) {

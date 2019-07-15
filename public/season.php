@@ -34,30 +34,7 @@ function get_num_shift_overrides() {
 	return [
 		'annie' => [
 			SUNDAY_ASST_COOK => -2,
-			SUNDAY_HEAD_COOK => 2,
-		],
-		'dan' => [
-			WEEKDAY_ASST_COOK => 2,
-		],
-		'jake' => [
-			WEEKDAY_ASST_COOK => -2,
-			SUNDAY_ASST_COOK => 3,
-		],
-		'rod' => [
-			WEEKDAY_ASST_COOK => 1,
-		],
-		'sharon' => [
-			WEEKDAY_HEAD_COOK => 1,
-		],
-		'ted' => [
-			WEEKDAY_HEAD_COOK => 1,
-		],
-
-		/*
-		* add/remove shifts used for borrowing in 1st sub-season:
-		'annie' => [
-			SUNDAY_ASST_COOK => -2,
-			SUNDAY_HEAD_COOK => -1
+			SUNDAY_HEAD_COOK => -1,
 			WEEKDAY_TABLE_SETTER => 2,
 		],
 		'bennie' => [
@@ -94,9 +71,10 @@ function get_num_shift_overrides() {
 			WEEKDAY_HEAD_COOK => -1,
 		],
 		'ted' => [
-			WEEKDAY_HEAD_COOK => -1,
+			WEEKDAY_ASST_COOK => -1,
 		],
 
+		/*
 		Extra labor likely needed for the 2nd sub-season:
 		- 3 meals of Weekday head cook
 		- 6 meals of Weekday asst cook
@@ -120,8 +98,6 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		6 => [3, 24],
-		7 => [22],
 	];
 }
 

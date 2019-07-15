@@ -106,7 +106,7 @@ EOHTML;
  */
 function build_survey($workers, $survey, $get_w) {
 	// --------- build the survey --------------------
-	$all_jobs = get_sunday_jobs() + get_weekday_jobs() + get_mtg_jobs();
+	$all_jobs = get_all_jobs();
 
 	$w = array_get($workers, $get_w);
 	$survey->setWorker($w['username'], $w['id']);
