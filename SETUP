@@ -24,9 +24,7 @@ Directions to set up the survey:
 # clear out existing tables
 	cd public/sqlite_data/
 	sqlite3 work_allocation.db
-	DELETE from schedule_comments;
-	DELETE FROM schedule_prefs;
-	DELETE from schedule_shifts;
+	sqlite> .read reset_mid_season.sql
 	// exit sqlite
 	cd ../
 	git diff | view -
