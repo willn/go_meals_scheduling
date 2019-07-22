@@ -18,7 +18,7 @@ Directions to set up the survey:
 
 # --------------------
 # MID-SEASON:
-# if this is mid-season, follow these directions, then skip to END-SEASON-START section
+# if this is mid-season, follow these directions, then skip to the next
 # --------------------
 
 # clear out existing tables
@@ -38,7 +38,7 @@ Directions to set up the survey:
 	run unit tests & fix if needed
 	git commit
 
-# skip to END-SEASON-START
+# skip to END-OF-SEASON-START
 
 
 # --------------------
@@ -96,16 +96,16 @@ Directions to set up the survey:
 	git status
 	# commit changes
 	cd ~/public_html/
-	rm -rf meals_scheduling/
-	cp -r ~/meals_scheduling_dev/public/ meals_scheduling/
+	
+	#!# careful! - this will blank out any collected data...
+	rsync -avz meals_scheduling_dev/public/ public_html/meals_scheduling/
 
 # test to make sure everything works, view in web browser
 	- confirm that the calendar dates are correct
 	- confirm the holidays and meeting nights are correct
-	- I have too many meals for a half season!
 	- fill in some entries and save them, then revert
-		* cp ~/meals_scheduling_dev/public/sqlite_data/work_allocation.db \
-			~/public_html/meals_scheduling/sqlite_data/work_allocation.db
+	#!# careful! - this will blank out any collected data...
+	rsync -avz meals_scheduling_dev/public/ public_html/meals_scheduling/
 	- load listing page again to make sure that the database is writeable
 
 # notify participants that the survey is ready
@@ -117,6 +117,7 @@ Directions to set up the survey:
 	crontab -e
 	# uncomment the following lines:
 	20 *   *   *   *   /bin/cp -f ~/meals_scheduling_dev/public/sqlite_data/work_allocation.db ~/backups/
+	50 5 * * * /bin/cp -f public_html/meals_scheduling/sqlite_data/work_allocation.db ~/backups/work_allocation.db_daily
 
 - schedule a few reminders spaced out over the rest of the session to send
   reminder emails to laggards
