@@ -164,22 +164,20 @@ We don't schedule meals on holidays, and sometimes the day before / after, consi
 
 
 ### Meal shifts we request:
-171 Weekday head cook (20 instances 2 HRS/Month)
-170 Weekday meal asst cook (40 instances 1 HRS/Month)
-169 Weekday Meal Cleaner (30 instances 1.5 HRS/Month)
-174 Weekday table setter (10 instances 0.5 HRS/Month)
-
-186 Meeting night takeout orderer  (4 instances 0.5 HRS/Month)
-187 Meeting night cleaner  (4 instances 0.75 HRS/Month)
-
-172 Sunday head cook  (8 instances 2 HRS/Month)
-180 Sunday meal asst cook  (15 instances 1 HRS/Month)
-168 Sunday Meal Cleaner  (12 instances 1.5 HRS/Month)
+- Weekday head cook (20 instances 2 HRS/Month)
+- Weekday meal asst cook (40 instances 1 HRS/Month)
+- Weekday Meal Cleaner (30 instances 1.5 HRS/Month)
+- Weekday table setter (10 instances 0.5 HRS/Month)
+- Meeting night takeout orderer  (4 instances 0.5 HRS/Month)
+- Meeting night cleaner  (4 instances 0.75 HRS/Month)
+- Sunday head cook  (8 instances 2 HRS/Month)
+- Sunday meal asst cook  (15 instances 1 HRS/Month)
+- Sunday Meal Cleaner  (12 instances 1.5 HRS/Month)
 
 ### Formula for calculating the number of shifts:
-Let M = number of meals we're trying to cover (for Sundays, 12)
-Let W = number of workers of this type assigned to each meal (e.g. 3 cleaners)
-Let S = number of meals per assigned shift (2 for cooks, 4 for cleaners)
-The formula would then be: (M * W) / S
+- Let M = number of meals we're trying to cover (for Sundays, 12)
+- Let W = number of workers of this type assigned to each meal (e.g. 3 cleaners)
+- Let S = number of meals per assigned shift (2 for cooks, 4 for cleaners)
+- The formula would then be: (M * W) / S
 
 
