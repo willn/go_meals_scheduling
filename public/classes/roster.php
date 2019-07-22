@@ -255,7 +255,7 @@ EOSQL;
 	 *
 	 * @param[in] username string the name of the user viewing the survey.
 	 */
-	protected function loadNumMealsFromOverrides($username=NULL) {
+	public function loadNumMealsFromOverrides($username=NULL) {
 		$all_jobs = get_all_jobs();
 		$num_shift_overrides = get_num_shift_overrides();
 
@@ -263,11 +263,12 @@ EOSQL;
 		// if limited to one username, then don't load them all...
 		$shift_overrides = $num_shift_overrides;
 
+		// if request is for a single user, instead of all
 		if ($username) {
-			// XXX why is this being overridden?
+			// filter results for this specific user
 			$shift_overrides = [];
 			if (isset($num_shift_overrides[$username])) {
-				$shift_overrides = array($username => $num_shift_overrides[$username]);
+				$shift_overrides = [$username => $num_shift_overrides[$username]];
 			}
 		}
 

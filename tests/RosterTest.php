@@ -54,6 +54,39 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @dataProvider provideLoadNumAssignmentsFromOverrides
+	 */
+	public function testLoadNumAssignmentsFromOverrides($expected) {
+		$this->roster->initLaborCount();
+		$this->roster->loadNumMealsFromOverrides();
+		$db_labor = $this->roster->getTotalLaborAvailable();
+
+		ksort($db_labor);
+		ksort($expected);
+		$this->assertEquals($db_labor, $expected);
+	}
+
+	public function provideLoadNumAssignmentsFromOverrides() {
+		return [
+			[
+				[
+					'all' => 0,
+					WEEKDAY_TABLE_SETTER => 0,
+					WEEKDAY_HEAD_COOK => -1,
+					WEEKDAY_ASST_COOK => 1,
+					SUNDAY_HEAD_COOK => 0,
+					SUNDAY_ASST_COOK => 0,
+					MEETING_NIGHT_ORDERER => 0,
+					WEEKDAY_CLEANER => 8,
+					SUNDAY_CLEANER => 0, 
+					MEETING_NIGHT_CLEANER => 0,
+				]
+			]
+		];
+	}
+
+
+	/**
 	 * @dataProvider provideGetTotalLaborAvailable
 	 * Note: this may need to be adjusted each season or sub-season.
 	 */
