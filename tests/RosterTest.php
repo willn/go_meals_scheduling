@@ -85,6 +85,29 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 		];
 	}
 
+	/**
+	 * This checks to see if any override users do not exist in the db already.
+	 *
+	 * NOTE: If this is true, then they need to be created manually, as seen
+	 * in DatabaseInitializer->initializeExtraWorkers(). This
+	 * should not happen at the beginning of a new season, since
+	 * `utils/initialize_database.php` should have been run. This is more
+	 * likely to happen at the beginning of a new sub-season in the middle
+	 * of the work season, when new people move in and volunteer for jobs
+	 * before they have been given a new work system account.
+	 */
+	public function testOverrideUsersExist() {
+		$num_shift_overrides = array_keys(get_num_shift_overrides());
+
+		$this->roster = new Roster();
+		$this->roster->initLaborCount();
+		$this->roster->loadNumMealsFromDatabase();
+		$workers = array_keys($this->roster->getWorkers());
+
+		$diff = array_diff($num_shift_overrides, $workers);
+		$this->assertEquals([], $diff);
+	}
+
 
 	/**
 	 * @dataProvider provideGetTotalLaborAvailable

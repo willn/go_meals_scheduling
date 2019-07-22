@@ -234,6 +234,8 @@ EOSQL;
 
 			$username = $row['username'];
 			$job_id = $row['job_id'];
+
+			// XXX ought to add a unit test for when the username doesn't appear in db
 			$worker = $this->getWorker($username);
 
 			// determine the number of shifts across the season
@@ -259,8 +261,7 @@ EOSQL;
 		$all_jobs = get_all_jobs();
 		$num_shift_overrides = get_num_shift_overrides();
 
-		// set the number of shifts in overrides - additional shift volunteers
-		// if limited to one username, then don't load them all...
+		// set the shifts in overrides - additional shift volunteers
 		$shift_overrides = $num_shift_overrides;
 
 		// if request is for a single user, instead of all
@@ -319,16 +320,15 @@ EOSQL;
 
 	/**
 	 * Get the worker object based on username.
-	 * (Schedule)
 	 *
 	 * @return Worker object.
 	 */
 	public function getWorker($username) {
-		$w = array_get($this->workers, $username);
-		if (is_null($w)) {
-			$w = $this->addWorker($username);
+		$worker = array_get($this->workers, $username);
+		if (is_null($worker)) {
+			$worker = $this->addWorker($username);
 		}
-		return $w;
+		return $worker;
 	}
 
 	/**
@@ -340,9 +340,17 @@ EOSQL;
 	 * @return Worker object, the corresponding Worker object.
 	 */
 	public function addWorker($username) {
-		$w = new Worker($username);
-		$this->workers[$username] = $w;
-		return $w;
+		$worker = new Worker($username);
+		$this->workers[$username] = $worker;
+		return $worker;
+	}
+
+	/**
+	 * Get the list of workers who exist in the Roster.
+	 * NOTE: Currently exists for unit testing.
+	 */
+	public function getWorkers() {
+		return $this->workers;
 	}
 
 	/**
