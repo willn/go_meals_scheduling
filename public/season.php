@@ -53,7 +53,6 @@ function get_num_shift_overrides() {
 		'hermann' => [
 			WEEKDAY_TABLE_SETTER => -1,
 		],
-		'jake' => [WEEKDAY_ASST_COOK => -2],
 		'marys' => [
 			WEEKDAY_CLEANER => 1,
 		],
