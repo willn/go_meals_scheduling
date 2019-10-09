@@ -36,10 +36,11 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf(PDO, $dbh);
 	}
 
+	// XXX this changes every season...
 	public function test_get_job_ids_clause() {
 		$result = get_job_ids_clause();
 		// XXX this will need to be changed each season
-		$expected = 'job_id=4805 OR job_id=4808 OR job_id=4803 OR job_id=4804 OR job_id=4807 OR job_id=4801 OR job_id=4802 OR job_id=4806 OR job_id=4794';
+		$expected = 'job_id=5015 OR job_id=5018 OR job_id=5013 OR job_id=5014 OR job_id=5017 OR job_id=5011 OR job_id=5012 OR job_id=5016 OR job_id=5004';
 		$this->assertEquals($expected, $result);
 	}
 
