@@ -52,12 +52,14 @@ Directions to set up the survey:
 	cd ~/Downloads/
 	unzip filedb.zip
 	scp -P 1022 home/django/work/db.sqlite3 gocoho@gocoho.org:meals_scheduling_dev/public/sqlite_data/
+	rm -rf home/
 
 	# on the remote host...
 	cd meals_scheduling_dev/public/sqlite_data
 	mv db.sqlite3 work_allocation.db
 	chmod 644 work_allocation.db
 	sqlite work_allocation.db
+	# view the current state of tables
 	sqlite> .tables
 	# drop a bunch of tables
 	sqlite> .read drops.sql
@@ -65,7 +67,6 @@ Directions to set up the survey:
 	sqlite> .tables
 		# there should be 4 tables:
 		# auth_user, work_app_job, work_app_assignment, work_app_season
-	# sudo chgrp gocoho !$
 	git add !$
 	git commit !$
 
