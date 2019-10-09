@@ -191,10 +191,23 @@ EOHTML;
 		$result = $this->calendar->getJobsIndex('all');
 		$this->assertNotEmpty($result);
 
+		// XXX this will need to be updated with each new season
 		$out = <<<EOHTML
-<ul id="filter_overlay"><li><a href="/meals_scheduling/report.php?key=all">all</a></li><li><a href="/meals_scheduling/report.php?key=4805">Meeting night takeout orderer</a></li><li><a href="/meals_scheduling/report.php?key=4808">Meeting night cleaner</a></li><li><a href="/meals_scheduling/report.php?key=4803">Sunday head cook</a></li><li><a href="/meals_scheduling/report.php?key=4804">Sunday meal asst cook</a></li><li><a href="/meals_scheduling/report.php?key=4807">Sunday Meal Cleaner</a></li><li><a href="/meals_scheduling/report.php?key=4801">Weekday head cook</a></li><li><a href="/meals_scheduling/report.php?key=4802">Weekday meal asst cook</a></li><li><a href="/meals_scheduling/report.php?key=4806">Weekday Meal cleaner</a></li><li><a href="/meals_scheduling/report.php?key=4794">Weekday Table Setter</a></li></ul>
+<ul id="filter_overlay">
+<li><a href="/meals_scheduling/report.php?key=all">all</a></li>
+<li><a href="/meals_scheduling/report.php?key=5015">Meeting night takeout orderer</a></li>
+<li><a href="/meals_scheduling/report.php?key=5018">Meeting night cleaner</a></li>
+<li><a href="/meals_scheduling/report.php?key=5013">Sunday head cook</a></li>
+<li><a href="/meals_scheduling/report.php?key=5014">Sunday meal asst cook</a></li>
+<li><a href="/meals_scheduling/report.php?key=5017">Sunday Meal Cleaner</a></li>
+<li><a href="/meals_scheduling/report.php?key=5011">Weekday head cook</a></li>
+<li><a href="/meals_scheduling/report.php?key=5012">Weekday meal asst cook</a></li>
+<li><a href="/meals_scheduling/report.php?key=5016">Weekday Meal cleaner</a></li>
+<li><a href="/meals_scheduling/report.php?key=5004">Weekday Table Setter</a></li>
+</ul>
+
 EOHTML;
-		$this->assertEquals($result, $out);
+		$this->assertEquals($result, remove_html_whitespace($out));
 	}
 
 	/**
@@ -774,8 +787,8 @@ EOHTML;
 	 */
 	public function testGetNumShiftsNeeded($expected) {
 		$result = $this->calendar->getNumShiftsNeeded();
-		ksort($result);
-		ksort($expected);
+		// ksort($result);
+		// ksort($expected);
 		$this->assertEquals($expected, $result);
 	}
 
@@ -784,17 +797,31 @@ EOHTML;
 	 */
 	public function provideGetNumShiftsNeeded() {
 		$current = [
-			WEEKDAY_HEAD_COOK => 32, // WEEKDAY_HEAD_COOK
-			WEEKDAY_ASST_COOK => 64, // WEEKDAY_ASST_COOK
-			WEEKDAY_CLEANER => 96, // WEEKDAY_CLEANER
-			WEEKDAY_TABLE_SETTER => 32, // WEEKDAY_TABLE_SETTER
+			WEEKDAY_HEAD_COOK => 63, // WEEKDAY_HEAD_COOK
+			WEEKDAY_ASST_COOK => 126, // WEEKDAY_ASST_COOK
+			WEEKDAY_CLEANER => 189, // WEEKDAY_CLEANER
+			WEEKDAY_TABLE_SETTER => 63, // WEEKDAY_TABLE_SETTER
 
-			MEETING_NIGHT_ORDERER => 6, // MEETING_NIGHT_ORDERER
-			MEETING_NIGHT_CLEANER => 6, // MEETING_NIGHT_CLEANER
+			MEETING_NIGHT_ORDERER => 11, // MEETING_NIGHT_ORDERER
+			MEETING_NIGHT_CLEANER => 11, // MEETING_NIGHT_CLEANER
 
-			SUNDAY_HEAD_COOK => 12, // SUNDAY_HEAD_COOK
-			SUNDAY_ASST_COOK => 24, // SUNDAY_ASST_COOK
-			SUNDAY_CLEANER => 36, // SUNDAY_CLEANER
+			SUNDAY_HEAD_COOK => 25, // SUNDAY_HEAD_COOK
+			SUNDAY_ASST_COOK => 50, // SUNDAY_ASST_COOK
+			SUNDAY_CLEANER => 75, // SUNDAY_CLEANER
+
+/*
+			WEEKDAY_HEAD_COOK => 30, // WEEKDAY_HEAD_COOK
+			WEEKDAY_ASST_COOK => 60, // WEEKDAY_ASST_COOK
+			WEEKDAY_CLEANER => 90, // WEEKDAY_CLEANER
+			WEEKDAY_TABLE_SETTER => 30, // WEEKDAY_TABLE_SETTER
+
+			MEETING_NIGHT_ORDERER => 5, // MEETING_NIGHT_ORDERER
+			MEETING_NIGHT_CLEANER => 5, // MEETING_NIGHT_CLEANER
+
+			SUNDAY_HEAD_COOK => 13, // SUNDAY_HEAD_COOK
+			SUNDAY_ASST_COOK => 26, // SUNDAY_ASST_COOK
+			SUNDAY_CLEANER => 39, // SUNDAY_CLEANER
+*/
 		];
 
 		return [
@@ -811,15 +838,15 @@ EOHTML;
     }
 
     public function provideRenderSeasonDateSummary() {
-		$out = '<h2>season: 2019 August - October</h2><p>Sunday head cook 12
-<br>Sunday meal asst cook 24
-<br>Sunday Meal Cleaner 12
-<br>Weekday head cook 32
-<br>Weekday meal asst cook 64
+		$out = '<h2>season: 2019 November - April</h2><p>Sunday head cook 25
+<br>Sunday meal asst cook 50
+<br>Sunday Meal Cleaner 13
+<br>Weekday head cook 63
+<br>Weekday meal asst cook 126
 <br>Weekday Meal cleaner 32
 <br>Weekday Table Setter 11
-<br>Meeting night takeout orderer 6
-<br>Meeting night cleaner 6
+<br>Meeting night takeout orderer 11
+<br>Meeting night cleaner 11
 </p>';
 
         return [
