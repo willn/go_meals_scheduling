@@ -2,27 +2,27 @@
 require_once 'constants.inc';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('July 24, 2019, 9:00pm'));
+define('DEADLINE', strtotime('October 18, 2019, 8:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SUMMER, FALL, WINTER, SPRING
  */
-define('SEASON_NAME', SUMMER);
+define('SEASON_NAME', FALL);
 
 // If this is a whole season, then 1, half .5, etc.
 define('SUB_SEASON_FACTOR', .5);
 
 /* ----------- job ids --------------- */
-define('MEETING_NIGHT_ORDERER', 4805);
-define('MEETING_NIGHT_CLEANER', 4808);
-define('SUNDAY_HEAD_COOK', 4803);
-define('SUNDAY_ASST_COOK', 4804);
-define('SUNDAY_CLEANER', 4807);
-define('WEEKDAY_HEAD_COOK', 4801);
-define('WEEKDAY_ASST_COOK', 4802);
-define('WEEKDAY_CLEANER', 4806);
-define('WEEKDAY_TABLE_SETTER', 4794);
+define('MEETING_NIGHT_ORDERER', 5015);
+define('MEETING_NIGHT_CLEANER', 5018);
+define('SUNDAY_HEAD_COOK', 5013);
+define('SUNDAY_ASST_COOK', 5014);
+define('SUNDAY_CLEANER', 5017);
+define('WEEKDAY_HEAD_COOK', 5011);
+define('WEEKDAY_ASST_COOK', 5012);
+define('WEEKDAY_CLEANER', 5016);
+define('WEEKDAY_TABLE_SETTER', 5004);
 
 /**
  * Get the number of shift overrides.
@@ -32,68 +32,14 @@ define('WEEKDAY_TABLE_SETTER', 4794);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-		'annie' => [
-			SUNDAY_ASST_COOK => -2,
-			SUNDAY_HEAD_COOK => -1,
-			WEEKDAY_TABLE_SETTER => 2,
-		],
-		'bennie' => [
-			WEEKDAY_CLEANER => 2,
-		],
-		'bobm' => [
-			SUNDAY_ASST_COOK => 2,
-		],
-		'dan' => [
-			WEEKDAY_ASST_COOK => -2,
-			WEEKDAY_CLEANER => 1,
-		],
-		'gayle' => [
-			WEEKDAY_CLEANER => 1,
-		],
-		'hermann' => [
-			WEEKDAY_TABLE_SETTER => -1,
-		],
-		'marys' => [
-			WEEKDAY_CLEANER => 1,
-		],
-		'megan' => [SUNDAY_HEAD_COOK => 1],
-		'michael' => [
-			WEEKDAY_CLEANER => 1,
-		],
-		'nancy' => [
-			WEEKDAY_TABLE_SETTER => -1,
-		],
-		'polly' => [
-			WEEKDAY_CLEANER => 2,
-		],
-		'rod' => [
-			WEEKDAY_ASST_COOK => -1,
-		],
-		'sharon' => [
-			WEEKDAY_HEAD_COOK => -1,
-		],
-		'suzette' => [
-			WEEKDAY_ASST_COOK => 7,
-		],
-		'ted' => [
-			WEEKDAY_ASST_COOK => -1,
-		],
-
-		/*
-		Extra labor likely needed for the 2nd sub-season:
-		- 3 meals of Weekday head cook
-		- 6 meals of Weekday asst cook
-		- 3 meals of Weekday table setter
-		- 3 meals of Weekday Meal cleaner
-		- 1 meal of Sunday asst cook
-
-		We would have this extra labor:
-		- 4 meals of Weekday asst cook
-		- 6 meals of Weekday Meal cleaner
-
-		Perhaps some of these could be converted?
-		Perhaps a new member could pick up some of the above?
-		*/
+/*
+		'dorothy' => [WEEKDAY_CLEANER => 3],
+		'niecy' => [WEEKDAY_CLEANER => 3],
+		'patti' => [WEEKDAY_CLEANER => 3],
+		'polly' => [WEEKDAY_CLEANER => 2],
+		'suzette' => [WEEKDAY_CLEANER => 2],
+		'tammy' => [WEEKDAY_ASST_COOK => 4],
+*/
 	];
 }
 
@@ -154,7 +100,10 @@ function get_current_season_months($season_name=NULL) {
 				11=>'November',
 				12=>'December',
 				1=>'January',
+
 				2=>'February',
+				3=>'March',
+				4=>'April',
 			];
 
 		default:
