@@ -89,6 +89,7 @@ Directions to set up the survey:
 # --------------------
 # END-OF-SEASON-START
 # --------------------
+#
 # stage everything from the meals dev repo to public_html
 	cd ~/meals_scheduling_dev/
 	- remove any previous dates from public/season.php - get_regular_day_overrides()
@@ -122,8 +123,10 @@ Directions to set up the survey:
 - schedule a few reminders spaced out over the rest of the session to send
   reminder emails to laggards
 
-what to do at the end of the survey:
--------------------------------------
+# --------------------
+# END-OF-SURVEY
+# --------------------
+
 - disable cronjobs
 
 - commit closed database:
@@ -140,7 +143,8 @@ what to do at the end of the survey:
 	php execute.php -s > results.txt
 	grep XXX !$
 
-- if some need to be cancelled, this would be a good time to look for the hardest to fill days:
+- if some meals need to be cancelled, this would be a good time to look for
+  the hardest to fill days:
 	grep 'XXXXXXXX.*XXXXXXXX' results.txt
 
 - check for hobarter ratio:
@@ -160,8 +164,8 @@ what to do at the end of the survey:
 - download a copy of the schedule, and upload it to google drive
 	# on localhost
 	cd ~/Desktop/
-	scp -i ~/.ssh/id_dsa -P \
-		1022 gocoho@gocoho.org:/home/gocoho/meals_scheduling_dev/auto_assignments/results.txt .
+	scp -i ~/.ssh/id_dsa -P 1022 \
+		gocoho@gocoho.org:/home/gocoho/meals_scheduling_dev/auto_assignments/results.txt .
 
 - try to move the under-assigned workers to fill the 'XXX' spots, making trades
 
