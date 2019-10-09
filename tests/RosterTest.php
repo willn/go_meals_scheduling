@@ -72,12 +72,12 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 				[
 					'all' => 0,
 					WEEKDAY_TABLE_SETTER => 0,
-					WEEKDAY_HEAD_COOK => -1,
-					WEEKDAY_ASST_COOK => 1,
+					WEEKDAY_HEAD_COOK => 0,
+					WEEKDAY_ASST_COOK => 0,
 					SUNDAY_HEAD_COOK => 0,
 					SUNDAY_ASST_COOK => 0,
 					MEETING_NIGHT_ORDERER => 0,
-					WEEKDAY_CLEANER => 8,
+					WEEKDAY_CLEANER => 0,
 					SUNDAY_CLEANER => 0, 
 					MEETING_NIGHT_CLEANER => 0,
 				]
