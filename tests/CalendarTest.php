@@ -797,6 +797,9 @@ EOHTML;
 	 */
 	public function provideGetNumShiftsNeeded() {
 		$current = [
+/*
+			// XXX full 6 months
+
 			WEEKDAY_HEAD_COOK => 63, // WEEKDAY_HEAD_COOK
 			WEEKDAY_ASST_COOK => 126, // WEEKDAY_ASST_COOK
 			WEEKDAY_CLEANER => 189, // WEEKDAY_CLEANER
@@ -808,8 +811,9 @@ EOHTML;
 			SUNDAY_HEAD_COOK => 25, // SUNDAY_HEAD_COOK
 			SUNDAY_ASST_COOK => 50, // SUNDAY_ASST_COOK
 			SUNDAY_CLEANER => 75, // SUNDAY_CLEANER
+*/
 
-/*
+			// first 3 months
 			WEEKDAY_HEAD_COOK => 30, // WEEKDAY_HEAD_COOK
 			WEEKDAY_ASST_COOK => 60, // WEEKDAY_ASST_COOK
 			WEEKDAY_CLEANER => 90, // WEEKDAY_CLEANER
@@ -821,7 +825,6 @@ EOHTML;
 			SUNDAY_HEAD_COOK => 13, // SUNDAY_HEAD_COOK
 			SUNDAY_ASST_COOK => 26, // SUNDAY_ASST_COOK
 			SUNDAY_CLEANER => 39, // SUNDAY_CLEANER
-*/
 		];
 
 		return [
@@ -838,16 +841,22 @@ EOHTML;
     }
 
     public function provideRenderSeasonDateSummary() {
-		$out = '<h2>season: 2019 November - April</h2><p>Sunday head cook 25
-<br>Sunday meal asst cook 50
+		$counts_array = $this->provideGetNumShiftsNeeded();
+		$counts = $counts_array[0][0];
+error_log(__FILE__ . ' ' . __LINE__ . " counts: " . var_export($counts, TRUE));
+
+		$out = <<<EOTXT
+<h2>season: 2019 November - January</h2><p>Sunday head cook {$counts[SUNDAY_HEAD_COOK]}
+<br>Sunday meal asst cook {$counts[SUNDAY_ASST_COOK]}
 <br>Sunday Meal Cleaner 13
-<br>Weekday head cook 63
-<br>Weekday meal asst cook 126
-<br>Weekday Meal cleaner 32
-<br>Weekday Table Setter 11
-<br>Meeting night takeout orderer 11
-<br>Meeting night cleaner 11
-</p>';
+<br>Weekday head cook {$counts[WEEKDAY_HEAD_COOK]}
+<br>Weekday meal asst cook {$counts[WEEKDAY_ASST_COOK]}
+<br>Weekday Meal cleaner 30
+<br>Weekday Table Setter 10
+<br>Meeting night takeout orderer {$counts[MEETING_NIGHT_ORDERER]}
+<br>Meeting night cleaner {$counts[MEETING_NIGHT_CLEANER]}
+</p>
+EOTXT;
 
         return [
             [$out],
