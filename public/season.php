@@ -36,12 +36,18 @@ function get_num_shift_overrides() {
 		/*
 		Holes to fill for the 6 month season:
 		- Sunday head cook: 4
-		- Sunday meal asst cook: 6
+		- Sunday meal asst cook: 2
 		- Sunday Meal Cleaner: 12
-		- Weekday Meal cleaner: 30
+		- Weekday Meal cleaner: 15
 		*/
 
-/*
+		/*
+		Holes for the first 3 months:
+		Sunday head cook: 2
+		Sunday meal asst cook: 4
+		Sunday Meal Cleaner: 6
+		*/
+
 		// volunteers for the first 3 months
 		'dorothy' => [WEEKDAY_CLEANER => 3],
 		'niecy' => [WEEKDAY_CLEANER => 3],
@@ -50,7 +56,6 @@ function get_num_shift_overrides() {
 		'suzette' => [WEEKDAY_CLEANER => 2],
 		'tammy' => [WEEKDAY_ASST_COOK => 4],
 		'ted' => [WEEKDAY_CLEANER => 2],
-*/
 	];
 }
 
