@@ -11,6 +11,7 @@ define('DEADLINE', strtotime('October 18, 2019, 8:00pm'));
 define('SEASON_NAME', FALL);
 
 // If this is a whole season, then 1, half .5, etc.
+// XXX change this for 3...
 define('SUB_SEASON_FACTOR', .5);
 
 /* ----------- job ids --------------- */
@@ -32,13 +33,23 @@ define('WEEKDAY_TABLE_SETTER', 5004);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
+		/*
+		Holes to fill for the 6 month season:
+		- Sunday head cook: 4
+		- Sunday meal asst cook: 6
+		- Sunday Meal Cleaner: 12
+		- Weekday Meal cleaner: 30
+		*/
+
 /*
+		// volunteers for the first 3 months
 		'dorothy' => [WEEKDAY_CLEANER => 3],
 		'niecy' => [WEEKDAY_CLEANER => 3],
 		'patti' => [WEEKDAY_CLEANER => 3],
 		'polly' => [WEEKDAY_CLEANER => 2],
 		'suzette' => [WEEKDAY_CLEANER => 2],
 		'tammy' => [WEEKDAY_ASST_COOK => 4],
+		'ted' => [WEEKDAY_CLEANER => 2],
 */
 	];
 }
@@ -77,6 +88,7 @@ function get_current_season_months($season_name=NULL) {
 	switch($season_name) {
 		case WINTER:
 			return [
+				2=>'February',
 				3=>'March',
 				4=>'April',
 			];
@@ -100,10 +112,6 @@ function get_current_season_months($season_name=NULL) {
 				11=>'November',
 				12=>'December',
 				1=>'January',
-
-				2=>'February',
-				3=>'March',
-				4=>'April',
 			];
 
 		default:
