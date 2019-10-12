@@ -187,7 +187,7 @@ class Schedule {
 			return;
 		}
 
-		$j = $this->job_id;
+		$job_id = $this->job_id;
 
 		$prev = empty($this->least_possible) ? 
 			array_keys($this->meals) :
@@ -195,15 +195,15 @@ class Schedule {
 		$this->least_possible = [];
 
 		foreach($prev as $date) {
-			$m = $this->meals[$date];
+			$meal = $this->meals[$date];
 
 			// skip dates which don't need workers
-			if (!$m->hasOpenShifts($j)) {
+			if (!$meal->hasOpenShifts($job_id)) {
 				continue;
 			}
 
 			// get number of possible workers for this date/shift
-			$poss = $m->getNumPossibleWorkerRatio($j);
+			$poss = $meal->getNumPossibleWorkerRatio($job_id);
 			// shift filled - move along
 			if (($poss == 0) || is_null($poss)) {
 				continue;
@@ -211,9 +211,9 @@ class Schedule {
 
 			// uh oh - not enough workers!
 			if ($poss < 1) {
-				$job_name = get_job_name($j);
+				$job_name = get_job_name($job_id);
 				echo <<<EOTXT
-D:{$date}, job:{$j} {$job_name} may not have enough workers: {$poss}
+D:{$date}, job:{$job_id} {$job_name} may not have enough workers: {$poss}
 
 EOTXT;
 				continue;
@@ -228,6 +228,12 @@ EOTXT;
 		}
 
 		asort($this->least_possible);
+
+		if (DEBUG_GET_LEAST_POSSIBLE) {
+			$job_name = get_job_name($job_id);
+			error_log(__FILE__ . ' ' . __LINE__ . " least possible for {$job_name}: " . var_export($this->least_possible, TRUE));
+		}
+
 		return TRUE;
 	}
 
