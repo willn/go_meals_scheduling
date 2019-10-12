@@ -55,7 +55,7 @@ function get_weekday_jobs() {
 function get_all_jobs() {
 	$all_jobs = [];
 	$all_jobs['all'] = 'all';
-	$all_jobs += get_mtg_jobs() + get_sunday_jobs() + get_weekday_jobs();
+	$all_jobs += get_weekday_jobs() + get_sunday_jobs() + get_mtg_jobs();
 	return $all_jobs;
 }
 
