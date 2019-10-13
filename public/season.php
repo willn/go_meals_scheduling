@@ -49,13 +49,12 @@ function get_num_shift_overrides() {
 		*/
 
 		// volunteers for the first 3 months
-		'dorothy' => [WEEKDAY_CLEANER => 3],
-		'niecy' => [WEEKDAY_CLEANER => 3],
-		'patti' => [WEEKDAY_CLEANER => 3],
-		'polly' => [WEEKDAY_CLEANER => 2],
+		'denise' => [WEEKDAY_CLEANER => 2],
+		'dorothydecz' => [WEEKDAY_CLEANER => 2],
+		'patti' => [WEEKDAY_CLEANER => 1],
+		'polly' => [WEEKDAY_CLEANER => 1],
 		'suzette' => [WEEKDAY_CLEANER => 2],
-		'tammy' => [WEEKDAY_ASST_COOK => 4],
-		'ted' => [WEEKDAY_CLEANER => 2],
+		'ted' => [WEEKDAY_CLEANER => 1],
 	];
 }
 

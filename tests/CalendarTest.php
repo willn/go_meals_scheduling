@@ -195,15 +195,15 @@ EOHTML;
 		$out = <<<EOHTML
 <ul id="filter_overlay">
 <li><a href="/meals_scheduling/report.php?key=all">all</a></li>
-<li><a href="/meals_scheduling/report.php?key=5015">Meeting night takeout orderer</a></li>
-<li><a href="/meals_scheduling/report.php?key=5018">Meeting night cleaner</a></li>
-<li><a href="/meals_scheduling/report.php?key=5013">Sunday head cook</a></li>
-<li><a href="/meals_scheduling/report.php?key=5014">Sunday meal asst cook</a></li>
-<li><a href="/meals_scheduling/report.php?key=5017">Sunday Meal Cleaner</a></li>
 <li><a href="/meals_scheduling/report.php?key=5011">Weekday head cook</a></li>
 <li><a href="/meals_scheduling/report.php?key=5012">Weekday meal asst cook</a></li>
 <li><a href="/meals_scheduling/report.php?key=5016">Weekday Meal cleaner</a></li>
 <li><a href="/meals_scheduling/report.php?key=5004">Weekday Table Setter</a></li>
+<li><a href="/meals_scheduling/report.php?key=5013">Sunday head cook</a></li>
+<li><a href="/meals_scheduling/report.php?key=5014">Sunday meal asst cook</a></li>
+<li><a href="/meals_scheduling/report.php?key=5017">Sunday Meal Cleaner</a></li>
+<li><a href="/meals_scheduling/report.php?key=5015">Meeting night takeout orderer</a></li>
+<li><a href="/meals_scheduling/report.php?key=5018">Meeting night cleaner</a></li>
 </ul>
 
 EOHTML;
@@ -819,12 +819,12 @@ EOHTML;
 			WEEKDAY_CLEANER => 90, // WEEKDAY_CLEANER
 			WEEKDAY_TABLE_SETTER => 30, // WEEKDAY_TABLE_SETTER
 
-			MEETING_NIGHT_ORDERER => 5, // MEETING_NIGHT_ORDERER
-			MEETING_NIGHT_CLEANER => 5, // MEETING_NIGHT_CLEANER
-
 			SUNDAY_HEAD_COOK => 13, // SUNDAY_HEAD_COOK
 			SUNDAY_ASST_COOK => 26, // SUNDAY_ASST_COOK
 			SUNDAY_CLEANER => 39, // SUNDAY_CLEANER
+
+			MEETING_NIGHT_ORDERER => 5, // MEETING_NIGHT_ORDERER
+			MEETING_NIGHT_CLEANER => 5, // MEETING_NIGHT_CLEANER
 		];
 
 		return [
