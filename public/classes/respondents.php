@@ -113,8 +113,28 @@ EOHTML;
 
 
 	/**
+	 * Display the menu of worker names so to choose which name to save preferences.
+	 */
+	public function renderWorkerMenu() {
+		$workers_list = new WorkersList();
+		if (empty($workers_list)) {
+			echo "<h2>No workers configured</h2>\n";
+			return;
+		}
+
+		$slackers = $this->getNonResponders();
+
+		// display names for "login"
+		print <<<EOHTML
+			<div class="workers_list">
+				{$workers_list->getWorkersListAsLinks($slackers)}
+			</div>
+EOHTML;
+	}
+
+	/**
 	 * Return a brief statement of how many people have responded, percentage,
-	 * and then a google percentage bar graph.
+	 * and then an SVG percentage bar graph.
 	 *
 	 * @param[in] display_usernames boolean default FALSE. If true, then the
 	 *     email addresses of the slackers are shown as well.
@@ -129,6 +149,7 @@ EOHTML;
 
 		// generate summary data
 		$slackers = $this->getNonResponders();
+error_log(__FILE__ . ' ' . __LINE__ . " slackers: " . var_export($slackers, TRUE));
 		$num_slackers = count($slackers);
 		$percentage = number_format(($num_responders / $num_workers) * 100, 1);
 		$non_respond = 100 - $percentage;
@@ -136,7 +157,7 @@ EOHTML;
 		$missing_emails = '';
 		// optionally display the email addresses of the slackers
 		if ($display_usernames) {
-			$emails = array();
+			$emails = [];
 			foreach($slackers as $id=>$name) {
 				if (strstr($name, '@')) {
 					$emails[] = "<b>{$name}</b>";
@@ -164,6 +185,7 @@ EOHTML;
 
 	/**
 	 * Get the list of people who have not submitted their survey.
+	 * @return array list of usernames.
 	 */
 	public function getNonResponders() {
 		$all_workers = $this->getWorkers();

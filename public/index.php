@@ -54,9 +54,7 @@ else {
 	// display the menu of worker names
 	if (!isset($_GET['worker']) ||
 		!array_key_exists($_GET['worker'], $workers)) {
-		display_respondents();
-		display_worker_menu($workers);
-
+		display_respondents($workers);
 		print $report_link;
 	}
 }
@@ -70,32 +68,17 @@ EOHTML;
 
 /**
  * Display the responders summary
+ *
+ * @param[in] workers array list of all worker names.
  */
-function display_respondents() {
-	$r = new Respondents();
+function display_respondents($workers) {
+	$respondents = new Respondents();
 	echo <<<EOHTML
 		<div class="special_info">
-			{$r->getTimeRemaining()}
-			{$r->getSummary()}
+			{$respondents->getTimeRemaining()}
+			{$respondents->getSummary()}
 		</div>
-EOHTML;
-}
-
-/**
- * Display the menu of worker names so to choose which name to save preferences.
- */
-function display_worker_menu() {
-	$workers_list = new WorkersList();
-	if (empty($workers_list)) {
-		echo "<h2>No workers configured</h2>\n";
-		return;
-	}
-
-	// display names for "login"
-	print <<<EOHTML
-		<div class="workers_list">
-			{$workers_list->getWorkersListAsLinks()}
-		</div>
+		{$respondents->renderWorkerMenu($workers)}
 EOHTML;
 }
 

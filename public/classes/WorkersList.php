@@ -50,17 +50,24 @@ EOSQL;
 
 	/**
 	 * Display the list of workers as links in order to select their survey.
+	 *
+	 * @param[in] slackers array list of usernames for people who have
+	 *     not yet filled out their survey.
 	 */
-	public function getWorkersListAsLinks() {
+	public function getWorkersListAsLinks($slackers) {
 		$workers = $this->getWorkers();
+		$slackers_flip = array_flip($slackers);
 
 		$out = $lines = '';
 		$count = 0;
 		ksort($workers);
 		$dir = BASE_DIR;
 		foreach($workers as $name=>$unused) {
+			// XXX take it to the next level... disable links for people who have no shifts
+			$extra = isset($slackers_flip[$name]) ? '' : ' &check;';
+
 			$lines .= <<<EOHTML
-				<li><a href="{$dir}/index.php?worker={$name}">{$name}</a></li>
+				<li><a href="{$dir}/index.php?worker={$name}">{$name}</a>{$extra}</li>
 EOHTML;
 
 			$count++;
