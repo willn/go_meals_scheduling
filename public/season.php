@@ -49,12 +49,26 @@ function get_num_shift_overrides() {
 		*/
 
 		// volunteers for the first 3 months
-		'denise' => [WEEKDAY_CLEANER => 2],
-		'dorothydecz' => [WEEKDAY_CLEANER => 2],
+		'denise' => [
+			WEEKDAY_CLEANER => 2,
+			WEEKDAY_ASST_COOK => 1,
+		],
+		'dorothydecz' => [WEEKDAY_CLEANER => 3],
 		'patti' => [WEEKDAY_CLEANER => 1],
 		'polly' => [WEEKDAY_CLEANER => 1],
-		'suzette' => [WEEKDAY_CLEANER => 2],
+		'suzette' => [WEEKDAY_CLEANER => 3],
 		'ted' => [WEEKDAY_CLEANER => 1],
+
+		/* second half of sub-season debts... mar-may 2020
+		'dale' => [WEEKDAY_HEAD_COOK => 1],
+		'denise' => [WEEKDAY_ASST_COOK => -1],
+		'gregd' => [
+			WEEKDAY_HEAD_COOK => 1,
+			WEEKDAY_ASST_COOK => 4,
+		],
+		'katie' => [WEEKDAY_TABLE_SETTER => 1]
+		'tammy' => [WEEKDAY_HEAD_COOK => 1]
+		*/
 	];
 }
 
@@ -65,6 +79,8 @@ function get_num_shift_overrides() {
 function get_skip_dates() {
 	return [
 		// XXX cancel 2 Sundays for the current sub-season
+		1 => [12],
+		12 => [29],
 	];
 }
 
