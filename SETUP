@@ -140,6 +140,12 @@ Directions to set up the survey:
 	cd ~/meals_scheduling_dev/auto_assignments/
 	php execute.php -u
 
+- If we know that we need to cancel 1 or more meals, now would be a good
+   time to run... set DEBUG_GET_LEAST_POSSIBLE to TRUE, then run this command:
+	tail -f error
+	php execute.php -s
+	# look at all of the shifts to see where the pain lies... head, asst, cleaner
+
 - count un-filled slots:
 	php execute.php -s > results.txt
 	grep XXX !$
@@ -170,6 +176,8 @@ Directions to set up the survey:
 
 - try to move the under-assigned workers to fill the 'XXX' spots, making trades
 
+- do any swapping needed
+
 - copy and paste from "Confirm results check" section, and create custom ones for anything
   that's not a personal avoid request.
 	1) Export from google spreadsheet, download as tab-delimited
@@ -188,8 +196,6 @@ Directions to set up the survey:
 	* Export from google spreadsheet, download as tab-delimited
 	* see tests/CheckForConflictsTest.php
 	* #!# need a test to ensure that nobody is double-scheduled... like head & asst or table setter
-
-- do any swapping needed
 
 - run avoids validation:
 	# is this needed with the new unit tests?
