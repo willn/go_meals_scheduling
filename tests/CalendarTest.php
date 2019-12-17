@@ -843,7 +843,6 @@ EOHTML;
     public function provideRenderSeasonDateSummary() {
 		$counts_array = $this->provideGetNumShiftsNeeded();
 		$counts = $counts_array[0][0];
-error_log(__FILE__ . ' ' . __LINE__ . " counts: " . var_export($counts, TRUE));
 
 		$out = <<<EOTXT
 <h2>season: 2019 November - January</h2><p>Sunday head cook {$counts[SUNDAY_HEAD_COOK]}

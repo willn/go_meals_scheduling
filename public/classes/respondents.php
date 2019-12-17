@@ -149,7 +149,6 @@ EOHTML;
 
 		// generate summary data
 		$slackers = $this->getNonResponders();
-error_log(__FILE__ . ' ' . __LINE__ . " slackers: " . var_export($slackers, TRUE));
 		$num_slackers = count($slackers);
 		$percentage = number_format(($num_responders / $num_workers) * 100, 1);
 		$non_respond = 100 - $percentage;
