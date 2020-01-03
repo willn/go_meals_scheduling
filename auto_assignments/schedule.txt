@@ -1,0 +1,52 @@
+date	time	communities	head_cook	asst1	asst2	cleaner1	cleaner2	cleaner3	table_setter
+11/1/2000	5:30	GO, SW, TS	XXXXXXXX	megan	marys	megan	terrence	dorothydecz	
+11/2/2000	6:15	GO, SW, TS	dale	marys	polly	mac	suzette	gayle	katie
+11/3/2000	6:15	GO, SW, TS	keithg	rebecca	dorothydecz	ted	keithg	bennie	nancy
+11/4/2000	5:45	GO	nancy			glenn			
+11/8/2000	5:30	GO, SW, TS	keithg	debbi	XXXXXXXX	debbi	keithg	XXXXXXXX	
+11/9/2000	6:15	GO, SW, TS	gregd	rod	jennifer	patti	glenn	dorothydecz	gayle
+11/10/2000	6:15	GO, SW, TS	tammy	drew	denise	mario	dan	polly	katie
+11/11/2000	6:15	GO, SW, TS	dale	catherine	liam	mac	catherine	marys	annie
+11/15/2000	5:30	GO, SW, TS	tevah	fatima	XXXXXXXX	rebecca	terrence	XXXXXXXX	
+11/16/2000	5:45	GO	annie			mac			
+11/17/2000	6:15	GO, SW, TS	keithg	justin	kelly	keithg	gayle	denise	katie
+11/18/2000	6:15	GO, SW, TS	gregd	glenn	dorothydecz	patti	glenn	bennie	nancy
+11/22/2000	5:30	GO, SW, TS	mac	bobm	XXXXXXXX	bobm	bennie	dorothydecz	
+11/23/2000	6:15	GO, SW, TS	dale	jody	polly	ted	marys	dorothydecz	annie
+11/24/2000	6:15	GO, SW, TS	tammy	suzette	kelly	suzette	catherine	denise	katie
+11/25/2000	6:15	GO, SW, TS	dale	dan	dorothydecz	mac	bennie	polly	gayle
+11/29/2000	5:30	GO, SW, TS	XXXXXXXX	eric	fatima	megan	dorothydecz	XXXXXXXX	
+11/30/2000	6:15	GO, SW, TS	tammy	patti	drew	patti	denise	keithg	polly
+12/1/2000	6:15	GO, SW, TS	dale	justin	jennifer	michael	gayle	ted	katie
+12/2/2000	5:45	GO	emilyadama			nicholas			
+12/6/2000	5:30	GO, SW, TS	XXXXXXXX	fatima	amyh	terrence	rebecca	XXXXXXXX	
+12/7/2000	6:15	GO, SW, TS	tammy	dan	dorothydecz	mac	bennie	XXXXXXXX	polly
+12/8/2000	6:15	GO, SW, TS	gregd	annie	polly	ted	glenn	gayle	katie
+12/9/2000	6:15	GO, SW, TS	dale	suzette	denise	suzette	mario	dorothydecz	nancy
+12/13/2000	5:30	GO, SW, TS	keithg	bruno	drew	keithg	bennie	gayle	
+12/14/2000	6:15	GO, SW, TS	megan	sarah	kelly	michael	marys	dorothydecz	katie
+12/15/2000	6:15	GO, SW, TS	marta	tevah	gregd	patti	amyh	polly	nancy
+12/16/2000	6:15	GO, SW, TS	emilyadama	catherine	dorothydecz	mac	catherine	bennie	hermann
+12/20/2000	5:30	GO, SW, TS	gregd	fatima	XXXXXXXX	bennie	dorothydecz	XXXXXXXX	
+12/21/2000	5:45	GO	annie			willie			
+12/22/2000	6:15	GO, SW, TS	jennifer	keithg	gayle	keithg	dan	dorothydecz	nancy
+12/23/2000	6:15	GO, SW, TS	sharon	glenn	drew	glenn	polly	mac	megan
+12/27/2000	5:30	GO, SW, TS	justin	rebecca	eric	debbi	gayle	XXXXXXXX	
+12/28/2000	6:15	GO, SW, TS	suzette	ted	dale	ted	dorothydecz	bennie	terrence
+12/30/2000	6:15	GO, SW, TS	willie	augustd	denise	patti	marys	dorothydecz	hermann
+1/3/2001	5:30	GO, SW, TS	eric	terrence	dan	debbi	bennie	XXXXXXXX	
+1/4/2001	6:15	GO, SW, TS	tevah	iand	mollie	mac	amyh	dorothydecz	megan
+1/5/2001	6:15	GO, SW, TS	sharon	alex	denise	patti	glenn	marys	katie
+1/6/2001	5:45	GO	drew			gregd			
+1/10/2001	5:30	GO, SW, TS	dan	fatima	XXXXXXXX	bobm	dorothydecz	XXXXXXXX	
+1/11/2001	6:15	GO, SW, TS	emilyadama	bruno	polly	ted	keithg	gayle	hermann
+1/13/2001	6:15	GO, SW, TS	kelly	nicholas	jennifer	mac	bennie	marys	terrence
+1/17/2001	5:30	GO, SW, TS	megan	amanda	drew	megan	gayle	bennie	
+1/18/2001	5:45	GO	gail			debbi			
+1/19/2001	6:15	GO, SW, TS	marta	dorothydecz	kelly	dan	glenn	bennie	nancy
+1/20/2001	6:15	GO, SW, TS	justin	polly	gregd	mario	amyh	denise	annie
+1/24/2001	5:30	GO, SW, TS	willie	fatima	XXXXXXXX	rebecca	bennie	XXXXXXXX	
+1/25/2001	6:15	GO, SW, TS	kelly	keithg	gregd	mac	keithg	denise	katie
+1/26/2001	6:15	GO, SW, TS	jennifer	tevah	gregd	ted	gayle	dorothydecz	terrence
+1/27/2001	6:15	GO, SW, TS	drew	marys	polly	patti	michael	bennie	megan
+1/31/2001	5:30	GO, SW, TS	eric	dan	amyh	bobm	dorothydecz	keithg	

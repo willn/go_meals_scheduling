@@ -814,17 +814,17 @@ EOHTML;
 */
 
 			// first 3 months
-			WEEKDAY_HEAD_COOK => 30, // WEEKDAY_HEAD_COOK
-			WEEKDAY_ASST_COOK => 60, // WEEKDAY_ASST_COOK
-			WEEKDAY_CLEANER => 90, // WEEKDAY_CLEANER
-			WEEKDAY_TABLE_SETTER => 30, // WEEKDAY_TABLE_SETTER
+			WEEKDAY_HEAD_COOK => 31, // WEEKDAY_HEAD_COOK
+			WEEKDAY_ASST_COOK => 62, // WEEKDAY_ASST_COOK
+			WEEKDAY_CLEANER => 93, // WEEKDAY_CLEANER
+			WEEKDAY_TABLE_SETTER => 31, // WEEKDAY_TABLE_SETTER
 
 			SUNDAY_HEAD_COOK => 13, // SUNDAY_HEAD_COOK
 			SUNDAY_ASST_COOK => 26, // SUNDAY_ASST_COOK
 			SUNDAY_CLEANER => 39, // SUNDAY_CLEANER
 
-			MEETING_NIGHT_ORDERER => 5, // MEETING_NIGHT_ORDERER
-			MEETING_NIGHT_CLEANER => 5, // MEETING_NIGHT_CLEANER
+			MEETING_NIGHT_ORDERER => 6, // MEETING_NIGHT_ORDERER
+			MEETING_NIGHT_CLEANER => 6, // MEETING_NIGHT_CLEANER
 		];
 
 		return [
@@ -843,15 +843,17 @@ EOHTML;
     public function provideRenderSeasonDateSummary() {
 		$counts_array = $this->provideGetNumShiftsNeeded();
 		$counts = $counts_array[0][0];
+		$cleaners = ceil($counts[WEEKDAY_CLEANER] / 3);
+		$setters = ceil($counts[WEEKDAY_TABLE_SETTER] / 3);
 
 		$out = <<<EOTXT
-<h2>season: 2019 November - January</h2><p>Sunday head cook {$counts[SUNDAY_HEAD_COOK]}
+<h2>season: 2020 November - January</h2><p>Sunday head cook {$counts[SUNDAY_HEAD_COOK]}
 <br>Sunday meal asst cook {$counts[SUNDAY_ASST_COOK]}
 <br>Sunday Meal Cleaner 13
 <br>Weekday head cook {$counts[WEEKDAY_HEAD_COOK]}
 <br>Weekday meal asst cook {$counts[WEEKDAY_ASST_COOK]}
-<br>Weekday Meal cleaner 30
-<br>Weekday Table Setter 10
+<br>Weekday Meal cleaner {$cleaners}
+<br>Weekday Table Setter {$setters}
 <br>Meeting night takeout orderer {$counts[MEETING_NIGHT_ORDERER]}
 <br>Meeting night cleaner {$counts[MEETING_NIGHT_CLEANER]}
 </p>
