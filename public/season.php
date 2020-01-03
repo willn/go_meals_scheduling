@@ -66,8 +66,11 @@ function get_num_shift_overrides() {
 			WEEKDAY_HEAD_COOK => 1,
 			WEEKDAY_ASST_COOK => 4,
 		],
-		'katie' => [WEEKDAY_TABLE_SETTER => 1]
-		'tammy' => [WEEKDAY_HEAD_COOK => 1]
+		'katie' => [WEEKDAY_TABLE_SETTER => 1],
+		'polly' => [WEEKDAY_ASST_COOK => 1],
+		'rebecca' => [WEEKDAY_ASST_COOK => 1],
+		'tammy' => [WEEKDAY_HEAD_COOK => 1],
+		'terrence' => [WEEKDAY_TABLE_SETTER => 1],
 		*/
 	];
 }
