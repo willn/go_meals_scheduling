@@ -59,20 +59,9 @@ function get_pref_names() {
 
 $dbh = create_sqlite_connection();
 
-global $all_cook_jobs;
 global $all_clean_jobs;
 
 $all_jobs = get_all_jobs();
-foreach($all_jobs as $jid=>$name) {
-	if ((stripos($name, 'cook') !== FALSE) ||
-		(stripos($name, 'takeout orderer') !== FALSE)) {
-		$all_cook_jobs[] = $jid;
-	}
-	if ((stripos($name, 'clean') !== FALSE) ||
-		(stripos($name, 'Meeting night cleaner') !== FALSE)) {
-		$all_clean_jobs[] = $jid;
-	}
-}
 
 /**
  * Get the list of the weekdays where meals are served.
@@ -156,12 +145,12 @@ function is_a_sunday_job($job_id) {
 }
 
 function is_a_cook_job($job_id) {
-	global $all_cook_jobs;
+	$all_cook_jobs = get_cook_jobs();
 	return in_array($job_id, $all_cook_jobs);
 }
 
 function is_a_clean_job($job_id) {
-	global $all_clean_jobs;
+	$all_clean_jobs = get_clean_jobs();
 	return in_array($job_id, $all_clean_jobs);
 }
 

@@ -53,10 +53,40 @@ function get_weekday_jobs() {
  * Get a list of all of the jobs
  */
 function get_all_jobs() {
-	$all_jobs = [];
-	$all_jobs['all'] = 'all';
+	$all_jobs = ['all' => 'all'];
 	$all_jobs += get_weekday_jobs() + get_sunday_jobs() + get_mtg_jobs();
 	return $all_jobs;
+}
+
+/**
+ * Get a list of all the cook jobs.
+ */
+function get_cook_jobs() {
+	$all_jobs = get_all_jobs();
+	$jobs = [];
+	foreach($all_jobs as $jid=>$name) {
+		if ((stripos($name, 'cook') !== FALSE) ||
+			(stripos($name, 'takeout orderer') !== FALSE)) {
+			$jobs[] = $jid;
+		}
+	}
+	$jobs[] = WEEKDAY_TABLE_SETTER;
+	return $jobs;
+}
+
+/**
+ * Get a list of all the cleaning jobs.
+ */
+function get_clean_jobs() {
+	$all_jobs = get_all_jobs();
+	$jobs = [];
+	foreach($all_jobs as $jid=>$name) {
+		if ((stripos($name, 'clean') !== FALSE) ||
+			(stripos($name, 'Meeting night cleaner') !== FALSE)) {
+			$jobs[] = $jid;
+		}
+	}
+	return $jobs;
 }
 
 /*

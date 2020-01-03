@@ -124,7 +124,7 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 			[WEEKDAY_HEAD_COOK, TRUE],
 			[WEEKDAY_ASST_COOK, TRUE],
 			[WEEKDAY_CLEANER, FALSE],
-			[WEEKDAY_TABLE_SETTER, FALSE],
+			[WEEKDAY_TABLE_SETTER, TRUE],
 		];
 	}
 
