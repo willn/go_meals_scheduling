@@ -6,7 +6,7 @@ require_once '../public/config.php';
 require_once '../public/globals.php';
 require_once '../auto_assignments/schedule.php';
 
-define('EASTER_DAY', 4);
+define('EASTER_DAY', 12);
 
 /**
  * This is simple example to ensure the testing framework functions properly.
