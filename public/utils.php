@@ -251,4 +251,18 @@ function is_valid_season_name($season) {
 	return FALSE;
 }
 
+/**
+ * Map the given username to the appropriate Gather ID. If it exists.
+ *
+ * @param[in] usernames array of work system usernames to be replaced.
+ * @param[in] gather_ids associative array of all work system usernames to gather IDs.
+ * @return associative array with only the entries found in the first
+ *     array. The keys are work system IDs, the values are Gather IDs.
+ */
+function map_usernames_to_gather_id($usernames, $gather_ids) {
+	$replaced = array_intersect_key($gather_ids, array_flip($usernames));
+	$out = array_filter($replaced);
+	return $out;
+}
+
 ?>

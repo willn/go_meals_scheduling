@@ -381,6 +381,7 @@ class Worker {
 			if (is_a_clean_job($s)) {
 				$have_cleaning = TRUE;
 			}
+			#!# add mention of table setter
 		}
 
 		$do_bundling = $this->wantsBundling();
@@ -397,6 +398,7 @@ class Worker {
 			return (($have_cleaning) && ($clean_after_self === FALSE)) ?
 				HAS_CONFLICT : 3;
 		}
+		#!# add mention of table setter
 
 		// this is a cleaning job
 		// look to see if they already have a cleaning job

@@ -70,7 +70,9 @@ function get_cook_jobs() {
 			$jobs[] = $jid;
 		}
 	}
-	$jobs[] = WEEKDAY_TABLE_SETTER;
+
+	// attempt to avoid conflicts with cooking shifts...
+	# $jobs[] = WEEKDAY_TABLE_SETTER;
 	return $jobs;
 }
 

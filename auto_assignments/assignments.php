@@ -179,5 +179,12 @@ EOSQL;
 	public function outputCSV() {
 		$this->schedule->printResults('csv');
 	}
+
+	/**
+	 * Output the schedule as a series of SQL insert statements
+	 */
+	public function outputGatherImports() {
+		$this->schedule->printResults('gather_csv');
+	}
 }
 ?>

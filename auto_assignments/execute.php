@@ -18,11 +18,12 @@ require_once 'public/utils.php';
  * Automated meals scheduling assignments
  */
 
-$options = getopt('cijsuw');
+$options = getopt('cgijsuw');
 if (empty($options)) {
 	echo <<<EOTXT
 Usage:
 	-c	output as CSV
+	-g	output in Gather import format
 	-i	output as SQL insert statements
 	-j	output to json format
 	-s	display schedule
@@ -39,9 +40,9 @@ unset($all_jobs['all']);
 $assignments = new Assignments();
 $assignments->run();
 
-// output to json for integration with the report
-if (array_key_exists('j', $options)) {
-	$assignments->saveResults();
+// output as CSV
+if (array_key_exists('c', $options)) {
+	$assignments->outputCSV();
 }
 
 // output as SQL insert statements
@@ -49,9 +50,14 @@ if (array_key_exists('i', $options)) {
 	$assignments->outputSqlInserts();
 }
 
-// output as CSV
-if (array_key_exists('c', $options)) {
-	$assignments->outputCSV();
+// output as Gather import statements
+if (array_key_exists('g', $options)) {
+	$assignments->outputGatherImports();
+}
+
+// output to json for integration with the report
+if (array_key_exists('j', $options)) {
+	$assignments->saveResults();
 }
 
 // run the schedule, output in text format

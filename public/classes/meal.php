@@ -6,6 +6,13 @@ define('DEFAULT_HOBART_SCORE', 7);
 define('DEFAULT_AVOID_WORKER_SCORE', 7);
 define('DEFAULT_PREFERS_SCORE', 4);
 
+define('GO_DINING_ROOM_ID', 22);
+define('GO_COMMUNITY_ONLY', 'GO');
+define('ALL_3_COMMUNITY_IDS', 'GO;SW;TS');
+
+# '2019-10-28T02:01:03'
+define('ISO_8601_DATE_ONLY', 'Y-m-d');
+
 abstract class Meal {
 	protected $schedule;
 	protected $date;
@@ -535,12 +542,14 @@ EOTXT;
 	 * Display the assigned workers for this meal.
 	 *
 	 * @param[in] format string the chosen output format (txt, sql,
-	 *     or csv). How the output should be displayed.
+	 *     gather_csv, or csv). How the output should be displayed.
+	 * @param[in] gather_ids associative array mapping work system
+	 *     usernames to Gather Google IDs.
 	 * @return boolean, if false then a hobart shift was needed and not filled
 	 *     with a hobarter. TRUE either means it was filled or not needed.
 	 * #!# this should be a get... but need to figure out a way to deal with the return
 	 */
-	public function printResults($format='txt') {
+	public function printResults($format='txt', $gather_ids=[]) {
 		if (empty($this->assigned)) {
 			return;
 		}
@@ -551,6 +560,12 @@ EOTXT;
 		$only_cleaners = FALSE;
 		$has_clean_job = FALSE;
 		$hobarter_found = FALSE;
+
+		// for Gather imports
+		$head_cook = [];
+		$asst_cooks = [];
+		$cleaners = [];
+		$table_setters = [];
 
 		$is_mtg_night_job = FALSE;
 		$out_data = [];
@@ -564,8 +579,10 @@ EOTXT;
 				}
 			}
 
+			$invited = ALL_3_COMMUNITY_IDS;
 			if (is_a_mtg_night_job($job_id)) {
 				$is_mtg_night_job = TRUE;
+				$invited = GO_COMMUNITY_ONLY;
 				/*
 				 * Pad the assignments array for output since meeting
 				 * nights are missing some shifts.
@@ -578,13 +595,20 @@ EOTXT;
 			$out_data[$order] = $this->getTime();
 			$order++;
 			$out_data[$order] = $this->getCommunities();
+
+			// head cook
 			if (is_a_head_cook_job($job_id)) {
+				$head_cook = $assignments;
 				$order = 2;
 			}
+			// asst cooks
 			else if (is_a_cook_job($job_id)) {
+				$asst_cooks = $assignments;
 				$order = 3;
 			}
+			// cleaners
 			else if (is_a_clean_job($job_id)) {
+				$cleaners = $assignments;
 				$order = 4;
 				if (!$is_mtg_night_job) {
 					foreach($assignments as $shift_num=>$name) {
@@ -596,8 +620,9 @@ EOTXT;
 					$has_clean_job = TRUE;
 				}
 			}
-			// this must be for table-setters?
+			// table-setters
 			else {
+				$table_setters = $assignments;
 				$order = 5;
 			}
 
@@ -612,6 +637,7 @@ EOTXT;
 				break;
 			case 'sql':
 			case 'csv':
+			case 'gather_csv':
 				$out_data = array_merge($out_data, $assignments);
 				break;
 			}
@@ -637,12 +663,26 @@ EOTXT;
 
 		case 'csv':
 			print "$this->date," . implode(',', $out_data) . "\n";
+
+		case 'gather_csv':
+			#!# should this be broken out into another function?
+
+			$line = [
+				'create', // action
+				date(ISO_8601_DATE_ONLY, strtotime($this->date)) . 'T' . $this->getIsoTime(),
+				GO_DINING_ROOM_ID, // locations
+				$invited, // communities
+				implode(';', map_usernames_to_gather_id($head_cook, $gather_ids)),
+				implode(';', map_usernames_to_gather_id($asst_cooks, $gather_ids)),
+				implode(';', map_usernames_to_gather_id($cleaners, $gather_ids)),
+				implode(';', map_usernames_to_gather_id($table_setters, $gather_ids)),
+			];
+			print implode(',', $line) . "\n";
 		}
 
 		// did a hobart shift go unfilled?
 		return (!$has_clean_job || $hobarter_found);
 	}
-
 
 	/**
 	 * For testing, return the list of assigned workers for this meal.
@@ -708,6 +748,15 @@ EOTXT;
 	 *
 	 * @return string the time of the meal.
 	 */
+	public function getIsoTime() {
+		return $this->iso_time_of_meal;
+	}
+
+	/**
+	 * Get the time of this meal instance in 24-hour format.
+	 *
+	 * @return string the time of the meal.
+	 */
 	public function getTime() {
 		return $this->time_of_meal;
 	}
@@ -724,16 +773,19 @@ EOTXT;
 
 class SundayMeal extends Meal {
 	protected $time_of_meal = '5:30';
+	protected $iso_time_of_meal = '17:30:00';
 	protected $communities = 'GO, SW, TS';
 }
 
 class WeekdayMeal extends Meal {
 	protected $time_of_meal = '6:15';
+	protected $iso_time_of_meal = '18:15:00';
 	protected $communities = 'GO, SW, TS';
 }
 
 class MeetingNightMeal extends Meal {
 	protected $time_of_meal = '5:45';
+	protected $iso_time_of_meal = '17:45:00';
 	protected $communities = 'GO';
 }
 

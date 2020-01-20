@@ -321,9 +321,10 @@ EOTXT;
 	public function printResults($format='txt' ) {
 		echo $this->getResults();
 
+		$gather_ids = $this->roster->loadGatherIDs();
 		$missed_hobarters = 0;
 		foreach($this->meals as $date=>$m) {
-			if (!$m->printResults($format)) {
+			if (!$m->printResults($format, $gather_ids)) {
 				$missed_hobarters++;
 			}
 		}

@@ -8,6 +8,8 @@ global $dbh;
 // -----------------------------------
 class Roster {
 	protected $workers = [];
+	protected $gather_ids = [];
+
 	protected $job_id;
 	protected $dbh;
 	protected $num_shifts_per_season = 0;
@@ -227,11 +229,8 @@ EOSQL;
 			ORDER BY u.username
 EOSQL;
 
-		$count = 0;
 		$results = $this->dbh->query($sql);
 		foreach($results as $row) {
-			$count++;
-
 			$username = $row['username'];
 			$job_id = $row['job_id'];
 
@@ -249,6 +248,27 @@ EOSQL;
 			$worker->addNumShiftsAssigned($job_id, $num_instances);
 			$this->total_labor_avail[$job_id] += $num_instances;
 		}
+	}
+
+	/**
+	 * Load the Gather Google IDs per each username.
+	 */
+	public function loadGatherIDs() {
+		$auth_user_table = AUTH_USER_TABLE;
+		$sql = <<<EOSQL
+		SELECT username, google_id
+			FROM {$auth_user_table}
+			WHERE google_id != ''
+			ORDER BY username
+EOSQL;
+
+		$results = $this->dbh->query($sql);
+		foreach($results as $row) {
+			$username = $row['username'];
+			$this->gather_ids[$username] = $row['google_id'];
+		}
+
+		return $this->gather_ids;
 	}
 
 	/**

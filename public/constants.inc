@@ -44,6 +44,6 @@ define('MEETING_NIGHT_MEAL', 5);
 
 define('ALL_ID', 'all');
 
-define('DEBUG_GET_LEAST_POSSIBLE', TRUE);
+define('DEBUG_GET_LEAST_POSSIBLE', FALSE);
 
 ?>
