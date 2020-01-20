@@ -63,8 +63,9 @@ EOSQL;
 		ksort($workers);
 		$dir = BASE_DIR;
 		foreach($workers as $name=>$unused) {
-			// XXX take it to the next level... disable links for people who have no shifts
-			$extra = isset($slackers_flip[$name]) ? '' : ' &check;';
+			// XXX it would be great to disable links for people who have no shifts
+			#!# disable for now, it's not working properly
+			# $extra = isset($slackers_flip[$name]) ? '' : ' &check;';
 
 			$lines .= <<<EOHTML
 				<li><a href="{$dir}/index.php?worker={$name}">{$name}</a>{$extra}</li>
