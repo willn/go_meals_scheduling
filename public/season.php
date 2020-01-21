@@ -41,25 +41,7 @@ function get_num_shift_overrides() {
 		- Weekday Meal cleaner: 15
 		*/
 
-		/*
-		Holes for the first 3 months:
-		Sunday head cook: 2
-		Sunday meal asst cook: 4
-		Sunday Meal Cleaner: 6
-		*/
-
-		// volunteers for the first 3 months
-		'denise' => [
-			WEEKDAY_CLEANER => 2,
-			WEEKDAY_ASST_COOK => 1,
-		],
-		'dorothydecz' => [WEEKDAY_CLEANER => 3],
-		'patti' => [WEEKDAY_CLEANER => 1],
-		'polly' => [WEEKDAY_CLEANER => 1],
-		'suzette' => [WEEKDAY_CLEANER => 3],
-		'ted' => [WEEKDAY_CLEANER => 1],
-
-		/* second half of sub-season debts... mar-may 2020
+		// second half of sub-season debts... feb-april 2020
 		'dale' => [WEEKDAY_HEAD_COOK => 1],
 		'denise' => [WEEKDAY_ASST_COOK => -1],
 		'gregd' => [
@@ -71,7 +53,8 @@ function get_num_shift_overrides() {
 		'rebecca' => [WEEKDAY_ASST_COOK => 1],
 		'tammy' => [WEEKDAY_HEAD_COOK => 1],
 		'terrence' => [WEEKDAY_TABLE_SETTER => 1],
-		*/
+		'suzette' => [WEEKDAY_HEAD_COOK => -1],
+		'willie' => [WEEKDAY_HEAD_COOK => 1],
 	];
 }
 
