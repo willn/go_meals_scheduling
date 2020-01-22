@@ -45,7 +45,7 @@ function get_num_shift_overrides() {
 		'dale' => [WEEKDAY_HEAD_COOK => 1],
 		'denise' => [
 			WEEKDAY_CLEANER => -3,
-			WEEKDAY_ASST_COOK => -2,
+			WEEKDAY_ASST_COOK => -3,
 		],
 		'gregd' => [
 			WEEKDAY_HEAD_COOK => 1,
