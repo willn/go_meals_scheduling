@@ -43,12 +43,20 @@ function get_num_shift_overrides() {
 
 		// second half of sub-season debts... feb-april 2020
 		'dale' => [WEEKDAY_HEAD_COOK => 1],
-		'denise' => [WEEKDAY_ASST_COOK => -1],
+		'denise' => [
+			WEEKDAY_CLEANER => -3,
+			WEEKDAY_ASST_COOK => -2,
+		],
 		'gregd' => [
 			WEEKDAY_HEAD_COOK => 1,
 			WEEKDAY_ASST_COOK => 4,
 		],
 		'katie' => [WEEKDAY_TABLE_SETTER => 1],
+		'marys' => [
+			WEEKDAY_CLEANER => -6,
+			WEEKDAY_ASST_COOK => -2,
+			SUNDAY_ASST_COOK => -1,
+		],
 		'polly' => [WEEKDAY_ASST_COOK => 1],
 		'rebecca' => [WEEKDAY_ASST_COOK => 1],
 		'tammy' => [WEEKDAY_HEAD_COOK => 1],
