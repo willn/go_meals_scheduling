@@ -33,6 +33,7 @@ Directions to set up the survey:
 	edit public/season.php
 	maybe change the SEASON_NAME?
 	examine get_current_season_months()
+	update the get_num_shift_overrides for the current sub-season
 
 # verify and commmit
 	run unit tests & fix if needed
@@ -147,6 +148,7 @@ Directions to set up the survey:
 	tail -f error
 	php execute.php -s
 	# look at all of the shifts to see where the pain lies... head, asst, cleaner
+	# if we need to cancel meals, then fill in get_skip_dates()
 
 - count un-filled slots:
 	php execute.php -s > results.txt

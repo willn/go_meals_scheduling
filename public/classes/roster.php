@@ -252,6 +252,8 @@ EOSQL;
 
 	/**
 	 * Load the Gather Google IDs per each username.
+	 *
+	 * @return array of gather IDs, otherwise an empty array.
 	 */
 	public function loadGatherIDs() {
 		$auth_user_table = AUTH_USER_TABLE;
@@ -263,6 +265,10 @@ EOSQL;
 EOSQL;
 
 		$results = $this->dbh->query($sql);
+		if (empty($results)) {
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " Can't load gather IDs");
+			return [];
+		}
 		foreach($results as $row) {
 			$username = $row['username'];
 			$this->gather_ids[$username] = $row['google_id'];
