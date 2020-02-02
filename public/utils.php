@@ -260,9 +260,10 @@ function is_valid_season_name($season) {
  *     array. The keys are work system IDs, the values are Gather IDs.
  */
 function map_usernames_to_gather_id($usernames, $gather_ids) {
+	// in case there's an unassigned shift, retain that.
+	$gather_ids[PLACEHOLDER] = PLACEHOLDER;
 	$replaced = array_intersect_key($gather_ids, array_flip($usernames));
-	$out = array_filter($replaced);
-	return $out;
+	return array_filter($replaced);
 }
 
 ?>

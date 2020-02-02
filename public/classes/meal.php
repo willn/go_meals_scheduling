@@ -637,7 +637,6 @@ EOTXT;
 				break;
 			case 'sql':
 			case 'csv':
-			case 'gather_csv':
 				$out_data = array_merge($out_data, $assignments);
 				break;
 			}
