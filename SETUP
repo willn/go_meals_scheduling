@@ -33,6 +33,7 @@ Directions to set up the survey:
 	edit public/season.php
 	maybe change the SEASON_NAME?
 	examine get_current_season_months()
+	update the get_num_shift_overrides for the current sub-season
 
 # verify and commmit
 	run unit tests & fix if needed
@@ -67,6 +68,12 @@ Directions to set up the survey:
 	sqlite> .tables
 		# there should be 4 tables:
 		# auth_user, work_app_job, work_app_assignment, work_app_season
+
+ 	# add the Gather IDs 
+	sqlite> .read add_gather_ids.sql
+	# confirm
+	sqlite> .schema auth_user
+	# The last field listed should be "gather_id"
 	git add !$
 	git commit !$
 
@@ -147,6 +154,7 @@ Directions to set up the survey:
 	tail -f error
 	php execute.php -s
 	# look at all of the shifts to see where the pain lies... head, asst, cleaner
+	# if we need to cancel meals, then fill in get_skip_dates()
 
 - count un-filled slots:
 	php execute.php -s > results.txt
@@ -207,55 +215,26 @@ Directions to set up the survey:
 - upload any changes to google sheets and announce it
 
 
+translate from Google sheet to Gather imports
+----------------------------------
+# on mac:
+- Download sheet in CSV form
+- Upload from desktop to gocoho host
+- mv GO\ Meals\ Feb-April\ 2020\ -\ results.csv final_schedule.csv
+- scp -P 1022 final_schedule.csv gocoho@gocoho.org:meals_scheduling_dev/utils/
 
-translate dale's work system user names to MESS inserts
---------------------------------------------------------
-- go to phpPgAdmin
-	* https://web471.webfaction.com/phpPgAdmin/
-	* servers
-	* postgres
-	* login
-	* mess_production
-	* public
-	* users / Select action
-		- id, first, last, alternate_id,
-		- Select button
-	* Download
-	* Format: CSV and Download
-	* scp -P 7822 ~/Downloads/dump.csv username@hostname:
+# on gocoho:
+- ssh gocoho
+- cd meals_scheduling_dev/utils/
+- php translate_to_gather_imports.php > imports.csv
+- look for username mistranslations...
+- grep 0 imports.csv
 
-- rename:
-	* cat dump.csv | grep -v '"\\N"' > meals_scheduling_dev/public/results/go_user_ids.csv
-	* rm dump.csv
-
-- extract just the alternate IDs:
-	* cd meals_scheduling_dev/public/results/
-	* cat go_user_ids.csv | cut -d\, -f4 | cut -d\" -f2 | sort -u > go_mess_names.txt
-
-- extract the scheduled names:
-	* cd public/
-	* sqlite3 sqlite_data/work_allocation.db "select username from auth_user order by username" > results/auth_users.txt
-
-- look for any missing, and yet current workers:
-	* diff go_mess_names.txt auth_users.txt | grep '>' > missing_from_mess.txt
-
-#!#
-
-#!# need to get them entered into the new system...
-
-
-
-#!# need to inspect the names list first...
-
-- generate the ruby inserts:
-	* php meals_inserts.php > mess_schedule_inserts.rb
-
-
-
-- ?? profit!
-
-
-
+# on mac:
+- download the imports file
+- scp -P 1022 gocoho@gocoho.org:meals_scheduling_dev/utils/imports.csv .
+- cat imports.csv | grep -v 'XXX' > clean_imports.csv
+- open gather site, and upload the clean entries
 
 
 Development notes between seasons
