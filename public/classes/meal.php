@@ -544,7 +544,7 @@ EOTXT;
 	 * @param[in] format string the chosen output format (txt, sql,
 	 *     gather_csv, or csv). How the output should be displayed.
 	 * @param[in] gather_ids associative array mapping work system
-	 *     usernames to Gather Google IDs.
+	 *     usernames to Gather IDs.
 	 * @return boolean, if false then a hobart shift was needed and not filled
 	 *     with a hobarter. TRUE either means it was filled or not needed.
 	 * #!# this should be a get... but need to figure out a way to deal with the return
@@ -637,7 +637,6 @@ EOTXT;
 				break;
 			case 'sql':
 			case 'csv':
-			case 'gather_csv':
 				$out_data = array_merge($out_data, $assignments);
 				break;
 			}

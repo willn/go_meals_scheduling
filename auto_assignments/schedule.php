@@ -307,8 +307,12 @@ EOTXT;
 	 *     output should be displayed.
 	 */
 	public function getResults($format='txt' ) {
-		if ($format === 'txt') {
-			return $this->getTabbedHeaders();
+		switch ($format) {
+			case 'txt':
+				return $this->getTabbedHeaders();
+
+			case 'gather_csv':
+				return $this->getGatherHeaders();
 		}
 	}
 
@@ -319,7 +323,7 @@ EOTXT;
 	 *     output should be displayed.
 	 */
 	public function printResults($format='txt' ) {
-		echo $this->getResults();
+		echo $this->getResults($format);
 
 		$gather_ids = $this->roster->loadGatherIDs();
 		$missed_hobarters = 0;
@@ -360,6 +364,24 @@ EOTXT;
 	 */
 	public function getTabbedHeaders() {
 		return implode("\t", $this->getColumnOrder()) . "\n";
+	}
+
+	/**
+	 * Display table headers for gather import
+	 */
+	public function getGatherHeaders() {
+		$cols = [
+			'Action',
+			'Date/time',
+			'Locations',
+			'Communities',
+			'Head Cook',
+			'Assistant Cook',
+			'Cleaner',
+			'Table Setter'
+		];
+
+		return implode(",", $cols) . "\n";
 	}
 
 
