@@ -21,30 +21,33 @@
 * add any extra workers to the get_num_shift_overrides() function
 
 
-# --------------------
-# MID-SEASON:
-# if this is mid-season, follow these directions, then skip to the next
-# --------------------
+## MID-SEASON: if this is mid-season, follow these directions, else skip
 
-# clear out existing tables
+### clear out existing tables
+```
 	cd public/sqlite_data/
 	sqlite3 work_allocation.db
 	sqlite> .read reset_mid_season.sql
 	// exit sqlite
 	cd ../
 	git diff | view -
+```
 
-# You may need to adjust the season's months:
+### You may need to adjust the season's months:
+```
 	edit public/season.php
 	maybe change the SEASON_NAME?
 	examine get_current_season_months()
 	update the get_num_shift_overrides for the current sub-season
+```
 
-# verify and commmit
+### verify and commmit
+```
 	run unit tests & fix if needed
 	git commit
+```
 
-# skip to FINISH-START-OF-SEASON
+### skip to FINISH-START-OF-SEASON
 
 
 # --------------------
