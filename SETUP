@@ -1,20 +1,25 @@
-The Great Oak Meals Scheduling Survey
-----------------------------------------
-Directions to set up the survey:
+# The Great Oak Meals Scheduling Survey
 
-# make sure that unit tests work:
+## Directions to set up the survey:
+
+### make sure that unit tests work:
+```
 	cd tests
 	./run.sh
 	cd ..
+```
 
-# check that there aren't uncommitted modifications
+### check that there aren't uncommitted modifications
+```
 	cd /home/gocoho/meals_scheduling_dev/
 	git status
+```
 
-# edit ~/meals_scheduling_dev/public/season.php
-	- set the appropriate DEADLINE date
-	- set the SUB_SEASON_FACTOR
-	- add any extra workers to the get_num_shift_overrides() function
+### edit ~/meals_scheduling_dev/public/season.php
+* set the appropriate DEADLINE date
+* set the SUB_SEASON_FACTOR
+* add any extra workers to the get_num_shift_overrides() function
+
 
 # --------------------
 # MID-SEASON:
