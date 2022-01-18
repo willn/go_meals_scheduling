@@ -1,5 +1,8 @@
 # Great Oak Meals Scheduling
 
+Used by Great Oak Cohousing Association to schedule common meals over a several
+month season.
+
 [Structural Diagram in draw.io](https://www.draw.io/#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fwilln%2Fgo_meals_scheduling%2Fmaster%2Fdraw_io.xml)
 
 ## Terms:
