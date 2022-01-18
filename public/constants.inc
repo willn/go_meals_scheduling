@@ -14,11 +14,6 @@ define('FALL', 'fall');
 define('SUMMER', 'summer');
 
 $this_year = intval(date('Y'));
-$this_month = date('n');
-// if it's nov or dec, then use "next year"
-if (($this_month == 11) || ($this_month == 12)) {
-	$this_year++;
-}
 define('SEASON_YEAR', $this_year);
 
 # -------- list of sqlite tables ---------

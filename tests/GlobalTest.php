@@ -39,8 +39,8 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 	// XXX this changes every season...
 	public function test_get_job_ids_clause() {
 		$result = get_job_ids_clause();
-		// XXX this will need to be changed each season
-		$expected = 'job_id=5011 OR job_id=5012 OR job_id=5016 OR job_id=5004 OR job_id=5013 OR job_id=5014 OR job_id=5017 OR job_id=5015 OR job_id=5018';
+		// UPDATE-EACH-SEASON
+		$expected = 'job_id=6257 OR job_id=6258 OR job_id=6262 OR job_id=6259 OR job_id=6260 OR job_id=6263 OR job_id=6261 OR job_id=6264';
 		$this->assertEquals($expected, $result);
 	}
 
@@ -58,7 +58,7 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function provide_get_is_a_mtg_night_job() {
-		return [
+		$out = [
 			[0, FALSE],
 			[MEETING_NIGHT_ORDERER, TRUE],
 			[MEETING_NIGHT_CLEANER, TRUE],
@@ -68,8 +68,12 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 			[WEEKDAY_HEAD_COOK, FALSE],
 			[WEEKDAY_ASST_COOK, FALSE],
 			[WEEKDAY_CLEANER, FALSE],
-			[WEEKDAY_TABLE_SETTER, FALSE],
 		];
+
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$out[] = [WEEKDAY_TABLE_SETTER, FALSE];
+		}
+		return $out;
 	}
 
 	/**
@@ -86,7 +90,7 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function get_is_a_sunday_job() {
-		return [
+		$out = [
 			[0, FALSE],
 			[MEETING_NIGHT_ORDERER, FALSE],
 			[MEETING_NIGHT_CLEANER, FALSE],
@@ -96,8 +100,12 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 			[WEEKDAY_HEAD_COOK, FALSE],
 			[WEEKDAY_ASST_COOK, FALSE],
 			[WEEKDAY_CLEANER, FALSE],
-			[WEEKDAY_TABLE_SETTER, FALSE],
 		];
+
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$out[] = [WEEKDAY_TABLE_SETTER, FALSE];
+		}
+		return $out;
 	}
 
 	/**
@@ -114,7 +122,7 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function get_is_a_cook_job() {
-		return [
+		$out = [
 			[0, FALSE],
 			[MEETING_NIGHT_ORDERER, TRUE],
 			[MEETING_NIGHT_CLEANER, FALSE],
@@ -124,8 +132,12 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 			[WEEKDAY_HEAD_COOK, TRUE],
 			[WEEKDAY_ASST_COOK, TRUE],
 			[WEEKDAY_CLEANER, FALSE],
-			[WEEKDAY_TABLE_SETTER, TRUE],
 		];
+
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$out[] = [WEEKDAY_TABLE_SETTER, FALSE];
+		}
+		return $out;
 	}
 
 	/**

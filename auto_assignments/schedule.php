@@ -344,7 +344,7 @@ EOTXT;
 	 * Get the list of columns in order.
 	 */
 	public function getColumnOrder() {
-		return [
+		$list = [
 			'date',
 			'time',
 			'communities',
@@ -354,8 +354,12 @@ EOTXT;
 			'cleaner1',
 			'cleaner2',
 			'cleaner3',
-			'table_setter',
 		];
+
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$list[] = 'table_setter';
+		}
+		return $list;
 	}
 
 	/**
@@ -378,9 +382,11 @@ EOTXT;
 			'Head Cook',
 			'Assistant Cook',
 			'Cleaner',
-			'Table Setter'
 		];
 
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$cols[] = 'Table Setter';
+		}
 		return implode(",", $cols) . "\n";
 	}
 

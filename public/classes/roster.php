@@ -302,13 +302,13 @@ EOSQL;
 		foreach($shift_overrides as $or_username => $jobs) {
 			$worker = $this->getWorker($or_username);
 
-			foreach($jobs as $job_id=>$instances) {
+			foreach($jobs as $job_id=>$num_instances) {
 				if (!isset($all_jobs[$job_id])) {
 					echo "Could not find job ID: $job_id\n";
 					continue;
 				}
-				$worker->addNumShiftsAssigned($job_id, $instances);
-				$this->total_labor_avail[$job_id] += $instances;
+				$worker->addNumShiftsAssigned($job_id, $num_instances);
+				$this->total_labor_avail[$job_id] += $num_instances;
 			}
 		}
 	}

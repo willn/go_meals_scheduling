@@ -122,12 +122,13 @@ EOHTML;
 			return;
 		}
 
-		$slackers = $this->getNonResponders();
+		$non_responders = $this->getNonResponders();
+		$assigned_workers = $this->getWorkers();
 
 		// display names for "login"
 		print <<<EOHTML
 			<div class="workers_list">
-				{$workers_list->getWorkersListAsLinks($slackers)}
+				{$workers_list->getWorkersListAsLinks($non_responders, $assigned_workers)}
 			</div>
 EOHTML;
 	}

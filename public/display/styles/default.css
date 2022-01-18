@@ -329,8 +329,14 @@ table tr.week .affecting {
 .workers_list {
 	text-align: left;
 }
-.workers_list a {
+.workers_list li a, .workers_list li span {
 	line-height: 25px;
+}
+.workers_list li a {
+	font-weight: bold;
+}
+.workers_list li span {
+	color: #666;
 }
 .workers_list ol {
 	float: left;

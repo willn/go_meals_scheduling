@@ -53,23 +53,31 @@ EOSQL;
 	 *
 	 * @param[in] slackers array list of usernames for people who have
 	 *     not yet filled out their survey.
+	 * @param[in] assigned_workers array list of strings, usernames of
+	 *     folks who have been assigned a meals job.
 	 */
-	public function getWorkersListAsLinks($slackers) {
+	public function getWorkersListAsLinks($slackers, $assigned_workers=[]) {
 		$workers = $this->getWorkers();
 		$slackers_flip = array_flip($slackers);
+		$assigned_flip = array_flip($assigned_workers);
 
 		$out = $lines = '';
 		$count = 0;
 		ksort($workers);
 		$dir = BASE_DIR;
 		foreach($workers as $name=>$unused) {
-			// XXX it would be great to disable links for people who have no shifts
-			#!# disable for now, it's not working properly
-			# $extra = isset($slackers_flip[$name]) ? '' : ' &check;';
+			// figure out who has submitted already...
+			$extra = isset($slackers_flip[$name]) ? '' : ' &check;';
 
-			$lines .= <<<EOHTML
-				<li><a href="{$dir}/index.php?worker={$name}">{$name}</a>{$extra}</li>
+			if (isset($assigned_flip[$name])) {
+				$lines .= <<<EOHTML
+<li><a href="{$dir}/index.php?worker={$name}">{$name}</a>{$extra}</li>
 EOHTML;
+			}
+			else {
+				// disable links for people who have no shifts
+				$lines .= "<li><span>{$name}</span></li>";
+			}
 
 			$count++;
 			if (($count % 10) == 0) {

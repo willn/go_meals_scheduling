@@ -417,6 +417,11 @@ class Worker {
 	 * Find out whether this worker wants to bundle their shifts or not.
 	 */
 	public function wantsBundling() {
+		// try to group SKIPs together to help cancel dates
+		if ($this->username === SKIP_USER) {
+			return TRUE;
+		}
+
 		return (array_get($this->requests, 'bundle_shifts') == TRUE);
 	}
 

@@ -41,12 +41,16 @@ function get_sunday_jobs() {
 
 // list in order of importance
 function get_weekday_jobs() {
-	return [
+	$out = [
 		WEEKDAY_HEAD_COOK => 'Weekday head cook',
 		WEEKDAY_ASST_COOK => 'Weekday meal asst cook',
 		WEEKDAY_CLEANER => 'Weekday Meal cleaner',
-		WEEKDAY_TABLE_SETTER => 'Weekday Table Setter',
 	];
+
+	if (defined('WEEKDAY_TABLE_SETTER')) {
+		$out[WEEKDAY_TABLE_SETTER] = 'Weekday Table Setter';
+	}
+	return $out;
 }
 
 /**
@@ -71,8 +75,10 @@ function get_cook_jobs() {
 		}
 	}
 
-	// attempt to avoid conflicts with cooking shifts...
-	# $jobs[] = WEEKDAY_TABLE_SETTER;
+	if (defined('WEEKDAY_TABLE_SETTER')) {
+		// attempt to avoid conflicts with cooking shifts...
+		$jobs[] = WEEKDAY_TABLE_SETTER;
+	}
 	return $jobs;
 }
 
@@ -129,8 +135,10 @@ function get_num_meals_per_assignment($season, $job_id=NULL,
 		WEEKDAY_ASST_COOK => 2,
 		WEEKDAY_CLEANER => $num_months,
 		WEEKDAY_HEAD_COOK => 2,
-		WEEKDAY_TABLE_SETTER => $num_months,
 	];
+	if (defined('WEEKDAY_TABLE_SETTER')) {
+		$meals[WEEKDAY_TABLE_SETTER] = $num_months;
+	}
 
 	if ($sub_season_factor < 1) {
 		$adjust_jobs = [
@@ -175,8 +183,10 @@ function get_num_workers_per_job_per_meal($job_id=NULL) {
 		WEEKDAY_HEAD_COOK => 1,
 		WEEKDAY_ASST_COOK => 2,
 		WEEKDAY_CLEANER => 3,
-		WEEKDAY_TABLE_SETTER => 1,
 	];
+	if (defined('WEEKDAY_TABLE_SETTER')) {
+		$instances[WEEKDAY_TABLE_SETTER] = 1;
+	}
 
 	if (is_null($job_id)) {
 		return $instances;

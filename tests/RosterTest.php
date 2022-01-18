@@ -35,22 +35,27 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function provideLoadNumAssignmentsFromDatabase() {
-		return [
+		$out = [
 			[
 				[
+					// UPDATE-EACH-SEASON
 					'all' => 0,
-					WEEKDAY_TABLE_SETTER => 33,
-					WEEKDAY_HEAD_COOK => 33.0,
-					WEEKDAY_ASST_COOK => 63.0,
-					SUNDAY_HEAD_COOK => 11.0,
-					SUNDAY_ASST_COOK => 22.0,
-					MEETING_NIGHT_ORDERER => 6.0,
-					WEEKDAY_CLEANER => 81,
-					SUNDAY_CLEANER => 33, 
-					MEETING_NIGHT_CLEANER => 6,
+					WEEKDAY_HEAD_COOK => 15.0,
+					WEEKDAY_ASST_COOK => 30.0,
+					SUNDAY_HEAD_COOK => 7.0,
+					SUNDAY_ASST_COOK => 13.0,
+					MEETING_NIGHT_ORDERER => 5.0,
+					WEEKDAY_CLEANER => 48,
+					SUNDAY_CLEANER => 21, 
+					MEETING_NIGHT_CLEANER => 3,
 				]
 			]
 		];
+
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$out[0][0]['WEEKDAY_TABLE_SETTER'] = 0;
+		}
+		return $out;
 	}
 
 	/**
@@ -67,22 +72,27 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function provideLoadNumAssignmentsFromOverrides() {
-		return [
+		$out = [
 			[
 				[
 					'all' => 0,
-					WEEKDAY_TABLE_SETTER => 0,
+					// UPDATE-EACH-SEASON
 					WEEKDAY_HEAD_COOK => 0,
-					WEEKDAY_ASST_COOK => 1,
+					WEEKDAY_ASST_COOK => 0,
 					SUNDAY_HEAD_COOK => 0,
 					SUNDAY_ASST_COOK => 0,
 					MEETING_NIGHT_ORDERER => 0,
-					WEEKDAY_CLEANER => 11,
+					WEEKDAY_CLEANER => 0,
 					SUNDAY_CLEANER => 0, 
 					MEETING_NIGHT_CLEANER => 0,
 				]
 			]
 		];
+
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$out[0][0]['WEEKDAY_TABLE_SETTER'] = 0;
+		}
+		return $out;
 	}
 
 	/**
@@ -119,28 +129,33 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function provideGetTotalLaborAvailable() {
-		return [
+		$out = [
 			[
 				[
+					// UPDATE-EACH-SEASON
 					'all' => 0,
-					WEEKDAY_TABLE_SETTER => 33,
-					WEEKDAY_HEAD_COOK => 33.0,
-					WEEKDAY_ASST_COOK => 64.0,
-					SUNDAY_HEAD_COOK => 11.0,
-					SUNDAY_ASST_COOK => 22.0,
-					MEETING_NIGHT_ORDERER => 6.0,
-					WEEKDAY_CLEANER => 92,
-					SUNDAY_CLEANER => 33, 
-					MEETING_NIGHT_CLEANER => 6.0,
+					WEEKDAY_HEAD_COOK => 15.0,
+					WEEKDAY_ASST_COOK => 30.0,
+					WEEKDAY_CLEANER => 48,
+					SUNDAY_HEAD_COOK => 7.0,
+					SUNDAY_ASST_COOK => 13.0,
+					SUNDAY_CLEANER => 21, 
+					MEETING_NIGHT_ORDERER => 5.0,
+					MEETING_NIGHT_CLEANER => 3.0,
 				]
 			]
 		];
+
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$out[0][0]['WEEKDAY_TABLE_SETTER'] = 34;
+		}
+		return $out;
 	}
 
 	/**
-	 * Note: this may need to be adjusted each season or sub-season.
 	 * XXX This is checking for a consistency between the workers array and
 	 * the roster array... how / why are those different?
+	 * UPDATE-EACH-SEASON
 	 */
 	public function testRosterAndWorkerAssignmentsSynced() {
 		// ----- get worker shifts to fill
@@ -149,6 +164,12 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 		$this->assertGreaterThan(1, count($shifts));
 
 		$summary = [];
+		$all_jobs = get_all_jobs();
+		// initialize all jobs to zeroes
+		foreach(array_keys($all_jobs) as $job_id) {
+			$summary[$job_id] = 0;
+		}
+
 		$debug = [];
 		foreach($shifts as $worker => $assignments) {
 			$debug['worker'] = $worker;
@@ -166,16 +187,10 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 				 * $this->assertGreaterThan(0, intval($assn_count), print_r($debug, TRUE));
 				 */
 				$this->assertGreaterThan(-1, intval($assn_count), print_r($debug, TRUE));
-
-				// if empty, initialize
-				if (!array_key_exists($job_id, $summary)) {
-					$summary[$job_id] = 0;
-				}
 				$summary[$job_id] += $assn_count;
 			}
 		}
 
-		unset($this->labor['all']);
 		ksort($summary);
 		$this->assertEquals($this->labor, $summary);
 	}
@@ -223,6 +238,10 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 	 *
 	 * Confirm whether there is enough labor for the amount of shifts that need
 	 * to be filled for the season.
+	 *
+	 * NOTE: This is where we'll find out if we're short on labor for
+	 * the upcoming season. This is how we'll figure out how many meals
+	 * to cancel due to labor shortages.
 	 */
 	public function testCompareLabor($job_id, $assigned_labor, $need) {
 		$all_jobs = get_all_jobs();

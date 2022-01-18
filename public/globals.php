@@ -8,6 +8,7 @@ define('JSON_ASSIGNMENTS_FILE', 'results/' . SEASON_ID . '.json');
 
 define('NON_RESPONSE_PREF', .5);
 define('PLACEHOLDER', 'XXXXXXXX');
+define('SKIP_USER', 'SKIP_USER');
 define('HAS_CONFLICT', -1);
 
 define('SUNDAY', 0);

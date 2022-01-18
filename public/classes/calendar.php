@@ -62,7 +62,7 @@ class Calendar {
 
 	/**
 	 * Don't build a display for the web, just get the info needed.
-	 * XXX This is used by the auto-assignment routine, to get the needed
+	 * NOTE: This is used by the auto-assignment routine, to get the needed
 	 * dates.
 	 */
 	public function disableWebDisplay() {
@@ -197,7 +197,7 @@ EOHTML;
 		$meal_days = get_weekday_meal_days();
 
 		/*
-		 * XXX Implement skip dates. Don't display selection options
+		 * Skip dates. Don't display selection options
 		 * for this date if we know in advance that we'll be cancelling
 		 * a meal on this date. Similar functionality to holidays.
 		 * https://github.com/willn/go_meals_scheduling/issues/17
@@ -492,9 +492,14 @@ EOHTML;
 	 *
 	 * @param[in] day_ok_week the number of the current day of the week.
 	 * @param[in] month_num the number of the current month.
+	 * @return string if applicable, an html message about what happens on this calendar date.
 	 */
 	public function addMessage($day_of_week, $month_num) {
 		$notice = '';
+		if (!DOING_CSA_FARM_MEALS) {
+			return $notice;
+		}
+
 		if (($day_of_week === TUESDAY) && (($month_num > MAY) && ($month_num < NOVEMBER)))  {
 			$notice = self::FARM_MSG;
 		}
@@ -712,6 +717,8 @@ EOSQL;
 	/**
 	 * Get the comments saved by the workers.
 	 * First, load the data, then render it.
+	 *
+	 * @param[in] job_key_clause string XXX
 	 */
 	public function getWorkerComments($job_key_clause) {
 		$data = $this->loadWorkerComments($job_key_clause);
@@ -721,7 +728,7 @@ EOSQL;
 	/**
 	 * Load all worker's preferences from the database.
 	 *
-	 * @param[in] job_key_clause XXX
+	 * @param[in] job_key_clause string XXX
 	 */
 	public function loadWorkerComments($job_key_clause) {
 		// render the comments
@@ -1049,15 +1056,21 @@ EOHTML;
 	/**
 	 * Render the number of assignments, make it human readable.
 	 *
-	 * @param[in] num_assignments #!#
+	 * @param[in] num_assignments array associative where the keys are
+	 *     job IDs and the values are the number of shifts needed for the season.
+	 * @return string The rendered lines of html summarizing the number
+	 *     of assignments per job.
 	 */
 	function renderNumberAssignments($num_assignments) {
-		$out = [];
+
+		$list = [];
 		foreach($num_assignments as $job_id => $assignments) {
-			$out[] = get_job_name($job_id) . " {$assignments}\n";
+			$name = get_job_name($job_id);
+			$list[$name] = $name . " {$assignments}\n";
 		}
 
-		return "<p>" . implode($out, '<br>') . "</p>";
+		ksort($list);
+		return "<p>" . implode($list, '<br>') . "</p>";
 	}
 
 	/**
@@ -1102,7 +1115,7 @@ EOHTML;
 		$current_season = $this->season_months;
 		return "<h2>season: " . SEASON_YEAR . ' ' .
 			array_shift($current_season) . ' - ' .
-			array_pop($current_season) . '</h2>' .
+			array_pop($current_season) . "</h2>\n" .
 			$assns;
 	}
 }

@@ -3,7 +3,6 @@
 global $relative_dir;
 $relative_dir = '../public/';
 require_once "{$relative_dir}/classes/roster.php";
-require_once "{$relative_dir}/gather_utils.php";
 
 define('FILENAME', 'final_schedule.csv');
 
@@ -31,52 +30,54 @@ echo implode(',', array_values($header_cols)) . "\n";
 $roster = new Roster();
 $gather_ids = $roster->loadGatherIDs();
 
+/**
+ * Map the given username to the appropriate Gather ID. If it exists.
+ *
+ * @param[in] usernames #!# array of strings, work system usernames to be replaced.
+ * @param[in] gather_ids associative array of all work system usernames to gather IDs.
+ * @return associative array with only the entries found in the first
+ *     array. The keys are work system IDs, the values are Gather IDs.
+ */
+function get_gather_id($username, $gather_ids) {
+	if (isset($gather_ids[$username])) {
+		return $gather_ids[$username];
+	}
+	if (($username == '') || ($username === PLACEHOLDER)) {
+		return '';
+	}
+	return "---->{$username}<----";
+}
+
 foreach($data as $entry) {
 	$keyed = array_combine($header_keys, $entry);
 	$time_and_date_str = strtotime($keyed['date'] . ' ' . $keyed['time'] . 'pm');
 
 	// head cook
-	$head_cook = map_usernames_to_gather_id([$keyed['head_cook']],
-		$gather_ids);
+	$head_cook = get_gather_id($keyed['head_cook'], $gather_ids);
 
 	// assistant cooks
 	$assts = [];
-	if (!empty($keyed['asst1'])) {
-		$assts[] = $keyed['asst1'];
-	}
-	if (!empty($keyed['asst2'])) {
-		$assts[] = $keyed['asst2'];
-	}
-	$ids = map_usernames_to_gather_id($assts, $gather_ids);
-	$assts = array_values($ids);
+	$assts[] = get_gather_id($keyed['asst1'], $gather_ids);
+	$assts[] = get_gather_id($keyed['asst2'], $gather_ids);
 
 	// cleaners
 	$cleaners = [];
-	if (!empty($keyed['cleaner1'])) {
-		$cleaners[] = $keyed['cleaner1'];
-	}
-	if (!empty($keyed['cleaner2'])) {
-		$cleaners[] = $keyed['cleaner2'];
-	}
-	if (!empty($keyed['cleaner3'])) {
-		$cleaners[] = $keyed['cleaner3'];
-	}
-	$ids = map_usernames_to_gather_id($cleaners, $gather_ids);
-	$cleaners = array_values($ids);
+	$cleaners[] = get_gather_id($keyed['cleaner1'], $gather_ids);
+	$cleaners[] = get_gather_id($keyed['cleaner2'], $gather_ids);
+	$cleaners[] = get_gather_id($keyed['cleaner3'], $gather_ids);
 
 	// table setter
-	$table_setter = map_usernames_to_gather_id([$keyed['table_setter']],
-		$gather_ids);
+	$table_setter = get_gather_id($keyed['table_setter'], $gather_ids);
 
 	$translated = [
 		'date_time' => date('c', $time_and_date_str),
 		'locations' => GO_KITCHEN_AND_DINING_ROOM,
 		'formula' => NULL,
 		'communities' => str_replace(', ', ';', $keyed['communities']),
-		'head_cook' => implode(';', $head_cook),
+		'head_cook' => $head_cook,
 		'asst_cook' => implode(';', $assts),
 		'cleaner' => implode(';', $cleaners),
-		'table_setter' => implode(';', $table_setter),
+		'table_setter' => $table_setter,
 		'action' => CREATE,
 	];	
 	echo implode(',', array_values($translated)) . "\n";

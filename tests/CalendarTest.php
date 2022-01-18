@@ -159,8 +159,8 @@ EOHTML;
 			[TUESDAY, DECEMBER, ''],
 
 			// middle of summer
-			[TUESDAY, JULY, Calendar::FARM_MSG],
-			[TUESDAY, OCTOBER, Calendar::FARM_MSG],
+			[TUESDAY, JULY, (DOING_CSA_FARM_MEALS ? Calendar::FARM_MSG : '')],
+			[TUESDAY, OCTOBER, (DOING_CSA_FARM_MEALS ? Calendar::FARM_MSG : '')],
 		];
 	}
 
@@ -173,7 +173,7 @@ EOHTML;
 	}
 
 	public function provideRenderJobNameForDay() {
-		return [
+		$out = [
 			['x', 'x'],
 			['Meeting night takeout orderer', 'Meeting night takeout orderer'],
 			['Meeting night cleaner', 'Meeting night cleaner'],
@@ -183,27 +183,35 @@ EOHTML;
 			['Weekday head cook', 'head cook'],
 			['Weekday meal asst cook', 'asst cook'],
 			['Weekday Meal cleaner', 'cleaner'],
-			['Weekday Table Setter', 'Table Setter'],
 		];
+
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$out['Weekday Table Setter'] = 'Table Setter';
+		}
+		return $out;
 	}
 
 	public function testGetJobsIndex() {
 		$result = $this->calendar->getJobsIndex('all');
 		$this->assertNotEmpty($result);
 
-		// XXX this will need to be updated with each new season
+		// UPDATE-EACH-SEASON
+		$entry = '';
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$entry = "\n" .
+				'<li><a href="/meals_scheduling/report.php?key=6247">Weekday Table Setter</a></li>';
+		}
 		$out = <<<EOHTML
 <ul id="filter_overlay">
 <li><a href="/meals_scheduling/report.php?key=all">all</a></li>
-<li><a href="/meals_scheduling/report.php?key=5011">Weekday head cook</a></li>
-<li><a href="/meals_scheduling/report.php?key=5012">Weekday meal asst cook</a></li>
-<li><a href="/meals_scheduling/report.php?key=5016">Weekday Meal cleaner</a></li>
-<li><a href="/meals_scheduling/report.php?key=5004">Weekday Table Setter</a></li>
-<li><a href="/meals_scheduling/report.php?key=5013">Sunday head cook</a></li>
-<li><a href="/meals_scheduling/report.php?key=5014">Sunday meal asst cook</a></li>
-<li><a href="/meals_scheduling/report.php?key=5017">Sunday Meal Cleaner</a></li>
-<li><a href="/meals_scheduling/report.php?key=5015">Meeting night takeout orderer</a></li>
-<li><a href="/meals_scheduling/report.php?key=5018">Meeting night cleaner</a></li>
+<li><a href="/meals_scheduling/report.php?key=6257">Weekday head cook</a></li>
+<li><a href="/meals_scheduling/report.php?key=6258">Weekday meal asst cook</a></li>
+<li><a href="/meals_scheduling/report.php?key=6262">Weekday Meal cleaner</a></li>{$entry}
+<li><a href="/meals_scheduling/report.php?key=6259">Sunday head cook</a></li>
+<li><a href="/meals_scheduling/report.php?key=6260">Sunday meal asst cook</a></li>
+<li><a href="/meals_scheduling/report.php?key=6263">Sunday Meal Cleaner</a></li>
+<li><a href="/meals_scheduling/report.php?key=6261">Meeting night takeout orderer</a></li>
+<li><a href="/meals_scheduling/report.php?key=6264">Meeting night cleaner</a></li>
 </ul>
 
 EOHTML;
@@ -225,6 +233,28 @@ EOHTML;
 
 	public function provideShiftsPerDate() {
 		$example1 = [
+			'10/1/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/2/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/3/2018' => [0 => MEETING_NIGHT_ORDERER, 1 => MEETING_NIGHT_CLEANER],
+			'10/7/2018' => [0 => SUNDAY_HEAD_COOK, 1 => SUNDAY_ASST_COOK, 2 => SUNDAY_CLEANER], // sunday
+			'10/8/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/9/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/10/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/14/2018' => [0 => SUNDAY_HEAD_COOK, 1 => SUNDAY_ASST_COOK, 2 => SUNDAY_CLEANER], // sunday
+			'10/15/2018' => [0 => MEETING_NIGHT_ORDERER, 1 => MEETING_NIGHT_CLEANER],
+			'10/16/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/17/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/21/2018' => [0 => SUNDAY_HEAD_COOK, 1 => SUNDAY_ASST_COOK, 2 => SUNDAY_CLEANER], // sunday
+			'10/22/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/23/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/24/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/28/2018' => [0 => SUNDAY_HEAD_COOK, 1 => SUNDAY_ASST_COOK, 2 => SUNDAY_CLEANER], // sunday
+			'10/29/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/30/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+		];
+
+		/*
+		$example1 = [
 			'10/1/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
 			'10/2/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
 			'10/3/2018' => [0 => MEETING_NIGHT_ORDERER, 1 => MEETING_NIGHT_CLEANER],
@@ -244,26 +274,29 @@ EOHTML;
 			'10/29/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
 			'10/30/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
 		];
+		*/
 		$result1 = [
-			WEEKDAY_HEAD_COOK => 12, // WEEKDAY_HEAD_COOK
-			WEEKDAY_ASST_COOK => 12, // WEEKDAY_ASST_COOK
-			WEEKDAY_CLEANER => 12, // WEEKDAY_CLEANER
-			WEEKDAY_TABLE_SETTER => 12, // WEEKDAY_TABLE_SETTER
-			MEETING_NIGHT_ORDERER => 2, // MEETING_NIGHT_ORDERER
-			MEETING_NIGHT_CLEANER => 2, // MEETING_NIGHT_CLEANER
-			SUNDAY_HEAD_COOK => 4, // SUNDAY_HEAD_COOK
-			SUNDAY_ASST_COOK => 4, // SUNDAY_ASST_COOK
-			SUNDAY_CLEANER => 4, // SUNDAY_CLEANER
+			WEEKDAY_HEAD_COOK => 12,
+			WEEKDAY_ASST_COOK => 12,
+			WEEKDAY_CLEANER => 12,
+			MEETING_NIGHT_ORDERER => 2,
+			MEETING_NIGHT_CLEANER => 2,
+			SUNDAY_HEAD_COOK => 4,
+			SUNDAY_ASST_COOK => 4,
+			SUNDAY_CLEANER => 4,
 		];
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$result1[WEEKDAY_TABLE_SETTER] = 12;
+		}
 
 		return [
 			[[], []],
 			[
 				[
-					'10/1/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
-					'10/2/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_TABLE_SETTER],
+					'10/1/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+					'10/2/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
 				],
-				[WEEKDAY_HEAD_COOK => 2, WEEKDAY_ASST_COOK => 2, WEEKDAY_CLEANER => 2, WEEKDAY_TABLE_SETTER => 2],
+				[WEEKDAY_HEAD_COOK => 2, WEEKDAY_ASST_COOK => 2, WEEKDAY_CLEANER => 2],
 			],
 			[$example1, $result1],
 		];
@@ -292,7 +325,6 @@ EOHTML;
 			WEEKDAY_HEAD_COOK => 10, // WEEKDAY_HEAD_COOK
 			WEEKDAY_ASST_COOK => 10, // WEEKDAY_ASST_COOK
 			WEEKDAY_CLEANER => 10, // WEEKDAY_CLEANER
-			WEEKDAY_TABLE_SETTER => 10, // WEEKDAY_TABLE_SETTER
 			MEETING_NIGHT_ORDERER => 10, // MEETING_NIGHT_ORDERER
 			MEETING_NIGHT_CLEANER => 10, // MEETING_NIGHT_CLEANER
 			SUNDAY_HEAD_COOK => 10, // SUNDAY_HEAD_COOK
@@ -303,7 +335,6 @@ EOHTML;
 			WEEKDAY_HEAD_COOK => 5.0, // WEEKDAY_HEAD_COOK
 			WEEKDAY_ASST_COOK => 10.0, // WEEKDAY_ASST_COOK
 			WEEKDAY_CLEANER => 5.0, // WEEKDAY_CLEANER
-			WEEKDAY_TABLE_SETTER => 2.0, // WEEKDAY_TABLE_SETTER
 			MEETING_NIGHT_ORDERER => 5.0, // MEETING_NIGHT_ORDERER
 			MEETING_NIGHT_CLEANER => 5.0, // MEETING_NIGHT_CLEANER
 			SUNDAY_HEAD_COOK => 5.0, // SUNDAY_HEAD_COOK
@@ -324,7 +355,6 @@ EOHTML;
 			WEEKDAY_HEAD_COOK => 10, // WEEKDAY_HEAD_COOK
 			WEEKDAY_ASST_COOK => 10, // WEEKDAY_ASST_COOK
 			WEEKDAY_CLEANER => 10, // WEEKDAY_CLEANER
-			WEEKDAY_TABLE_SETTER => 9, // WEEKDAY_TABLE_SETTER
 			MEETING_NIGHT_ORDERER => 10, // MEETING_NIGHT_ORDERER
 			MEETING_NIGHT_CLEANER => 10, // MEETING_NIGHT_CLEANER
 			SUNDAY_HEAD_COOK => 10, // SUNDAY_HEAD_COOK
@@ -335,7 +365,6 @@ EOHTML;
 			WEEKDAY_HEAD_COOK => 10.0, // WEEKDAY_HEAD_COOK
 			WEEKDAY_ASST_COOK => 20.0, // WEEKDAY_ASST_COOK
 			WEEKDAY_CLEANER => 10.0, // WEEKDAY_CLEANER
-			WEEKDAY_TABLE_SETTER => 3.0, // WEEKDAY_TABLE_SETTER
 			MEETING_NIGHT_ORDERER => 10.0, // MEETING_NIGHT_ORDERER
 			MEETING_NIGHT_CLEANER => 10.0, // MEETING_NIGHT_CLEANER
 			SUNDAY_HEAD_COOK => 10.0, // SUNDAY_HEAD_COOK
@@ -353,7 +382,6 @@ EOHTML;
 			WEEKDAY_HEAD_COOK => 32, // WEEKDAY_HEAD_COOK
 			WEEKDAY_ASST_COOK => 32, // WEEKDAY_ASST_COOK
 			WEEKDAY_CLEANER => 32, // WEEKDAY_CLEANER
-			WEEKDAY_TABLE_SETTER => 32, // WEEKDAY_TABLE_SETTER
 			MEETING_NIGHT_ORDERER => 6, // MEETING_NIGHT_ORDERER
 			MEETING_NIGHT_CLEANER => 6, // MEETING_NIGHT_CLEANER
 			SUNDAY_HEAD_COOK => 12, // SUNDAY_HEAD_COOK
@@ -364,7 +392,6 @@ EOHTML;
 			WEEKDAY_HEAD_COOK => 32, // WEEKDAY_HEAD_COOK
 			WEEKDAY_ASST_COOK => 64, // WEEKDAY_ASST_COOK
 			WEEKDAY_CLEANER => 32, // WEEKDAY_CLEANER
-			WEEKDAY_TABLE_SETTER => 11, // WEEKDAY_TABLE_SETTER
 			MEETING_NIGHT_ORDERER => 6, // MEETING_NIGHT_ORDERER
 			MEETING_NIGHT_CLEANER => 6, // MEETING_NIGHT_CLEANER
 			SUNDAY_HEAD_COOK => 12, // SUNDAY_HEAD_COOK
@@ -381,7 +408,6 @@ EOHTML;
 			WEEKDAY_HEAD_COOK => 10, // WEEKDAY_HEAD_COOK
 			WEEKDAY_ASST_COOK => 10, // WEEKDAY_ASST_COOK
 			WEEKDAY_CLEANER => 10, // WEEKDAY_CLEANER
-			WEEKDAY_TABLE_SETTER => 10, // WEEKDAY_TABLE_SETTER
 			MEETING_NIGHT_ORDERER => 10, // MEETING_NIGHT_ORDERER
 			MEETING_NIGHT_CLEANER => 10, // MEETING_NIGHT_CLEANER
 			SUNDAY_HEAD_COOK => 10, // SUNDAY_HEAD_COOK
@@ -392,7 +418,6 @@ EOHTML;
 			WEEKDAY_HEAD_COOK => 5.0, // WEEKDAY_HEAD_COOK
 			WEEKDAY_ASST_COOK => 10.0, // WEEKDAY_ASST_COOK
 			WEEKDAY_CLEANER => 8.0, // WEEKDAY_CLEANER
-			WEEKDAY_TABLE_SETTER => 3.0, // WEEKDAY_TABLE_SETTER
 			MEETING_NIGHT_ORDERER => 5.0, // MEETING_NIGHT_ORDERER
 			MEETING_NIGHT_CLEANER => 5.0, // MEETING_NIGHT_CLEANER
 			SUNDAY_HEAD_COOK => 5.0, // SUNDAY_HEAD_COOK
@@ -405,6 +430,20 @@ EOHTML;
 			8 => 'August',
 			9 => 'September',
 		];
+
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$input_6mo[WEEKDAY_TABLE_SETTER] = 10;
+			$expected_6mo[WEEKDAY_TABLE_SETTER] = 2.0;
+
+			$input_3mo[WEEKDAY_TABLE_SETTER] = 9;
+			$expected_3mo[WEEKDAY_TABLE_SETTER] = 3.0;
+
+			$input_3mo_s19[WEEKDAY_TABLE_SETTER] = 32;
+			$expected_3mo_s19[WEEKDAY_TABLE_SETTER] = 11;
+
+			$input_4mo[WEEKDAY_TABLE_SETTER] = 10;
+			$expected_4mo[WEEKDAY_TABLE_SETTER] = 3.0;
+		}
 
 		return [
 			[[], 1, [], [1=>'empty season test']],
@@ -433,23 +472,26 @@ EOHTML;
 			WEEKDAY_HEAD_COOK => 12.0,
 			WEEKDAY_ASST_COOK => 6.0,
 			WEEKDAY_CLEANER => 4.0,
-			WEEKDAY_TABLE_SETTER => 12.0,
 			MEETING_NIGHT_ORDERER => 2.0,
 			MEETING_NIGHT_CLEANER => 2.0,
 			SUNDAY_HEAD_COOK => 4.0,
 			SUNDAY_ASST_COOK => 2.0,
 			SUNDAY_CLEANER => 2.0,
 		];
+		$entry = '';
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$input1[WEEKDAY_TABLE_SETTER] = 12.0;
+			$entry = "\n<br>Weekday Table Setter 12";
+		}
 		$expected1 = <<<EOHTML
-<p>Weekday head cook 12
-<br>Weekday meal asst cook 6
-<br>Weekday Meal cleaner 4
-<br>Weekday Table Setter 12
+<p>Meeting night cleaner 2
 <br>Meeting night takeout orderer 2
-<br>Meeting night cleaner 2
+<br>Sunday Meal Cleaner 2
 <br>Sunday head cook 4
 <br>Sunday meal asst cook 2
-<br>Sunday Meal Cleaner 2
+<br>Weekday Meal cleaner 4
+<br>Weekday head cook 12
+<br>Weekday meal asst cook 6{$entry}
 </p>
 EOHTML;
 
@@ -606,16 +648,21 @@ EOHTML;
 					9 => 'rod',
 				],
 			],
-			WEEKDAY_TABLE_SETTER => [
-				1 => [
-					0 => 'hermann',
-					1 => 'marta',
-					2 => 'megan',
-					3 => 'nancy',
-					4 => 'nicholas',
-				],
-			],
 		];
+
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$wkd_1[] = [
+				WEEKDAY_TABLE_SETTER => [
+					1 => [
+						0 => 'hermann',
+						1 => 'marta',
+						2 => 'megan',
+						3 => 'nancy',
+						4 => 'nicholas',
+					],
+				],
+			];
+		}
 
 		$weekend_cell = <<<EOHTML
 <h3 class="jobname">Weekday head cook</h3>
@@ -667,16 +714,6 @@ mario</li>
 michael</li>
 <li>
 rod</li></ul></div>
-<h3 class="jobname">Weekday Table Setter</h3>
-<div class="OK">OK:<ul><li>hermann</li>
-<li>
-marta</li>
-<li>
-megan</li>
-<li>
-nancy</li>
-<li>
-nicholas</li></ul></div>
 
 EOHTML;
 
@@ -780,21 +817,16 @@ EOHTML;
 		}
 	}
 
-	/**
-	 * @dataProvider provideGetNumShiftsNeeded
-	 * XXX is this named properly?
-	 * What exact values do we get out of this anyways? #!!#
-	 */
-	public function testGetNumShiftsNeeded($expected) {
-		$result = $this->calendar->getNumShiftsNeeded();
-		$this->assertEquals($expected, $result);
-	}
+    /**
+     * @dataProvider provideRenderSeasonDateSummary
+     */
+    public function testRenderSeasonDateSummary($expected) {
+        $result = $this->calendar->renderSeasonDateSummary();
+        $this->assertEquals($expected, $result);
+    }
 
-	/**
-	 * (num meals * num instances)
-	 */
-	public function provideGetNumShiftsNeeded() {
-		$current = [
+    public function provideRenderSeasonDateSummary() {
+		$counts = [
 /*
 			// XXX full 6 months
 
@@ -812,49 +844,40 @@ EOHTML;
 */
 
 			// first 3 months
-			WEEKDAY_HEAD_COOK => 33, // WEEKDAY_HEAD_COOK
-			WEEKDAY_ASST_COOK => 66, // WEEKDAY_ASST_COOK
-			WEEKDAY_CLEANER => 99, // WEEKDAY_CLEANER
-			WEEKDAY_TABLE_SETTER => 33, // WEEKDAY_TABLE_SETTER
+			WEEKDAY_HEAD_COOK => 15, // WEEKDAY_HEAD_COOK
+			WEEKDAY_ASST_COOK => 30, // WEEKDAY_ASST_COOK
+			WEEKDAY_CLEANER => 45, // WEEKDAY_CLEANER
 
-			SUNDAY_HEAD_COOK => 12, // SUNDAY_HEAD_COOK
-			SUNDAY_ASST_COOK => 24, // SUNDAY_ASST_COOK
-			SUNDAY_CLEANER => 36, // SUNDAY_CLEANER
+			SUNDAY_HEAD_COOK => 7, // SUNDAY_HEAD_COOK
+			SUNDAY_ASST_COOK => 14, // SUNDAY_ASST_COOK
+			SUNDAY_CLEANER => 21, // SUNDAY_CLEANER
 
-			MEETING_NIGHT_ORDERER => 6, // MEETING_NIGHT_ORDERER
-			MEETING_NIGHT_CLEANER => 6, // MEETING_NIGHT_CLEANER
+			MEETING_NIGHT_ORDERER => 3, // MEETING_NIGHT_ORDERER
+			MEETING_NIGHT_CLEANER => 3, // MEETING_NIGHT_CLEANER
 		];
 
-		return [
-			[$current],
-		];
-	}
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$counts[WEEKDAY_TABLE_SETTER] = 34;
+		}
 
-    /**
-     * @dataProvider provideRenderSeasonDateSummary
-     */
-    public function testRenderSeasonDateSummary($expected) {
-        $result = $this->calendar->renderSeasonDateSummary();
-        $this->assertEquals($expected, $result);
-    }
-
-    public function provideRenderSeasonDateSummary() {
-		$counts_array = $this->provideGetNumShiftsNeeded();
-		$counts = $counts_array[0][0];
 		$wk_cleaners = ceil($counts[WEEKDAY_CLEANER] / 3);
-		$wk_setters = ceil($counts[WEEKDAY_TABLE_SETTER] / 3);
+		$setters_string = '';
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$setter_string = "\n" . ceil($counts[WEEKDAY_TABLE_SETTER] / 3);
+		}
 		$sun_cleaners = ceil($counts[SUNDAY_CLEANER] / 3);
 
+		// UPDATE-EACH-SEASON
 		$out = <<<EOTXT
-<h2>season: 2020 February - April</h2><p>Sunday head cook {$counts[SUNDAY_HEAD_COOK]}
-<br>Sunday meal asst cook {$counts[SUNDAY_ASST_COOK]}
-<br>Sunday Meal Cleaner {$sun_cleaners}
-<br>Weekday head cook {$counts[WEEKDAY_HEAD_COOK]}
-<br>Weekday meal asst cook {$counts[WEEKDAY_ASST_COOK]}
-<br>Weekday Meal cleaner {$wk_cleaners}
-<br>Weekday Table Setter {$wk_setters}
+<h2>season: 2022 February - April</h2>
+<p>Meeting night cleaner {$counts[MEETING_NIGHT_CLEANER]}
 <br>Meeting night takeout orderer {$counts[MEETING_NIGHT_ORDERER]}
-<br>Meeting night cleaner {$counts[MEETING_NIGHT_CLEANER]}
+<br>Sunday Meal Cleaner {$sun_cleaners}
+<br>Sunday head cook {$counts[SUNDAY_HEAD_COOK]}
+<br>Sunday meal asst cook {$counts[SUNDAY_ASST_COOK]}
+<br>Weekday Meal cleaner {$wk_cleaners}
+<br>Weekday head cook {$counts[WEEKDAY_HEAD_COOK]}
+<br>Weekday meal asst cook {$counts[WEEKDAY_ASST_COOK]}{$setters_string}
 </p>
 EOTXT;
 

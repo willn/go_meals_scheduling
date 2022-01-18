@@ -25,11 +25,17 @@ function parse_schedule_file($filename='schedule.txt') {
 /**
  * Example a schedule file, looking for table setters who are also assigned
  * a head or asst cooking shift during the same meal.
+ *
+ * @return array list of strings describing the problems found
  */
 function check_for_table_setter_conflicts($filename) {
+	if (!defined('WEEKDAY_TABLE_SETTER')) {
+		return [];
+	}
+
 	if (!file_exists($filename)) {
 		echo "file does not exist!\n";
-		return NULL;
+		return [];
 	}
 
 	$data = parse_schedule_file($filename);

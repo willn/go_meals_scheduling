@@ -2,28 +2,28 @@
 require_once 'constants.inc';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('January 25, 2020, 8:00pm'));
+define('DEADLINE', strtotime('January 22, 2022, 8:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SUMMER, FALL, WINTER, SPRING
  */
 define('SEASON_NAME', WINTER);
+define('DOING_CSA_FARM_MEALS', FALSE);
 
 // If this is a whole season, then 1, half .5, etc.
-// XXX change this for 3...
 define('SUB_SEASON_FACTOR', .5);
 
 /* ----------- job ids --------------- */
-define('MEETING_NIGHT_ORDERER', 5015);
-define('MEETING_NIGHT_CLEANER', 5018);
-define('SUNDAY_HEAD_COOK', 5013);
-define('SUNDAY_ASST_COOK', 5014);
-define('SUNDAY_CLEANER', 5017);
-define('WEEKDAY_HEAD_COOK', 5011);
-define('WEEKDAY_ASST_COOK', 5012);
-define('WEEKDAY_CLEANER', 5016);
-define('WEEKDAY_TABLE_SETTER', 5004);
+define('MEETING_NIGHT_ORDERER', 6261);
+define('MEETING_NIGHT_CLEANER', 6264);
+define('SUNDAY_HEAD_COOK', 6259);
+define('SUNDAY_ASST_COOK', 6260);
+define('SUNDAY_CLEANER', 6263);
+define('WEEKDAY_HEAD_COOK', 6257);
+define('WEEKDAY_ASST_COOK', 6258);
+define('WEEKDAY_CLEANER', 6262);
+# define('WEEKDAY_TABLE_SETTER', 6247);
 
 /**
  * Get the number of shift overrides.
@@ -33,36 +33,6 @@ define('WEEKDAY_TABLE_SETTER', 5004);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-		/*
-		Holes to fill for the 6 month season:
-		- Sunday head cook: 4
-		- Sunday meal asst cook: 2
-		- Sunday Meal Cleaner: 12
-		- Weekday Meal cleaner: 15
-		*/
-
-		// second half of sub-season debts... feb-april 2020
-		'dale' => [WEEKDAY_HEAD_COOK => 1],
-		'denise' => [
-			WEEKDAY_CLEANER => -3,
-			WEEKDAY_ASST_COOK => -3,
-		],
-		'gregd' => [
-			WEEKDAY_HEAD_COOK => 1,
-			WEEKDAY_ASST_COOK => 4,
-		],
-		'katie' => [WEEKDAY_TABLE_SETTER => 1],
-		'marys' => [
-			WEEKDAY_CLEANER => -6,
-			WEEKDAY_ASST_COOK => -2,
-			SUNDAY_ASST_COOK => -1,
-		],
-		'polly' => [WEEKDAY_ASST_COOK => 1],
-		'rebecca' => [WEEKDAY_ASST_COOK => 1],
-		'tammy' => [WEEKDAY_HEAD_COOK => 1],
-		'terrence' => [WEEKDAY_TABLE_SETTER => 1],
-		'suzette' => [WEEKDAY_HEAD_COOK => -1],
-		'willie' => [WEEKDAY_HEAD_COOK => 1],
 	];
 }
 
@@ -72,8 +42,6 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		2 => [16],
-		4 => [14],
 	];
 }
 

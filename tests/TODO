@@ -48,7 +48,6 @@
 ./public/classes/calendar.php:947:	public function getDayTypeCounts() {
 ./public/classes/calendar.php:954:	public function getShiftCounts() {
 ./public/classes/calendar.php:984:	public function toString($worker=NULL, $availability=NULL) {
-./public/classes/calendar.php:1053:	function renderSeasonDateSummary() {
 
 ./public/classes/meal.php:78:	public function addWorkerPref($username, $job_id, $pref) {
 ./public/classes/meal.php:130:	public function getNumPossibleWorkerRatio($job_id) {

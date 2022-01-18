@@ -29,16 +29,20 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 
 		$jobs = get_weekday_jobs();
 		$this->assertEquals(TRUE, is_array($jobs));
-		$this->assertCount(4, $jobs);
+		$weekday_count = defined('WEEKDAY_TABLE_SETTER') ? 4 : 3;
+		$this->assertCount($weekday_count, $jobs);
 		$this->assertArrayHasKey(WEEKDAY_HEAD_COOK, $jobs);
 		$this->assertArrayHasKey(WEEKDAY_ASST_COOK, $jobs);
 		$this->assertArrayHasKey(WEEKDAY_CLEANER, $jobs);
-		$this->assertArrayHasKey(WEEKDAY_TABLE_SETTER, $jobs);
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$this->assertArrayHasKey(WEEKDAY_TABLE_SETTER, $jobs);
+		}
 	}
 
 	public function test_get_all_jobs() {
 		$jobs = get_all_jobs();
-		$this->assertEquals(10, count($jobs));
+		$job_count = defined('WEEKDAY_TABLE_SETTER') ? 10 : 9;
+		$this->assertEquals($job_count, count($jobs));
 
 		foreach($jobs as $id => $name) {
 			// convert this one string to an int
@@ -101,7 +105,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			[$season_6mos, WEEKDAY_ASST_COOK, 1, 2],
 			[$season_6mos, WEEKDAY_HEAD_COOK, 1, 2],
 			[$season_6mos, WEEKDAY_CLEANER, 1, 6],
-			[$season_6mos, WEEKDAY_TABLE_SETTER, 1, 6],
+			#[$season_6mos, WEEKDAY_TABLE_SETTER, 1, 6],
 
 			[$season_4mos, MEETING_NIGHT_CLEANER, 1, 2],
 			[$season_4mos, MEETING_NIGHT_ORDERER, 1, 2],
@@ -111,7 +115,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			[$season_4mos, WEEKDAY_ASST_COOK, 1, 2],
 			[$season_4mos, WEEKDAY_HEAD_COOK, 1, 2],
 			[$season_4mos, WEEKDAY_CLEANER, 1, 4],
-			[$season_4mos, WEEKDAY_TABLE_SETTER, 1, 4],
+			#[$season_4mos, WEEKDAY_TABLE_SETTER, 1, 4],
 
 			[$season_3mos, MEETING_NIGHT_CLEANER, .5, 1],
 			[$season_3mos, MEETING_NIGHT_ORDERER, .5, 1],
@@ -121,7 +125,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			[$season_3mos, WEEKDAY_ASST_COOK, .5, 1],
 			[$season_3mos, WEEKDAY_HEAD_COOK, .5, 1],
 			[$season_3mos, WEEKDAY_CLEANER, .5, 3],
-			[$season_3mos, WEEKDAY_TABLE_SETTER, .5, 3],
+			#[$season_3mos, WEEKDAY_TABLE_SETTER, .5, 3],
 
 			/*
 			 * Dropped support for 2 month seasons
@@ -133,7 +137,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			[$season_2mos, WEEKDAY_HEAD_COOK, .33, 1],
 			*/
 			[$season_2mos, SUNDAY_CLEANER, .33, 2],
-			[$season_2mos, WEEKDAY_TABLE_SETTER, .33, 2],
+			#[$season_2mos, WEEKDAY_TABLE_SETTER, .33, 2],
 			[$season_2mos, WEEKDAY_CLEANER, .33, 2],
 		];
 	}
@@ -163,8 +167,10 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			WEEKDAY_HEAD_COOK => 1,
 			WEEKDAY_ASST_COOK => 2,
 			WEEKDAY_CLEANER => 3,
-			WEEKDAY_TABLE_SETTER => 1,
 		];
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$all[WEEKDAY_TABLE_SETTER] = 1;
+		}
 
 		return [
 			[NULL, $all],

@@ -6,7 +6,7 @@ require_once '../public/config.php';
 require_once '../public/globals.php';
 require_once '../auto_assignments/schedule.php';
 
-define('EASTER_DAY', 12);
+define('EASTER_DAY', 17);
 
 /**
  * This is simple example to ensure the testing framework functions properly.
@@ -114,11 +114,12 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 			1 => [1],
 			// easter changes
 			4 => [EASTER_DAY],
-			5 => [24, 25],
+			// Memorial Day changes
+			5 => [29, 30],
 			7 => [4],
-			9 => [6, 7],
+			9 => [4, 5],
 			10 => [31],
-			11 => [26, 29],
+			11 => [24, 27],
 			12 => [24, 25, 31],
 		];
 

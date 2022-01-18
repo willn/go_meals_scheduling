@@ -2,7 +2,6 @@
 require_once 'globals.php';
 require_once 'constants.inc';
 require_once 'classes/meal.php';
-require_once 'gather_utils.php';
 
 define('SEASON_ID', get_season_id());
 
@@ -69,14 +68,7 @@ function does_season_wrap($season_months) {
  * @return associative array - the same as the holidays passed in.
  */
 function add_easter($holidays, $season=[]) {
-	/*
-	XXX why did I skip adding easter? Is it for an end of year season?
-	// if Easter doesn't happen this season, then don't add anything
-	if (!isset($season[3]) && !isset($season[4])) {
-		return $holidays;
-	}
-	*/
-
+	// NOTE: Easter floats between March & April, so it's weird...
 	$does_wrap = does_season_wrap($season);
 	$year = ($does_wrap) ? (SEASON_YEAR + 1) : SEASON_YEAR;
 
@@ -85,6 +77,112 @@ function add_easter($holidays, $season=[]) {
 	$easter_month = date('n', $easter_ts);
 	$easter_day = date('j', $easter_ts);
 	$holidays[$easter_month][] = $easter_day;
+
+	return $holidays;
+}
+
+
+/**
+ * Add Memorial Day date to the holidates array.
+ * This is the last Monday of May, and the Sunday right before it.
+ *
+ * NOTE: This is making a big assumption:
+ * That the month in which the survey an allocation are happening will
+ *    finish before the meals to be assigned begins. For example, if we're running
+ *    the survey in October, the first meal would happen in November.
+ *
+ * @param[in] holidays associative array for each months, each entry is
+ *     an array of dates within that month which are recognized as a holiday,
+ *     meaning - skip assigning that day.
+ * Example: [
+ *   10 => [31],
+ *   12 => [24, 25, 31]
+ * ]
+ * @return associative array - the same as the holidays passed in.
+ */
+function add_memorial($holidays) {
+	$this_month = date('n');
+	$may_year = ($this_month > 5 ) ? SEASON_YEAR + 1 : SEASON_YEAR;
+
+	$mem_day = date('j', strtotime('last monday of May ' . $may_year));
+	// sunday, day before
+	$holidays[5][] = ($mem_day - 1);
+	// monday, memorial day
+	$holidays[5][] = $mem_day;
+
+	return $holidays;
+}
+
+/**
+ * Add Labor Day date to the holidates array.
+ * This is the first Monday of September, and the Sunday right before it.
+ * That Sunday could be the last day of August.
+ *
+ * NOTE: This is making a big assumption:
+ * That the month in which the survey an allocation are happening will
+ *    finish before the meals to be assigned begins. For example, if we're running
+ *    the survey in October, the first meal would happen in November.
+ *
+ * @param[in] holidays associative array for each months, each entry is
+ *     an array of dates within that month which are recognized as a holiday,
+ *     meaning - skip assigning that day.
+ * Example: [
+ *   10 => [31],
+ *   12 => [24, 25, 31]
+ * ]
+ * @return associative array - the same as the holidays passed in.
+ */
+function add_labor_day($holidays) {
+	$this_month = date('n');
+	$sept_year = ($this_month > 9 ) ? SEASON_YEAR + 1 : SEASON_YEAR;
+
+	// labor day
+	$labor_day = date('j', strtotime('first monday of September ' . $sept_year));
+
+	// add Sunday before labor day, even if it happens in August.
+	if ($labor_day === 1) {
+		$holidays[8][] = 31;
+	}
+	else {
+		$holidays[9][] = ($labor_day - 1);
+	}
+	$holidays[9][] = $labor_day;
+
+	return $holidays;
+}
+
+
+/**
+ * Add Thanksgiving date to the holidates array.
+ * This is the 4th Thursday of November, and the Sunday right after it.
+ *
+ * NOTE: This is making a big assumption:
+ * That the month in which the survey an allocation are happening will
+ *    finish before the meals to be assigned begins. For example, if we're running
+ *    the survey in October, the first meal would happen in November.
+ *
+ * @param[in] holidays associative array for each months, each entry is
+ *     an array of dates within that month which are recognized as a holiday,
+ *     meaning - skip assigning that day.
+ * Example: [
+ *   10 => [31],
+ *   12 => [24, 25, 31]
+ * ]
+ * @return associative array - the same as the holidays passed in.
+ */
+function add_thanksgiving($holidays) {
+	$this_month = date('n');
+	$nov_year = ($this_month > 11) ? SEASON_YEAR + 1 : SEASON_YEAR;
+
+	// add Thanksgiving
+	$thx_day = date('j', strtotime('fourth thursday of November ' . $nov_year));
+	$holidays[11][] = $thx_day;
+
+	// also add the following Sunday
+	$last_sunday = date('j', strtotime('last sunday of November ' . SEASON_YEAR));
+	if ($last_sunday > $thx_day) {
+		$holidays[11][] = $last_sunday;
+	}
 
 	return $holidays;
 }
@@ -100,41 +198,15 @@ function get_holidays() {
 		1 => [1],
 		7 => [4],
 		10 => [31],
-		12 => [24,25, 31],
+		12 => [24,25,31],
 	];
 
+	// get dynamic dates
 	$season = get_current_season_months();
 	$holidays = add_easter($holidays, $season);
-
-	// *** memorial day ***
-	$mem_day = date('j', strtotime('last monday of May, ' . SEASON_YEAR));
-	// sunday, day before
-	$holidays[5][] = ($mem_day - 1);
-	// monday, memorial day
-	$holidays[5][] = $mem_day;
-
-	// *** sunday before labor day ***
-	// if last day of aug is sunday, then next day is labor day... skip
-	$last_aug = date('D', strtotime('last day of August, ' . SEASON_YEAR));
-	if ($last_aug == 'Sun') {
-		$holidays[8][] = 31;
-	}
-
-	// *** labor day ***
-	$labor_day = date('j', strtotime('first monday of September, ' . SEASON_YEAR));
-	// if the Sunday before is in Sept, then skip it
-	if ($labor_day > 1) {
-		$holidays[9][] = ($labor_day - 1);
-	}
-	$holidays[9][] = $labor_day;
-
-	// *** thanksgiving ***
-	$thx_day = date('j', strtotime('fourth thursday of November, ' . SEASON_YEAR));
-	$holidays[11][] = $thx_day;
-	$last_sunday = date('j', strtotime('last sunday of November, ' . SEASON_YEAR));
-	if ($last_sunday > $thx_day) {
-		$holidays[11][] = $last_sunday;
-	}
+	$holidays = add_memorial($holidays);
+	$holidays = add_labor_day($holidays);
+	$holidays = add_thanksgiving($holidays);
 
 	ksort($holidays);
 	return $holidays;
