@@ -2,13 +2,6 @@
 
 ## Directions to set up the survey:
 
-### make sure that unit tests work:
-```
-	cd tests
-	./run.sh
-	cd ..
-```
-
 ### check that there aren't uncommitted modifications
 ```
 	cd /home/gocoho/meals_scheduling_dev/
@@ -17,13 +10,13 @@
 
 ### edit ~/meals_scheduling_dev/public/season.php
 * set the appropriate DEADLINE date
+* set the SEASON_NAME
+* do we want to display a farm meals night message? (DOING_CSA_FARM_MEALS)
 * set the SUB_SEASON_FACTOR
 * make sure the right months are included in get_current_season_months()
-* add any extra workers to the get_num_shift_overrides() function
 
-### clear out previous season's values
-* do we want to display a farm meals night message? (DOING_CSA_FARM_MEALS)
-* remove any previous season's data from public/season.php
+### remove any previous season's data from public/season.php
+  - get_num_shift_overrides()
   - get_regular_day_overrides()
   - get_skip_dates()
   - get_regular_day_overrides()
@@ -48,7 +41,7 @@
 	git status
 	# commit changes
 
-## MID-SEASON: if this is mid-season, follow these directions, else skip
+## MID-SEASON: if this is mid-season, follow these directions, otherwise skip
 
 ### clear out existing tables
 ```
@@ -60,27 +53,11 @@
 	git diff | view -
 ```
 
-### You may need to adjust the season's months:
-```
-	edit public/season.php
-	maybe change the SEASON_NAME?
-	examine get_current_season_months()
-	update the get_num_shift_overrides for the current sub-season
-```
-
-### verify and commmit
-```
-	run unit tests & fix if needed
-	git diff | view -
-	git commit
-```
-
 ### skip to FINISH-START-OF-SEASON
 
 
-# --------------------
-# SEASON-START:
-# --------------------
+## SEASON-START:
+
 # grab the latest sqlite file from work hosting, fix permissions, and commit:
 	# login to the work web UI, go to more reports, and "Download SQLite3 database from host"
 	# locally...
@@ -128,27 +105,27 @@
 	git commit
 
 
-# --------------------
-# FINISH-START-OF-SEASON
-# --------------------
-#
-# stage everything from the meals dev repo to public_html
+## FINISH-START-OF-SEASON
 
+### stage everything from the meals dev repo to public_html
+```
 	cd ~
 	#!# careful! - this will blank out any collected data...
-	rsync -avz meals_scheduling_dev/public/ public_html/meals_scheduling/
+	rsync -e 'ssh -p 1022' -avz public/ gocoho@gocoho.org:/home/gocoho/public_html/meals_scheduling/
+```
 
-# test to make sure everything works, view in web browser
-	- confirm that the calendar dates are correct
-	- confirm the holidays and meeting nights are correct
-	- fill in some entries and save them, then revert
-	#!# careful! - this will blank out any collected data...
-	rsync -avz meals_scheduling_dev/public/ public_html/meals_scheduling/
-	- load listing page again to make sure that the database is writeable
+### test to make sure everything works, view in web browser
+* confirm that the calendar dates are correct
+* confirm the holidays and meeting nights are correct
+* fill in some entries and save them, then revert
+* #!# careful! - this will blank out any collected data...
+* rsync -e 'ssh -p 1022' -avz public/ gocoho@gocoho.org:/home/gocoho/public_html/meals_scheduling/
+* load listing page again to make sure that the database is writeable
 
-# notify participants that the survey is ready
+### notify participants that the survey is ready
 
-# set up database backup routine on the webserver:
+### set up database backup routine on the webserver:
+```
 	mkdir ~/backups
 	chmod 700 ~/backups/
 
@@ -156,11 +133,11 @@
 	# uncomment the following lines:
 	20 *   *   *   *   /bin/cp -f ~/meals_scheduling_dev/public/sqlite_data/work_allocation.db ~/backups/
 	50 5 * * * /bin/cp -f public_html/meals_scheduling/sqlite_data/work_allocation.db ~/backups/work_allocation.db_daily
+```
 
-- schedule a few reminders spaced out over the rest of the session to send
-  reminder emails to laggards
+### schedule a few reminders spaced out over the rest of the session to send reminder emails to laggards
 
-- send Meals committee a note asking for which communities to include and the max capacity
+### confirm with the Meals committee about which communities can attemnd the max capacity per meal
 
 # --------------------
 # END-OF-SURVEY
@@ -259,16 +236,17 @@ translate from Google sheet to Gather imports
 - cd meals_scheduling_dev/utils/
 - php translate_to_gather_imports.php > imports.csv
 - look for username mistranslations...
-	* grep 0 imports.csv
 	* if any users are missing, look up their user ID in Gather and edit
 	  the sqlite table "auth_users" to update anyone's missing gather_id
 
 # make any changes to communities invited / max capacity
 
+#!# Confirm which communities are mentioned
+#!# Confirm the times and capacities of the meals
+
 # on mac:
 - download the imports file
 - scp -P 1022 gocoho@gocoho.org:meals_scheduling_dev/utils/imports.csv .
-- cat imports.csv | grep -v 'XXX' > clean_imports.csv
 - open gather site, and upload the clean entries
 
 
