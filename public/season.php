@@ -33,6 +33,8 @@ define('WEEKDAY_CLEANER', 6262);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
+		'suzette' => [WEEKDAY_ASST_COOK => -1],
+		'tammy' => [WEEKDAY_ASST_COOK => 1],
 	];
 }
 
