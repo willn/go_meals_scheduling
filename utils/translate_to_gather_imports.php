@@ -40,12 +40,17 @@ $gather_ids = $roster->loadGatherIDs();
  */
 function get_gather_id($username, $gather_ids) {
 	if (isset($gather_ids[$username])) {
+		// found, return successfully
 		return $gather_ids[$username];
 	}
+
 	if (($username == '') || ($username === PLACEHOLDER)) {
+		// is blank or placeholder... skip
 		return '';
 	}
-	return "---->{$username}<----";
+
+	// was unable to find username
+	return "XXX-{$username}";
 }
 
 foreach($data as $entry) {
