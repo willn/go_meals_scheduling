@@ -17,7 +17,7 @@ class WorkersListTest extends PHPUnit_Framework_TestCase {
 	 * Test constructing a worker object.
 	 */
 	public function testConstruct() {
-		$this->assertInstanceOf(WorkersList, $this->list);
+		$this->assertInstanceOf('WorkersList', $this->list);
 	}
 
 	public function testGetWorkers() {

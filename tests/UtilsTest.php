@@ -102,7 +102,6 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 	public function test_get_holidays($expect) {
 		$result = get_holidays();
 		$debug = [
-			'input' => $input,
 			'expect' => $expect,
 			'result' => $result,
 		];

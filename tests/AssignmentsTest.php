@@ -12,7 +12,7 @@ class AssignmentsTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testConstruct() {
-		$this->assertInstanceOf(Assignments, $this->assignments);
+		$this->assertInstanceOf('Assignments', $this->assignments);
 	}
 
 	/**

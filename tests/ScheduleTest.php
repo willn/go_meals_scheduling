@@ -19,7 +19,7 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testConstruct() {
-		$this->assertInstanceOf(Schedule, $this->schedule);
+		$this->assertInstanceOf('Schedule', $this->schedule);
 	}
 
 	/**

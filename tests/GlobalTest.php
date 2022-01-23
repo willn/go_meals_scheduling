@@ -7,12 +7,18 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 	public function test_get_days_of_week() {
 		$days = get_days_of_week();
 		$this->assertInternalType('array', $days);
+		$debug = [
+			'days' => $days,
+		];
 		$this->assertEquals(count($days), 7, print_r($debug, TRUE));
 	}
 
 	public function test_get_pref_names() {
 		$prefs = get_pref_names();
 		$this->assertInternalType('array', $prefs);
+		$debug = [
+			'prefs' => $prefs,
+		];
 		$this->assertEquals(count($prefs), 3, print_r($debug, TRUE));
 	}
 
@@ -25,6 +31,9 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 	public function test_get_mtg_nights() {
 		$mtgs = get_mtg_nights();
 		$this->assertInternalType('array', $mtgs);
+		$debug = [
+			'mtgs' => $mtgs,
+		];
 		$this->assertEquals(count($mtgs), 2, print_r($debug, TRUE));
 	}
 
@@ -33,7 +42,7 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_create_sqlite_connection() {
 		$dbh = create_sqlite_connection();
-		$this->assertInstanceOf(PDO, $dbh);
+		$this->assertInstanceOf('PDO', $dbh);
 	}
 
 	// XXX this changes every season...

@@ -533,7 +533,7 @@ EOHTML;
 	/**
 	 * Generate the SQL needed to save the special requests to the database.
 	 *
-	 * @param[in] requests associative array with key-value pairs of
+	 * @param[in] post associative array with key-value pairs of
 	 *     the various special requests that workers can make.
 	 * @return string the SQL generated.
 	 */
@@ -547,12 +547,14 @@ EOHTML;
 			$this->request_keys[$r] = $post[$r];
 		}
 
-		$avoid_list = implode(',', $post['avoid_workers']);
-		$prefer_list = implode(',', $post['prefer_workers']);
+		$avoid_list = implode(',', array_get($post, 'avoid_workers', []));
+		$prefer_list = implode(',', array_get($post, 'prefer_workers', []));
 
 		$bundle = array_get($post, 'bundle_shifts', '');
 		$table = SCHEDULE_COMMENTS_TABLE;
-		$comments = $this->dbh->quote($post['comments']);
+		$comments = $this->dbh->quote(array_get($post, 'comments', []));
+		$clean_after = array_get($post, 'clean_after_self', '');
+		$bunch = array_get($post, 'bunch_shifts', '');
 		return <<<EOSQL
 replace into {$table}
 	values(
@@ -561,8 +563,8 @@ replace into {$table}
 		{$comments},
 		'{$avoid_list}',
 		'{$prefer_list}',
-		'{$post['clean_after_self']}',
-		'{$post['bunch_shifts']}',
+		'{$clean_after}',
+		'{$bunch}',
 		'{$bundle}'
 	)
 EOSQL;

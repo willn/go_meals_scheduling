@@ -1,5 +1,7 @@
 <?php
 
+require_once('globals.php');
+
 /**
  * Map the given username to the appropriate Gather ID. If it exists.
  *

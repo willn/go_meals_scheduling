@@ -13,7 +13,7 @@ class WorkerTest extends PHPUnit_Framework_TestCase {
 	 * Test constructing a worker object.
 	 */
 	public function testConstruct() {
-		$this->assertInstanceOf(Worker, $this->worker);
+		$this->assertInstanceOf('Worker', $this->worker);
 	}
 
 	/**

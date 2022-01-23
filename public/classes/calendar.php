@@ -1015,6 +1015,9 @@ EOHTML;
 
 		foreach($dates_and_shifts as $date => $shifts) {
 			foreach($shifts as $job_id) {
+				if (!isset($summary[$job_id])) {
+					$summary[$job_id] = 0;
+				}
 				$summary[$job_id]++;
 			}
 		}
