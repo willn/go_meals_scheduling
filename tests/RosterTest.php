@@ -201,7 +201,7 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 	 * has filled out a survey.
 	 */
 	public function testSortAvailable() {
-		$result = $this->roster->sortAvailable($input);
+		$result = $this->roster->sortAvailable();
 		$this->assertEquals([], $result);
 	}
 
@@ -216,7 +216,6 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 		$debug = [
 			'expected' => $expected,
 			'input' => $input,
-			'result' => $result,
 		];
 		$this->assertEquals($expected, $results, print_r($debug, TRUE));
 	}
@@ -246,11 +245,9 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 	public function testCompareLabor($job_id, $assigned_labor, $need) {
 		$all_jobs = get_all_jobs();
 		$debug = func_get_args();
-		$debug['job_name'] = $all_jobs[$job_id];
 		$deficit = $need - $assigned_labor;
 
-		// XXX display the job name here...
-		$this->assertGreaterThanOrEqual($deficit, 0);
+		$this->assertGreaterThanOrEqual($deficit, 0, print_r($debug, TRUE));
 	}
 
 	public function provideCompareLabor() {

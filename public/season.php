@@ -40,10 +40,14 @@ function get_num_shift_overrides() {
 
 /**
  * Get the list of dates to skip or cancel, don't schedule a meal on this date.
+ *
  * @return array keys are the month number, values are an array of day numbers.
  */
 function get_skip_dates() {
 	return [
+		2 => [13, 21, 27, 28],
+		3 => [2, 8, 9, 13, 22, 23, 29, 30],
+		4 => [4, 5, 6, 11, 12, 13, 19, 20, 24, 25, 26, 27],
 	];
 }
 
