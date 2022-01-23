@@ -22,7 +22,7 @@ class MealTest extends PHPUnit_Framework_TestCase {
 			WEEKDAY_HEAD_COOK,
 			WEEKDAY_ASST_COOK,
 			WEEKDAY_CLEANER,
-			WEEKDAY_TABLE_SETTER,
+			# WEEKDAY_TABLE_SETTER,
 		],
 		[
 			SUNDAY_HEAD_COOK,
@@ -37,13 +37,13 @@ class MealTest extends PHPUnit_Framework_TestCase {
 
 	public function testConstructors() {
 		$sunday = new SundayMeal('foo', '04/22/2018', 10);
-		$this->assertInstanceOf(SundayMeal, $sunday);
+		$this->assertInstanceOf('SundayMeal', $sunday);
 
 		$weekday = new WeekdayMeal('foo', '04/23/2018', 10);
-		$this->assertInstanceOf(WeekdayMeal, $weekday);
+		$this->assertInstanceOf('WeekdayMeal', $weekday);
 
 		$mtg = new MeetingNightMeal('foo', '04/25/2018', 10);
-		$this->assertInstanceOf(MeetingNightMeal, $mtg);
+		$this->assertInstanceOf('MeetingNightMeal', $mtg);
 	}
 
 	/**
@@ -132,7 +132,7 @@ class MealTest extends PHPUnit_Framework_TestCase {
 					WEEKDAY_HEAD_COOK => [NULL],
 					WEEKDAY_ASST_COOK => [NULL, NULL],
 					WEEKDAY_CLEANER => [NULL, NULL, NULL],
-					WEEKDAY_TABLE_SETTER => [NULL],
+					# WEEKDAY_TABLE_SETTER => [NULL],
 				],
 			],
 			[
@@ -165,7 +165,7 @@ class MealTest extends PHPUnit_Framework_TestCase {
 			['04/17/2018', $this->shifts[2], WEEKDAY_HEAD_COOK, 1],
 			['04/17/2018', $this->shifts[2], WEEKDAY_ASST_COOK, 2],
 			['04/17/2018', $this->shifts[2], WEEKDAY_CLEANER, 3],
-			['04/17/2018', $this->shifts[2], WEEKDAY_TABLE_SETTER, 1],
+			# ['04/17/2018', $this->shifts[2], WEEKDAY_TABLE_SETTER, 1],
 			['04/22/2018', $this->shifts[3], SUNDAY_HEAD_COOK, 1],
 			['04/22/2018', $this->shifts[3], SUNDAY_ASST_COOK, 2],
 			['04/22/2018', $this->shifts[3], SUNDAY_CLEANER, 3],

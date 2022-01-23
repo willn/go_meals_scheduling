@@ -18,10 +18,15 @@ abstract class Meal {
 	protected $date;
 	protected $day_of_week;
 
+	const HOBART = 'hobart';
+	const AVOID_WORKERS = 'avoid_workers';
+	const PREFERS = 'prefers';
+
+	// set default point factors
 	protected $point_factors = [
-		'hobart' => DEFAULT_HOBART_SCORE,
-		'avoid_workers' => DEFAULT_AVOID_WORKER_SCORE,
-		'prefers' => DEFAULT_PREFERS_SCORE,
+		self::HOBART => DEFAULT_HOBART_SCORE,
+		self::AVOID_WORKERS => DEFAULT_AVOID_WORKER_SCORE,
+		self::PREFERS => DEFAULT_PREFERS_SCORE,
 	];
 
 	// array of username => pref
@@ -130,12 +135,12 @@ EOTXT;
 		$avoid_workers_factor=NULL) {
 
 		if (!is_null($hobart_factor)) {
-			$this->point_factors['hobart'] = $hobart_factor;
+			$this->point_factors[self::HOBART] = $hobart_factor;
 		}
 		if (!is_null($avoid_workers_factor)) {
-			$this->point_factors['avoid_workers'] = $avoid_workers_factor;
-			$this->point_factors['prefers'] =
-				$this->point_factors['avoid_workers'] * PREFER_TO_AVOID_WORKER_RATIO;
+			$this->point_factors[self::AVOID_WORKERS] = $avoid_workers_factor;
+			$this->point_factors[self::PREFERS] =
+				$this->point_factors[self::AVOID_WORKERS] * PREFER_TO_AVOID_WORKER_RATIO;
 		}
 	}
 
@@ -323,9 +328,9 @@ EOTXT;
 		// if the person has marked a lot of people to avoid or prefer to work
 		// with, then that will carry less weight than if they only mark 1
 		$avoid_point_factor = empty($list['avoids']) ? 1 :
-			($point_factors['avoids'] / count($list['avoids']));
+			($point_factors[self::AVOID_WORKERS] / count($list['avoids']));
 		$prefer_point_factor = empty($list['prefers']) ? 1 :
-			($point_factors['prefers'] / count($list['prefers']));
+			($point_factors[self::PREFERS] / count($list['prefers']));
 
 		/*
 		 * Walk down the list of people's availability, and find out who is
@@ -370,10 +375,10 @@ EOTXT;
 			if (is_a_group_clean_job($job_id) && is_a_hobarter($username)) {
 				// spread out hobarters
 				if ($this->isHobarterAssignedToShift($job_id)) {
-					$drawbacks += $point_factors['hobart'];
+					$drawbacks += $point_factors[self::HOBART];
 				}
 				else {
-					$promotes += $point_factors['hobart'];
+					$promotes += $point_factors[self::HOBART];
 				}
 			}
 
@@ -392,7 +397,7 @@ EOTXT;
 			if (!empty($worker_avoids)) {
 				foreach($worker_avoids as $avoid_person) {
 					if (isset($assigned_worker_names[$avoid_person])) {
-						$drawbacks += $point_factors['avoids'];
+						$drawbacks += $point_factors[self::AVOID_WORKERS];
 					}
 				}
 			}
