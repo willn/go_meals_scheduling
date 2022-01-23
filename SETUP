@@ -139,115 +139,155 @@
 
 ### confirm with the Meals committee about which communities can attemnd the max capacity per meal
 
-# --------------------
-# END-OF-SURVEY
-# --------------------
+## END-OF-SURVEY
 
-- disable cronjobs
+### disable cronjobs
 
-- commit closed database:
-	cd meals_scheduling_dev/public/sqlite_data/
-	cp ~/public_html/meals_scheduling/sqlite_data/work_allocation.db .
+XXX
+## commit closed database:
+```
+	rsync -e 'ssh -p 1022' -avz gocoho@gocoho.org:/home/gocoho/public_html/meals_scheduling/sqlite_data/work_allocation.db public/sqlite_data/work_allocation.db
 	git status
-	git commit work_allocation.db
+	git commit public/sqlite_data/work_allocation.db
+```
 
-- check for any un-assigned workers
-	cd ~/meals_scheduling_dev/auto_assignments/
+### check for any un-assigned workers
+```
+	cd auto_assignments/
 	php execute.php -u
+```
 
-- If we know that we need to cancel 1 or more meals, now would be a good
-   time to run... edit public/constants.inc and set DEBUG_GET_LEAST_POSSIBLE
-   to TRUE, then run this command:
-	tail -f error
+### If we know that we need to cancel 1 or more meals, edit
+```
+	vi public/constants.inc   # set DEBUG_GET_LEAST_POSSIBLE to TRUE
+	cd auto_assignments/
 	php execute.php -s
-	# look at all of the shifts to see where the pain lies... head, asst, cleaner
-	# if we need to cancel meals, then fill in get_skip_dates()
+	tail -f error
+```
 
-- count un-filled slots:
+Look at all of the shifts to see where the pain lies... head, asst, cleaner
+if we need to cancel meals, then mark these as skip dates.
+
+```
+	# add dates to get_skip_dates
+	vi public/season.php
+	# run the unit test for CalendarTest::testRenderSeasonDateSummary until
+	# things line up
+	cd tests/
+	phpunit CalendarTest.php
+```
+
+### count un-filled slots:
+```
 	php execute.php -s > results.txt
 	grep XXX !$
+```
 
-- if some meals need to be cancelled, this would be a good time to look for
+### if some meals need to be cancelled, this would be a good time to look for
   the hardest to fill days:
+```
 	grep 'XXXXXXXX.*XXXXXXXX' results.txt
+```
 
-- check for hobarter ratio:
+### check for hobarter ratio:
+```
 	grep HOBART results.txt
+```
 
-- Examine workers:
+### Examine workers:
+```
 	php execute.php -w > workers.txt
+```
 
-- Someone may have volunteered to take too many additional meals.
-  Reduce the number of needed volunteer / override positions mentioned
-  with this:
+### Someone may have volunteered to take too many additional meals
+
+Reduce the number of needed volunteer / override positions mentioned
+with this:
+```
 	grep OVERAGE workers.txt
+```
 
-- find the people who aren't fully assigned:
+### find the people who aren't fully assigned:
+```
 	egrep '(^name|\(0)' workers.txt | grep -B1 'j:' > workers_not_full.txt
+```
 
-- download a copy of the schedule, and upload it to google drive
+### download a copy of the schedule, and upload it to google drive
+```
 	# on localhost
 	cd ~/Desktop/
 	scp -i ~/.ssh/id_dsa -P 1022 \
 		gocoho@gocoho.org:/home/gocoho/meals_scheduling_dev/auto_assignments/results.txt .
+```
 
-- Import into a google spreadsheet
-	* try to move the under-assigned workers to fill the 'XXX' spots, making trades
+### Import into a google spreadsheet
+* try to move the under-assigned workers to fill the 'XXX' spots, making trades
+* do any swapping needed
 
-- do any swapping needed
+### confirm preferences
+Copy and paste from "Confirm results check" section, and create custom ones for anything that's not a personal avoid request.
 
-- copy and paste from "Confirm results check" section, and create custom ones for anything
-  that's not a personal avoid request.
-	1) Export from google spreadsheet, download as tab-delimited
-		* rename file to schedule.txt
-	2) go to http://gocoho.org/meals_scheduling/report.php?key=all#confirm_checks
-		* copy section of text
-		* vi checks.sh
-		* paste
-		* chmod +x checks.sh
-		* ./checks.sh | more
+1. Download from google spreadsheet, save as tab separated values (TSV)
+  - rename file to schedule.txt
+2. go to http://gocoho.org/meals_scheduling/report.php?key=all#confirm_checks
+```
+	# copy section of text
+	vi checks.sh
+	# paste
+	chmod +x checks.sh
+	./checks.sh | more
+	# read the comments and make sure they apply cleanly with auto-checks,
+	# otherwise make trades
+```
 
-- read the comments and make sure they apply cleanly with auto-checks
+### look for table setter conflicts
+Check to make sure that there are no 'table setter' assignments which conflict with head or asst cooking.
+* Export from google spreadsheet, download as tab-delimited
+* see tests/CheckForConflictsTest.php
+* #!# need a test to ensure that nobody is double-scheduled... like head & asst or table setter
 
-- check to make sure that there are no 'table setter' assignments which conflict
-  with head or asst cooking
-	* Export from google spreadsheet, download as tab-delimited
-	* see tests/CheckForConflictsTest.php
-	* #!# need a test to ensure that nobody is double-scheduled... like head & asst or table setter
-
-- run avoids validation:
+### run avoids validation:
+```
 	# is this needed with the new unit tests?
 	cd ../utils/
 	php validate_schedule.php -f ../tests/data/schedule.tsv
+```
 
 - upload any changes to google sheets and announce it
 
 
-translate from Google sheet to Gather imports
-----------------------------------
-# on mac:
+## translate from Google sheet to Gather imports
+
+on mac:
 - Download sheet in CSV form
 - mv GO\ Meals\ Feb-April\ 2020\ -\ results.csv final_schedule.csv
 - Upload from desktop to gocoho host
 - scp -P 1022 final_schedule.csv gocoho@gocoho.org:meals_scheduling_dev/utils/
 
-# on gocoho:
+on gocoho:
 - ssh gocoho
 - cd meals_scheduling_dev/utils/
 - php translate_to_gather_imports.php > imports.csv
 - look for username mistranslations...
-	* if any users are missing, look up their user ID in Gather and edit
-	  the sqlite table "auth_users" to update anyone's missing gather_id
+  - `grep XXX imports.csv`
+  - if any users are missing, look up their user ID in Gather and edit
+    the sqlite table "auth_users" to update anyone's missing gather_id
 
-# make any changes to communities invited / max capacity
+### make any changes to communities invited / max capacity
+* Confirm which communities are mentioned (covid era restricts to only GO)
+* Confirm the times and dates of the meals
+* Confirm the capacities...
+  - Unfortunately, it appears that gather import does not support "capacity"
 
-#!# Confirm which communities are mentioned
-#!# Confirm the times and capacities of the meals
-
-# on mac:
+### on mac:
 - download the imports file
 - scp -P 1022 gocoho@gocoho.org:meals_scheduling_dev/utils/imports.csv .
 - open gather site, and upload the clean entries
+- resolve any scheduling conflicts... meals currently add 2:15 before and after
+  the announced meal serving time.
+  - Sundays: 3:15 - 7:45
+  - Weekdays: 4:00 - 8:30
+  - Meeting Night: 3:30 - 8:00
 
 
 Development notes between seasons
