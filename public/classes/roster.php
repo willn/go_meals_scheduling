@@ -149,7 +149,7 @@ EOSQL;
 		foreach($slackers as $username) {
 			$w = $this->getWorker($username);
 			if (is_null($w)) {
-				echo "worker $u is null, they don't have shifts assigned\n";
+				echo "worker $w is null, they don't have shifts assigned\n";
 				exit;
 			}
 			$w->addNonResponsePrefs($dates_by_shift);

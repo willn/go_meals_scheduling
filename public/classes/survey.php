@@ -702,7 +702,7 @@ EOHTML;
 			'From: ' . FROM_EMAIL);
 
 		if (!$sent) {
-			error_log("Unable to send email to: $to");
+			error_log("Unable to send email to: $worker");
 		}
 
 		// if user is under pref level, then send warning email

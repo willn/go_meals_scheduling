@@ -1,0 +1,11 @@
+parameters:
+	level: 0
+	paths:
+		- auto_assignments
+		- public
+		- utils
+	excludePaths:
+		- tests/
+
+
+

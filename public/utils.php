@@ -302,10 +302,14 @@ function get_meal_type_by_date($date) {
 function get_a_meal_object($schedule, $date, $meal_num) {
 	$type = get_meal_type_by_date($date);
 	switch($type) {
-		case SUNDAY_MEAL: return new SundayMeal($schedule, $date, $meal_num);
-		case WEEKDAY_MEAL: return new WeekdayMeal($schedule, $date, $meal_num);
-		case MEETING_NIGHT_MEAL: return new MeetingNightMeal($schedule, $date, $meal_num);
+		case SUNDAY_MEAL:
+			return new SundayMeal($schedule, $date, $meal_num);
+		case WEEKDAY_MEAL:
+			return new WeekdayMeal($schedule, $date, $meal_num);
+		case MEETING_NIGHT_MEAL:
+			return new MeetingNightMeal($schedule, $date, $meal_num);
 	}
+	return NULL;
 }
 
 /**

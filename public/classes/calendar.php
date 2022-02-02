@@ -33,6 +33,7 @@ class Calendar {
 		'bundle_shifts',
 	];
 
+	protected $season_months = [];
 
 	public function __construct($season_months=[]) {
 		// 'all' is the default, so only change if it's numeric
@@ -1087,7 +1088,7 @@ EOHTML;
 		$dates_and_shifts = $this->evalDates();
 		$shifts_per_date = $this->getShiftsPerDate($dates_and_shifts);
 
-		$workers = get_num_workers_per_job_per_meal($job_id);
+		$workers = get_num_workers_per_job_per_meal();
 
 		$out = [];
 		foreach($shifts_per_date as $job_id => $count) {

@@ -38,6 +38,7 @@ abstract class Meal {
 	// unique meal ID
 	protected $meal_num;
 
+	protected $iso_time_of_meal;
 	protected $time_of_meal;
 	protected $communities;
 

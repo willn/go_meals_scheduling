@@ -1,6 +1,6 @@
 <?php
 class Worker {
-	protected $worker_id;
+	protected $id;
 	protected $username;
 	protected $first_name;
 	protected $last_name;
@@ -41,7 +41,7 @@ class Worker {
 		error_log('debugLogSummary: ' . __CLASS__ . ' ' . __FUNCTION__ . ' ' .
 			__LINE__ . "
 			Username:{$this->username},
-			id:{$this->worker_id}
+			id:{$this->id}
 			NSF:{$nsf}");
 	}
 
