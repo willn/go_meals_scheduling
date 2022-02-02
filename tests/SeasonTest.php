@@ -4,7 +4,7 @@ $relative_dir = '../public';
 
 require_once '../public/season.php';
 require_once '../public/utils.php';
-require_once '../public/constants.inc';
+require_once '../public/constants.php';
 
 /**
  * This is simple example to ensure the testing framework functions properly.

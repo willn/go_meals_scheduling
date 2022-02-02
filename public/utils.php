@@ -1,6 +1,6 @@
 <?php
 require_once 'globals.php';
-require_once 'constants.inc';
+require_once 'constants.php';
 require_once 'classes/meal.php';
 
 define('SEASON_ID', get_season_id());

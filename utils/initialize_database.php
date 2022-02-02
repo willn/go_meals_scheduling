@@ -12,7 +12,7 @@ global $relative_dir;
 $relative_dir = '../public/';
 
 require_once 'database.php';
-require_once "{$relative_dir}/constants.inc";
+require_once "{$relative_dir}/constants.php";
 
 class DatabaseInitializer extends DatabaseHandler {
 	protected $users = array();

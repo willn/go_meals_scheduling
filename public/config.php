@@ -6,7 +6,7 @@ if (!strlen($relative_dir)) {
 
 require_once "{$relative_dir}/utils.php";
 require_once "{$relative_dir}/season.php";
-require_once "{$relative_dir}/constants.inc";
+require_once "{$relative_dir}/constants.php";
 date_default_timezone_get('America/Detroit');
 
 define('DOMAIN', '@gocoho.org');

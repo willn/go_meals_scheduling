@@ -1,5 +1,5 @@
 <?php
-require_once 'constants.inc';
+require_once 'constants.php';
 
 /* -------- seasonal config --------- */
 define('DEADLINE', strtotime('January 22, 2022, 8:00pm'));

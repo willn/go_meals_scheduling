@@ -159,7 +159,7 @@ XXX
 
 ### If we know that we need to cancel 1 or more meals, edit
 ```
-	vi public/constants.inc   # set DEBUG_GET_LEAST_POSSIBLE to TRUE
+	vi public/constants.php   # set DEBUG_GET_LEAST_POSSIBLE to TRUE
 	cd auto_assignments/
 	php execute.php -s
 	tail -f error

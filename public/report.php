@@ -7,7 +7,7 @@ if (!strlen($relative_dir)) {
 }
 
 require_once "{$relative_dir}/utils.php";
-require_once "{$relative_dir}/constants.inc";
+require_once "{$relative_dir}/constants.php";
 require_once "{$relative_dir}/config.php";
 
 session_start();
