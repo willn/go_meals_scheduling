@@ -41,4 +41,32 @@ define('ALL_ID', 'all');
 
 define('DEBUG_GET_LEAST_POSSIBLE', FALSE);
 
+define('JSON_ASSIGNMENTS_FILE', 'results/' . SEASON_ID . '.json');
+
+define('NON_RESPONSE_PREF', .5);
+define('PLACEHOLDER', 'XXXXXXXX');
+define('SKIP_USER', 'SKIP_USER');
+define('HAS_CONFLICT', -1);
+
+define('SUNDAY', 0);
+define('MONDAY', 1);
+define('TUESDAY', 2);
+define('WEDNESDAY', 3);
+define('THURSDAY', 4);
+define('FRIDAY', 5);
+define('SATURDAY', 6);
+
+define('JANUARY', 1);
+define('FEBRUARY', 2);
+define('MARCH', 3);
+define('APRIL', 4);
+define('MAY', 5);
+define('JUNE', 6);
+define('JULY', 7);
+define('AUGUST', 8);
+define('SEPTEMBER', 9);
+define('OCTOBER', 10);
+define('NOVEMBER', 11);
+define('DECEMNER', 12);
+
 ?>
