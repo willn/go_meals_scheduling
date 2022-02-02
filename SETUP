@@ -268,6 +268,7 @@ on gocoho:
 - ssh gocoho
 - cd meals_scheduling_dev/utils/
 - php translate_to_gather_imports.php > imports.csv
+- #!# DO WE NEED TO ENTER "waive" FORMULA FOR MEETING NIGHT MEALS?
 - look for username mistranslations...
   - `grep XXX imports.csv`
   - if any users are missing, look up their user ID in Gather and edit
