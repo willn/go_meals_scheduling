@@ -98,7 +98,7 @@ INSERT INTO auth_user
 	VALUES(%d, '%s', '', '', '%s', '', 0, 1, 0, 0, 0);
 EOSQL;
 
-		$season_id = SEASON_ID;
+		$season_id = get_season_id();
 		$table = ASSIGN_TABLE;
 		$insert_assn_f = <<<EOSQL
 INSERT INTO {$table}

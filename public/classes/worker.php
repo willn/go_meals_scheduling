@@ -535,7 +535,7 @@ EOTXT;
 		}
 		$each_job_sql = implode(' or ', $each_job);
 
-		$sid = SEASON_ID;
+		$sid = get_season_id();
 		$jobs_table = SURVEY_JOB_TABLE;
 		$assn_table = ASSIGN_TABLE;
 		$task_sql = <<<EOSQL

@@ -41,7 +41,7 @@ define('ALL_ID', 'all');
 
 define('DEBUG_GET_LEAST_POSSIBLE', FALSE);
 
-define('JSON_ASSIGNMENTS_FILE', 'results/' . SEASON_ID . '.json');
+define('JSON_ASSIGNMENTS_FILE', 'results/output.json');
 
 define('NON_RESPONSE_PREF', .5);
 define('PLACEHOLDER', 'XXXXXXXX');
@@ -68,5 +68,13 @@ define('SEPTEMBER', 9);
 define('OCTOBER', 10);
 define('NOVEMBER', 11);
 define('DECEMNER', 12);
+
+define('DOMAIN', '@gocoho.org');
+define('FROM_EMAIL', 'willie' . DOMAIN);
+
+# Are Sunday meals treated separately from weeknights?
+define('ARE_SUNDAYS_UNIQUE', TRUE);
+
+define('PREFER_TO_AVOID_WORKER_RATIO', .55);
 
 ?>

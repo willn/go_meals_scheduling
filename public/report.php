@@ -68,7 +68,8 @@ $sql = <<<EOSQL
 			AND p.pref > 0
 		GROUP BY p.worker_id, s.job_id
 EOSQL;
-$user_pref_count = array();
+$user_pref_count = [];
+$dbh = create_sqlite_connection();
 foreach($dbh->query($sql) as $row) {
 	$user_job = $row['username'] . '_' . $row['job_id'];
 	$user_pref_count[$user_job] = $row['num'];
@@ -79,7 +80,7 @@ $job_id_clause = ($job_key != 'all') ?
 
 // get the number of assignments per each worker
 $ids_clause = get_job_ids_clause();
-$sid = SEASON_ID;
+$sid = get_season_id();
 $jobs_table = SURVEY_JOB_TABLE;
 $assn_table = ASSIGN_TABLE;
 $sql = <<<EOSQL
@@ -111,8 +112,8 @@ foreach($dbh->query($sql) as $row) {
 }
 
 
-$assigned_data = array();
-$assigned_counts = array();
+$assigned_data = [];
+$assigned_counts = [];
 if (file_exists(JSON_ASSIGNMENTS_FILE)) {
 	$assigned_data = json_decode(file_get_contents(JSON_ASSIGNMENTS_FILE), true);
 
@@ -169,11 +170,6 @@ foreach($diffs as $key=>$diff) {
 	if ($num_prefs == '') {
 		$num_prefs = 0;
 	}
-/*
-	else {
-		$shift_coverage[$job_name] += $shifts;
-	}
-*/
 
 	$shift_id = $job_key;
 	if ($job_key == 'all') {
@@ -181,7 +177,7 @@ foreach($diffs as $key=>$diff) {
 	}
 
 	$num_assigned = '***';
-	if (!empty($assigned_counts) &&
+	if (count($assigned_counts) &&
 		isset($assigned_counts[$shift_id][$row['username']])) {
 		$num_assigned = $assigned_counts[$shift_id][$row['username']];
 	}
@@ -237,6 +233,7 @@ foreach($per_shift as $job_name=>$num_assn_shifts) {
 			break;
 	}
 
+	$all_jobs = get_all_jobs();
 	$job_id = array_search($job_name, $all_jobs);
 	if ($job_id === FALSE) {
 		$all = print_r($all_jobs, TRUE);

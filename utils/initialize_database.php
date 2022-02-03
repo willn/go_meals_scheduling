@@ -152,7 +152,7 @@ EOSQL;
 	protected function insertAssignment($username) {
 		$worker_id = $this->getUserId($username);
 
-		$season_id = SEASON_ID;
+		$season_id = get_season_id();
 		$table = ASSIGN_TABLE;
 		$sql = <<<EOSQL
 INSERT INTO {$table}

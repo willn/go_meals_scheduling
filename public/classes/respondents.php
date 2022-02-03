@@ -17,7 +17,7 @@ class Respondents {
 	 */
 	public function getWorkers() {
 		// all the workers who should respond:
-		$sid = SEASON_ID;
+		$sid = get_season_id();
 		$assn_table = ASSIGN_TABLE;
 		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
@@ -117,11 +117,6 @@ EOHTML;
 	 */
 	public function renderWorkerMenu() {
 		$workers_list = new WorkersList();
-		if (empty($workers_list)) {
-			echo "<h2>No workers configured</h2>\n";
-			return;
-		}
-
 		$non_responders = $this->getNonResponders();
 		$assigned_workers = $this->getWorkers();
 

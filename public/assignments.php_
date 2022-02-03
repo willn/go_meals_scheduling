@@ -56,7 +56,7 @@ foreach($dbh->query($sql) as $row) {
 // --------------------------------------------------------------
 // get the list of workers who didn't respond to the survey, and their assigned
 // job IDs
-$sid = SEASON_ID;
+$sid = get_season_id();
 $assn_table = ASSIGN_TABLE;
 $sql = <<<EOSQL
 SELECT u.username, a.job_id

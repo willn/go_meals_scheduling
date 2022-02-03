@@ -41,7 +41,7 @@ class Calendar {
 			$this->key_filter = $_GET['key'];
 		}
 
-		$this->holidays = get_holidays(SEASON_NAME);
+		$this->holidays = get_holidays();
 
 		if (empty($season_months)) {
 			$this->season_months = get_current_season_months();

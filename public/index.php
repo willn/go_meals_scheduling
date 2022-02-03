@@ -59,7 +59,7 @@ else {
 	}
 }
 
-$season_id = SEASON_ID;
+$season_id = get_season_id();
 print <<<EOHTML
 <p>Season ID: {$season_id}</p>
 </body>

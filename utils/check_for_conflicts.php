@@ -11,11 +11,11 @@ function parse_schedule_file($filename='schedule.txt') {
 
 	$content = file($filename);
 	$header = array_shift($content);
-	$cols = array_map(trim, explode("\t", $header));
+	$cols = array_map('trim', explode("\t", $header));
 
 	$out = [];
 	foreach($content as $line) {
-		$pieces = array_map(trim, explode("\t", $line));
+		$pieces = array_map('trim', explode("\t", $line));
 		$out[] = array_combine($cols, $pieces);
 	}
 

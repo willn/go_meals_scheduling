@@ -215,7 +215,7 @@ EOSQL;
 			"AND u.username='{$username}'";
 
 		// set the number of shifts per assigned worker
-		$sid = SEASON_ID;
+		$sid = get_season_id();
 		$assn_table = ASSIGN_TABLE;
 		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL

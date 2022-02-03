@@ -7,13 +7,7 @@ if (!strlen($relative_dir)) {
 require_once "{$relative_dir}/utils.php";
 require_once "{$relative_dir}/season.php";
 require_once "{$relative_dir}/constants.php";
-date_default_timezone_get('America/Detroit');
-
-define('DOMAIN', '@gocoho.org');
-define('FROM_EMAIL', 'willie' . DOMAIN);
-
-# Are Sunday meals treated separately from weeknights?
-define('ARE_SUNDAYS_UNIQUE', TRUE);
+date_default_timezone_get();
 
 /*
  * If these names change, be sure to update the is_a_*_job() functions.
@@ -202,7 +196,6 @@ function get_num_workers_per_job_per_meal($job_id=NULL) {
  */
 function get_hobarters() {
 	return [
-		// 'bill',
 		'debbi',
 		'erik',
 		'hope',
@@ -211,11 +204,9 @@ function get_hobarters() {
 		'mac',
 		'maryking',
 		'patti',
-		'rod',
 		'sharon',
 		'ted',
 		'willie',
-		'yimiau',
 	];
 }
 ?>

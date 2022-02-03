@@ -187,7 +187,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 	public function test_get_hobarters(){
 		$workers = get_hobarters();
 		$this->assertEquals(TRUE, is_array($workers));
-		$this->assertCount(13, $workers);
+		$this->assertCount(11, $workers);
 		$this->assertContains('willie', $workers);
 	}
 }

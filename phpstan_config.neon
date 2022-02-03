@@ -1,11 +1,20 @@
+# phpstan config file
+# run with this command:
+# $ phpstan.phar analyse -c phpstan_config.neon .
+
 parameters:
-	level: 0
+	level: 1
 	paths:
 		- auto_assignments
 		- public
 		- utils
 	excludePaths:
 		- tests/
-
-
+	bootstrapFiles:
+		- public/season.php
+		- public/constants.php
+	ignoreErrors:
+		- message: "#^Class Worker constructor invoked with 1 parameter, 0 required.$#"
+		  count: 1
+		  path: public/classes/roster.php
 

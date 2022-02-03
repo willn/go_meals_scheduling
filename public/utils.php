@@ -3,8 +3,6 @@ require_once 'globals.php';
 require_once 'constants.php';
 require_once 'classes/meal.php';
 
-define('SEASON_ID', get_season_id());
-
 /**
  * Get an element from an array, with a backup.
  */
@@ -250,7 +248,7 @@ function get_meal_type_by_date($date) {
 	}
 
 	// check to see if this is a holiday
-	$holidays = get_holidays(SEASON_NAME);
+	$holidays = get_holidays();
 	if (isset($holidays[$month_num]) &&
 		in_array($day_num, $holidays[$month_num])) {
 		return HOLIDAY_NIGHT;

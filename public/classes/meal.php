@@ -444,6 +444,7 @@ EOTXT;
 
 		// assign to the first available shift slot
 		$is_available = FALSE;
+		$next_key = NULL;
 		foreach($this->assigned[$job_id] as $key=>$w) {
 			if (!is_null($w)) {
 				// slot is taken already
@@ -451,6 +452,7 @@ EOTXT;
 			}
 
 			$is_available = TRUE;
+			$next_key = $key;
 			break;
 		}
 
@@ -459,7 +461,7 @@ EOTXT;
 			return PLACEHOLDER;
 		}
 
-		$this->assigned[$job_id][$key] = $username;
+		$this->assigned[$job_id][$next_key] = $username;
 		if ($username == PLACEHOLDER) {
 			return $username;
 		}
@@ -575,6 +577,8 @@ EOTXT;
 
 		$is_mtg_night_job = FALSE;
 		$out_data = [];
+		$invited = ALL_3_COMMUNITY_IDS;
+
 		// check to make sure that all of the required instances are filled
 		foreach($this->assigned as $job_id=>$assignments) {
 

@@ -13,7 +13,7 @@ class WorkersList {
 	 * XXX isn't this redundant...?
 	 */
 	public function load() {
-		$sid = SEASON_ID;
+		$sid = get_season_id();
 		$assn_table = ASSIGN_TABLE;
 		$auth_user_table = AUTH_USER_TABLE;
 
@@ -29,7 +29,6 @@ class WorkersList {
 				ORDER BY username
 EOSQL;
 
-		// global $dbh;
 		$dbh = create_sqlite_connection();
 		$this->workers = [];
 		foreach ($dbh->query($sql, PDO::FETCH_ASSOC) as $row) {

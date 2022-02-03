@@ -45,7 +45,7 @@ EOSQL;
 		$prev = 0;
 		$count = 0;
 		foreach($jobs as $define => $desc) {
-			$sql = sprintf($sql_format, SEASON_ID, $desc . '%');
+			$sql = sprintf($sql_format, get_season_id(), $desc . '%');
 			$result = $this->dbh->query($sql);
 			foreach ($result as $row) {
 				echo "define('{$define}', {$row['id']});\n";
