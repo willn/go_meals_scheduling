@@ -1,6 +1,4 @@
 <?php
-define('PREFER_TO_AVOID_WORKER_RATIO', .55);
-
 require_once('../public/utils.php');
 require_once('../public/classes/calendar.php');
 
