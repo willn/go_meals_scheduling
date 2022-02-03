@@ -35,10 +35,10 @@ class CheckAssignments {
 	public $roster;
 	public $schedule;
 
-	public function __construct($a=NULL, $b=NULL, $c=NULL) {
+	public function __construct() {
 		$this->roster = new Roster();
 
-		$this->schedule = new Schedule($a, $b, $c);
+		$this->schedule = new Schedule();
 		$this->schedule->setRoster($this->roster);
 
 		$this->roster->setSchedule($this->schedule);
