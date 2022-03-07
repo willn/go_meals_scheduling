@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Lobster);
+@import url(https://fonts.googleapis.com/css?family=Lobster);
 
 body {
 	font-family: Arial, Helvetica, sans-serif;
@@ -18,7 +18,7 @@ h1 {
 	font-family: 'Lobster', cursive;
 	font-size: 49px;
 	font-weight: normal;
-	background: url('/display/images/great_oak_logo.png') no-repeat left center scroll;
+	background: url('/meals_scheduling/display/images/great_oak_logo.png') no-repeat left center scroll;
 	padding: 7px 0 11px 60px;
 }
 h2 {
