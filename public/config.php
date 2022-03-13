@@ -203,7 +203,6 @@ function get_hobarters() {
 		'kathyboblitt',
 		'mac',
 		'maryking',
-		'patti',
 		'sharon',
 		'ted',
 		'willie',

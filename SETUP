@@ -2,13 +2,13 @@
 
 ## Directions to set up the survey:
 
-### Ask meals to update the list of hobarters
+### Ask meals committee if they want to update the list of hobarters
+
+Look for `function get_hobarters(`
 
 ### check that there aren't uncommitted modifications
-```
-	cd /home/gocoho/meals_scheduling_dev/
-	git status
-```
+
+`git status`
 
 ### edit ~/meals_scheduling_dev/public/season.php
 * set the appropriate DEADLINE date
