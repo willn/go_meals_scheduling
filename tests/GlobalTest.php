@@ -1,6 +1,7 @@
 <?php
 global $relative_dir;
 $relative_dir = '../public/';
+require_once '../public/constants.php';
 require_once '../public/globals.php';
 
 class GlobalsTest extends PHPUnit_Framework_TestCase {
@@ -163,7 +164,7 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function get_is_a_clean_job() {
-		return [
+		$out = [
 			[0, FALSE],
 			[MEETING_NIGHT_ORDERER, FALSE],
 			[MEETING_NIGHT_CLEANER, TRUE],
@@ -173,8 +174,11 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 			[WEEKDAY_HEAD_COOK, FALSE],
 			[WEEKDAY_ASST_COOK, FALSE],
 			[WEEKDAY_CLEANER, TRUE],
-			[WEEKDAY_TABLE_SETTER, FALSE],
 		];
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$out[WEEKDAY_TABLE_SETTER] = FALSE;
+		}
+		return $out;
 	}
 
 	/**
@@ -191,7 +195,7 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function get_is_a_head_cook_job() {
-		return [
+		$out = [
 			[0, FALSE],
 			[MEETING_NIGHT_ORDERER, TRUE],
 			[MEETING_NIGHT_CLEANER, FALSE],
@@ -201,9 +205,12 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 			[WEEKDAY_HEAD_COOK, TRUE],
 			[WEEKDAY_ASST_COOK, FALSE],
 			[WEEKDAY_CLEANER, FALSE],
-			[WEEKDAY_TABLE_SETTER, FALSE],
 			[WEEKDAY_HEAD_COOK, TRUE],
 		];
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$out[WEEKDAY_TABLE_SETTER] = FALSE;
+		}
+		return $out;
 	}
 }
 ?>
