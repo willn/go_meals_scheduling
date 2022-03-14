@@ -95,7 +95,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			12 => 'December',
 		];
 
-		return [
+		$out = [
 			// 6-month seasons use a different algorithm
 			[$season_6mos, MEETING_NIGHT_CLEANER, 1, 2],
 			[$season_6mos, MEETING_NIGHT_ORDERER, 1, 2],
@@ -105,7 +105,6 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			[$season_6mos, WEEKDAY_ASST_COOK, 1, 2],
 			[$season_6mos, WEEKDAY_HEAD_COOK, 1, 2],
 			[$season_6mos, WEEKDAY_CLEANER, 1, 6],
-			#[$season_6mos, WEEKDAY_TABLE_SETTER, 1, 6],
 
 			[$season_4mos, MEETING_NIGHT_CLEANER, 1, 2],
 			[$season_4mos, MEETING_NIGHT_ORDERER, 1, 2],
@@ -115,7 +114,6 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			[$season_4mos, WEEKDAY_ASST_COOK, 1, 2],
 			[$season_4mos, WEEKDAY_HEAD_COOK, 1, 2],
 			[$season_4mos, WEEKDAY_CLEANER, 1, 4],
-			#[$season_4mos, WEEKDAY_TABLE_SETTER, 1, 4],
 
 			[$season_3mos, MEETING_NIGHT_CLEANER, .5, 1],
 			[$season_3mos, MEETING_NIGHT_ORDERER, .5, 1],
@@ -125,21 +123,26 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			[$season_3mos, WEEKDAY_ASST_COOK, .5, 1],
 			[$season_3mos, WEEKDAY_HEAD_COOK, .5, 1],
 			[$season_3mos, WEEKDAY_CLEANER, .5, 3],
-			#[$season_3mos, WEEKDAY_TABLE_SETTER, .5, 3],
 
-			/*
-			 * Dropped support for 2 month seasons
 			[$season_2mos, MEETING_NIGHT_CLEANER, .33, 1],
 			[$season_2mos, MEETING_NIGHT_ORDERER, .33, 1],
 			[$season_2mos, SUNDAY_HEAD_COOK, .33, 1],
 			[$season_2mos, SUNDAY_ASST_COOK, .33, 1],
 			[$season_2mos, WEEKDAY_ASST_COOK, .33, 1],
 			[$season_2mos, WEEKDAY_HEAD_COOK, .33, 1],
-			*/
 			[$season_2mos, SUNDAY_CLEANER, .33, 2],
-			#[$season_2mos, WEEKDAY_TABLE_SETTER, .33, 2],
 			[$season_2mos, WEEKDAY_CLEANER, .33, 2],
 		];
+
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$out += [
+				[$season_6mos, WEEKDAY_TABLE_SETTER, 1, 6],
+				[$season_4mos, WEEKDAY_TABLE_SETTER, 1, 4],
+				[$season_3mos, WEEKDAY_TABLE_SETTER, .5, 3],
+				[$season_2mos, WEEKDAY_TABLE_SETTER, .33, 2],
+			];
+		}
+		return $out;
 	}
 
 	/**
@@ -187,7 +190,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 	public function test_get_hobarters(){
 		$workers = get_hobarters();
 		$this->assertEquals(TRUE, is_array($workers));
-		$this->assertCount(11, $workers);
+		$this->assertCount(10, $workers);
 		$this->assertContains('willie', $workers);
 	}
 }
