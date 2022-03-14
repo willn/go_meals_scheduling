@@ -9,7 +9,7 @@ done
 
 # only run the lint tests
 run_lint_tests () {
-	echo "--- running lint check ..."
+	printf "\n--- running lint check ..."
 	errs=0
 	files_checked=0
 	for i in `find ../ -name "*.php" -or -name "*.inc"`; do
@@ -26,7 +26,7 @@ run_lint_tests () {
 
 # only run the unit tests
 run_unit_tests () {
-	echo "--- running unit tests..."
+	printf "\n--- running unit tests..."
 	for i in `ls *Test.php`; do
 		phpunit $i $1 2>&1 > $1.out;
 		if [[ $? -eq 0 ]]; then
@@ -38,7 +38,7 @@ run_unit_tests () {
 	done
 
 	tests_run=`grep 'function test' *Test.php | wc -l`
-	echo "--- Number of tests run: $tests_run"
+	printf "\n--- Number of tests run: $tests_run"
 }
 
 # run all the tests
@@ -70,5 +70,6 @@ if [ -z ${type+x} ]; then
 	esac
 fi
 
+echo ""
 
 
