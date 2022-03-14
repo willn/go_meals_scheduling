@@ -10,8 +10,10 @@ define('RESULTS_FILE', 'schedule.txt');
 # ---------- date stuff -------------
 define('WINTER', 'winter');
 define('SPRING', 'spring');
-define('FALL', 'fall');
+define('SPRING_SUMMER', 'spring_summer');
 define('SUMMER', 'summer');
+define('FALL', 'fall');
+define('FALL_WINTER', 'fall_winter');
 
 $this_year = intval(date('Y'));
 define('SEASON_YEAR', $this_year);
@@ -67,7 +69,7 @@ define('AUGUST', 8);
 define('SEPTEMBER', 9);
 define('OCTOBER', 10);
 define('NOVEMBER', 11);
-define('DECEMNER', 12);
+define('DECEMBER', 12);
 
 define('DOMAIN', '@gocoho.org');
 define('FROM_EMAIL', 'willie' . DOMAIN);
