@@ -9,7 +9,7 @@ function select_day(dow, choice) {
 
 	var num = days.length;
 	for(i=0; i<num; i++) {
-		if (days[i].className == 'dow_' + dow) {
+		if (days[i].className === 'dow_' + dow) {
 			selects = days[i].getElementsByTagName('select');
 			for(s=0; s<selects.length; s++) {
 				options = selects[s].getElementsByTagName('option');
