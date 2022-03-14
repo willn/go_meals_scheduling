@@ -1,4 +1,6 @@
 <?php
+require_once 'season.php';
+
 global $relative_dir;
 if (!strlen($relative_dir)) {
 	$relative_dir = '.';
@@ -101,7 +103,7 @@ function get_clean_jobs() {
  *     across an entire season, but we're only scheduling part of it,
  *     then this would be a fractional number (<1). Split the number of
  *     jobs according to the factor.
- * @return int the number of meals needed for this job.
+ * @return int the number of meals needed for this job. XXX or maybe an array?
  */
 function get_num_meals_per_assignment($season, $job_id=NULL,
 	$sub_season_factor=1) {
@@ -135,6 +137,7 @@ function get_num_meals_per_assignment($season, $job_id=NULL,
 	}
 
 	if ($sub_season_factor < 1) {
+		// XXX - why only adjust a few jobs, and not all?
 		$adjust_jobs = [
 			MEETING_NIGHT_CLEANER,
 			MEETING_NIGHT_ORDERER,
@@ -144,11 +147,12 @@ function get_num_meals_per_assignment($season, $job_id=NULL,
 			WEEKDAY_HEAD_COOK,
 		];
 		foreach($adjust_jobs as $job) {
+			// round up to the next nearest increment
 			$meals[$job] = ceil($meals[$job] * $sub_season_factor);
 		}
 	}
 
-	// XXX do not like this... try to replace these, so that it's only using a single return type
+	// XXX don't like this... try to replace these, so that it's only using a single return type
 	if (is_null($job_id)) {
 		return $meals;
 	}
