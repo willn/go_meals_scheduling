@@ -1,6 +1,7 @@
 <?php
 global $relative_dir;
 $relative_dir = '../public/';
+require_once '../public/constants.php';
 require_once '../public/utils.php';
 require_once '../public/config.php';
 require_once '../public/globals.php';
@@ -181,9 +182,9 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 
 	public function provide_get_a_meal_object() {
 		return [
-			['04/15/2018', SundayMeal],
-			['04/16/2018', MeetingNightMeal],
-			['04/18/2018', WeekdayMeal],
+			['04/15/2018', 'SundayMeal'],
+			['04/16/2018', 'MeetingNightMeal'],
+			['04/18/2018', 'WeekdayMeal'],
 		];
 	}
 
@@ -203,8 +204,7 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 			[WINTER, TRUE],
 
 			// mis-spelling of summer
-			[SUMMMER, FALSE],
-			[SPRINT, FALSE],
+			['SUMMMER', FALSE],
 			[NULL, FALSE],
 			['XXX', FALSE],
 			[123, FALSE],
