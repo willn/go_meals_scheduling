@@ -1,6 +1,7 @@
 <?php
 global $relative_dir;
 $relative_dir = '../public/';
+require_once '../public/constants.php';
 require_once '../public/config.php';
 require_once '../public/season.php';
 require_once '../public/classes/calendar.php';
@@ -802,71 +803,64 @@ EOHTML;
 	}
 
     /**
-     * @dataProvider provideRenderSeasonDateSummary
+     * @dataProvider providegetAssignmentsNeededForCurrentSeason
      */
-    public function testRenderSeasonDateSummary($expected) {
-        $result = $this->calendar->renderSeasonDateSummary();
+    public function testGetAssignmentsNeededForCurrentSeason($expected) {
+        $result = $this->calendar->getAssignmentsNeededForCurrentSeason();
         $this->assertEquals($expected, $result);
     }
 
-    public function provideRenderSeasonDateSummary() {
-		$counts = [
-/*
-			// XXX full 6 months
+    public function provideGetAssignmentsNeededForCurrentSeason() {
+		// UPDATE-EACH-SEASON
+		$six_month_season = [
+			MEETING_NIGHT_CLEANER => 6.0,
+			MEETING_NIGHT_ORDERER => 6.0,
 
-			WEEKDAY_HEAD_COOK => 63, // WEEKDAY_HEAD_COOK
-			WEEKDAY_ASST_COOK => 126, // WEEKDAY_ASST_COOK
-			WEEKDAY_CLEANER => 189, // WEEKDAY_CLEANER
-			WEEKDAY_TABLE_SETTER => 63, // WEEKDAY_TABLE_SETTER
+			SUNDAY_CLEANER => 13.0,
+			SUNDAY_HEAD_COOK => 13.0,
+			SUNDAY_ASST_COOK => 25.0,
 
-			MEETING_NIGHT_ORDERER => 11, // MEETING_NIGHT_ORDERER
-			MEETING_NIGHT_CLEANER => 11, // MEETING_NIGHT_CLEANER
-
-			SUNDAY_HEAD_COOK => 25, // SUNDAY_HEAD_COOK
-			SUNDAY_ASST_COOK => 50, // SUNDAY_ASST_COOK
-			SUNDAY_CLEANER => 75, // SUNDAY_CLEANER
-*/
-
-			// first 3 months
-			WEEKDAY_HEAD_COOK => 15, // WEEKDAY_HEAD_COOK
-			WEEKDAY_ASST_COOK => 30, // WEEKDAY_ASST_COOK
-			WEEKDAY_CLEANER => 45, // WEEKDAY_CLEANER
-
-			SUNDAY_HEAD_COOK => 7, // SUNDAY_HEAD_COOK
-			SUNDAY_ASST_COOK => 14, // SUNDAY_ASST_COOK
-			SUNDAY_CLEANER => 21, // SUNDAY_CLEANER
-
-			MEETING_NIGHT_ORDERER => 3, // MEETING_NIGHT_ORDERER
-			MEETING_NIGHT_CLEANER => 3, // MEETING_NIGHT_CLEANER
+			WEEKDAY_ASST_COOK => 63.0,
+			WEEKDAY_CLEANER => 32.0,
+			WEEKDAY_HEAD_COOK => 32.0,
 		];
-
+		$counts = $six_month_season;
 		if (defined('WEEKDAY_TABLE_SETTER')) {
-			$counts[WEEKDAY_TABLE_SETTER] = 34;
+			$counts[WEEKDAY_TABLE_SETTER] = 63;
 		}
 
-		$wk_cleaners = ceil($counts[WEEKDAY_CLEANER] / 3);
+		// UPDATE-EACH-SEASON
+		$three_month_season = [
+			MEETING_NIGHT_CLEANER => 11,
+			MEETING_NIGHT_ORDERER => 100,
+
+			SUNDAY_ASST_COOK => 14,
+			SUNDAY_CLEANER => 21,
+			SUNDAY_HEAD_COOK => 7,
+
+			WEEKDAY_ASST_COOK => 30,
+			WEEKDAY_CLEANER => 45,
+			WEEKDAY_HEAD_COOK => 15,
+		];
+
+		if (SUB_SEASON_FACTOR === .5) {
+			$counts = $three_month_season;
+			if (defined('WEEKDAY_TABLE_SETTER')) {
+				$counts[WEEKDAY_TABLE_SETTER] = 34;
+			}
+		}
+
+		$wk_cleaners = isset($counts[WEEKDAY_CLEANER]) ?
+			ceil($counts[WEEKDAY_CLEANER] / 3) : 0;
 		$setters_string = '';
 		if (defined('WEEKDAY_TABLE_SETTER')) {
 			$setter_string = "\n" . ceil($counts[WEEKDAY_TABLE_SETTER] / 3);
 		}
-		$sun_cleaners = ceil($counts[SUNDAY_CLEANER] / 3);
-
-		// UPDATE-EACH-SEASON
-		$out = <<<EOTXT
-<h2>season: 2022 February - April</h2>
-<p>Meeting night cleaner {$counts[MEETING_NIGHT_CLEANER]}
-<br>Meeting night takeout orderer {$counts[MEETING_NIGHT_ORDERER]}
-<br>Sunday Meal Cleaner {$sun_cleaners}
-<br>Sunday head cook {$counts[SUNDAY_HEAD_COOK]}
-<br>Sunday meal asst cook {$counts[SUNDAY_ASST_COOK]}
-<br>Weekday Meal cleaner {$wk_cleaners}
-<br>Weekday head cook {$counts[WEEKDAY_HEAD_COOK]}
-<br>Weekday meal asst cook {$counts[WEEKDAY_ASST_COOK]}{$setters_string}
-</p>
-EOTXT;
+		$sun_cleaners = isset($counts[SUNDAY_CLEANER]) ?
+			ceil($counts[SUNDAY_CLEANER] / 3) : 0;
 
         return [
-            [$out],
+            [$counts],
         ];
     }
 }

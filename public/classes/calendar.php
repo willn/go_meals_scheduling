@@ -1027,13 +1027,15 @@ EOHTML;
 	}
 
 	/**
-	 * Get the number of assignments per job id.
+	 * Convert number of meals to number of assignments per job ID.
 	 * We're looking for the number of day-types needed for the season.
 	 *
-	 * Let M = number of meals we're trying to cover (for Sundays, 12)
-	 * Let W = number of workers of this type assigned to each meal (e.g. 3 cleaners)
-	 * Let S = number of meals per assigned shift (2 for cooks, 1 per month for cleaners)
-	 * The formula would then be: (M * W) / S
+	 * meals = number of meals we're trying to cover (for Sundays, 12)
+	 * workers = number of workers of this type assigned to
+	 *   each meal (e.g. 3 cleaners)
+	 * shifts = number of meals per assigned shift (2 for
+	 *   cooks, 1 per month for cleaners)
+	 * The formula would then be: assignments = ((meals * workers) / shifts)
 	 *
 	 * @param[in] summary associative array, key is the job id, value is the number
 	 *    of dates during the season when this shift is assigned.
@@ -1066,7 +1068,6 @@ EOHTML;
 	 *     of assignments per job.
 	 */
 	function renderNumberAssignments($num_assignments) {
-
 		$list = [];
 		foreach($num_assignments as $job_id => $assignments) {
 			$name = get_job_name($job_id);
@@ -1098,6 +1099,23 @@ EOHTML;
 		return $out;
 	}
 
+
+	/**
+	 * Get the current number of assignments for each job id for the current
+	 * season.
+	 *
+	 * @return associative array where they keys are job IDs and the values are
+	 *     the number of work bundle / assignments needed.
+	 */
+	public function getAssignmentsNeededForCurrentSeason() {
+		$this->disableWebDisplay();
+		$dates_and_shifts = $this->evalDates();
+		$num_meals = $this->getShiftsPerDate($dates_and_shifts);
+		return $this->getNumberAssignmentsPerJobId(
+			$num_meals, SUB_SEASON_FACTOR);
+	}
+
+
 	/**
 	 * Render the season and date summary.
 	 * This is in the report summary footer, summarizing the number of
@@ -1108,12 +1126,8 @@ EOHTML;
 	 * @return string HTML to render a summary of the number of needed
 	 *     work assignments per job.
 	 */
-	function renderSeasonDateSummary() {
-		$this->disableWebDisplay();
-		$dates_and_shifts = $this->evalDates();
-		$num_meals = $this->getShiftsPerDate($dates_and_shifts);
-		$num_assns = $this->getNumberAssignmentsPerJobId(
-			$num_meals, SUB_SEASON_FACTOR);
+	public function renderSeasonDateSummary() {
+		$num_assns = $this->getAssignmentsNeededForCurrentSeason();
 		$assns = $this->renderNumberAssignments($num_assns);
 
 		$current_season = $this->season_months;
