@@ -60,7 +60,7 @@ function get_regular_day_overrides() {
 /**
  * Get the months contained in the current season.
  *
- * @param[in] season_name
+ * @param string $season_name
  * @return array list of month names contained in the requested season.
  */
 function get_current_season_months($season_name=NULL) {

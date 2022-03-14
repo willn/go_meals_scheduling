@@ -51,7 +51,7 @@ class Calendar {
 	/**
 	 * Set the season's months.
 	 *
-	 * @param[in] season array list of months in the season to be used.
+	 * @param array $season list of months in the season to be used.
 	 */
 	public function setSeasonMonths($season) {
 		$this->season_months = $season;
@@ -85,7 +85,7 @@ class Calendar {
 	 * Render the "quick links" section listing the various months in the season for
 	 * quick navigation.
 	 *
-	 * @param[in] current_season array string list of the month numbers and names.
+	 * @param array $current_season string list of the month numbers and names.
 	 */
 	public function renderMonthsOverlay($current_season) {
 		$out = '';
@@ -130,9 +130,8 @@ EOHTML;
 
 	/**
 	 * Get the weekday selector html
-	 * @param[in] day_num int the meal number for the season, for debugging.
-	 * @param[in] day_of_week string, the short name for the day of the week,
-	 *     e.g. 'Tue'.
+	 * @param int $day_num the meal number for the season, for debugging.
+	 * @param string $day_of_week the short name for the day of the week, e.g. 'Tue'.
 	 * @return string the rendered html.
 	 */
 	public function getWeekdaySelectorHtml($day_num, $day_of_week) {
@@ -157,12 +156,12 @@ EOHTML;
 	/**
 	 * Figure out which dates have which shifts applied to them.
 	 *
-	 * @param[in] worker array (optional) 
+	 * @param object $worker (optional) either NULL or instance of Worker
 	 *     If set, then this calendar will act in survey mode, presenting
 	 *     the worker with the list of shifts they need to fill for each day
 	 *     that the shift is available. If not set, then use report mode and show
 	 *     a summary of all available workers for that date.
-	 * @param[in] availability array a structured array of when people
+	 * @param array $availability a structured array of when people
 	 *     are available to work. The first level is the date, then the job ID,
 	 *     then the preference level (2 - prefer, 1 - OK) which points to an
 	 *     array listing the usernames who fit into that preference
@@ -189,6 +188,7 @@ EOHTML;
 
 		$weekly_selector = '';
 		if (!is_null($worker)) {
+			// XXX is worker an object or an array?
 			$saved_prefs = $this->getSavedPrefs($worker->getId());
 			$weekly_selector = $this->getWeeklySpacerHtml();
 		}
@@ -491,9 +491,10 @@ EOHTML;
 	/**
 	 * Add a notice message to display on certain dates.
 	 *
-	 * @param[in] day_ok_week the number of the current day of the week.
-	 * @param[in] month_num the number of the current month.
-	 * @return string if applicable, an html message about what happens on this calendar date.
+	 * @param int $day_of_week the number of the current day of the week.
+	 * @param int $month_num the number of the current month.
+	 * @return string if applicable, an html message about what
+	 *     happens on this calendar date.
 	 */
 	public function addMessage($day_of_week, $month_num) {
 		$notice = '';
@@ -513,7 +514,7 @@ EOHTML;
 	 * and then the next row with the quick links to apply "prefer",
 	 * "OK", or "avoid_shift" to all of that day of the week for this month.
 	 *
-	 * @param[in] has_worker boolean (optional, default FALSE) If TRUE,
+	 * @param bool $has_worker boolean (optional, default FALSE) If TRUE,
 	 *     then this calendar is in survey mode, not report mode.
 	 * @return string HTML the html to display the calendar headers.
 	 */
@@ -567,7 +568,7 @@ EOHTML;
 	/*
 	 * Find the saved preferences for this worker
 	 *
-	 * @param[in] worker_id the ID number of the current worker
+	 * @param string $worker_id the ID number of the current worker
 	 * @return array of already-saved preferences for this worker. If empty,
 	 *     then this worker has not taken the survey yet.
 	 */
@@ -602,10 +603,10 @@ EOJS;
 	/*
 	 * Draw an individual survey table cell for one day.
 	 *
-	 * @param[in] date_string string of text representing a date, i.e. '12/6/2009'
-	 * @param[in] name string name of the job
-	 * @param[in] key int the job ID
-	 * @param[in] saved_pref number the preference score previously saved
+	 * @param string $date_string text representing a date, i.e. '12/6/2009'
+	 * @param string $name string name of the job
+	 * @param int $key the job ID
+	 * @param int $saved_pref the preference score previously saved
 	 */
 	private function renderday($date_string, $name, $key, $saved_pref) {
 		$pref_names = get_pref_names();
@@ -632,7 +633,7 @@ EOHTML;
 	/**
 	 * Shorten meal names in the survey calendar for a date entry.
 	 *
-	 * @param[in] name string name of the job
+	 * @param string $name of the job
 	 * @return string name to be rendered.
 	 */
 	public function renderJobNameForDay($name) {
@@ -652,7 +653,7 @@ EOHTML;
 	/**
 	 * Return the list of jobs as special links to filter the results.
 	 *
-	 * @param[in] job_key string Either an int representing the unique ID
+	 * @param string $job_key Either an int representing the unique ID
 	 *     for the job to report on, or 'all' to show all jobs.
 	 * @return string HTML for displaying the list of job/links.
 	 */
@@ -719,7 +720,7 @@ EOSQL;
 	 * Get the comments saved by the workers.
 	 * First, load the data, then render it.
 	 *
-	 * @param[in] job_key_clause string XXX
+	 * @param string $job_key_clause Fragment of a SQL query
 	 */
 	public function getWorkerComments($job_key_clause) {
 		$data = $this->loadWorkerComments($job_key_clause);
@@ -729,7 +730,7 @@ EOSQL;
 	/**
 	 * Load all worker's preferences from the database.
 	 *
-	 * @param[in] job_key_clause string XXX
+	 * @param string $job_key_clause Fragment of a SQL query
 	 */
 	public function loadWorkerComments($job_key_clause) {
 		// render the comments
@@ -854,14 +855,14 @@ EOHTML;
 	/**
 	 * Get a select list of the various workers available.
 	 *
-	 * @param [in] id string, denotes name of DOM element and form element
+	 * @param string $id denotes name of DOM element and form element
 	 *     name.
-	 * @param[in] first_entry boolean, defaults to FALSE, if true,
+	 * @param bool $first_entry defaults to FALSE, if true,
 	 *     then pre-pend the list with a blank entry.
-	 * @param[in] skip_user string (defaults to NULL), if not null, then don't
+	 * @param string $skip_user (defaults to NULL), if not null, then don't
 	 *     display this users' name in the list.
-	 * @param[in] chosen array specifies as list of chosen usernames.
-	 * @param[in] only_user boolean (default FALSE), if true, then instead of a
+	 * @param array $chosen specifies as list of chosen usernames.
+	 * @param bool $only_user (default FALSE), if true, then instead of a
 	 *     "(x) remove" link, display a "clear" link.
 	 */
 	public function getWorkerList($id, $first_entry=FALSE, $skip_user=NULL,
@@ -895,11 +896,11 @@ EOHTML;
 	/*
 	 * Reporting feature - list the workers available for this day
 	 *
-	 * @param[in] cur_date_jobs associative array, keys are the job IDs,
+	 * @param array $cur_date_jobs associative array, keys are the job IDs,
 	 *     the value is an associative array. That array consists of
 	 *     keys which are the positive preferences and (2 or 1) and the list
 	 *     of usernames who left that preference in alphabetical order.
-	 * @param[in] is_sunday boolean IF this date is a sunday or not.
+	 * @param bool $is_sunday IF this date is a sunday or not.
 	 */
 	public function list_available_workers($cur_date_jobs, $is_sunday=FALSE) {
 		$cell = '';
@@ -983,8 +984,12 @@ EOHTML;
 	/**
 	 * Output this calendar to a string
 	 *
-	 * @param[in] worker XXX ???
-	 * @param[in] availability array a structured array of when people
+	 * @param array $worker (optional)
+	 *     If set, then this calendar will act in survey mode, presenting
+	 *     the worker with the list of shifts they need to fill for each day
+	 *     that the shift is available. If not set, then use report mode and show
+	 *     a summary of all available workers for that date.
+	 * @param string $availability a structured array of when people
 	 *     are available to work. The first level is the date, then the job ID,
 	 *     then the preference level (2 - prefer, 1 - OK) which points to an
 	 *     array listing the usernames who fit into that preference level.
@@ -1008,7 +1013,7 @@ EOHTML;
 
 	/**
 	 * Count the number of times each shift appears.
-	 * @param[in] dates_and_shifts associative array of date to array of shifts
+	 * @param array $dates_and_shifts associative array of date to array of shifts
 	 *     needed for that meal.
 	 */
 	function getShiftsPerDate($dates_and_shifts) {
@@ -1037,9 +1042,9 @@ EOHTML;
 	 *   cooks, 1 per month for cleaners)
 	 * The formula would then be: assignments = ((meals * workers) / shifts)
 	 *
-	 * @param[in] summary associative array, key is the job id, value is the number
+	 * @param array $summary associative array, key is the job id, value is the number
 	 *    of dates during the season when this shift is assigned.
-	 * @param[in] sub_season_factor number (default 1) if the jobs were assigned
+	 * @param int $sub_season_factor number (default 1) if the jobs were assigned
 	 *     across an entire season, but we're only scheduling part of it,
 	 *     then this would be a fractional number (<1). Split the number of
 	 *     jobs according to the factor.
@@ -1062,7 +1067,7 @@ EOHTML;
 	/**
 	 * Render the number of assignments, make it human readable.
 	 *
-	 * @param[in] num_assignments array associative where the keys are
+	 * @param array $num_assignments associative where the keys are
 	 *     job IDs and the values are the number of shifts needed for the season.
 	 * @return string The rendered lines of html summarizing the number
 	 *     of assignments per job.
@@ -1081,7 +1086,7 @@ EOHTML;
 	/**
 	 * Get the number of shifts needed for the season.
 	 *
-	 * @return associative array where the keys are job IDs and the
+	 * @return array associative where the keys are job IDs and the
 	 *     values are the number of shifts needed for the season.
 	 */
 	public function getNumShiftsNeeded() {
@@ -1104,7 +1109,7 @@ EOHTML;
 	 * Get the current number of assignments for each job id for the current
 	 * season.
 	 *
-	 * @return associative array where they keys are job IDs and the values are
+	 * @return array associative where they keys are job IDs and the values are
 	 *     the number of work bundle / assignments needed.
 	 */
 	public function getAssignmentsNeededForCurrentSeason() {

@@ -33,10 +33,9 @@ $gather_ids = $roster->loadGatherIDs();
 /**
  * Map the given username to the appropriate Gather ID. If it exists.
  *
- * @param[in] usernames #!# array of strings, work system usernames to be replaced.
- * @param[in] gather_ids associative array of all work system usernames to gather IDs.
- * @return associative array with only the entries found in the first
- *     array. The keys are work system IDs, the values are Gather IDs.
+ * @param string $username work system username to be replaced.
+ * @param mixed $gather_ids associative array of all work system usernames to gather IDs.
+ * @return string the Gather user ID, blank if placeholder, XXX-username if not found.
  */
 function get_gather_id($username, $gather_ids) {
 	if (isset($gather_ids[$username])) {

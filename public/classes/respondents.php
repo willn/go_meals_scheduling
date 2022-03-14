@@ -132,7 +132,7 @@ EOHTML;
 	 * Return a brief statement of how many people have responded, percentage,
 	 * and then an SVG percentage bar graph.
 	 *
-	 * @param[in] display_usernames boolean default FALSE. If true, then the
+	 * @param bool $display_usernames default FALSE. If true, then the
 	 *     email addresses of the slackers are shown as well.
 	 * #!# move this to workerslist?
 	 */
@@ -146,7 +146,7 @@ EOHTML;
 		// generate summary data
 		$slackers = $this->getNonResponders();
 		$num_slackers = count($slackers);
-		$percentage = number_format(($num_responders / $num_workers) * 100, 1);
+		$percentage = ($num_responders / $num_workers) * 100;
 		$non_respond = 100 - $percentage;
 
 		$missing_emails = '';
@@ -168,10 +168,11 @@ EOHTML;
 EOHTML;
 		}
 
+		$percentage_f = number_format($percentage, 1);
 		return <<<EOHTML
 			<div>
 				Responses: {$num_responders} / {$num_workers}
-				<span style="color:#999;">({$percentage}%)</span>
+				<span style="color:#999;">({$percentage_f}%)</span>
 				{$this->renderPercentageBar($percentage)}
 				{$missing_emails}
 			</div>
@@ -190,8 +191,8 @@ EOHTML;
 
 	/**
 	 * Render the percentage bar to display how many people have done the survey.
-	 * @param[in] percentage float (0-100)
-	 * @return svg for displaying the percentage bar.
+	 * @param float $percentage (0-100)
+	 * @return string svg for displaying the percentage bar.
 	 */
 	public function renderPercentageBar($percentage) {
 		$bar_width = 300;

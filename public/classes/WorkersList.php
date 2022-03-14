@@ -50,9 +50,9 @@ EOSQL;
 	/**
 	 * Display the list of workers as links in order to select their survey.
 	 *
-	 * @param[in] slackers array list of usernames for people who have
+	 * @param array $slackers list of usernames for people who have
 	 *     not yet filled out their survey.
-	 * @param[in] assigned_workers array list of strings, usernames of
+	 * @param array $assigned_workers list of strings, usernames of
 	 *     folks who have been assigned a meals job.
 	 */
 	public function getWorkersListAsLinks($slackers, $assigned_workers=[]) {

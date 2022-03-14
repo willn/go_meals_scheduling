@@ -109,7 +109,7 @@ EOSQL;
 
 	/**
 	 * Set the job ID and cut down on the number of parameters passed.
-	 * @param[in] job_id int the ID for the current job being processed.
+	 * @param int $job_id the ID for the current job being processed.
 	 */
 	public function setJobId($job_id) {
 		$this->job_id = $job_id;
@@ -120,10 +120,10 @@ EOSQL;
 	 * Add shift preferences for a worker. If the worker doesn't exist yet,
 	 * create an entry, then add their availability preferences.
 	 *
-	 * @param[in] username string - the username.
-	 * @param[in] job_id int the ID of the shift/job.
-	 * @param[in] date string the date of the preference.
-	 * @param[in] pref int the preference rating for this shift.
+	 * @param string $username - the username.
+	 * @param int $job_id the ID of the shift/job.
+	 * @param string $date the date of the preference.
+	 * @param int $pref the preference rating for this shift.
 	 */
 	public function addPrefs($username, $job_id, $date, $pref=NULL) {
 		if (!array_key_exists($username, $this->workers)) {
@@ -139,7 +139,7 @@ EOSQL;
 	/**
 	 * Add default preferences for those who haven't responded to the survey.
 	 *
-	 * @param[in] slackers array list of usernames who haven't responded.
+	 * @param array $slackers list of usernames who haven't responded.
 	 */
 	public function addNonResponderPrefs($slackers) {
 		$dates_by_shift = $this->schedule->getDatesByShift();
@@ -203,7 +203,7 @@ EOSQL;
 	 * meals per person and applies the SUB_SEASON_FACTOR (to cut long
 	 * seasons in half) if needed.
 	 *
-	 * @param[in] username string (optional defaults to NULL). The name
+	 * @param string $username (optional defaults to NULL). The name
 	 *     of the worker to filter by. If not set, then get all.
 	 */
 	public function loadNumMealsFromDatabase($username=NULL) {
@@ -281,7 +281,7 @@ EOSQL;
 	 * Get the number of meals a worker has been assigned from the
 	 * overrides list, and add those to the list of shifts assigned.
 	 *
-	 * @param[in] username string the name of the user viewing the survey.
+	 * @param string $username the name of the user viewing the survey.
 	 */
 	public function loadNumMealsFromOverrides($username=NULL) {
 		$all_jobs = get_all_jobs();
@@ -317,7 +317,7 @@ EOSQL;
 	 * Get the total labor available.
 	 * These numbers reflect the total number of meal events, i.e. shifts.
 	 *
-	 * @return associative array, where the keys are the job IDs
+	 * @return array associative where the keys are the job IDs
 	 *    (including 'all') and the values are the number of times
 	 *    that the workers have cumulatively been assigned to work for
 	 *    these jobs.
@@ -329,7 +329,7 @@ EOSQL;
 	/**
 	 * Get the list of workers and their number of shifts to fill.
 	 *
-	 * @return associative array where keys are usernames and values
+	 * @return array associative where keys are usernames and values
 	 *     are an associative array of job ids -> number of shifts to fill.
 	 *     Example:
      *     'someone' => [
@@ -362,7 +362,7 @@ EOSQL;
 	 * The workers list is an associative array, where the keys are
 	 * usernames and the values are Worker objects.
 	 *
-	 * @param[in] username string the username for the worker.
+	 * @param string $username the username for the worker.
 	 * @return Worker object, the corresponding Worker object.
 	 */
 	public function addWorker($username) {
@@ -418,7 +418,7 @@ EOSQL;
 
 	/**
 	 * Display the assignments for each worker
-     * @param[in] only_unfilled_workers boolean if true, then only display the
+     * @param bool $only_unfilled_workers if true, then only display the
      *     workers and their jobs which have unfilled shifts.
 	 */
 	public function printResults($only_unfilled_workers=FALSE) {

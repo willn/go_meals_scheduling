@@ -54,16 +54,16 @@ function does_season_wrap($season_months) {
  * the earliest possible date for Easter is March 22 and the latest possible
  * is April 25.
  *
- * @param[in] holidays associative array for each months, each entry is
+ * @param array $holidays associative array for each months, each entry is
  *     an array of dates within that month which are recognized as a holiday,
  *     meaning - skip assigning that day.
  * Example: [
  *   10 => [31],
  *   12 => [24, 25, 31]
  * ]
- * @param[in] season associative array, keys are the month nums and values
+ * @param array $season associative array, keys are the month nums and values
  *     are the month names.
- * @return associative array - the same as the holidays passed in.
+ * @return array - the same as the holidays passed in.
  */
 function add_easter($holidays, $season=[]) {
 	// NOTE: Easter floats between March & April, so it's weird...
@@ -89,14 +89,14 @@ function add_easter($holidays, $season=[]) {
  *    finish before the meals to be assigned begins. For example, if we're running
  *    the survey in October, the first meal would happen in November.
  *
- * @param[in] holidays associative array for each months, each entry is
+ * @param array $holidays associative array for each months, each entry is
  *     an array of dates within that month which are recognized as a holiday,
  *     meaning - skip assigning that day.
  * Example: [
  *   10 => [31],
  *   12 => [24, 25, 31]
  * ]
- * @return associative array - the same as the holidays passed in.
+ * @return array - the same as the holidays passed in.
  */
 function add_memorial($holidays) {
 	$this_month = date('n');
@@ -121,14 +121,14 @@ function add_memorial($holidays) {
  *    finish before the meals to be assigned begins. For example, if we're running
  *    the survey in October, the first meal would happen in November.
  *
- * @param[in] holidays associative array for each months, each entry is
+ * @param array $holidays associative array for each months, each entry is
  *     an array of dates within that month which are recognized as a holiday,
  *     meaning - skip assigning that day.
  * Example: [
  *   10 => [31],
  *   12 => [24, 25, 31]
  * ]
- * @return associative array - the same as the holidays passed in.
+ * @return array - the same as the holidays passed in.
  */
 function add_labor_day($holidays) {
 	$this_month = date('n');
@@ -159,14 +159,14 @@ function add_labor_day($holidays) {
  *    finish before the meals to be assigned begins. For example, if we're running
  *    the survey in October, the first meal would happen in November.
  *
- * @param[in] holidays associative array for each months, each entry is
+ * @param array $holidays associative array for each months, each entry is
  *     an array of dates within that month which are recognized as a holiday,
  *     meaning - skip assigning that day.
  * Example: [
  *   10 => [31],
  *   12 => [24, 25, 31]
  * ]
- * @return associative array - the same as the holidays passed in.
+ * @return array - the same as the holidays passed in.
  */
 function add_thanksgiving($holidays) {
 	$this_month = date('n');
@@ -227,7 +227,7 @@ function get_first_associative_key($dict) {
  * Get the type of meal for a given date.
  * Isolate the logic for determining which kind of meal to use for a given date.
  *
- * @param[in] date string of the date for the given meal.
+ * @param string $date string of the date for the given meal.
  * @return int the number associated with a given constant for a type of meal night.
  */
 function get_meal_type_by_date($date) {
@@ -294,18 +294,19 @@ function get_meal_type_by_date($date) {
 /**
  * Essentially a factory function, instantiate a Meal child class based on the date.
  *
- * @param[in] date string the date of the meal.
+ * @param object $schedule instance of Schedule class.
+ * @param string $date string the date of the meal.
  * @return object a child of the Meal class.
  */
-function get_a_meal_object($schedule, $date, $meal_num) {
+function get_a_meal_object($schedule, $date) {
 	$type = get_meal_type_by_date($date);
 	switch($type) {
 		case SUNDAY_MEAL:
-			return new SundayMeal($schedule, $date, $meal_num);
+			return new SundayMeal($schedule, $date);
 		case WEEKDAY_MEAL:
-			return new WeekdayMeal($schedule, $date, $meal_num);
+			return new WeekdayMeal($schedule, $date);
 		case MEETING_NIGHT_MEAL:
-			return new MeetingNightMeal($schedule, $date, $meal_num);
+			return new MeetingNightMeal($schedule, $date);
 	}
 	return NULL;
 }

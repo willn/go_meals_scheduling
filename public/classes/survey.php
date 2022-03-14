@@ -58,8 +58,8 @@ class Survey {
 	/**
 	 * Set the assigned worker, and 
 	 *
-	 * @param[in] username string, the username of this user.
-	 * @param[in] worker_id int, the unique ID for this worker.
+	 * @param string $username the username of this user.
+	 * @param int $worker_id the unique ID for this worker.
 	 */
 	public function setWorker($username=NULL, $worker_id=NULL) {
 		if (!is_null($username)) {
@@ -98,8 +98,8 @@ class Survey {
 	/**
 	 * Load the worker's info from the database / config overrides.
 	 *
-	 * @param[in] first_name string, the first name of this worker.
-	 * @param[in] last_name string, the last name of the worker.
+	 * @param string $first_name the first name of this worker.
+	 * @param string $last_name the last name of the worker.
 	 */
 	public function loadWorkerInfo($first_name=NULL, $last_name=NULL) {
 		$this->roster->loadNumShiftsAssigned($this->username);
@@ -131,14 +131,14 @@ class Survey {
 	 * Get a select list of the various workers available.
 	 * XXX how is this different from getWorkers?
 	 *
-	 * @param [in] id string, denotes name of DOM element and form element
+	 * @param string $id denotes name of DOM element and form element
 	 *     name.
-	 * @param[in] first_entry boolean, defaults to FALSE, if true,
+	 * @param bool $first_entry defaults to FALSE, if true,
 	 *     then pre-pend the list with a blank entry.
-	 * @param[in] skip_user string (defaults to NULL), if not null, then don't
+	 * @param string $skip_user (defaults to NULL), if not null, then don't
 	 *     display this users' name in the list.
-	 * @param[in] chosen_users array specifies as list of chosen usernames.
-	 * @param[in] only_user boolean (default FALSE), if true, then instead of a
+	 * @param array $chosen_users specifies as list of chosen usernames.
+	 * @param bool $only_user (default FALSE), if true, then instead of a
 	 *     "(x) remove" link, display a "clear" link.
 	 */
 	public function getWorkerList($id, $first_entry=FALSE, $skip_user=NULL,
@@ -240,7 +240,7 @@ EOHTML;
 	 * Render the form inputs for asking if the worker wants to clean after
 	 * doing their cook shift.
 	 *
-	 * @param[in] requests key-value pairs of preferences saved to database.
+	 * @param array $requests key-value pairs of preferences saved to database.
 	 * @return string rendered html for the clean after cook form input option.
 	 */
 	protected function renderCleanAfter($requests) {
@@ -440,7 +440,7 @@ EOSQL;
 	/**
 	 * Process the dates which have been submitted.
 	 *
-	 * @param[in] post associative array of key-value pairs which were submitted.
+	 * @param array $post associative array of key-value pairs which were submitted.
 	 */
 	protected function processDates($post) {
 		foreach($post as $key=>$choice) {
@@ -533,7 +533,7 @@ EOHTML;
 	/**
 	 * Generate the SQL needed to save the special requests to the database.
 	 *
-	 * @param[in] post associative array with key-value pairs of
+	 * @param array $post associative array with key-value pairs of
 	 *     the various special requests that workers can make.
 	 * @return string the SQL generated.
 	 */
@@ -688,7 +688,8 @@ EOHTML;
 
 	/**
 	 * Send an email message with the results.
-	 * @param[in] content string the summary results.
+	 * @param string $user the username portion of the email address.
+	 * @param string $content the body content to put in the message.
 	 */
 	protected function sendEmail($user, $content) {
 		if (SKIP_EMAIL) {

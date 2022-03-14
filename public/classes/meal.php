@@ -35,23 +35,18 @@ abstract class Meal {
 	// username string
 	protected $assigned = [];
 
-	// unique meal ID
-	protected $meal_num;
-
 	protected $iso_time_of_meal;
 	protected $time_of_meal;
 	protected $communities;
 
 	/**
 	 * Initialize a meal.
-	 * @param[in] schedule Schedule object.
-	 * @param[in] date string a date string which looks like '5/6/2013'
-	 * @param[in] meal_num int a unique number for this meal
+	 * @param object $schedule Schedule object.
+	 * @param string $date a date string which looks like '5/6/2013'
 	 */
-	public function __construct($schedule, $date, $meal_num) {
+	public function __construct($schedule, $date) {
 		$this->schedule = $schedule;
 		$this->setDate($date);
-		$this->meal_num = $meal_num;
 	}
 
 	public function setDate($d) {
@@ -72,7 +67,7 @@ abstract class Meal {
 	 * Add an empty slot for each shift to be filled for this job type.
 	 * Example: weekday asst cooks should get 2 empty slots to fill.
 	 *
-	 * @param[in] job_id_list XXX
+	 * @param array $job_id_list XXX
 	 */
 	public function initShifts($job_id_list) {
 		$job_instances = get_num_workers_per_job_per_meal();
@@ -125,11 +120,9 @@ EOTXT;
 	 * This is intended for changing the rules of the game, so that multiple
 	 * runs can be processed and each one would turn out a little differently.
 	 *
-	 * @param[in] hobart_factor int the amount of points to assign towards the
+	 * @param int $hobart_factor the amount of points to assign towards the
 	 *     hobart factor.
-	 * @param[in] avail_factor int the amount of points to assign towards
-	 *     availability.
-	 * @param[in] avoid_workers_factor int the amount of points to assign towards
+	 * @param int $avoid_workers_factor int the amount of points to assign towards
 	 *     avoiding working with someone.
 	 */
 	public function setPointFactors($hobart_factor=NULL,
@@ -176,7 +169,7 @@ EOTXT;
 	 * Find the popularity vs open spaces ratio for this meal's job.
 	 * Indicator of how difficult it will be to fill this meal.
 	 *
-	 * @param[in] job_id int ID of the meal's job
+	 * @param int $job_id int ID of the meal's job
 	 * @return float the popularity / open spot ratio
 	 */
 	public function getNumPossibleWorkerRatio($job_id) {
@@ -250,7 +243,7 @@ EOTXT;
 	 * Get list of workers who should be avoided for this date based on anyone
 	 * who is already assigned to this meal.
 	 *
-	 * @param[in] job_id int the number of the job to get preferences for.
+	 * @param int $job_id int the number of the job to get preferences for.
 	 * @return array key-value pairs, one for 'avoid_workers', another for 'prefer'.
 	 */
 	protected function getAvoidAndPreferWorkerList($job_id,
@@ -314,7 +307,7 @@ EOTXT;
 	 * Run through each eligible worker for this job, and pick one based on
 	 * various points, characteristics, etc.
 	 *
-	 * @param[in] job_id int the number of the current job to fill
+	 * @param int $job_id int the number of the current job to fill
 	 */
 	protected function pickWorker($job_id, $worker_freedom) {
 		$worker_points = [];
@@ -350,7 +343,7 @@ EOTXT;
 			$worker = $this->schedule->getWorker($username);
 
 			// skip if this worker is fully assigned
-			if ($worker->isFullyAssigned($this->date, $job_id)) {
+			if ($worker->isFullyAssigned($job_id)) {
 				continue;
 			}
 
@@ -424,9 +417,9 @@ EOTXT;
 	/**
 	 * Find a worker who can take a shift for this job.
 	 *
-	 * @param[in] job_id int the number of the shift we're trying to
+	 * @param int $job_id int the number of the shift we're trying to
 	 *     assign
-	 * @param[in] worker_freedom array of username => num possible
+	 * @param array $worker_freedom array of username => num possible
 	 *     shifts ratio
 	 *
 	 * @return string username or NULL if assignment failed
@@ -549,9 +542,9 @@ EOTXT;
 	/**
 	 * Display the assigned workers for this meal.
 	 *
-	 * @param[in] format string the chosen output format (txt, sql,
+	 * @param string $format string the chosen output format (txt, sql,
 	 *     gather_csv, or csv). How the output should be displayed.
-	 * @param[in] gather_ids associative array mapping work system
+	 * @param array $gather_ids associative array mapping work system
 	 *     usernames to Gather IDs.
 	 * @return boolean, if false then a hobart shift was needed and not filled
 	 *     with a hobarter. TRUE either means it was filled or not needed.
@@ -705,7 +698,7 @@ EOTXT;
 	 * Get the list of workers who are assigned to this (or related)
 	 * shift(s).
 	 *
-	 * @param[in] job_id int the number of the current job being requested.
+	 * @param int $job_id int the number of the current job being requested.
 	 * @return array list of string / usernames of people currently assigned
 	 *     for this meal and this type of job.
 	 */
@@ -733,7 +726,7 @@ EOTXT;
 	 * Get the list of worker objects who are assigned to the same job type. If
 	 * the list of names is supplied, then don't look up the list of usernames.
 	 *
-	 * @param[in] job_id int the number of the current job being requested.
+	 * @param int $job_id the number of the current job being requested.
 	 * @return array list of worker objects currently assigned
 	 *     for this meal and this type of job.
 	 */

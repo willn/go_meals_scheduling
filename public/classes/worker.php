@@ -72,7 +72,7 @@ class Worker {
 
 	/**
 	 * Set the list of people to avoid assignments with.
-	 * @param[in] avoid_workers array listing usernames to avoid assignments.
+	 * @param array $avoid_workers listing of usernames to avoid assignments.
 	 */
 	public function setAvoids($avoid_workers) {
 		if ($avoid_workers == '') {
@@ -91,7 +91,7 @@ class Worker {
 
 	/**
 	 * Set the list of people to prefer assignments with.
-	 * @param[in] prefers array listing usernames to prefer assignments.
+	 * @param array $prefers listing of usernames to prefer assignments.
 	 */
 	public function setPrefers($prefers) {
 		$this->prefers = $prefers;
@@ -134,9 +134,9 @@ class Worker {
 	/**
 	 * Set the number of shifts assigned to a worker per job.
 	 *
-	 * @param[in] job_id int the unique ID number for the job / shift being
+	 * @param int $job_id the unique ID number for the job / shift being
 	 *     assigned.
-	 * @param[in] instances int number of instances this worker
+	 * @param int $instances number of instances this worker
 	 *     has assigned of this shift over the entire season
 	 */
 	public function addNumShiftsAssigned($job_id, $instances) {
@@ -168,7 +168,7 @@ class Worker {
 
 	/**
 	 * Set the requests for this worker.
-	 * @param[in] requests array of key => value pairs.
+	 * @param array $requests list of key => value pairs.
 	 */
 	public function setRequests($requests) {
 		$this->requests = $requests;
@@ -177,9 +177,9 @@ class Worker {
 	/**
 	 * Add an available date, tied to a shift.
 	 *
-	 * @param[in] job_id int the ID of the shift
-	 * @param[in] date string date of availability
-	 * @param[in] pref num the preference level of the worker. 
+	 * @param int $job_id the ID of the shift
+	 * @param string $date date of availability
+	 * @param string $pref the preference level of the worker. 
 	 *     (prefer = 2, OK = 1, no response = .5, avoid_shift = 0), see also
 	 *     NON_RESPONSE_PREF.
 	 */
@@ -203,7 +203,7 @@ class Worker {
 	 * Add default preferences for this worker who didn't respond to the
 	 * survey.
 	 *
-	 * @param[in] dates_by_shift
+	 * @param array $dates_by_shift XXX
 	 */
 	public function addNonResponsePrefs($dates_by_shift) {
 		foreach($this->num_shifts_to_fill as $job_id=>$instances) {
@@ -246,7 +246,7 @@ class Worker {
 	 * Get the ratio of this worker's availability / number of shifts they need
 	 * to fill yet.
 	 *
-	 * @param[in] job_id int the number of the shift currently being assigned.
+	 * @param int $job_id the number of the shift currently being assigned.
 	 * @return number a ratio of this worker's availability per number of
 	 *     shifts they need to fill yet.
 	 */
@@ -281,7 +281,8 @@ class Worker {
 	/**
 	 * Generate an adjacency score to spread out assignments.
 	 *
-	 * @return adjanency score - higher when closer to an adjancent, previously
+	 * @param string $date the date to be considered.
+	 * @return float score number - higher when closer to an adjancent, previously
 	 *     assigned date - 0 if more than the threshold away or none others
 	 *     assigned yet.
 	 */
@@ -323,13 +324,13 @@ class Worker {
 	 * Get the list of shifts that this worker is assigned for the date
 	 * provided.
 	 *
-	 * @param[in] d string representing the date
+	 * @param string $date the date
 	 * @return array of job IDs already assigned for a given date.
 	 */
-	public function getShiftsAssignedByDate($d) {
+	public function getShiftsAssignedByDate($date) {
 		$shifts = [];
 		foreach($this->assigned as $job_id=>$dates) {
-			if (in_array($d, $dates)) {
+			if (in_array($date, $dates)) {
 				$shifts[] = $job_id;
 			}
 		}
@@ -344,16 +345,16 @@ class Worker {
 	 * to cook and clean after themselves, as well as avoiding double-assigning
 	 * someone to the same shift, i.e. bundling.
 	 *
-	 * @param[in] d string of the date
-	 * @param[in] job_id int the job number
+	 * @param string $date the date
+	 * @param int $job_id the job number
 	 * @return int a numeric string representing any conflicts for the day.
 	 *    -1 for HAS_CONFLICT
 	 *     0 is OK, no conflict
 	 *     3 to promote cleaning after cooking
 	 *     5 to promote bundling
 	 */
-	public function getDateScore($d, $job_id) {
-		$todays_shifts = $this->getShiftsAssignedByDate($d);
+	public function getDateScore($date, $job_id) {
+		$todays_shifts = $this->getShiftsAssignedByDate($date);
 
 		// if not scheduled for today, then no conflict
 		if (empty($todays_shifts)) {
@@ -431,10 +432,9 @@ class Worker {
 	 * - they have shifts available to fill for this job
 	 * - they're assigned to this date already (another shift same day)
 	 *
-	 * @param[in] d string of the date
-	 * @param[in] job_id int the job number
+	 * @param int $job_id the job number
 	 */
-	public function isFullyAssigned($d, $job_id) {
+	public function isFullyAssigned($job_id) {
 		return ($this->getNumAvailableShiftsRatio($job_id) == 0);
 	}
 
@@ -442,8 +442,8 @@ class Worker {
 	/**
 	 * Assign a shift to a worker. Note, returning false here will kill the
 	 * run.
-	 * @param[in] job_id int the number of the shift currently being assigned.
-	 * @param[in] date string the date of the shift currently being assigned.
+	 * @param int $job_id the number of the shift currently being assigned.
+	 * @param string $date the date of the shift currently being assigned.
 	 */
 	public function setAssignedShift($job_id, $date) {
 		if (($this->getNumShiftsOpen($job_id) < 1) &&
@@ -470,7 +470,7 @@ class Worker {
 	/**
 	 * Display the results for each worker.
 	 *
-	 * @param[in] only_unfilled_workers boolean if true, then only display the
+	 * @param bool $only_unfilled_workers if true, then only display the
 	 *     workers and their jobs which have unfilled shifts.
 	 * @return array list of jobs and number of shifts assigned
 	 */

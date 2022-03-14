@@ -53,8 +53,7 @@ function get_weekday_jobs() {
  * Get a list of all of the jobs
  */
 function get_all_jobs() {
-	$all_jobs = ['all' => 'all'];
-	$all_jobs += get_weekday_jobs() + get_sunday_jobs() + get_mtg_jobs();
+	$all_jobs = ['all' => 'all'] + get_weekday_jobs() + get_sunday_jobs() + get_mtg_jobs();
 	return $all_jobs;
 }
 
@@ -97,9 +96,9 @@ function get_clean_jobs() {
  * Get how many meals are contained within the requested job, for a
  * "bundled assignment".
  *
- * @param[in] season array list of the months in the season.
- * @param[in] job_id int the ID of the job being requested.
- * @param[in] sub_season_factor number (default 1) if the jobs were assigned
+ * @param array $season list of the months in the season.
+ * @param int $job_id the ID of the job being requested.
+ * @param string $sub_season_factor number (default 1) if the jobs were assigned
  *     across an entire season, but we're only scheduling part of it,
  *     then this would be a fractional number (<1). Split the number of
  *     jobs according to the factor.
@@ -163,7 +162,7 @@ function get_num_meals_per_assignment($season, $job_id=NULL,
 /**
  * Get the number of workers per job per meal.
  *
- * @param[in] job_id (optional, default NULL) If NULL, then return the entire
+ * @param int $job_id (optional, default NULL) If NULL, then return the entire
  *     list. If not null, and a real job id is passed in, then return the number
  *     of shifts needed for that job id.
  * @return array associative key-value pairs of job id to number of instances

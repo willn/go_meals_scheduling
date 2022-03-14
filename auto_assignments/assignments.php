@@ -27,7 +27,7 @@ class Assignments {
 	/**
 	 * Set up pieces before an assignment run takes place.
 	 *
-	 * @param[in] season_months array listing strings of each month to use.
+	 * @param array $season_months array listing strings of each month to use.
 	 */
 	public function initialize($season_months=[]) {
 		$this->schedule = new Schedule($season_months);

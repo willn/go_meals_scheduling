@@ -69,7 +69,7 @@ EOHTML;
 /**
  * Display the responders summary
  *
- * @param[in] workers array list of all worker names.
+ * @param array $workers list of all worker names.
  */
 function display_respondents($workers) {
 	$respondents = new Respondents();
@@ -78,14 +78,14 @@ function display_respondents($workers) {
 			{$respondents->getTimeRemaining()}
 			{$respondents->getSummary()}
 		</div>
-		{$respondents->renderWorkerMenu($workers)}
+		{$respondents->renderWorkerMenu()}
 EOHTML;
 }
 
 /**
- * @param[in] workers list of available workers
- * @param[in] survey Survey object.
- * @param[in] get_w string worker's name from the _GET array
+ * @param array $workers list of available workers
+ * @param object $survey Survey object.
+ * @param string $get_w worker's name from the _GET array
  */
 function build_survey($workers, $survey, $get_w) {
 	// --------- build the survey --------------------

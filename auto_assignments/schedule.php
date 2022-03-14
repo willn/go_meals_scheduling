@@ -79,8 +79,7 @@ class Schedule {
 		$this->dates_and_shifts = $this->calendar->evalDates();
 
 		foreach($this->dates_and_shifts as $date=>$shifts) {
-			$num_meals = count($this->meals);
-			$this->meals[$date] = get_a_meal_object($this, $date, $num_meals);
+			$this->meals[$date] = get_a_meal_object($this, $date);
 			$this->meals[$date]->initShifts($shifts);
 		}
 	}
@@ -89,8 +88,7 @@ class Schedule {
 	 * Get the list of shifts (job IDs) and the dates listed for that type of
 	 * job.
 	 *
-	 * @param array job_id => array( list of dates ).
-	 * @return XXX
+	 * @return array job_id => array( list of dates ).
 	 */
 	public function getDatesByShift() {
 		// XXX this looks wrong... :(
@@ -110,10 +108,10 @@ class Schedule {
 	 * Add the list of possible workers for each shift and their preference
 	 * value on a per-job-date basis.
 	 *
-	 * @param[in] username string the username.
-	 * @param[in] job_id int the ID of the shift.
-	 * @param[in] date string the date of the job.
-	 * @param[in] pref num the numeric value preference score.
+	 * @param string $username the username.
+	 * @param int $job_id the ID of the shift.
+	 * @param string $date the date of the job.
+	 * @param int $pref the numeric value preference score.
 	 */
 	public function addPrefs($username, $job_id, $date, $pref) {
 		// only add preferences for scheduled approved meals
@@ -131,7 +129,7 @@ class Schedule {
 	 * the work survey.
 	 * XXX: maybe this should be moved to Roster.
 	 *
-	 * @param[in] slackers array list of usernames of people who didn't take
+	 * @param array $slackers list of usernames of people who didn't take
 	 * their survey.
 	 */
 	public function addNonResponderPrefs($slackers) {
@@ -241,7 +239,7 @@ EOTXT;
 	 * Note, this isn't solely based on availability, but also proximity of
 	 * other assignments and user requests, etc.
 	 *
-	 * @param[in] worker_freedom the array of workers and their difficulty to
+	 * @param array $worker_freedom workers and their difficulty to
 	 *     assign ratios.
 	 * @return boolean. If TRUE, then the meal was filled successfully.
 	 */
@@ -301,7 +299,7 @@ EOTXT;
 
 	/**
 	 * Get the text of the schedule
-	 * @param[in] format string the chosen output format (txt, or sql). How the
+	 * @param string $format string the chosen output format (txt, or sql). How the
 	 *     output should be displayed.
 	 */
 	public function getResults($format='txt' ) {
@@ -317,7 +315,7 @@ EOTXT;
 
 	/**
 	 * Display the schedule
-	 * @param[in] format string the chosen output format (txt, or sql). How the
+	 * @param string $format string the chosen output format (txt, or sql). How the
 	 *     output should be displayed.
 	 */
 	public function printResults($format='txt' ) {
@@ -363,6 +361,7 @@ EOTXT;
 	/**
 	 * Display table headers
 	 * XXX Unforunately, these are hard-coded for now.
+	 * @return string the tabbed headers.
 	 */
 	public function getTabbedHeaders() {
 		return implode("\t", $this->getColumnOrder()) . "\n";
