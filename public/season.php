@@ -2,28 +2,28 @@
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('January 22, 2022, 8:00pm'));
+define('DEADLINE', strtotime('April 21, 2022, 8:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
- * Possible answers are: SUMMER, FALL, WINTER, SPRING
+ * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', WINTER);
+define('SEASON_NAME', SPRING_SUMMER);
 define('DOING_CSA_FARM_MEALS', FALSE);
 
 // If this is a whole season, then 1, half .5, etc.
-define('SUB_SEASON_FACTOR', .5);
+define('SUB_SEASON_FACTOR', 1);
 
 /* ----------- job ids --------------- */
-define('MEETING_NIGHT_ORDERER', 6261);
 define('MEETING_NIGHT_CLEANER', 6264);
-define('SUNDAY_HEAD_COOK', 6259);
+define('MEETING_NIGHT_ORDERER', 6261);
 define('SUNDAY_ASST_COOK', 6260);
 define('SUNDAY_CLEANER', 6263);
-define('WEEKDAY_HEAD_COOK', 6257);
+define('SUNDAY_HEAD_COOK', 6259);
 define('WEEKDAY_ASST_COOK', 6258);
 define('WEEKDAY_CLEANER', 6262);
-# define('WEEKDAY_TABLE_SETTER', 6247);
+define('WEEKDAY_HEAD_COOK', 6257);
+# define('WEEKDAY_TABLE_SETTER', 6247); // temporarily retired
 
 /**
  * Get the number of shift overrides.
@@ -33,8 +33,6 @@ define('WEEKDAY_CLEANER', 6262);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-		'suzette' => [WEEKDAY_ASST_COOK => -1],
-		'tammy' => [WEEKDAY_ASST_COOK => 1],
 	];
 }
 
@@ -45,9 +43,6 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		2 => [13, 21, 27, 28],
-		3 => [2, 8, 9, 13, 22, 23, 29, 30],
-		4 => [4, 5, 6, 11, 12, 13, 19, 20, 24, 25, 26, 27],
 	];
 }
 
@@ -73,35 +68,40 @@ function get_current_season_months($season_name=NULL) {
 		$season_name = SEASON_NAME;
 	}
 
+	$winter = [
+		2=>'February',
+		3=>'March',
+		4=>'April',
+	];
+	$spring = [
+		5=>'May',
+		6=>'June',
+		7=>'July',
+	];
+	$summer = [
+		8=>'August',
+		9=>'September',
+		10=>'October',
+	];
+	$fall = [
+		11=>'November',
+		12=>'December',
+		1=>'January',
+	];
+
 	switch($season_name) {
 		case WINTER:
-			return [
-				2=>'February',
-				3=>'March',
-				4=>'April',
-			];
-
+			return $winter;
 		case SPRING:
-			return [
-				5=>'May',
-				6=>'June',
-				7=>'July',
-			];
-
+			return $spring;
+		case SPRING_SUMMER:
+			return ($spring + $summer);
 		case SUMMER:
-			return [	
-				8=>'August',
-				9=>'September',
-				10=>'October',
-			];
-
+			return $summer;
 		case FALL:
-			return [
-				11=>'November',
-				12=>'December',
-				1=>'January',
-			];
-
+			return $fall;
+		case FALL_WINTER:
+			return ($fall + $winter);
 		default:
 			return;
 	}
