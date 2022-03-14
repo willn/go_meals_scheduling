@@ -1,27 +1,38 @@
-# The Great Oak Meals Scheduling Survey
+# Directions for setting up & running the Great Oak Meals Scheduling Survey
 
-## Directions to set up the survey:
+-------------------------------
 
-### Ask meals committee if they want to update the list of hobarters
+## Update settings in order to calculate the needed shift counts
 
-Look for `function get_hobarters(`
+### Ask meals committee questions:
+* Do they want to update the list of hobarters?
+  - Look for `function get_hobarters(`
+* Do they want to offer CSA farm meals this summer?
 
 ### check that there aren't uncommitted modifications
-
 `git status`
 
-### edit ~/meals_scheduling_dev/public/season.php
-* set the appropriate DEADLINE date
+### update public/season.php
 * set the SEASON_NAME
-* do we want to display a farm meals night message? (DOING_CSA_FARM_MEALS)
-* set the SUB_SEASON_FACTOR
 * make sure the right months are included in get_current_season_months()
 
 ### remove any previous season's data from public/season.php
   - get_num_shift_overrides()
   - get_regular_day_overrides()
   - get_skip_dates()
-  - get_regular_day_overrides()
+
+### Update unit tests
+The number of assignments needed is in tests/CalendarTest.php, in 
+provideGetAssignmentsNeededForCurrentSeason()
+
+-------------------------------
+
+## Prepare to launch the survey
+
+### edit public/season.php
+* set the appropriate DEADLINE date
+* display a farm meals night message? (DOING_CSA_FARM_MEALS)
+* set the SUB_SEASON_FACTOR
 
 ### get new job IDs for the season, and update the defines for each job in config.php
 ```
@@ -29,6 +40,7 @@ Look for `function get_hobarters(`
 	php find_current_season_jobs.php
 	# copy that block and replace the previous season's entries in this file:
 	vi ../public/season.php
+	# sorting these alphabetically can help with debugging
 ```
 
 # update the unit tests which are going to fail based on changed info
@@ -42,6 +54,8 @@ Look for `function get_hobarters(`
 # when tests pass, then commit
 	git status
 	# commit changes
+
+-------------------------------
 
 ## MID-SEASON: if this is mid-season, follow these directions, otherwise skip
 
@@ -106,6 +120,7 @@ Look for `function get_hobarters(`
 	git add *
 	git commit
 
+-------------------------------
 
 ## FINISH-START-OF-SEASON
 
@@ -140,6 +155,8 @@ Look for `function get_hobarters(`
 ### schedule a few reminders spaced out over the rest of the session to send reminder emails to laggards
 
 ### confirm with the Meals committee about which communities can attemnd the max capacity per meal
+
+-------------------------------
 
 ## END-OF-SURVEY
 
@@ -258,6 +275,8 @@ Check to make sure that there are no 'table setter' assignments which conflict w
 - upload any changes to google sheets and announce it
 
 
+-------------------------------
+
 ## translate from Google sheet to Gather imports
 
 on mac:
@@ -293,10 +312,11 @@ on gocoho:
   - Meeting Night: 3:30 - 8:00
 
 
-Development notes between seasons
-------------------------------------
+-------------------------------
 
-# update public/config.php, update the season name, year, and season id
+## Development notes between seasons
+
+update public/config.php, update the season name, year, and season id
 
 - pop into sqlite:
 	sqlite3 !$
@@ -304,15 +324,20 @@ Development notes between seasons
 - update the data to use the current season id:
 	update work_app_assignment set season_id=11 where season_id=10;
 
+```
 # create some entries (cook & clean) for testing of survey
 # sqlite> insert into work_app_assignment values(NULL, 'a', 3, 4592, 1, 33, 59);
 # sqlite> insert into work_app_assignment values(NULL, 'a', 1, 4596, 1, 33, 59);
+```
 
 
-How to add a user with an override.
--------------------------------------
+-------------------------------
+
+## How to add a user with an override.
+
 They need to be entered into the database...
 
+```
 % sqlite3 work_allocation.db
 
 # get the username of the peron
@@ -334,5 +359,5 @@ insert into work_app_assignment values(
         "worker_id"
 );
 insert into work_app_assignment values(13623, '', 1, 4594, 0, 33, 164);
-
+```
 
