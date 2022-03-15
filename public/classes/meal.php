@@ -429,7 +429,7 @@ EOTXT;
 		if (!$this->hasOpenShifts($job_id)) {
 			echo "this meal {$this->date} $job_id is filled\n";
 			sleep(1);
-			return NULL;
+			return '';
 		}
 
 		// get the name of the worker to fill this slot with
@@ -552,7 +552,7 @@ EOTXT;
 	 */
 	public function printResults($format='txt', $gather_ids=[]) {
 		if (empty($this->assigned)) {
-			return;
+			return TRUE;
 		}
 
 		$hobarters = get_hobarters();

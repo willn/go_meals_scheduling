@@ -172,7 +172,7 @@ class Survey {
 	 */
 	public function renderShiftsSummaryHtml($shifts) {
 		if (empty($shifts)) {
-			return NULL;
+			return '';
 		}
 
 		$out = '';
@@ -205,7 +205,7 @@ EOHTML;
 		// query for this worker's tasks.
 		$shifts = $this->getShifts();
 		$shifts_summary = $this->renderShiftsSummaryHtml($shifts);
-		if (is_null($shifts_summary)) {
+		if (empty($shifts_summary)) {
 			$this->reportNoShifts();
 		}
 

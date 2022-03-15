@@ -103,7 +103,7 @@ function get_current_season_months($season_name=NULL) {
 		case FALL_WINTER:
 			return ($fall + $winter);
 		default:
-			return;
+			return [];
 	}
 }
 

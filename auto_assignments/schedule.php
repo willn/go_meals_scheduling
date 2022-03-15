@@ -253,7 +253,7 @@ EOTXT;
 		}
 		$meal = $this->meals[$date];
 		$username = $meal->fill($job_id, $worker_freedom);
-		if (is_null($username)) {
+		if (empty($username)) {
 			echo "null user\n";
 			return FALSE;
 		}
@@ -270,7 +270,7 @@ EOTXT;
 
 		$worker = $this->getWorker($username);
 		// if this wasn't able to be filled, don't do the rest of the steps
-		if ($username == PLACEHOLDER) {
+		if ($username === PLACEHOLDER) {
 			return TRUE;
 		}
 

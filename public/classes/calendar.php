@@ -116,6 +116,7 @@ EOHTML;
 
 	/**
 	 * Get the weekly spacer html.
+	 * @return string html for a spacer.
 	 */
 	public function getWeeklySpacerHtml() {
 		return <<<EOHTML
@@ -136,10 +137,10 @@ EOHTML;
 	 */
 	public function getWeekdaySelectorHtml($day_num, $day_of_week) {
 		if (!is_numeric($day_num)) {
-			return;
+			return '';
 		}
 		if (empty($day_of_week)) {
-			return;
+			return '';
 		}
 
 		$short_day = substr($day_of_week, 0, 3);
@@ -1004,7 +1005,7 @@ EOHTML;
 	 */
 	public function toString($worker=NULL, $availability=NULL) {
 		if (is_null($worker) && empty($availability)) {
-			return;
+			return '';
 		}
 
 		return $this->evalDates($worker, $availability);

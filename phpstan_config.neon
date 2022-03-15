@@ -3,7 +3,7 @@
 # $ phpstan.phar analyse -c phpstan_config.neon .
 
 parameters:
-	level: 2
+	level: 3
 	paths:
 		- auto_assignments
 		- public

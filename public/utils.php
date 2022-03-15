@@ -308,7 +308,9 @@ function get_a_meal_object($schedule, $date) {
 		case MEETING_NIGHT_MEAL:
 			return new MeetingNightMeal($schedule, $date);
 	}
-	return NULL;
+
+	error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . "Could not find meal type");
+	exit;
 }
 
 /**
