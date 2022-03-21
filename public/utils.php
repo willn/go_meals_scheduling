@@ -132,12 +132,16 @@ function add_memorial($holidays) {
  */
 function add_labor_day($holidays) {
 	$this_month = date('n');
-	$sept_year = ($this_month > 9 ) ? SEASON_YEAR + 1 : SEASON_YEAR;
+
+	// is September in the current year or next?
+	$sept_year = ($this_month > 9 ) ? (SEASON_YEAR + 1) : SEASON_YEAR;
 
 	// labor day
-	$labor_day = date('j', strtotime('first monday of September ' . $sept_year));
+	$labor_day = intval(date('j',
+		strtotime('first monday of September ' . $sept_year)));
 
-	// add Sunday before labor day, even if it happens in August.
+	// add Sunday before labor day...
+	// If preceding Sunday is in August
 	if ($labor_day === 1) {
 		$holidays[8][] = 31;
 	}

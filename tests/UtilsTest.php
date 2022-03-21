@@ -98,6 +98,26 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 	 */
 
 	/**
+	 * @dataProvider provide_add_labor_day
+	 */
+	public function test_add_labor_day($input, $expected) {
+		$result = add_labor_day($input);
+		$this->assertEquals($expected, $result);
+	}
+
+	public function provide_add_labor_day() {
+		// UPDATE-EACH-SEASON
+		$labor_day = 5;
+		$september_dates = [($labor_day - 1), $labor_day];
+
+		return [
+			[[], [9 => $september_dates]],
+			[[7 => [4]], [7 => [4], 9 => $september_dates]],
+			[[7 => [4], 12 => [25]], [7 => [4], 9 => $september_dates, 12 => [25]]],
+		];
+	}
+
+	/**
 	 * @dataProvider provide_get_holidays
 	 */
 	public function test_get_holidays($expect) {
