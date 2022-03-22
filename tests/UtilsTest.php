@@ -7,7 +7,10 @@ require_once '../public/config.php';
 require_once '../public/globals.php';
 require_once '../auto_assignments/schedule.php';
 
+// UPDATE-EACH-SEASON
+define('EASTER_MONTH', 4);
 define('EASTER_DAY', 17);
+define('LABOR_DAY', 5);
 
 /**
  * This is simple example to ensure the testing framework functions properly.
@@ -81,21 +84,27 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @dataProvider provide_add_easter
+	 */
 	public function test_add_easter($input, $expected) {
-		$dates = [];
-		$result = add_easter($dates, $input);
+		$result = add_easter($input);
 		$this->assertEquals($expected, $result);
 	}
 
 	public function provide_add_easter() {
+		$other_day = 1;
+		if (EASTER_DAY === $other_day) {
+			$other_day = 2;
+		}
+
 		return [
-			//[[], [4 => [EASTER_DAY]]],
-			//[[7 => 'July'], [4 => [EASTER_DAY]]],
-			// 2019
-			//[[3 => 'March', 4 => 'April'], [4 => [EASTER_DAY]]],
+			[[], [EASTER_MONTH => [EASTER_DAY]]],
+			[[7 => [4]], [EASTER_MONTH => [EASTER_DAY], 7 => [4]]],
+			[
+				[EASTER_MONTH => [$other_day], 7 => [4]],
+				[EASTER_MONTH => [$other_day, EASTER_DAY], 7 => [4]],
+			],
 		];
 	}
-	 */
 
 	/**
 	 * @dataProvider provide_add_labor_day
@@ -107,8 +116,7 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 
 	public function provide_add_labor_day() {
 		// UPDATE-EACH-SEASON
-		$labor_day = 5;
-		$september_dates = [($labor_day - 1), $labor_day];
+		$september_dates = [(LABOR_DAY - 1), LABOR_DAY];
 
 		return [
 			[[], [9 => $september_dates]],
