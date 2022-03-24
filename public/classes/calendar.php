@@ -382,7 +382,7 @@ EOHTML;
 								array_key_exists($date_string, $availability)) {
 								// report the available workers
 								$tally = <<<EOHTML
-	<span class="type_count">[W{$this->num_shifts['sunday']}]</span>
+	<span class="type_count">[W{$this->num_shifts['weekday']}]</span>
 EOHTML;
 								$cell = $this->list_available_workers(
 									$availability[$date_string]);
