@@ -20,7 +20,7 @@ class Worker {
 	protected $avoid_workers = [];
 	protected $prefers = [];
 
-	protected $tasks;
+	protected $tasks = [];
 	protected $comments;
 
 	protected $dbh;
@@ -515,10 +515,6 @@ EOTXT;
 	 * Find out which jobs this worker has been assigned.
 	 */
 	public function getTasks() {
-		if (is_null($this->tasks)) {
-			$this->loadTasks();
-		}
-
 		return $this->tasks;
 	}
 

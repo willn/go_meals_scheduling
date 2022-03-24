@@ -4,6 +4,7 @@ $relative_dir = '../public/';
 require_once '../public/constants.php';
 require_once '../public/config.php';
 require_once '../public/season.php';
+require_once '../public/classes/worker.php';
 require_once '../public/classes/calendar.php';
 require_once 'testing_utils.php';
 
@@ -789,6 +790,73 @@ EOHTML;
 	 * Test that the dates returned from the calendar fit the proper form.
 	 */
 	public function testEvalDates() {
+		$availability = [
+			'7/3/2022' => [
+				SUNDAY_HEAD_COOK => [
+					2 => ['alice', 'bob'],
+					1 => ['charlie', 'doug', 'edward', 'fred'],
+				]
+			],
+			'10/17/2022' => [
+				MEETING_NIGHT_ORDERER => [
+					2 => ['doug', 'edward', 'fred'],
+					1 => ['bob'],
+				]
+			],
+			'10/26/2022' => [
+				WEEKDAY_HEAD_COOK => [
+					2 => ['charlie', 'doug', 'edward', 'fred'],
+					1 => ['alice', 'bob'],
+				]
+			]
+		];
+		$this->calendar->enableWebDisplay();
+		$dates_and_shifts = $this->calendar->evalDates(NULL, $availability);
+		$this->assertNotEmpty($dates_and_shifts);
+
+		$example = file_get_contents('data/example_calendar.html');
+		$this->assertEquals($dates_and_shifts . "\n", $example);
+	}
+
+	/**
+	 * Test that the dates returned from the calendar fit the proper form.
+	 */
+	public function testEvalDatesWithWorker() {
+		$availability = [
+			'7/3/2022' => [
+				SUNDAY_HEAD_COOK => [
+					2 => ['alice', 'bob'],
+					1 => ['charlie', 'doug', 'edward', 'fred'],
+				]
+			],
+			'10/17/2022' => [
+				MEETING_NIGHT_ORDERER => [
+					2 => ['doug', 'edward', 'fred'],
+					1 => ['bob'],
+				]
+			],
+			'10/26/2022' => [
+				WEEKDAY_HEAD_COOK => [
+					2 => ['charlie', 'doug', 'edward', 'fred'],
+					1 => ['alice', 'bob'],
+				]
+			]
+		];
+
+		$this->calendar->enableWebDisplay();
+		$worker = new Worker('jane');
+		$dates_and_shifts = $this->calendar->evalDates($worker, $availability);
+		$this->assertNotEmpty($dates_and_shifts);
+
+		$example = file_get_contents('data/example_worker_calendar.html');
+		$this->assertEquals($dates_and_shifts . "\n", $example);
+	}
+
+
+	/**
+	 * Test that the dates returned from the calendar fit the proper form.
+	 */
+	public function testJustDatesFromEvalDates() {
 		$this->calendar->disableWebDisplay();
 		$dates_and_shifts = $this->calendar->evalDates();
 		$this->assertNotEmpty($dates_and_shifts);

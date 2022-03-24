@@ -70,6 +70,10 @@ class Calendar {
 		$this->web_display = FALSE;
 	}
 
+	public function enableWebDisplay() {
+		$this->web_display = TRUE;
+	}
+
 	/**
 	 * Load the assignments from disk into memory.
 	 */
