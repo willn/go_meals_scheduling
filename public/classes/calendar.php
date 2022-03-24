@@ -174,7 +174,7 @@ EOHTML;
 	 *     Example:
 	 * '11/11/2018' => [
 	 *		4597 => [
-	 *				2 => ['alice', 'bob' ],
+	 *				2 => ['alice', 'bob'],
 	 *				1 => ['charlie', 'doug', 'edward', 'fred'],
 	 *		],
  	 * ]
@@ -192,6 +192,7 @@ EOHTML;
 		}
 
 		$weekly_selector = '';
+		$saved_prefs = [];
 		if (!is_null($worker)) {
 			// XXX is worker an object or an array?
 			$saved_prefs = $this->getSavedPrefs($worker->getId());
@@ -288,28 +289,12 @@ EOHTML;
 							$dates_and_shifts = $this->addJobsToDatesAndShifts(
 								$sunday_jobs, $dates_and_shifts, $date_string);
 						}
-						else if (!is_null($worker)) {
-							foreach($sunday_jobs as $key=>$name) {
-								$saved_pref_val =
-									isset($saved_prefs[$key][$date_string]) ?
-										$saved_prefs[$key][$date_string] : NULL;
 
-								// if this job is in the list of assigned tasks.
-								if (array_key_exists($key, $worker->getTasks())) {
-									$cell .= $this->renderday($date_string, $name, $key,
-										$saved_pref_val);
-								}
-							}
+						if (is_null($worker)) {
+							$cell = $this->generateSundayCell($date_string, $availability, $tally);
 						}
-						// generate the date cell for the report
-						else if (!empty($availability) &&
-							array_key_exists($date_string, $availability)) {
-							// report the available workers
-							$tally = <<<EOHTML
-<span class="type_count">[S{$this->num_shifts['sunday']}]</span>
-EOHTML;
-							$cell = $this->list_available_workers(
-								$availability[$date_string], TRUE);
+						else {
+							$cell = $this->generateSundayCellWorker($worker, $date_string);
 						}
 						break;
 
@@ -341,10 +326,10 @@ EOHTML;
 <span class="type_count">[M{$this->num_shifts['meeting']}]</span>
 EOHTML;
 							$cell .= '<span class="note">meeting night</span>';
+
 							// report the available workers
 							if (isset($availability[$date_string])) {
-								$cell .= $this->list_available_workers(
-									$availability[$date_string]);
+								$cell .= $this->list_available_workers($availability[$date_string]);
 							}
 						}
 
@@ -392,21 +377,7 @@ EOHTML;
 									$availability[$date_string]);
 							}
 						}
-						/*
-						 * XXX Why does this exist? This would only happen if
-						 * there's available preferences for a non-scheduled
-						 * day of week. Would this be an override? (e.g. thursday?)
-						else if (array_key_exists($date_string, $availability)) {
-							// generate the date cell for the report
-							$tally = <<<EOHTML
-<span class="type_count">[W{$this->num_shifts['weekday']}]</span>
-EOHTML;
 
-							// report the available workers
-							$cell = $this->list_available_workers(
-								$availability[$date_string]);
-						}
-						 */
 						break;
 
 					case NOT_A_MEAL:
@@ -473,11 +444,73 @@ EOHTML;
 EOHTML;
 		}
 
+		// return an array
 		if (!$this->web_display) {
 			return $dates_and_shifts;
 		}
 
+		// return a string
 		return $out;
+	}
+
+	/**
+	 * Generate the date cell for a single worker's report
+	 *
+	 * @param string $date_string text representing a date, i.e. '12/6/2009'
+	 * @param string $availability a structured array of when people
+	 *     are available to work.
+	 * @param string $tally a count of each meal-type instance.
+	 * @return string the content to be rendered in the cell variable.
+	 */
+	function generateSundayCell($date_string, $availability, &$tally) {
+		if (empty($availability)) {
+			return '';
+		}
+
+		if (!array_key_exists($date_string, $availability)) {
+			return '';
+		}
+
+		// report the available workers
+		// XXX
+		$tally = <<<EOHTML
+<span class="type_count">[S{$this->num_shifts['sunday']}]</span>
+EOHTML;
+		return $this->list_available_workers($availability[$date_string], TRUE);
+	}
+
+
+	/**
+	 * Process a Sunday meal for a Worker.
+	 *
+	 * @param object $worker An instance of a Worker object.
+	 * @param string $date_string text representing a date, i.e. '12/6/2009'
+	 * @return string the content to be rendered in the cell variable.
+	 */
+	function generateSundayCellWorker($worker, $date_string) {
+		$cell = '';
+		$sunday_jobs = get_sunday_jobs();
+
+		// for report
+		if (is_null($worker)) {
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " null worker sent");
+			return '';
+		}
+
+		$saved_prefs = $this->getSavedPrefs($worker->getId());
+		foreach($sunday_jobs as $key=>$name) {
+			$saved_pref_val =
+				isset($saved_prefs[$key][$date_string]) ?
+					$saved_prefs[$key][$date_string] : NULL;
+
+			// if this job is in the list of assigned tasks.
+			if (array_key_exists($key, $worker->getTasks())) {
+				$cell .= $this->renderday($date_string, $name, $key,
+					$saved_pref_val);
+			}
+		}
+
+		return $cell;
 	}
 
 	/**
