@@ -338,8 +338,10 @@ EOHTML;
 EOHTML;
 							$cell .= '<span class="note">meeting night</span>';
 							// report the available workers
-							$cell .= $this->list_available_workers(
-								$availability[$date_string]);
+							if (isset($availability[$date_string])) {
+								$cell .= $this->list_available_workers(
+									$availability[$date_string]);
+							}
 						}
 
 						break;
@@ -380,7 +382,7 @@ EOHTML;
 								array_key_exists($date_string, $availability)) {
 								// report the available workers
 								$tally = <<<EOHTML
-	<span class="type_count">[S{$this->num_shifts['sunday']}]</span>
+	<span class="type_count">[W{$this->num_shifts['sunday']}]</span>
 EOHTML;
 								$cell = $this->list_available_workers(
 									$availability[$date_string]);
