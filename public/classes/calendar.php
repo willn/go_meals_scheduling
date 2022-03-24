@@ -289,8 +289,7 @@ EOHTML;
 							$dates_and_shifts = $this->addJobsToDatesAndShifts(
 								$sunday_jobs, $dates_and_shifts, $date_string);
 						}
-
-						if (is_null($worker)) {
+						else if (is_null($worker)) {
 							$cell = $this->generateSundayCell($date_string, $availability, $tally);
 						}
 						else {
