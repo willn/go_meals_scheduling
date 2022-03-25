@@ -283,60 +283,45 @@ EOHTML;
 
 					#-----------------------------------------
 					case SUNDAY_MEAL:
-						$this->num_shifts['sunday']++;
+						$type = 'sunday';
+						$this->num_shifts[$type]++;
+						$jobs = get_sunday_jobs();
 
 						if (!$this->web_display) {
 							$dates_and_shifts = $this->addJobsToDatesAndShifts(
-								$sunday_jobs, $dates_and_shifts, $date_string);
+								$jobs, $dates_and_shifts, $date_string);
 						}
 						else if (is_null($worker)) {
-							$cell = $this->generateSundayCell($date_string, $availability, $tally);
+							$cell = $this->generateCell($date_string, $availability, $tally, $type);
 						}
 						else {
-							$cell = $this->generateSundayCellWorker($worker, $date_string);
+							$cell = $this->generateCellWorker($worker, $date_string, $type);
 						}
+
 						break;
 
 					#-----------------------------------------
 					case MEETING_NIGHT_MEAL:
-						$this->num_shifts['meeting']++;
+						$type = 'meeting';
+						$this->num_shifts[$type]++;
 						$jobs = get_mtg_jobs();
 
 						if (!$this->web_display) {
 							$dates_and_shifts = $this->addJobsToDatesAndShifts(
 								$jobs, $dates_and_shifts, $date_string);
 						}
-						else if (!is_null($worker)) {
-							foreach($jobs as $key=>$name) {
-								$saved_pref_val =
-									isset($saved_prefs[$key][$date_string]) ?
-										$saved_prefs[$key][$date_string] : NULL;
-
-								if (array_key_exists($key, $worker->getTasks())) {
-									// is this preference saved already?
-
-									$cell .= $this->renderday($date_string, $name,
-										$key, $saved_pref_val);
-								}
-							}
+						else if (is_null($worker)) {
+							$cell = $this->generateCell($date_string, $availability, $tally, $type);
 						}
 						else {
-							$tally = <<<EOHTML
-<span class="type_count">[M{$this->num_shifts['meeting']}]</span>
-EOHTML;
-							$cell .= '<span class="note">meeting night</span>';
-
-							// report the available workers
-							if (isset($availability[$date_string])) {
-								$cell .= $this->list_available_workers($availability[$date_string]);
-							}
+							$cell = $this->generateCellWorker($worker, $date_string, $type);
 						}
-
 						break;
 
 					#-----------------------------------------
 					case WEEKDAY_MEAL:
-						$this->num_shifts['weekday']++;
+						$type = 'weekday';
+						$this->num_shifts[$type]++;
 
 						/*
 						 * Confirm that the day of week for the current date is an
@@ -350,33 +335,13 @@ EOHTML;
 								$dates_and_shifts = $this->addJobsToDatesAndShifts(
 									$jobs, $dates_and_shifts, $date_string);
 							}
-							// if this is for a specific worker
-							else if (!is_null($worker)) {
-								foreach($jobs as $key=>$name) {
-									$saved_pref_val =
-										isset($saved_prefs[$key][$date_string]) ?
-											$saved_prefs[$key][$date_string] : NULL;
-
-									if (array_key_exists($key, $worker->getTasks())) {
-										// is this preference saved already?
-
-										$cell .= $this->renderday($date_string, $name,
-											$key, $saved_pref_val);
-									}
-								}
+							else if (is_null($worker)) {
+								$cell = $this->generateCell($date_string, $availability, $tally, $type);
 							}
-							// generate the date cell for the report
-							else if (!empty($availability) &&
-								array_key_exists($date_string, $availability)) {
-								// report the available workers
-								$tally = <<<EOHTML
-	<span class="type_count">[W{$this->num_shifts['weekday']}]</span>
-EOHTML;
-								$cell = $this->list_available_workers(
-									$availability[$date_string]);
+							else {
+								$cell = $this->generateCellWorker($worker, $date_string, $type);
 							}
 						}
-
 						break;
 
 					case NOT_A_MEAL:
@@ -404,8 +369,7 @@ EOHTML;
 					$this->addMessage($day_of_week, $month_num);
 				$table .= <<<EOHTML
 				<td class="dow_{$day_of_week}">
-					<div class="date_number">{$day_num}{$tally}</div>
-					{$cell}{$message}
+					<div class="date_number">{$day_num}{$tally}</div>{$cell}{$message}
 				</td>
 
 EOHTML;
@@ -453,15 +417,16 @@ EOHTML;
 	}
 
 	/**
-	 * Generate the date cell for a single worker's report
+	 * Generate the date cell for a report
 	 *
 	 * @param string $date_string text representing a date, i.e. '12/6/2009'
 	 * @param string $availability a structured array of when people
 	 *     are available to work.
 	 * @param string $tally a count of each meal-type instance.
+	 * @param string $type the type of meal this is servicing.
 	 * @return string the content to be rendered in the cell variable.
 	 */
-	function generateSundayCell($date_string, $availability, &$tally) {
+	function generateCell($date_string, $availability, &$tally, $type) {
 		if (empty($availability)) {
 			return '';
 		}
@@ -470,25 +435,49 @@ EOHTML;
 			return '';
 		}
 
+		$code = '';
+		switch($type) {
+			case 'sunday':
+				$code = 'S';
+				break;
+			case 'meeting':
+				$code = 'M';
+				break;
+			case 'weekday':
+				$code = 'W';
+				break;
+		}
+
 		// report the available workers
-		// XXX
-		$tally = <<<EOHTML
-<span class="type_count">[S{$this->num_shifts['sunday']}]</span>
+		$tally .= <<<EOHTML
+<span class="type_count">[{$code}{$this->num_shifts[$type]}]</span>
 EOHTML;
-		return $this->list_available_workers($availability[$date_string], TRUE);
+		return $this->list_available_workers($availability[$date_string], ($type === 'sunday'));
 	}
 
 
 	/**
-	 * Process a Sunday meal for a Worker.
+	 * Generate the date cell for a single worker's report
 	 *
 	 * @param object $worker An instance of a Worker object.
 	 * @param string $date_string text representing a date, i.e. '12/6/2009'
+	 * @param string $type The ttype of meal ('weekday', 'meeting', 'sunday')
 	 * @return string the content to be rendered in the cell variable.
 	 */
-	function generateSundayCellWorker($worker, $date_string) {
+	function generateCellWorker($worker, $date_string, $type) {
 		$cell = '';
-		$sunday_jobs = get_sunday_jobs();
+		$jobs = [];
+		switch($type) {
+			case 'sunday':
+				$jobs = get_sunday_jobs();
+				break;
+			case 'meeting':
+				$jobs = get_mtg_jobs();
+				break;
+			case 'weekday':
+				$jobs = get_weekday_jobs();
+				break;
+		}
 
 		// for report
 		if (is_null($worker)) {
@@ -497,7 +486,7 @@ EOHTML;
 		}
 
 		$saved_prefs = $this->getSavedPrefs($worker->getId());
-		foreach($sunday_jobs as $key=>$name) {
+		foreach($jobs as $key=>$name) {
 			$saved_pref_val =
 				isset($saved_prefs[$key][$date_string]) ?
 					$saved_prefs[$key][$date_string] : NULL;
