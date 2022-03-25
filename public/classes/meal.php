@@ -558,7 +558,6 @@ EOTXT;
 		$hobarters = get_hobarters();
 
 		// testing flags:
-		$only_cleaners = FALSE;
 		$has_clean_job = FALSE;
 		$hobarter_found = FALSE;
 
@@ -629,7 +628,7 @@ EOTXT;
 				$order = 5;
 			}
 
-			if (($only_cleaners) && ($order != 4)) {
+			if ($order != 4) {
 				continue;
 			}
 

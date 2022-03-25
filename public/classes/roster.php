@@ -85,11 +85,6 @@ class Roster {
 EOSQL;
 		foreach($this->dbh->query($sql) as $row) {
 			$w = $this->getWorker($row['username']);
-			if (is_null($w)) {
-				echo "null worker {$row['username']} when loading requests\n";
-				continue;
-			}
-
 			if (!empty($row['avoid_workers'])) {
 				$w->setAvoids(explode(',', $row['avoid_workers']));
 			}
@@ -148,10 +143,6 @@ EOSQL;
 
 		foreach($slackers as $username) {
 			$w = $this->getWorker($username);
-			if (is_null($w)) {
-				echo "worker $w is null, they don't have shifts assigned\n";
-				exit;
-			}
 			$w->addNonResponsePrefs($dates_by_shift);
 		}
 	}

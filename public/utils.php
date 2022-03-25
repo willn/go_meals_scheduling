@@ -265,7 +265,6 @@ function get_meal_type_by_date($date) {
 		return SKIP_NIGHT;
 	}
 
-	$unique = ARE_SUNDAYS_UNIQUE ? 1 : 0;
 	if (ARE_SUNDAYS_UNIQUE && ($day_of_week == 7)) {
 		return SUNDAY_MEAL;
 	}

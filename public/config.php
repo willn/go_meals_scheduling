@@ -9,7 +9,6 @@ if (!strlen($relative_dir)) {
 require_once "{$relative_dir}/utils.php";
 require_once "{$relative_dir}/season.php";
 require_once "{$relative_dir}/constants.php";
-date_default_timezone_get();
 
 /*
  * If these names change, be sure to update the is_a_*_job() functions.
