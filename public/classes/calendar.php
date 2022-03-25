@@ -272,80 +272,53 @@ EOHTML;
 				$cell = '';
 
 				$meal_type = get_meal_type_by_date($date_string);
+				$is_done = FALSE;
+				$type = '';
+				$jobs = [];
 				switch($meal_type) {
 					case HOLIDAY_NIGHT:
 						$cell = '<span class="skip">holiday</span>';
+						$is_done = TRUE;
 						break;
 
 					case SKIP_NIGHT:
 						$cell = '<span class="skip">skip</span>';
+						$is_done = TRUE;
 						break;
 
-					#-----------------------------------------
 					case SUNDAY_MEAL:
 						$type = 'sunday';
 						$this->num_shifts[$type]++;
 						$jobs = get_sunday_jobs();
-
-						if (!$this->web_display) {
-							$dates_and_shifts = $this->addJobsToDatesAndShifts(
-								$jobs, $dates_and_shifts, $date_string);
-						}
-						else if (is_null($worker)) {
-							$cell = $this->generateCell($date_string, $availability, $tally, $type);
-						}
-						else {
-							$cell = $this->generateCellWorker($worker, $date_string, $type);
-						}
-
 						break;
 
-					#-----------------------------------------
 					case MEETING_NIGHT_MEAL:
 						$type = 'meeting';
 						$this->num_shifts[$type]++;
 						$jobs = get_mtg_jobs();
-
-						if (!$this->web_display) {
-							$dates_and_shifts = $this->addJobsToDatesAndShifts(
-								$jobs, $dates_and_shifts, $date_string);
-						}
-						else if (is_null($worker)) {
-							$cell = $this->generateCell($date_string, $availability, $tally, $type);
-						}
-						else {
-							$cell = $this->generateCellWorker($worker, $date_string, $type);
-						}
 						break;
 
-					#-----------------------------------------
 					case WEEKDAY_MEAL:
 						$type = 'weekday';
 						$this->num_shifts[$type]++;
-
-						/*
-						 * Confirm that the day of week for the current date is an
-						 * approved day of week for this meal type.
-						 */
-						if (in_array($day_of_week, $meal_days)) {
-							$jobs = get_weekday_jobs();
-
-							// just add the dates and shifts, don't render the calendar
-							if (!$this->web_display) {
-								$dates_and_shifts = $this->addJobsToDatesAndShifts(
-									$jobs, $dates_and_shifts, $date_string);
-							}
-							else if (is_null($worker)) {
-								$cell = $this->generateCell($date_string, $availability, $tally, $type);
-							}
-							else {
-								$cell = $this->generateCellWorker($worker, $date_string, $type);
-							}
-						}
+						$jobs = get_weekday_jobs();
 						break;
 
 					case NOT_A_MEAL:
 						break;
+				}
+
+				if (!$is_done) {
+					if (!$this->web_display) {
+						$dates_and_shifts = $this->addJobsToDatesAndShifts(
+							$jobs, $dates_and_shifts, $date_string);
+					}
+					else if (is_null($worker)) {
+						$cell = $this->generateCell($date_string, $availability, $tally, $type);
+					}
+					else {
+						$cell = $this->generateCellWorker($worker, $date_string, $type);
+					}
 				}
 
 				// #!# suppress this display unless it's report mode...
