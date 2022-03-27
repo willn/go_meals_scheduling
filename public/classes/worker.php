@@ -140,12 +140,13 @@ class Worker {
 	 *     has assigned of this shift over the entire season
 	 */
 	public function addNumShiftsAssigned($job_id, $instances) {
+		// if first of kind, initialize array key
 		if (!isset($this->num_shifts_to_fill[$job_id])) {
 			$this->num_shifts_to_fill[$job_id] = $instances;
 			return;
 		}
 
-		// add additional shifts if they were already set (can be negative)
+		// add shifts if they were already set (can be negative)
 		$this->num_shifts_to_fill[$job_id] += $instances;
 	}
 
@@ -247,15 +248,18 @@ class Worker {
 	 * to fill yet.
 	 *
 	 * @param int $job_id the number of the shift currently being assigned.
-	 * @return number a ratio of this worker's availability per number of
+	 * @return float a ratio of this worker's availability per number of
 	 *     shifts they need to fill yet.
 	 */
 	public function getNumAvailableShiftsRatio($job_id) {
 		$open = $this->getNumShiftsOpen($job_id);
+
+		// worker has fewer than 1 open shift for this job - don't divide by 0
 		if ($open < 1) {
 			return 0;
 		}
 
+		// worker has no available shifts for this job
 		if (!isset($this->avail_shifts[$job_id])) {
 			return 0;
 		}
@@ -433,9 +437,10 @@ class Worker {
 	 * - they're assigned to this date already (another shift same day)
 	 *
 	 * @param int $job_id the job number
+	 * @return bool TRUE if this user has been fully assigned
 	 */
 	public function isFullyAssigned($job_id) {
-		return ($this->getNumAvailableShiftsRatio($job_id) == 0);
+		return ($this->getNumAvailableShiftsRatio($job_id) === 0);
 	}
 
 
