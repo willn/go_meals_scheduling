@@ -126,8 +126,8 @@ EOSQL;
 			return;
 		}
 
-		$w = $this->getWorker($username);
-		$w->addAvailability($job_id, $date, $pref);
+		$worker = $this->getWorker($username);
+		$worker->addAvailability($job_id, $date, $pref);
 	}
 
 
@@ -138,12 +138,10 @@ EOSQL;
 	 */
 	public function addNonResponderPrefs($slackers) {
 		$dates_by_shift = $this->schedule->getDatesByShift();
-		// $first_half_dates_by_shift = $this->schedule->getFirstHalfDatesByShift();
-		// $second_half_dates_by_shift = $this->schedule->getSecondHalfDatesByShift();
 
 		foreach($slackers as $username) {
-			$w = $this->getWorker($username);
-			$w->addNonResponsePrefs($dates_by_shift);
+			$worker = $this->getWorker($username);
+			$worker->addNonResponsePrefs($dates_by_shift);
 		}
 	}
 
@@ -273,10 +271,15 @@ EOSQL;
 	 * overrides list, and add those to the list of shifts assigned.
 	 *
 	 * @param string $username the name of the user viewing the survey.
+	 * @param array $num_shift_overrides username => array(job_id => num_meals)
 	 */
-	public function loadNumMealsFromOverrides($username=NULL) {
+	public function loadNumMealsFromOverrides($username=NULL,
+		$num_shift_overrides=[]) {
+
 		$all_jobs = get_all_jobs();
-		$num_shift_overrides = get_num_shift_overrides();
+		if (empty($num_shift_overrides)) {
+			$num_shift_overrides = get_num_shift_overrides();
+		}
 
 		// set the shifts in overrides - additional shift volunteers
 		$shift_overrides = $num_shift_overrides;
