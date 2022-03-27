@@ -89,6 +89,10 @@ abstract class Meal {
 	/**
 	 * Add a name to the list of possible workers for a given job, with their
 	 * preference number.
+	 *
+	 * @param string $username the worker's username
+	 * @param int $job_id the ID of the job to consider.
+	 * @param int $pref the numeric value preference score.
 	 */
 	public function addWorkerPref($username, $job_id, $pref) {
 		// only add prefs for shifts which are defined on this date.
@@ -243,7 +247,7 @@ EOTXT;
 	 * Get list of workers who should be avoided for this date based on anyone
 	 * who is already assigned to this meal.
 	 *
-	 * @param int $job_id int the number of the job to get preferences for.
+	 * @param int $job_id the job to get preferences for.
 	 * @return array key-value pairs, one for 'avoid_workers', another for 'prefer'.
 	 */
 	protected function getAvoidAndPreferWorkerList($job_id,
@@ -308,8 +312,11 @@ EOTXT;
 	 * various points, characteristics, etc.
 	 *
 	 * @param int $job_id int the number of the current job to fill
+	 * @param array $worker_freedom array of username => num possible
+	 *     shifts ratio
+	 * @return string the username, it could be PLACEHOLDER.
 	 */
-	protected function pickWorker($job_id, $worker_freedom) {
+	public function pickWorker($job_id, $worker_freedom) {
 		$worker_points = [];
 
 		$assigned_worker_names = $this->getAssignedWorkerNamesByJobId($job_id);
@@ -333,7 +340,7 @@ EOTXT;
 		 */
 		foreach($worker_freedom as $username=>$avail_pref) {
 			// initialize
-			$drawbacks = $promotes = 0;
+			$drawbacks = $promotes = 1;
 
 			// skip if this worker can't work on this day
 			if (!isset($this->possible_workers[$job_id][$username])) {
@@ -353,9 +360,6 @@ EOTXT;
 				continue;
 			}
 			$promotes += $today;
-
-			// #!# unfortunately, bundling doesn't seem to work because we're
-			// only examining each worker once...
 
 			// if a worker has an availability rating of 1 or less, then they
 			// must get this assignment, otherwise they'll end up with fewer
