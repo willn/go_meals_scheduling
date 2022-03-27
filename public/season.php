@@ -27,8 +27,8 @@ define('WEEKDAY_HEAD_COOK', 6257);
 
 /**
  * Get the number of shift overrides.
- * Note: this is formatted like this:
- * username => array(job_id => num_meals)
+ *
+ * @return array username => array(job_id => num_meals)
  */
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
