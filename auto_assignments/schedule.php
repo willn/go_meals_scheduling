@@ -22,6 +22,9 @@ class Schedule {
 	protected $dates_by_shift = [];
 
 	public function __construct($season_months=[]) {
+		if (empty($season_months)) {
+			$season_months = get_current_season_months();
+		}
 		$this->calendar = new Calendar($season_months);
 	}
 
