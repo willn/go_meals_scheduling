@@ -4,6 +4,7 @@ global $relative_dir;
 $relative_dir = '../public/';
 require_once '../public/config.php';
 require_once '../public/classes/meal.php';
+require_once '../public/classes/roster.php';
 require_once '../auto_assignments/schedule.php';
 
 /**
@@ -11,20 +12,22 @@ require_once '../auto_assignments/schedule.php';
  */
 class MealTest extends PHPUnit_Framework_TestCase {
 	protected $meal;
+	protected $schedule;
+	protected $roster;
 
 	protected $shifts = [
-		[100,200],
-		[
+		'fake' => [100,200],
+		'meeting' => [
 			MEETING_NIGHT_CLEANER,
 			MEETING_NIGHT_ORDERER,
 		],
-		[
+		'weekday' => [
 			WEEKDAY_HEAD_COOK,
 			WEEKDAY_ASST_COOK,
 			WEEKDAY_CLEANER,
 			# WEEKDAY_TABLE_SETTER,
 		],
-		[
+		'sunday' => [
 			SUNDAY_HEAD_COOK,
 			SUNDAY_ASST_COOK,
 			SUNDAY_CLEANER,
@@ -32,7 +35,10 @@ class MealTest extends PHPUnit_Framework_TestCase {
 	];
 
 	public function setUp() {
-		$this->meal = new SundayMeal('foo', '04/22/2018', 10);
+		$this->roster = new Roster();
+		$this->schedule = new Schedule();
+		$this->schedule->setRoster($this->roster);
+		$this->meal = new SundayMeal($this->schedule, '04/25/2018', 10);
 	}
 
 	public function testConstructors() {
@@ -114,12 +120,12 @@ class MealTest extends PHPUnit_Framework_TestCase {
 		return [
 			[
 				'12/11/2013',
-				$this->shifts[0],
+				$this->shifts['fake'],
 				[]
 			],
 			[
 				'04/16/2018',
-				$this->shifts[1],
+				$this->shifts['meeting'],
 				[
 					MEETING_NIGHT_CLEANER => [NULL],
 					MEETING_NIGHT_ORDERER => [NULL],
@@ -127,7 +133,7 @@ class MealTest extends PHPUnit_Framework_TestCase {
 			],
 			[
 				'04/17/2018',
-				$this->shifts[2],
+				$this->shifts['weekday'],
 				[
 					WEEKDAY_HEAD_COOK => [NULL],
 					WEEKDAY_ASST_COOK => [NULL, NULL],
@@ -137,7 +143,7 @@ class MealTest extends PHPUnit_Framework_TestCase {
 			],
 			[
 				'04/22/2018',
-				$this->shifts[3],
+				$this->shifts['sunday'],
 				[
 					SUNDAY_HEAD_COOK => [NULL],
 					SUNDAY_ASST_COOK => [NULL, NULL],
@@ -160,34 +166,68 @@ class MealTest extends PHPUnit_Framework_TestCase {
 
 	public function provideGetNumOpenSpacesForShift() {
 		return [
-			['04/16/2018', $this->shifts[1], MEETING_NIGHT_ORDERER, 1],
-			['04/16/2018', $this->shifts[1], MEETING_NIGHT_CLEANER, 1],
-			['04/17/2018', $this->shifts[2], WEEKDAY_HEAD_COOK, 1],
-			['04/17/2018', $this->shifts[2], WEEKDAY_ASST_COOK, 2],
-			['04/17/2018', $this->shifts[2], WEEKDAY_CLEANER, 3],
-			# ['04/17/2018', $this->shifts[2], WEEKDAY_TABLE_SETTER, 1],
-			['04/22/2018', $this->shifts[3], SUNDAY_HEAD_COOK, 1],
-			['04/22/2018', $this->shifts[3], SUNDAY_ASST_COOK, 2],
-			['04/22/2018', $this->shifts[3], SUNDAY_CLEANER, 3],
+			['04/16/2018', $this->shifts['meeting'], MEETING_NIGHT_ORDERER, 1],
+			['04/16/2018', $this->shifts['meeting'], MEETING_NIGHT_CLEANER, 1],
+			['04/17/2018', $this->shifts['weekday'], WEEKDAY_HEAD_COOK, 1],
+			['04/17/2018', $this->shifts['weekday'], WEEKDAY_ASST_COOK, 2],
+			['04/17/2018', $this->shifts['weekday'], WEEKDAY_CLEANER, 3],
+			# ['04/17/2018', $this->shifts['weekday'], WEEKDAY_TABLE_SETTER, 1],
+			['04/22/2018', $this->shifts['sunday'], SUNDAY_HEAD_COOK, 1],
+			['04/22/2018', $this->shifts['sunday'], SUNDAY_ASST_COOK, 2],
+			['04/22/2018', $this->shifts['sunday'], SUNDAY_CLEANER, 3],
 		];
 	}
 
 	public function testGetTimes() {
-		$schedule = new Schedule();
-
-		$sunday = new SundayMeal($schedule, '04/22/2018', 123);
+		$sunday = new SundayMeal($this->schedule, '04/22/2018', 123);
 		$this->assertEquals($sunday->getTime(), '5:30');
 		$this->assertEquals($sunday->getCommunities(), 'GO, SW, TS');
 
-		$weekday = new WeekdayMeal($schedule, '04/23/2018', 124);
+		$weekday = new WeekdayMeal($this->schedule, '04/23/2018', 124);
 		$this->assertEquals($weekday->getTime(), '6:15');
 		$this->assertEquals($weekday->getCommunities(), 'GO, SW, TS');
 
-		$meeting = new MeetingNightMeal($schedule, '04/16/2018', 125);
+		$meeting = new MeetingNightMeal($this->schedule, '04/16/2018', 125);
 		$this->assertEquals($meeting->getTime(), '5:45');
 		$this->assertEquals($meeting->getCommunities(), 'GO');
 	}
 
-	#public function testGetCommunities() { }
+	/**
+	 * @dataProvider providePickWorker
+	 */
+	public function testPickWorker($override, $type, $job_id,
+		$worker_freedom, $expected) {
+
+		$this->roster->loadNumMealsFromOverrides(NULL, $override);
+		$this->roster->addPrefs('aaa', $job_id, $this->meal->getDate(), 1);
+		$this->roster->addPrefs('bbb', $job_id, $this->meal->getDate(), 1);
+		$this->roster->addPrefs('ccc', $job_id, $this->meal->getDate(), 1);
+
+		$this->meal->initShifts($this->shifts[$type]);
+		$this->meal->addWorkerPref('aaa', $job_id, 1);
+		$this->meal->addWorkerPref('bbb', $job_id, 2);
+		$this->meal->addWorkerPref('ccc', $job_id, 0);
+
+		$user = $this->meal->pickWorker($job_id, $worker_freedom);
+		$this->assertEquals($user, $expected);
+	}
+
+	public function providePickWorker() {
+		$override = [
+			'aaa' => [SUNDAY_HEAD_COOK => 1],
+			'bbb' => [SUNDAY_HEAD_COOK => 1],
+			'ccc' => [SUNDAY_HEAD_COOK => 1],
+		];
+
+		$freedom = [
+			'aaa' => 3.5,
+			'bbb' => 2,
+			'ccc' => 2.3,
+		];
+
+		return [
+			[$override, 'sunday', SUNDAY_HEAD_COOK, $freedom, 'bbb'],
+		];
+	}
 }
 ?>

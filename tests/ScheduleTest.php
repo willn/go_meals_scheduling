@@ -39,6 +39,30 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 		];
 	}
 
+
+	/**
+	 * @dataProvider provideFillMeal
+	public function testFillMeal($worker_freedom) {
+		$is_filled = $this->schedule->fillMeal($worker_freedom);
+		$this->assertEquals($is_filled, TRUE);
+	}
+
+	public function provideFillMeal() {
+		$freedom = [
+			'aaa' => 3.0,
+			'bbb' => 1.5,
+			'ccc' => 1.0,
+			'ddd' => .5,
+			'eee' => .33,
+		];
+
+		return [
+			[$freedom, 'yyy'],
+		];
+	}
+	 */
+
+
 	/**
 	 * XXX dataProvider provideInitializeShifts
 	public function testInitializeShifts($expected_shifts) {
