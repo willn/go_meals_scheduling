@@ -1,5 +1,6 @@
 <?php
 require_once '../public/classes/worker.php';
+require_once '../public/season.php';
 
 class WorkerTest extends PHPUnit_Framework_TestCase {
 	private $worker;
@@ -100,6 +101,32 @@ class WorkerTest extends PHPUnit_Framework_TestCase {
 		$result = $this->worker->getAvailability();
 		$this->assertEquals([123 => [$date1 => 1, $date2 => 2], 456 =>
 			[$date2 => 2], 999 => [$date1 => 0, $date2 => .5]], $result);
+	}
+
+	private function setUpGetAdjancencyScore() {
+		$this->worker->addNumShiftsAssigned(SUNDAY_HEAD_COOK, 2);
+		$this->worker->setAssignedShift(SUNDAY_HEAD_COOK, '4/2/2022');
+	}
+
+	/**
+	 * @dataProvider provideGetAdjancencyScore
+	 */
+	public function testGetAdjancencyScore($date, $expected) {
+		$this->setUpGetAdjancencyScore();
+		$result = $this->worker->getAdjancencyScore($date);
+		$this->assertEquals($result, $expected);
+	}
+
+	public function provideGetAdjancencyScore() {
+		return [
+			['4/2/2022', 0],
+			['4/3/2022', Worker::ADJACENCY_LIMIT],
+			['4/4/2022', Worker::ADJACENCY_LIMIT / 2],
+			['4/5/2022', Worker::ADJACENCY_LIMIT / 3],
+			['4/9/2022', Worker::ADJACENCY_LIMIT / 7],
+			['4/10/2022', Worker::ADJACENCY_LIMIT / 8],
+			['4/11/2022', 0],
+		];
 	}
 }
 ?>

@@ -1,5 +1,8 @@
 <?php
 class Worker {
+	# this is an arbitrary amount
+	const ADJACENCY_LIMIT = 8;
+
 	protected $id;
 	protected $username;
 	protected $first_name;
@@ -16,7 +19,6 @@ class Worker {
 
 	protected $requests = [];
 
-	protected $adjacency_limit = 8;
 	protected $avoid_workers = [];
 	protected $prefers = [];
 
@@ -296,31 +298,30 @@ class Worker {
 			return 0;
 		}
 
-		date_default_timezone_set('America/Detroit');
 		$current = date('z', strtotime($date));
 
-		$min = NULL;
-		foreach($assigned as $a) {
-			$ts = strtotime($a);
+		$minimum = 0;
+		foreach($assigned as $assn_date) {
+			$ts = strtotime($assn_date);
 			$diff = abs(date('z', $ts) - $current);
 
-			if (is_null($min)) {
-				$min = $diff;
+			if ($minimum == 0) {
+				$minimum = $diff;
 				continue;
 			}
 
-			if ($min > $diff) {
-				$min = $diff;
+			if ($minimum > $diff) {
+				$minimum = $diff;
 			}
 		}
 
-		if (is_null($min) || ($min == 0)) {
+		if ($minimum == 0) {
 			return 0;
 		}
 
 		// if far away, then return with 0, otherwise the ratio
-		return ($min > $this->adjacency_limit) ? 0 :
-			($this->adjacency_limit / $min);
+		return ($minimum > self::ADJACENCY_LIMIT) ? 0 :
+			(self::ADJACENCY_LIMIT / $minimum);
 	}
 
 
@@ -440,7 +441,7 @@ class Worker {
 	 * @return bool TRUE if this user has been fully assigned
 	 */
 	public function isFullyAssigned($job_id) {
-		return ($this->getNumAvailableShiftsRatio($job_id) === 0);
+		return ($this->getNumAvailableShiftsRatio($job_id) === floatval(0));
 	}
 
 
