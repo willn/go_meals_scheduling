@@ -16,4 +16,24 @@ drop table work_app_quotarequest;
 drop table work_app_reason;
 drop table work_app_surveycomment;
 drop table work_app_surveyresponse;
+
+/*
+ * SQLite 3.35.0 introduced support for ALTER TABLE DROP COLUMN, so 
+ * do the below SELECT AS FROM as a work-around to skip the password.
+ */
+CREATE TABLE auth_user_tiny AS
+	SELECT
+		id,
+		first_name,
+		last_name,
+		email,
+		username,
+		gather_id
+	FROM auth_user
+	WHERE is_active=1;
+
+DROP TABLE auth_user;
+ALTER TABLE auth_user_tiny
+	RENAME TO auth_user;
+
 VACUUM;
