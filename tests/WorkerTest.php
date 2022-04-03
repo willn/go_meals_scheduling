@@ -119,6 +119,12 @@ class WorkerTest extends PHPUnit_Framework_TestCase {
 
 	public function provideGetAdjancencyScore() {
 		return [
+			['3/24/2022', 0],
+			['3/25/2022', Worker::ADJACENCY_LIMIT / 8],
+			['3/26/2022', Worker::ADJACENCY_LIMIT / 7],
+			['3/30/2022', Worker::ADJACENCY_LIMIT / 3],
+			['3/31/2022', Worker::ADJACENCY_LIMIT / 2],
+			['4/1/2022', Worker::ADJACENCY_LIMIT],
 			['4/2/2022', 0],
 			['4/3/2022', Worker::ADJACENCY_LIMIT],
 			['4/4/2022', Worker::ADJACENCY_LIMIT / 2],
