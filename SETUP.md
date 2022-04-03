@@ -61,9 +61,9 @@ provideGetAssignmentsNeededForCurrentSeason()
 
 ### clear out existing tables
 ```
-	cd public/sqlite_data/
+	# from top-level
 	sqlite3 work_allocation.db
-	sqlite> .read reset_mid_season.sql
+	sqlite> .read sql/reset_mid_season.sql
 	// exit sqlite
 	cd ../
 	git diff | view -
@@ -92,7 +92,7 @@ provideGetAssignmentsNeededForCurrentSeason()
 	# view the current state of tables
 	sqlite> .tables
 	# drop a bunch of tables
-	sqlite> .read drops.sql
+	sqlite> .read sql/drops.sql
 	# confirm
 	sqlite> .tables
 		# there should be 4 tables:
@@ -101,7 +101,7 @@ provideGetAssignmentsNeededForCurrentSeason()
 		# work_app_assignment  work_app_season
 
  	# add the Gather IDs 
-	sqlite> .read add_gather_ids.sql
+	sqlite> .read sql/add_gather_ids.sql
 	# confirm
 	sqlite> .schema auth_user
 	# The last field listed should be "gather_id"
