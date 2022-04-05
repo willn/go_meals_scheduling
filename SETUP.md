@@ -41,79 +41,79 @@ If this is mid-season, skip to the MID-SEASON section
 	database from host"
   - locally:
 ```
-	open http://gocoho.tklapp.com/download/database/
-	cd ~/Downloads/
-	unzip filedb.zip
-	mv home/django/work/db.sqlite3 ~/projects/go_meals_scheduling/public/sqlite_data/work_allocation.db
-	rm -rf home/ filedb.zip
-	cd ~/projects/go_meals_scheduling/public/sqlite_data/
+open http://gocoho.tklapp.com/download/database/
+cd ~/Downloads/
+unzip filedb.zip
+mv home/django/work/db.sqlite3 ~/projects/go_meals_scheduling/public/sqlite_data/work_allocation.db
+rm -rf home/ filedb.zip
+cd ~/projects/go_meals_scheduling/public/sqlite_data/
 ```
 * on the remote host...
 ```
-	cd meals_scheduling_dev/public/sqlite_data
-	mv db.sqlite3 work_allocation.db
-	chmod 644 work_allocation.db
-	sqlite work_allocation.db
-	# view the current state of tables
-	sqlite> .tables
-	# drop a bunch of tables
-	sqlite> .read sql/drops.sql
-	# confirm
-	sqlite> .tables
-		# there should be 4 tables:
-		# sqlite> .tables
-		# auth_user            work_app_job
-		# work_app_assignment  work_app_season
+cd meals_scheduling_dev/public/sqlite_data
+mv db.sqlite3 work_allocation.db
+chmod 644 work_allocation.db
+sqlite work_allocation.db
+# view the current state of tables
+sqlite> .tables
+# drop a bunch of tables
+sqlite> .read sql/drops.sql
+# confirm
+sqlite> .tables
+	# there should be 4 tables:
+	# sqlite> .tables
+	# auth_user            work_app_job
+	# work_app_assignment  work_app_season
 ```
 * add the Gather IDs 
 ```
-	sqlite> .read sql/add_gather_ids.sql
-	# confirm
-	sqlite> .schema auth_user
-	# The last field listed should be "gather_id"
-	sqlite> exit
-	git add !$
-	git commit !$
+sqlite> .read sql/add_gather_ids.sql
+# confirm
+sqlite> .schema auth_user
+# The last field listed should be "gather_id"
+sqlite> exit
+git add !$
+git commit !$
 ```
 
 
 ### get new job IDs for the season, and update the defines for each job in config.php
 ```
-	cd utils/
-	php find_current_season_jobs.php
-	# copy that block and replace the previous season's entries in this file:
-	vi ../public/season.php
-	# sorting these alphabetically can help with debugging
+cd utils/
+php find_current_season_jobs.php
+# copy that block and replace the previous season's entries in this file:
+vi ../public/season.php
+# sorting these alphabetically can help with debugging
 ```
 
 ### update the unit tests which are going to fail based on changed info
 * look for the UPDATE-EACH-SEASON
 * make sure that unit tests work:
 ```
-	cd tests
-	./run.sh
-	# the various testCompareLabor tests will fail until the rest of setup
+cd tests
+./run.sh
+# the various testCompareLabor tests will fail until the rest of setup
 ```
 
 ### when tests pass, then commit
 ```
-	git status
-	git add
-	git commit
+git status
+git add
+git commit
 ```
 
 * initialize the database
 ```
-	cd ../../utils/
-	php initialize_database.php
-	cd ../tests/
-	./run.sh
+cd ../../utils/
+php initialize_database.php
+cd ../tests/
+./run.sh
 ```
 * if all unit tests pass, then commit
 ```
-	git status
-	git add *
-	git commit
+git status
+git add *
+git commit
 ```
 
 -------------------------------
@@ -124,12 +124,12 @@ FINISH-START-OF-SEASON.
 
 ### clear out existing tables
 ```
-	# from top-level
-	sqlite3 work_allocation.db
-	sqlite> .read sql/reset_mid_season.sql
-	// exit sqlite
-	cd ../
-	git diff | view -
+# from top-level
+sqlite3 work_allocation.db
+sqlite> .read sql/reset_mid_season.sql
+// exit sqlite
+cd ../
+git diff | view -
 ```
 
 -------------------------------
@@ -138,9 +138,9 @@ FINISH-START-OF-SEASON.
 
 ### stage everything from the meals dev repo to public_html
 ```
-	cd ~
-	#!# careful! - this will blank out any collected data...
-	rsync -e 'ssh -p 1022' -avz public/ gocoho@gocoho.org:/home/gocoho/public_html/meals_scheduling/
+cd ~
+#!# careful! - this will blank out any collected data...
+rsync -e 'ssh -p 1022' -avz public/ gocoho@gocoho.org:/home/gocoho/public_html/meals_scheduling/
 ```
 
 ### test to make sure everything works, view in web browser
@@ -155,13 +155,13 @@ FINISH-START-OF-SEASON.
 
 ### set up database backup routine on the webserver:
 ```
-	mkdir ~/backups
-	chmod 700 ~/backups/
+mkdir ~/backups
+chmod 700 ~/backups/
 
-	crontab -e
-	# uncomment the following lines:
-	20 *   *   *   *   /bin/cp -f ~/meals_scheduling_dev/public/sqlite_data/work_allocation.db ~/backups/
-	50 5 * * * /bin/cp -f public_html/meals_scheduling/sqlite_data/work_allocation.db ~/backups/work_allocation.db_daily
+crontab -e
+# uncomment the following lines:
+20 *   *   *   *   /bin/cp -f ~/meals_scheduling_dev/public/sqlite_data/work_allocation.db ~/backups/
+50 5 * * * /bin/cp -f public_html/meals_scheduling/sqlite_data/work_allocation.db ~/backups/work_allocation.db_daily
 ```
 
 ### schedule a few reminders spaced out over the rest of the session to send reminder emails to laggards
@@ -176,57 +176,57 @@ FINISH-START-OF-SEASON.
 
 ## commit closed database:
 ```
-	rsync -e 'ssh -p 1022' -avz gocoho@gocoho.org:/home/gocoho/public_html/meals_scheduling/sqlite_data/work_allocation.db public/sqlite_data/work_allocation.db
-	git status
-	git commit public/sqlite_data/work_allocation.db
+rsync -e 'ssh -p 1022' -avz gocoho@gocoho.org:/home/gocoho/public_html/meals_scheduling/sqlite_data/work_allocation.db public/sqlite_data/work_allocation.db
+git status
+git commit public/sqlite_data/work_allocation.db
 ```
 
 ### check for any un-assigned workers
 ```
-	cd auto_assignments/
-	php execute.php -u
+cd auto_assignments/
+php execute.php -u
 ```
 
 ### If we know that we need to cancel 1 or more meals, edit
 ```
-	vi public/constants.php   # set DEBUG_GET_LEAST_POSSIBLE to TRUE
-	cd auto_assignments/
-	php execute.php -s
-	tail -f error
+vi public/constants.php   # set DEBUG_GET_LEAST_POSSIBLE to TRUE
+cd auto_assignments/
+php execute.php -s
+tail -f error
 ```
 
 Look at all of the shifts to see where the pain lies... head, asst, cleaner
 if we need to cancel meals, then mark these as skip dates.
 
 ```
-	# add dates to get_skip_dates
-	vi public/season.php
-	# run the unit test for CalendarTest::testRenderSeasonDateSummary until
-	# things line up
-	cd tests/
-	phpunit CalendarTest.php
+# add dates to get_skip_dates
+vi public/season.php
+# run the unit test for CalendarTest::testRenderSeasonDateSummary until
+# things line up
+cd tests/
+phpunit CalendarTest.php
 ```
 
 ### count un-filled slots:
 ```
-	php execute.php -s > results.txt
-	grep XXX !$
+php execute.php -s > results.txt
+grep XXX !$
 ```
 
 ### if some meals need to be cancelled, this would be a good time to look for
   the hardest to fill days:
 ```
-	grep 'XXXXXXXX.*XXXXXXXX' results.txt
+grep 'XXXXXXXX.*XXXXXXXX' results.txt
 ```
 
 ### check for hobarter ratio:
 ```
-	grep HOBART results.txt
+grep HOBART results.txt
 ```
 
 ### Examine workers:
 ```
-	php execute.php -w > workers.txt
+php execute.php -w > workers.txt
 ```
 
 ### Someone may have volunteered to take too many additional meals
@@ -234,20 +234,20 @@ if we need to cancel meals, then mark these as skip dates.
 Reduce the number of needed volunteer / override positions mentioned
 with this:
 ```
-	grep OVERAGE workers.txt
+grep OVERAGE workers.txt
 ```
 
 ### find the people who aren't fully assigned:
 ```
-	egrep '(^name|\(0)' workers.txt | grep -B1 'j:' > workers_not_full.txt
+egrep '(^name|\(0)' workers.txt | grep -B1 'j:' > workers_not_full.txt
 ```
 
 ### download a copy of the schedule, and upload it to google drive
 ```
-	# on localhost
-	cd ~/Desktop/
-	scp -i ~/.ssh/id_dsa -P 1022 \
-		gocoho@gocoho.org:/home/gocoho/meals_scheduling_dev/auto_assignments/results.txt .
+# on localhost
+cd ~/Desktop/
+scp -i ~/.ssh/id_dsa -P 1022 \
+	gocoho@gocoho.org:/home/gocoho/meals_scheduling_dev/auto_assignments/results.txt .
 ```
 
 ### Import into a google spreadsheet
@@ -261,13 +261,13 @@ Copy and paste from "Confirm results check" section, and create custom ones for 
   - rename file to schedule.txt
 2. go to http://gocoho.org/meals_scheduling/report.php?key=all#confirm_checks
 ```
-	# copy section of text
-	vi checks.sh
-	# paste
-	chmod +x checks.sh
-	./checks.sh | more
-	# read the comments and make sure they apply cleanly with auto-checks,
-	# otherwise make trades
+# copy section of text
+vi checks.sh
+# paste
+chmod +x checks.sh
+./checks.sh | more
+# read the comments and make sure they apply cleanly with auto-checks,
+# otherwise make trades
 ```
 
 ### look for table setter conflicts
@@ -278,9 +278,9 @@ Check to make sure that there are no 'table setter' assignments which conflict w
 
 ### run avoids validation:
 ```
-	# is this needed with the new unit tests?
-	cd ../utils/
-	php validate_schedule.php -f ../tests/data/schedule.tsv
+# is this needed with the new unit tests?
+cd ../utils/
+php validate_schedule.php -f ../tests/data/schedule.tsv
 ```
 
 - upload any changes to google sheets and announce it
@@ -330,10 +330,10 @@ on gocoho:
 update public/config.php, update the season name, year, and season id
 
 - pop into sqlite:
-	sqlite3 !$
+`sqlite3 !$`
 
 - update the data to use the current season id:
-	update work_app_assignment set season_id=11 where season_id=10;
+`update work_app_assignment set season_id=11 where season_id=10;`
 
 ```
 # create some entries (cook & clean) for testing of survey
