@@ -34,6 +34,8 @@ If this is mid-season, skip to the MID-SEASON section
 * set the appropriate `DEADLINE` date
 * display a farm meals night message? (`DOING_CSA_FARM_MEALS`)
 * set the `SUB_SEASON_FACTOR`
+
+### update the database
 * grab the latest sqlite file from work hosting, fix permissions, and commit:
   - login to the work web UI, go to more reports, and "Download SQLite3
 	database from host"
@@ -42,37 +44,10 @@ If this is mid-season, skip to the MID-SEASON section
 	open http://gocoho.tklapp.com/download/database/
 	cd ~/Downloads/
 	unzip filedb.zip
-	mv home/django/work/db.sqlite3 ~/projects/go_meals_scheduling_dev/public/sqlite_data/
+	mv home/django/work/db.sqlite3 ~/projects/go_meals_scheduling/public/sqlite_data/work_allocation.db
 	rm -rf home/ filedb.zip
-	cd ~/projects/go_meals_scheduling_dev/public/sqlite_data/
-	git add
+	cd ~/projects/go_meals_scheduling/public/sqlite_data/
 ```
-
-### get new job IDs for the season, and update the defines for each job in config.php
-```
-	cd utils/
-	php find_current_season_jobs.php
-	# copy that block and replace the previous season's entries in this file:
-	vi ../public/season.php
-	# sorting these alphabetically can help with debugging
-```
-
-### update the unit tests which are going to fail based on changed info
-* look for the UPDATE-EACH-SEASON
-* make sure that unit tests work:
-```
-	cd tests
-	./run.sh
-	# the various testCompareLabor tests will fail until the rest of setup
-```
-
-### when tests pass, then commit
-```
-	git status
-	git add
-	git commit
-```
-
 * on the remote host...
 ```
 	cd meals_scheduling_dev/public/sqlite_data
@@ -100,6 +75,33 @@ If this is mid-season, skip to the MID-SEASON section
 	git add !$
 	git commit !$
 ```
+
+
+### get new job IDs for the season, and update the defines for each job in config.php
+```
+	cd utils/
+	php find_current_season_jobs.php
+	# copy that block and replace the previous season's entries in this file:
+	vi ../public/season.php
+	# sorting these alphabetically can help with debugging
+```
+
+### update the unit tests which are going to fail based on changed info
+* look for the UPDATE-EACH-SEASON
+* make sure that unit tests work:
+```
+	cd tests
+	./run.sh
+	# the various testCompareLabor tests will fail until the rest of setup
+```
+
+### when tests pass, then commit
+```
+	git status
+	git add
+	git commit
+```
+
 * initialize the database
 ```
 	cd ../../utils/
