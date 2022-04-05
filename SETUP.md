@@ -25,6 +25,8 @@ The number of assignments needed is in tests/CalendarTest.php, in
 provideGetAssignmentsNeededForCurrentSeason()
 
 -------------------------------
+## SEASON-START:
+If this is mid-season, skip to the MID-SEASON section
 
 ## Prepare to launch the survey
 
@@ -32,8 +34,19 @@ provideGetAssignmentsNeededForCurrentSeason()
 * set the appropriate `DEADLINE` date
 * display a farm meals night message? (`DOING_CSA_FARM_MEALS`)
 * set the `SUB_SEASON_FACTOR`
-
-XXX <- update database here...
+* grab the latest sqlite file from work hosting, fix permissions, and commit:
+  - login to the work web UI, go to more reports, and "Download SQLite3
+	database from host"
+  - locally:
+```
+	open http://gocoho.tklapp.com/download/database/
+	cd ~/Downloads/
+	unzip filedb.zip
+	mv home/django/work/db.sqlite3 ~/projects/go_meals_scheduling_dev/public/sqlite_data/
+	rm -rf home/ filedb.zip
+	cd ~/projects/go_meals_scheduling_dev/public/sqlite_data/
+	git add
+```
 
 ### get new job IDs for the season, and update the defines for each job in config.php
 ```
@@ -58,24 +71,6 @@ XXX <- update database here...
 	git status
 	git add
 	git commit
-```
-
--------------------------------
-
-## SEASON-START:
-If this is mid-season, skip to the MID-SEASON section
-
-### grab the latest sqlite file from work hosting, fix permissions, and commit:
-* login to the work web UI, go to more reports, and "Download SQLite3
-	database from host"
-* locally...
-- `open http://gocoho.tklapp.com/download/database/`
-* download the latest sqlite file
-```
-	cd ~/Downloads/
-	unzip filedb.zip
-	scp -P 1022 home/django/work/db.sqlite3 gocoho@gocoho.org:meals_scheduling_dev/public/sqlite_data/
-	rm -rf home/ filedb.zip
 ```
 
 * on the remote host...
@@ -177,7 +172,6 @@ FINISH-START-OF-SEASON.
 
 ### disable cronjobs
 
-XXX
 ## commit closed database:
 ```
 	rsync -e 'ssh -p 1022' -avz gocoho@gocoho.org:/home/gocoho/public_html/meals_scheduling/sqlite_data/work_allocation.db public/sqlite_data/work_allocation.db
