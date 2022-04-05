@@ -393,7 +393,7 @@ EOHTML;
 	 * Generate the date cell for a report
 	 *
 	 * @param string $date_string text representing a date, i.e. '12/6/2009'
-	 * @param string $availability a structured array of when people
+	 * @param array $availability a structured array of when people
 	 *     are available to work.
 	 * @param string $tally a count of each meal-type instance.
 	 * @param string $type the type of meal this is servicing.
@@ -453,7 +453,7 @@ EOHTML;
 		}
 
 		// for report
-		if (is_null($worker)) {
+		if (!is_object($worker)) {
 			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " null worker sent");
 			return '';
 		}
@@ -498,15 +498,14 @@ EOHTML;
 	 *     happens on this calendar date.
 	 */
 	public function addMessage($day_of_week, $month_num) {
-		$notice = '';
 		if (!DOING_CSA_FARM_MEALS) {
-			return $notice;
+			return '';
 		}
 
 		if (($day_of_week === TUESDAY) && (($month_num > MAY) && ($month_num < NOVEMBER)))  {
-			$notice = self::FARM_MSG;
+			return self::FARM_MSG;
 		}
-		return $notice;
+		return '';
 	}
 
 	/**

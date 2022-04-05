@@ -140,7 +140,7 @@ class Schedule {
 
 		foreach($slackers as $username) {
 			$w = $this->getWorker($username);
-			if (is_null($w)) {
+			if (!is_object($w)) {
 				echo "worker $username does not exist FATAL\n";
 				exit;
 			}

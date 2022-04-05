@@ -241,13 +241,13 @@ function get_meal_type_by_date($date) {
 	}
 
 	$day_of_week = date('N', $date_ts);
-	if (!$day_of_week) {
+	if ($day_of_week == FALSE) {
 		return NOT_A_MEAL;
 	}
 
 	$month_num = date('n', $date_ts);
 	$day_num = date('j', $date_ts);
-	if (!$month_num || !$day_num) {
+	if (($month_num == FALSE) || ($day_num == FALSE)) {
 		return NOT_A_MEAL;
 	}
 
@@ -265,7 +265,7 @@ function get_meal_type_by_date($date) {
 		return SKIP_NIGHT;
 	}
 
-	if (ARE_SUNDAYS_UNIQUE && ($day_of_week == 7)) {
+	if ($day_of_week == 7) {
 		return SUNDAY_MEAL;
 	}
 

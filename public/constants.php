@@ -74,9 +74,6 @@ define('DECEMBER', 12);
 define('DOMAIN', '@gocoho.org');
 define('FROM_EMAIL', 'willie' . DOMAIN);
 
-# Are Sunday meals treated separately from weeknights?
-define('ARE_SUNDAYS_UNIQUE', TRUE);
-
 define('PREFER_TO_AVOID_WORKER_RATIO', .55);
 
 ?>
