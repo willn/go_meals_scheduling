@@ -13,13 +13,12 @@
 `git status`
 
 ### update public/season.php
-* set the SEASON_NAME
-* make sure the right months are included in get_current_season_months()
-
-### remove any previous season's data from public/season.php
-  - get_num_shift_overrides()
-  - get_regular_day_overrides()
-  - get_skip_dates()
+* set `SEASON_NAME`
+* make sure the right months are included in `get_current_season_months()`
+* remove any previous season's data:
+  - `get_num_shift_overrides()`
+  - `get_skip_dates()`
+  - `get_regular_day_overrides()`
 
 ### Update unit tests
 The number of assignments needed is in tests/CalendarTest.php, in 
@@ -30,9 +29,11 @@ provideGetAssignmentsNeededForCurrentSeason()
 ## Prepare to launch the survey
 
 ### edit public/season.php
-* set the appropriate DEADLINE date
-* display a farm meals night message? (DOING_CSA_FARM_MEALS)
-* set the SUB_SEASON_FACTOR
+* set the appropriate `DEADLINE` date
+* display a farm meals night message? (`DOING_CSA_FARM_MEALS`)
+* set the `SUB_SEASON_FACTOR`
+
+XXX <- update database here...
 
 ### get new job IDs for the season, and update the defines for each job in config.php
 ```
@@ -43,48 +44,42 @@ provideGetAssignmentsNeededForCurrentSeason()
 	# sorting these alphabetically can help with debugging
 ```
 
-# update the unit tests which are going to fail based on changed info
-# look for the UPDATE-EACH-SEASON
-
-# make sure that unit tests work:
+### update the unit tests which are going to fail based on changed info
+* look for the UPDATE-EACH-SEASON
+* make sure that unit tests work:
+```
 	cd tests
 	./run.sh
 	# the various testCompareLabor tests will fail until the rest of setup
+```
 
-# when tests pass, then commit
+### when tests pass, then commit
+```
 	git status
-	# commit changes
+	git add
+	git commit
+```
 
 -------------------------------
 
-## MID-SEASON: if this is mid-season, follow these directions, otherwise skip
-
-### clear out existing tables
-```
-	# from top-level
-	sqlite3 work_allocation.db
-	sqlite> .read sql/reset_mid_season.sql
-	// exit sqlite
-	cd ../
-	git diff | view -
-```
-
-### skip to FINISH-START-OF-SEASON
-
-
 ## SEASON-START:
+If this is mid-season, skip to the MID-SEASON section
 
-# grab the latest sqlite file from work hosting, fix permissions, and commit:
-	# login to the work web UI, go to more reports, and "Download SQLite3 database from host"
-	# locally...
-	open http://gocoho.tklapp.com/download/database/
-	# download the latest sqlite file
+### grab the latest sqlite file from work hosting, fix permissions, and commit:
+* login to the work web UI, go to more reports, and "Download SQLite3
+	database from host"
+* locally...
+- `open http://gocoho.tklapp.com/download/database/`
+* download the latest sqlite file
+```
 	cd ~/Downloads/
 	unzip filedb.zip
 	scp -P 1022 home/django/work/db.sqlite3 gocoho@gocoho.org:meals_scheduling_dev/public/sqlite_data/
 	rm -rf home/ filedb.zip
+```
 
-	# on the remote host...
+* on the remote host...
+```
 	cd meals_scheduling_dev/public/sqlite_data
 	mv db.sqlite3 work_allocation.db
 	chmod 644 work_allocation.db
@@ -99,8 +94,9 @@ provideGetAssignmentsNeededForCurrentSeason()
 		# sqlite> .tables
 		# auth_user            work_app_job
 		# work_app_assignment  work_app_season
-
- 	# add the Gather IDs 
+```
+* add the Gather IDs 
+```
 	sqlite> .read sql/add_gather_ids.sql
 	# confirm
 	sqlite> .schema auth_user
@@ -108,17 +104,36 @@ provideGetAssignmentsNeededForCurrentSeason()
 	sqlite> exit
 	git add !$
 	git commit !$
-
-# initialize the database
+```
+* initialize the database
+```
 	cd ../../utils/
 	php initialize_database.php
 	cd ../tests/
 	./run.sh
-
-	# if all unit tests pass, then commit
+```
+* if all unit tests pass, then commit
+```
 	git status
 	git add *
 	git commit
+```
+
+-------------------------------
+
+## MID-SEASON
+If this is mid-season, follow these directions, otherwise skip to
+FINISH-START-OF-SEASON.
+
+### clear out existing tables
+```
+	# from top-level
+	sqlite3 work_allocation.db
+	sqlite> .read sql/reset_mid_season.sql
+	// exit sqlite
+	cd ../
+	git diff | view -
+```
 
 -------------------------------
 
