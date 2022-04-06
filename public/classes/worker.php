@@ -521,6 +521,10 @@ EOTXT;
 	 * Find out which jobs this worker has been assigned.
 	 */
 	public function getTasks() {
+		if (empty($this->tasks)) {
+			$this->loadTasks();
+		}
+
 		return $this->tasks;
 	}
 
@@ -529,6 +533,11 @@ EOTXT;
 	 * overrides.
 	 */
 	protected function loadTasks() {
+		# quit if database connection doesn't exist
+		if (is_null($this->dbh)) {
+			return;
+		}
+
 		$all_jobs = get_all_jobs();
 
 		$each_job = [];
