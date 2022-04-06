@@ -140,7 +140,7 @@ git diff | view -
 
 ### stage everything from the meals dev repo to public_html
 ```
-cd ~
+cd ~/projects/go_meals_scheduling/
 #!# careful! - this will blank out any collected data...
 rsync -e 'ssh -p 1022' -avz public/ gocoho@gocoho.org:/home/gocoho/public_html/meals_scheduling/
 ```
@@ -149,8 +149,7 @@ rsync -e 'ssh -p 1022' -avz public/ gocoho@gocoho.org:/home/gocoho/public_html/m
 * confirm that the calendar dates are correct
 * confirm the holidays and meeting nights are correct
 * fill in some entries and save them, then revert
-* #!# careful! - this will blank out any collected data...
-* rsync -e 'ssh -p 1022' -avz public/ gocoho@gocoho.org:/home/gocoho/public_html/meals_scheduling/
+* resync code to clean up and reset database
 * load listing page again to make sure that the database is writeable
 
 ### notify participants that the survey is ready
