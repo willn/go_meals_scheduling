@@ -110,6 +110,7 @@ php initialize_database.php
 cd ../tests/
 ./run.sh
 ```
+
 * if all unit tests pass, then commit
 ```
 git status
