@@ -50,7 +50,7 @@ class GlobalsTest extends PHPUnit_Framework_TestCase {
 	public function test_get_job_ids_clause() {
 		$result = get_job_ids_clause();
 		// UPDATE-EACH-SEASON
-		$expected = 'job_id=6257 OR job_id=6258 OR job_id=6262 OR job_id=6259 OR job_id=6260 OR job_id=6263 OR job_id=6261 OR job_id=6264';
+		$expected = 'job_id=6518 OR job_id=6519 OR job_id=6523 OR job_id=6520 OR job_id=6521 OR job_id=6524 OR job_id=6522 OR job_id=6525';
 		$this->assertEquals($expected, $result);
 	}
 

@@ -27,8 +27,7 @@ CREATE TABLE auth_user_tiny AS
 		first_name,
 		last_name,
 		email,
-		username,
-		gather_id
+		username
 	FROM auth_user
 	WHERE is_active=1;
 

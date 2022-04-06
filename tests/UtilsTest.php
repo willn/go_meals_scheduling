@@ -115,7 +115,6 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function provide_add_labor_day() {
-		// UPDATE-EACH-SEASON
 		$september_dates = [(LABOR_DAY - 1), LABOR_DAY];
 
 		return [

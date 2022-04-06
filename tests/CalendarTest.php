@@ -197,23 +197,23 @@ EOHTML;
 		$result = $this->calendar->getJobsIndex('all');
 		$this->assertNotEmpty($result);
 
-		// UPDATE-EACH-SEASON
 		$entry = '';
 		if (defined('WEEKDAY_TABLE_SETTER')) {
 			$entry = "\n" .
 				'<li><a href="/meals_scheduling/report.php?key=6247">Weekday Table Setter</a></li>';
 		}
+		// UPDATE-EACH-SEASON
 		$out = <<<EOHTML
 <ul id="filter_overlay">
 <li><a href="/meals_scheduling/report.php?key=all">all</a></li>
-<li><a href="/meals_scheduling/report.php?key=6257">Weekday head cook</a></li>
-<li><a href="/meals_scheduling/report.php?key=6258">Weekday meal asst cook</a></li>
-<li><a href="/meals_scheduling/report.php?key=6262">Weekday Meal cleaner</a></li>{$entry}
-<li><a href="/meals_scheduling/report.php?key=6259">Sunday head cook</a></li>
-<li><a href="/meals_scheduling/report.php?key=6260">Sunday meal asst cook</a></li>
-<li><a href="/meals_scheduling/report.php?key=6263">Sunday Meal Cleaner</a></li>
-<li><a href="/meals_scheduling/report.php?key=6261">Meeting night takeout orderer</a></li>
-<li><a href="/meals_scheduling/report.php?key=6264">Meeting night cleaner</a></li>
+<li><a href="/meals_scheduling/report.php?key=6518">Weekday head cook</a></li>
+<li><a href="/meals_scheduling/report.php?key=6519">Weekday meal asst cook</a></li>
+<li><a href="/meals_scheduling/report.php?key=6523">Weekday Meal cleaner</a></li>
+<li><a href="/meals_scheduling/report.php?key=6520">Sunday head cook</a></li>
+<li><a href="/meals_scheduling/report.php?key=6521">Sunday meal asst cook</a></li>
+<li><a href="/meals_scheduling/report.php?key=6524">Sunday Meal Cleaner</a></li>
+<li><a href="/meals_scheduling/report.php?key=6522">Meeting night takeout orderer</a></li>
+<li><a href="/meals_scheduling/report.php?key=6525">Meeting night cleaner</a></li>
 </ul>
 
 EOHTML;
@@ -899,16 +899,16 @@ EOHTML;
 
 		// UPDATE-EACH-SEASON
 		$three_month_season = [
-			MEETING_NIGHT_CLEANER => 11,
-			MEETING_NIGHT_ORDERER => 100,
+			MEETING_NIGHT_CLEANER => 12,
+			MEETING_NIGHT_ORDERER => 12,
 
-			SUNDAY_ASST_COOK => 14,
-			SUNDAY_CLEANER => 21,
-			SUNDAY_HEAD_COOK => 7,
+			SUNDAY_ASST_COOK => 50,
+			SUNDAY_CLEANER => 13,
+			SUNDAY_HEAD_COOK => 25,
 
-			WEEKDAY_ASST_COOK => 30,
-			WEEKDAY_CLEANER => 45,
-			WEEKDAY_HEAD_COOK => 15,
+			WEEKDAY_ASST_COOK => 126,
+			WEEKDAY_CLEANER => 32,
+			WEEKDAY_HEAD_COOK => 63,
 		];
 
 		if (SUB_SEASON_FACTOR === .5) {

@@ -9,21 +9,21 @@ define('DEADLINE', strtotime('April 21, 2022, 8:00pm'));
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
 define('SEASON_NAME', SPRING_SUMMER);
-define('DOING_CSA_FARM_MEALS', FALSE);
+define('DOING_CSA_FARM_MEALS', TRUE);
 
 // If this is a whole season, then 1, half .5, etc.
-define('SUB_SEASON_FACTOR', 1);
+define('SUB_SEASON_FACTOR', .5);
 
 /* ----------- job ids --------------- */
-define('MEETING_NIGHT_CLEANER', 6264);
-define('MEETING_NIGHT_ORDERER', 6261);
-define('SUNDAY_ASST_COOK', 6260);
-define('SUNDAY_CLEANER', 6263);
-define('SUNDAY_HEAD_COOK', 6259);
-define('WEEKDAY_ASST_COOK', 6258);
-define('WEEKDAY_CLEANER', 6262);
-define('WEEKDAY_HEAD_COOK', 6257);
-# define('WEEKDAY_TABLE_SETTER', 6247); // temporarily retired
+define('MEETING_NIGHT_CLEANER', 6525);
+define('MEETING_NIGHT_ORDERER', 6522);
+define('SUNDAY_ASST_COOK', 6521);
+define('SUNDAY_CLEANER', 6524);
+define('SUNDAY_HEAD_COOK', 6520);
+define('WEEKDAY_ASST_COOK', 6519);
+define('WEEKDAY_CLEANER', 6523);
+define('WEEKDAY_HEAD_COOK', 6518);
+# define('WEEKDAY_TABLE_SETTER', 6508); // temporary disabled
 
 /**
  * Get the number of shift overrides.

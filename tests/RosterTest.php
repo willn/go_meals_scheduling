@@ -40,14 +40,14 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					WEEKDAY_HEAD_COOK => 30,
-					WEEKDAY_ASST_COOK => 60,
-					SUNDAY_HEAD_COOK => 14,
-					SUNDAY_ASST_COOK => 26,
-					MEETING_NIGHT_ORDERER => 10,
-					WEEKDAY_CLEANER => 96,
-					SUNDAY_CLEANER => 42, 
-					MEETING_NIGHT_CLEANER => 6,
+					WEEKDAY_HEAD_COOK => 20,
+					WEEKDAY_ASST_COOK => 40,
+					SUNDAY_HEAD_COOK => 10,
+					SUNDAY_ASST_COOK => 20,
+					MEETING_NIGHT_ORDERER => 6,
+					WEEKDAY_CLEANER => 120,
+					SUNDAY_CLEANER => 60, 
+					MEETING_NIGHT_CLEANER => 0,
 				]
 			]
 		];
@@ -134,14 +134,14 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					WEEKDAY_HEAD_COOK => 30,
-					WEEKDAY_ASST_COOK => 60,
-					WEEKDAY_CLEANER => 96,
-					SUNDAY_HEAD_COOK => 14,
-					SUNDAY_ASST_COOK => 26,
-					SUNDAY_CLEANER => 42, 
-					MEETING_NIGHT_ORDERER => 10,
-					MEETING_NIGHT_CLEANER => 6,
+					WEEKDAY_HEAD_COOK => 20,
+					WEEKDAY_ASST_COOK => 40,
+					SUNDAY_HEAD_COOK => 10,
+					SUNDAY_ASST_COOK => 20,
+					MEETING_NIGHT_ORDERER => 6,
+					WEEKDAY_CLEANER => 120,
+					SUNDAY_CLEANER => 60, 
+					MEETING_NIGHT_CLEANER => 0,
 				]
 			]
 		];
@@ -155,7 +155,6 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * XXX This is checking for a consistency between the workers array and
 	 * the roster array... how / why are those different?
-	 * UPDATE-EACH-SEASON
 	 */
 	public function testRosterAndWorkerAssignmentsSynced() {
 		// ----- get worker shifts to fill

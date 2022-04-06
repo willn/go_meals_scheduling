@@ -36,6 +36,7 @@ If this is mid-season, skip to the MID-SEASON section
 * set the `SUB_SEASON_FACTOR`
 
 ### update the database
+
 * grab the latest sqlite file from work hosting, fix permissions, and commit:
   - login to the work web UI, go to more reports, and "Download SQLite3
 	database from host"
@@ -46,25 +47,26 @@ cd ~/Downloads/
 unzip filedb.zip
 mv home/django/work/db.sqlite3 ~/projects/go_meals_scheduling/public/sqlite_data/work_allocation.db
 rm -rf home/ filedb.zip
-cd ~/projects/go_meals_scheduling/public/sqlite_data/
 ```
-* on the remote host...
+
+* clean the database
 ```
-cd meals_scheduling_dev/public/sqlite_data
-mv db.sqlite3 work_allocation.db
+cd ~/projects/go_meals_scheduling/
 chmod 644 work_allocation.db
-sqlite work_allocation.db
+
+sqlite3 public/sqlite_data/work_allocation.db
 # view the current state of tables
 sqlite> .tables
+
 # drop a bunch of tables
 sqlite> .read sql/drops.sql
-# confirm
+
+# confirm - there should be 4 tables
 sqlite> .tables
-	# there should be 4 tables:
-	# sqlite> .tables
-	# auth_user            work_app_job
-	# work_app_assignment  work_app_season
+auth_user            work_app_job
+work_app_assignment  work_app_season
 ```
+
 * add the Gather IDs 
 ```
 sqlite> .read sql/add_gather_ids.sql
@@ -83,7 +85,6 @@ cd utils/
 php find_current_season_jobs.php
 # copy that block and replace the previous season's entries in this file:
 vi ../public/season.php
-# sorting these alphabetically can help with debugging
 ```
 
 ### update the unit tests which are going to fail based on changed info
@@ -92,7 +93,7 @@ vi ../public/season.php
 ```
 cd tests
 ./run.sh
-# the various testCompareLabor tests will fail until the rest of setup
+# the various testCompareLabor tests may fail until the rest of setup
 ```
 
 ### when tests pass, then commit

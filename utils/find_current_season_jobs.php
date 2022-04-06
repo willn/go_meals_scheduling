@@ -27,14 +27,14 @@ class CurrentSeasonIds {
 		// don't use all_jobs here, because these string definitions are used
 		// to ultimately create the all_jobs array.  :)
 		$jobs = array(
-			'MEETING_NIGHT_ORDERER' => 'Mtg takeout/potluck orderer',
 			'MEETING_NIGHT_CLEANER' => 'Meeting night cleaner',
-			'SUNDAY_HEAD_COOK' => 'Sunday head cook',
+			'MEETING_NIGHT_ORDERER' => 'Mtg takeout/potluck orderer',
 			'SUNDAY_ASST_COOK' => 'Sunday asst cook',
 			'SUNDAY_CLEANER' => 'Sunday Meal Cleaner',
-			'WEEKDAY_HEAD_COOK' => 'Weekday head cook',
+			'SUNDAY_HEAD_COOK' => 'Sunday head cook',
 			'WEEKDAY_ASST_COOK' => 'Weekday asst cook',
 			'WEEKDAY_CLEANER' => 'Weekday Meal cleaner',
+			'WEEKDAY_HEAD_COOK' => 'Weekday head cook',
 			'WEEKDAY_TABLE_SETTER' => 'Weekday Table Setter',
 		);
 
