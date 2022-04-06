@@ -96,6 +96,7 @@ EOHTML;
 		return [
 			[$ex1, $out1],
 			[$ex2, $out2],
+			[[], ''],
 		];
 	}
 
