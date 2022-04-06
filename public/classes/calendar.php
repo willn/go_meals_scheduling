@@ -437,7 +437,7 @@ EOHTML;
 	 * @param string $type The ttype of meal ('weekday', 'meeting', 'sunday')
 	 * @return string the content to be rendered in the cell variable.
 	 */
-	function generateCellWorker($worker, $date_string, $type) {
+	public function generateCellWorker($worker, $date_string, $type) {
 		$cell = '';
 		$jobs = [];
 		switch($type) {
