@@ -167,7 +167,8 @@ EOSQL;
 		// need to assign a placeholder for manual fixing later
 		if (empty($this->least_available)) {
 			$name = get_job_name($this->job_id);
-			echo "Ran out of workers, using a placeholder for {$name}\n";
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . 
+				"Ran out of workers, using a placeholder for {$name}");
 		}
 
 		// Sort the list of workers by username (key)
