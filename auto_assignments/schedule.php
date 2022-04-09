@@ -145,7 +145,6 @@ class Schedule {
 				exit;
 			}
 			$shifts_assigned = $w->getAssignedShifts();
-			$pref = NON_RESPONSE_PREF;
 
 			foreach($shifts_assigned as $job_id) {
 				// figure out which dates and shifts to assign
@@ -157,7 +156,7 @@ class Schedule {
 					}
 
 					$m = $this->meals[$date];
-					$m->addWorkerPref($username, $job_id, $pref);
+					$m->addWorkerPref($username, $job_id, NON_RESPONSE_PREF);
 				}
 			}
 		}
