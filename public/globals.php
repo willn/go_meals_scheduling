@@ -24,7 +24,7 @@ function get_days_of_week() {
  */
 function get_pref_names() {
 	return [
-		0 => 'avoid',
+		0 => 'conflict',
 		1 => 'OK',
 		2 => 'prefer',
 	];

@@ -332,4 +332,54 @@ function is_valid_season_name($season) {
 	return FALSE;
 }
 
+/**
+ * Get the number of assigned counts for each job.
+ *
+ * @param string $job_key Either 'all' or an int representing a job type. If
+ *     'all', summarize all assignments. Otherwise, filter the results to
+ *     only show this job. Otherwise, s
+function get_assigned_counts($job_key) {
+	$assigned_data = [];
+	$assigned_counts = [];
+
+	if (!file_exists(JSON_ASSIGNMENTS_FILE)) {
+		return [];
+	}
+	$assigned_data = json_decode(
+		file_get_contents(JSON_ASSIGNMENTS_FILE), TRUE);
+	if (empty($assigned_data)) {
+		error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
+			" assigned data is empty");
+	}
+
+	// date => array(job_id => array(workers))
+	foreach($assigned_data as $date=>$info) {
+		// if a job key is specified, then only display info for that job
+		if ($job_key != 'all') {
+			if (!isset($info[$job_key])) {
+				continue;
+			}
+			foreach($info[$job_key] as $w) {
+				if (!isset($assigned_counts[$job_key])) {
+					$assigned_counts[$job_key] = 0;
+				}
+				$assigned_counts[$job_key][$w]++;
+			}
+		}
+		else {
+			foreach($info as $shift_id=>$workers) {
+				foreach($workers as $w) {
+					if (!isset($assigned_counts[$shift_id])) {
+						$assigned_counts[$shift_id][$w] = 0;
+					}
+					$assigned_counts[$shift_id][$w]++;
+				}
+			}
+		}
+	}
+
+	return $assigned_counts;
+}
+ */
+
 ?>

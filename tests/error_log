@@ -1,2 +1,1619 @@
-[06-Apr-2022 21:51:01 America/Detroit] Roster sortAvailable 170Ran out of workers, using a placeholder for 
-[06-Apr-2022 21:51:11 America/Detroit] Roster sortAvailable 170Ran out of workers, using a placeholder for 
+[09-Apr-2022 16:18:48 America/Detroit] CalendarTest testEvalDates 818 			<div id="May" class="month_wrapper">
+				<h3 class="month survey">
+					May 2022</h3>
+				<div class="surround month_1">
+					<table>
+									<tr class="day_labels">
+				
+								<th class="day_of_week">Sun</th>				<th class="day_of_week">Mon</th>				<th class="day_of_week">Tue</th>				<th class="day_of_week">Wed</th>				<th class="day_of_week">Thu</th>				<th class="day_of_week">Fri</th>				<th class="day_of_week">Sat</th>
+			</tr>
+
+										<tr class="week" id="week_17_5">
+									<td class="dow_0">
+					<div class="date_number">1</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">2</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">3</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">4</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">5</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">6</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">7</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_18_5">
+											<td class="dow_0">
+					<div class="date_number">8</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">9</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">10</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">11</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">12</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">13</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">14</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_19_5">
+											<td class="dow_0">
+					<div class="date_number">15</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">16</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">17</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">18</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">19</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">20</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">21</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_20_5">
+											<td class="dow_0">
+					<div class="date_number">22</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">23</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">24</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">25</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">26</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">27</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">28</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_21_5">
+											<td class="dow_0">
+					<div class="date_number">29</div><span class="skip">holiday</span>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">30</div><span class="skip">holiday</span>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">31</div>
+				</td>
+
+</tr>
+
+					</table>
+				</div>
+			</div>			<div id="June" class="month_wrapper">
+				<h3 class="month survey">
+					June 2022</h3>
+				<div class="surround month_2">
+					<table>
+									<tr class="day_labels">
+				
+								<th class="day_of_week">Sun</th>				<th class="day_of_week">Mon</th>				<th class="day_of_week">Tue</th>				<th class="day_of_week">Wed</th>				<th class="day_of_week">Thu</th>				<th class="day_of_week">Fri</th>				<th class="day_of_week">Sat</th>
+			</tr>
+
+										<tr class="week" id="week_22_6">
+					<td class="blank"></td><td class="blank"></td><td class="blank"></td>				<td class="dow_3">
+					<div class="date_number">1</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">2</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">3</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">4</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_23_6">
+											<td class="dow_0">
+					<div class="date_number">5</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">6</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">7</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">8</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">9</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">10</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">11</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_24_6">
+											<td class="dow_0">
+					<div class="date_number">12</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">13</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">14</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">15</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">16</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">17</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">18</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_25_6">
+											<td class="dow_0">
+					<div class="date_number">19</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">20</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">21</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">22</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">23</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">24</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">25</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_26_6">
+											<td class="dow_0">
+					<div class="date_number">26</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">27</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">28</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">29</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">30</div>
+				</td>
+
+</tr>
+
+					</table>
+				</div>
+			</div>			<div id="July" class="month_wrapper">
+				<h3 class="month survey">
+					July 2022</h3>
+				<div class="surround month_3">
+					<table>
+									<tr class="day_labels">
+				
+								<th class="day_of_week">Sun</th>				<th class="day_of_week">Mon</th>				<th class="day_of_week">Tue</th>				<th class="day_of_week">Wed</th>				<th class="day_of_week">Thu</th>				<th class="day_of_week">Fri</th>				<th class="day_of_week">Sat</th>
+			</tr>
+
+										<tr class="week" id="week_26_7">
+					<td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td>				<td class="dow_5">
+					<div class="date_number">1</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">2</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_27_7">
+											<td class="dow_0">
+					<div class="date_number">3<span class="type_count">[S9]</span></div><h3 class="jobname">Sunday head cook</h3>
+<div class="highlight">prefer:<ul><li>alice</li>
+<li>
+bob</li></ul></div>
+<div class="OK">OK:<ul><li>charlie</li>
+<li>
+doug</li>
+<li>
+edward</li>
+<li>
+fred</li></ul></div>
+
+				</td>
+				<td class="dow_1">
+					<div class="date_number">4</div><span class="skip">holiday</span>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">5</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">6</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">7</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">8</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">9</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_28_7">
+											<td class="dow_0">
+					<div class="date_number">10</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">11</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">12</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">13</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">14</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">15</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">16</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_29_7">
+											<td class="dow_0">
+					<div class="date_number">17</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">18</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">19</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">20</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">21</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">22</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">23</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_30_7">
+											<td class="dow_0">
+					<div class="date_number">24</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">25</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">26</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">27</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">28</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">29</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">30</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_31_7">
+											<td class="dow_0">
+					<div class="date_number">31</div>
+				</td>
+
+</tr>
+
+					</table>
+				</div>
+			</div>
+[09-Apr-2022 16:18:50 America/Detroit] Roster sortAvailable 170Ran out of workers, using a placeholder for 
+[09-Apr-2022 16:18:56 America/Detroit] CalendarTest testEvalDates 818 			<div id="May" class="month_wrapper">
+				<h3 class="month survey">
+					May 2022</h3>
+				<div class="surround month_1">
+					<table>
+									<tr class="day_labels">
+				
+								<th class="day_of_week">Sun</th>				<th class="day_of_week">Mon</th>				<th class="day_of_week">Tue</th>				<th class="day_of_week">Wed</th>				<th class="day_of_week">Thu</th>				<th class="day_of_week">Fri</th>				<th class="day_of_week">Sat</th>
+			</tr>
+
+										<tr class="week" id="week_17_5">
+									<td class="dow_0">
+					<div class="date_number">1</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">2</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">3</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">4</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">5</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">6</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">7</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_18_5">
+											<td class="dow_0">
+					<div class="date_number">8</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">9</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">10</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">11</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">12</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">13</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">14</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_19_5">
+											<td class="dow_0">
+					<div class="date_number">15</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">16</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">17</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">18</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">19</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">20</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">21</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_20_5">
+											<td class="dow_0">
+					<div class="date_number">22</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">23</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">24</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">25</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">26</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">27</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">28</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_21_5">
+											<td class="dow_0">
+					<div class="date_number">29</div><span class="skip">holiday</span>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">30</div><span class="skip">holiday</span>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">31</div>
+				</td>
+
+</tr>
+
+					</table>
+				</div>
+			</div>			<div id="June" class="month_wrapper">
+				<h3 class="month survey">
+					June 2022</h3>
+				<div class="surround month_2">
+					<table>
+									<tr class="day_labels">
+				
+								<th class="day_of_week">Sun</th>				<th class="day_of_week">Mon</th>				<th class="day_of_week">Tue</th>				<th class="day_of_week">Wed</th>				<th class="day_of_week">Thu</th>				<th class="day_of_week">Fri</th>				<th class="day_of_week">Sat</th>
+			</tr>
+
+										<tr class="week" id="week_22_6">
+					<td class="blank"></td><td class="blank"></td><td class="blank"></td>				<td class="dow_3">
+					<div class="date_number">1</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">2</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">3</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">4</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_23_6">
+											<td class="dow_0">
+					<div class="date_number">5</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">6</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">7</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">8</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">9</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">10</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">11</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_24_6">
+											<td class="dow_0">
+					<div class="date_number">12</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">13</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">14</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">15</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">16</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">17</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">18</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_25_6">
+											<td class="dow_0">
+					<div class="date_number">19</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">20</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">21</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">22</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">23</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">24</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">25</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_26_6">
+											<td class="dow_0">
+					<div class="date_number">26</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">27</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">28</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">29</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">30</div>
+				</td>
+
+</tr>
+
+					</table>
+				</div>
+			</div>			<div id="July" class="month_wrapper">
+				<h3 class="month survey">
+					July 2022</h3>
+				<div class="surround month_3">
+					<table>
+									<tr class="day_labels">
+				
+								<th class="day_of_week">Sun</th>				<th class="day_of_week">Mon</th>				<th class="day_of_week">Tue</th>				<th class="day_of_week">Wed</th>				<th class="day_of_week">Thu</th>				<th class="day_of_week">Fri</th>				<th class="day_of_week">Sat</th>
+			</tr>
+
+										<tr class="week" id="week_26_7">
+					<td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td>				<td class="dow_5">
+					<div class="date_number">1</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">2</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_27_7">
+											<td class="dow_0">
+					<div class="date_number">3<span class="type_count">[S9]</span></div><h3 class="jobname">Sunday head cook</h3>
+<div class="highlight">prefer:<ul><li>alice</li>
+<li>
+bob</li></ul></div>
+<div class="OK">OK:<ul><li>charlie</li>
+<li>
+doug</li>
+<li>
+edward</li>
+<li>
+fred</li></ul></div>
+
+				</td>
+				<td class="dow_1">
+					<div class="date_number">4</div><span class="skip">holiday</span>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">5</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">6</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">7</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">8</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">9</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_28_7">
+											<td class="dow_0">
+					<div class="date_number">10</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">11</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">12</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">13</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">14</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">15</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">16</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_29_7">
+											<td class="dow_0">
+					<div class="date_number">17</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">18</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">19</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">20</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">21</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">22</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">23</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_30_7">
+											<td class="dow_0">
+					<div class="date_number">24</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">25</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">26</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">27</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">28</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">29</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">30</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_31_7">
+											<td class="dow_0">
+					<div class="date_number">31</div>
+				</td>
+
+</tr>
+
+					</table>
+				</div>
+			</div>
+[09-Apr-2022 16:29:01 America/Detroit] CalendarTest testEvalDates 818 			<div id="May" class="month_wrapper">
+				<h3 class="month survey">
+					May 2022</h3>
+				<div class="surround month_1">
+					<table>
+									<tr class="day_labels">
+				
+								<th class="day_of_week">Sun</th>				<th class="day_of_week">Mon</th>				<th class="day_of_week">Tue</th>				<th class="day_of_week">Wed</th>				<th class="day_of_week">Thu</th>				<th class="day_of_week">Fri</th>				<th class="day_of_week">Sat</th>
+			</tr>
+
+										<tr class="week" id="week_17_5">
+									<td class="dow_0">
+					<div class="date_number">1</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">2</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">3</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">4</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">5</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">6</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">7</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_18_5">
+											<td class="dow_0">
+					<div class="date_number">8</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">9</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">10</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">11</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">12</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">13</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">14</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_19_5">
+											<td class="dow_0">
+					<div class="date_number">15</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">16</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">17</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">18</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">19</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">20</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">21</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_20_5">
+											<td class="dow_0">
+					<div class="date_number">22</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">23</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">24</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">25</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">26</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">27</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">28</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_21_5">
+											<td class="dow_0">
+					<div class="date_number">29</div><span class="skip">holiday</span>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">30</div><span class="skip">holiday</span>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">31</div>
+				</td>
+
+</tr>
+
+					</table>
+				</div>
+			</div>			<div id="June" class="month_wrapper">
+				<h3 class="month survey">
+					June 2022</h3>
+				<div class="surround month_2">
+					<table>
+									<tr class="day_labels">
+				
+								<th class="day_of_week">Sun</th>				<th class="day_of_week">Mon</th>				<th class="day_of_week">Tue</th>				<th class="day_of_week">Wed</th>				<th class="day_of_week">Thu</th>				<th class="day_of_week">Fri</th>				<th class="day_of_week">Sat</th>
+			</tr>
+
+										<tr class="week" id="week_22_6">
+					<td class="blank"></td><td class="blank"></td><td class="blank"></td>				<td class="dow_3">
+					<div class="date_number">1</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">2</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">3</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">4</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_23_6">
+											<td class="dow_0">
+					<div class="date_number">5</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">6</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">7</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">8</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">9</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">10</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">11</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_24_6">
+											<td class="dow_0">
+					<div class="date_number">12</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">13</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">14</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">15</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">16</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">17</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">18</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_25_6">
+											<td class="dow_0">
+					<div class="date_number">19</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">20</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">21</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">22</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">23</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">24</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">25</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_26_6">
+											<td class="dow_0">
+					<div class="date_number">26</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">27</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">28</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">29</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">30</div>
+				</td>
+
+</tr>
+
+					</table>
+				</div>
+			</div>			<div id="July" class="month_wrapper">
+				<h3 class="month survey">
+					July 2022</h3>
+				<div class="surround month_3">
+					<table>
+									<tr class="day_labels">
+				
+								<th class="day_of_week">Sun</th>				<th class="day_of_week">Mon</th>				<th class="day_of_week">Tue</th>				<th class="day_of_week">Wed</th>				<th class="day_of_week">Thu</th>				<th class="day_of_week">Fri</th>				<th class="day_of_week">Sat</th>
+			</tr>
+
+										<tr class="week" id="week_26_7">
+					<td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td>				<td class="dow_5">
+					<div class="date_number">1</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">2</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_27_7">
+											<td class="dow_0">
+					<div class="date_number">3<span class="type_count">[S9]</span></div><h3 class="jobname">Sunday head cook</h3>
+<div class="highlight">prefer:<ul><li>alice</li>
+<li>
+bob</li></ul></div>
+<div class="OK">OK:<ul><li>charlie</li>
+<li>
+doug</li>
+<li>
+edward</li>
+<li>
+fred</li></ul></div>
+
+				</td>
+				<td class="dow_1">
+					<div class="date_number">4</div><span class="skip">holiday</span>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">5</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">6</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">7</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">8</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">9</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_28_7">
+											<td class="dow_0">
+					<div class="date_number">10</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">11</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">12</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">13</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">14</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">15</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">16</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_29_7">
+											<td class="dow_0">
+					<div class="date_number">17</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">18</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">19</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">20</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">21</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">22</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">23</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_30_7">
+											<td class="dow_0">
+					<div class="date_number">24</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">25</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">26</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">27</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">28</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">29</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">30</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_31_7">
+											<td class="dow_0">
+					<div class="date_number">31</div>
+				</td>
+
+</tr>
+
+					</table>
+				</div>
+			</div>
+[09-Apr-2022 16:29:03 America/Detroit] Roster sortAvailable 170Ran out of workers, using a placeholder for 
+[09-Apr-2022 16:30:33 America/Detroit] CalendarTest testEvalDates 818 			<div id="May" class="month_wrapper">
+				<h3 class="month survey">
+					May 2022</h3>
+				<div class="surround month_1">
+					<table>
+									<tr class="day_labels">
+				
+								<th class="day_of_week">Sun</th>				<th class="day_of_week">Mon</th>				<th class="day_of_week">Tue</th>				<th class="day_of_week">Wed</th>				<th class="day_of_week">Thu</th>				<th class="day_of_week">Fri</th>				<th class="day_of_week">Sat</th>
+			</tr>
+
+										<tr class="week" id="week_17_5">
+									<td class="dow_0">
+					<div class="date_number">1</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">2</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">3</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">4</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">5</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">6</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">7</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_18_5">
+											<td class="dow_0">
+					<div class="date_number">8</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">9</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">10</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">11</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">12</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">13</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">14</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_19_5">
+											<td class="dow_0">
+					<div class="date_number">15</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">16</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">17</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">18</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">19</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">20</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">21</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_20_5">
+											<td class="dow_0">
+					<div class="date_number">22</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">23</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">24</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">25</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">26</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">27</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">28</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_21_5">
+											<td class="dow_0">
+					<div class="date_number">29</div><span class="skip">holiday</span>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">30</div><span class="skip">holiday</span>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">31</div>
+				</td>
+
+</tr>
+
+					</table>
+				</div>
+			</div>			<div id="June" class="month_wrapper">
+				<h3 class="month survey">
+					June 2022</h3>
+				<div class="surround month_2">
+					<table>
+									<tr class="day_labels">
+				
+								<th class="day_of_week">Sun</th>				<th class="day_of_week">Mon</th>				<th class="day_of_week">Tue</th>				<th class="day_of_week">Wed</th>				<th class="day_of_week">Thu</th>				<th class="day_of_week">Fri</th>				<th class="day_of_week">Sat</th>
+			</tr>
+
+										<tr class="week" id="week_22_6">
+					<td class="blank"></td><td class="blank"></td><td class="blank"></td>				<td class="dow_3">
+					<div class="date_number">1</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">2</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">3</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">4</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_23_6">
+											<td class="dow_0">
+					<div class="date_number">5</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">6</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">7</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">8</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">9</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">10</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">11</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_24_6">
+											<td class="dow_0">
+					<div class="date_number">12</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">13</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">14</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">15</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">16</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">17</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">18</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_25_6">
+											<td class="dow_0">
+					<div class="date_number">19</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">20</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">21</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">22</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">23</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">24</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">25</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_26_6">
+											<td class="dow_0">
+					<div class="date_number">26</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">27</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">28</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">29</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">30</div>
+				</td>
+
+</tr>
+
+					</table>
+				</div>
+			</div>			<div id="July" class="month_wrapper">
+				<h3 class="month survey">
+					July 2022</h3>
+				<div class="surround month_3">
+					<table>
+									<tr class="day_labels">
+				
+								<th class="day_of_week">Sun</th>				<th class="day_of_week">Mon</th>				<th class="day_of_week">Tue</th>				<th class="day_of_week">Wed</th>				<th class="day_of_week">Thu</th>				<th class="day_of_week">Fri</th>				<th class="day_of_week">Sat</th>
+			</tr>
+
+										<tr class="week" id="week_26_7">
+					<td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td>				<td class="dow_5">
+					<div class="date_number">1</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">2</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_27_7">
+											<td class="dow_0">
+					<div class="date_number">3<span class="type_count">[S9]</span></div><h3 class="jobname">Sunday head cook</h3>
+<div class="highlight">prefer:<ul><li>alice</li>
+<li>
+bob</li></ul></div>
+<div class="OK">OK:<ul><li>charlie</li>
+<li>
+doug</li>
+<li>
+edward</li>
+<li>
+fred</li></ul></div>
+
+				</td>
+				<td class="dow_1">
+					<div class="date_number">4</div><span class="skip">holiday</span>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">5</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">6</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">7</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">8</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">9</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_28_7">
+											<td class="dow_0">
+					<div class="date_number">10</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">11</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">12</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">13</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">14</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">15</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">16</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_29_7">
+											<td class="dow_0">
+					<div class="date_number">17</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">18</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">19</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">20</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">21</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">22</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">23</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_30_7">
+											<td class="dow_0">
+					<div class="date_number">24</div>
+				</td>
+				<td class="dow_1">
+					<div class="date_number">25</div>
+				</td>
+				<td class="dow_2">
+					<div class="date_number">26</div>
+				</td>
+				<td class="dow_3">
+					<div class="date_number">27</div>
+				</td>
+				<td class="dow_4">
+					<div class="date_number">28</div>
+				</td>
+				<td class="dow_5">
+					<div class="date_number">29</div>
+				</td>
+				<td class="dow_6">
+					<div class="date_number">30</div>
+				</td>
+
+</tr>
+						<tr class="week" id="week_31_7">
+											<td class="dow_0">
+					<div class="date_number">31</div>
+				</td>
+
+</tr>
+
+					</table>
+				</div>
+			</div>
+[09-Apr-2022 16:30:35 America/Detroit] Roster sortAvailable 170Ran out of workers, using a placeholder for 
+[09-Apr-2022 16:31:36 America/Detroit] Roster sortAvailable 170Ran out of workers, using a placeholder for 
+[09-Apr-2022 17:18:43 America/Detroit] Roster sortAvailable 170Ran out of workers, using a placeholder for 
+[09-Apr-2022 17:25:42 America/Detroit] Roster sortAvailable 170Ran out of workers, using a placeholder for 
+[09-Apr-2022 17:45:55 America/Detroit] Roster sortAvailable 170Ran out of workers, using a placeholder for 
+[09-Apr-2022 17:46:14 America/Detroit] Roster sortAvailable 170Ran out of workers, using a placeholder for 
+[09-Apr-2022 18:28:54 America/Detroit] Calendar renderday 622 ds:6/20/2022, N:Meeting night takeout orderer, K:6522, SP:1
+[09-Apr-2022 18:28:54 America/Detroit] Calendar renderday 644 out:			<div class="choice">
+			Meeting night takeout orderer
+			<select name="date_6/20/2022_6522" class="preference_selection">
+				<option value="0" >conflict</option>
+				<option value="1"  selected>OK</option>
+				<option value="2" >prefer</option>
+
+			</select>
+			</div>
+[09-Apr-2022 18:30:25 America/Detroit] Calendar renderday 622 ds:6/20/2022, N:Meeting night takeout orderer, K:6522, SP:1
+[09-Apr-2022 18:30:25 America/Detroit] Calendar renderday 644 out:			<div class="choice">
+			Meeting night takeout orderer
+			<select name="date_6/20/2022_6522" class="preference_selection">
+				<option value="0">conflict</option>
+				<option value="1" selected>OK</option>
+				<option value="2">prefer</option>
+
+			</select>
+			</div>
+[09-Apr-2022 18:30:59 America/Detroit] Calendar renderday 622 ds:6/20/2022, N:Meeting night takeout orderer, K:6522, SP:1
+[09-Apr-2022 18:30:59 America/Detroit] Calendar renderday 644 out:			<div class="choice">
+			Meeting night takeout orderer
+			<select name="date_6/20/2022_6522" class="preference_selection">
+				<option value="0">conflict</option>
+				<option value="1" selected>OK</option>
+				<option value="2">prefer</option>
+
+			</select>
+			</div>
+[09-Apr-2022 18:31:06 America/Detroit] Calendar renderday 622 ds:6/20/2022, N:Meeting night takeout orderer, K:6522, SP:1
+[09-Apr-2022 18:31:06 America/Detroit] Calendar renderday 644 out:			<div class="choice">
+			Meeting night takeout orderer
+			<select name="date_6/20/2022_6522" class="preference_selection">
+				<option value="0">conflict</option>
+				<option value="1" selected>OK</option>
+				<option value="2">prefer</option>
+
+			</select>
+			</div>
+[09-Apr-2022 18:32:45 America/Detroit] Calendar renderday 622 ds:5/4/2022, N:Meeting night takeout orderer, K:6522, SP:0
+[09-Apr-2022 18:32:45 America/Detroit] Calendar renderday 644 out:			<div class="choice">
+			Meeting night takeout orderer
+			<select name="date_5/4/2022_6522" class="preference_selection">
+				<option value="0" selected>conflict</option>
+				<option value="1">OK</option>
+				<option value="2">prefer</option>
+
+			</select>
+			</div>
+[09-Apr-2022 18:32:45 America/Detroit] Calendar renderday 622 ds:6/20/2022, N:Meeting night takeout orderer, K:6522, SP:1
+[09-Apr-2022 18:32:45 America/Detroit] Calendar renderday 644 out:			<div class="choice">
+			Meeting night takeout orderer
+			<select name="date_6/20/2022_6522" class="preference_selection">
+				<option value="0">conflict</option>
+				<option value="1" selected>OK</option>
+				<option value="2">prefer</option>
+
+			</select>
+			</div>
+[09-Apr-2022 18:33:13 America/Detroit] Calendar renderday 622 ds:5/4/2022, N:Meeting night takeout orderer, K:6522, SP:0
+[09-Apr-2022 18:33:13 America/Detroit] Calendar renderday 644 out:			<div class="choice">
+			Meeting night takeout orderer
+			<select name="date_5/4/2022_6522" class="preference_selection">
+				<option value="0" selected>conflict</option>
+				<option value="1">OK</option>
+				<option value="2">prefer</option>
+
+			</select>
+			</div>
+[09-Apr-2022 18:33:13 America/Detroit] Calendar renderday 622 ds:6/20/2022, N:Meeting night takeout orderer, K:6522, SP:1
+[09-Apr-2022 18:33:13 America/Detroit] Calendar renderday 644 out:			<div class="choice">
+			Meeting night takeout orderer
+			<select name="date_6/20/2022_6522" class="preference_selection">
+				<option value="0">conflict</option>
+				<option value="1" selected>OK</option>
+				<option value="2">prefer</option>
+
+			</select>
+			</div>
+[09-Apr-2022 18:34:32 America/Detroit] Calendar renderday 622 ds:5/4/2022, N:Meeting night takeout orderer, K:6522, SP:0
+[09-Apr-2022 18:34:32 America/Detroit] Calendar renderday 644 out:			<div class="choice">
+			Meeting night takeout orderer
+			<select name="date_5/4/2022_6522" class="preference_selection">
+				<option value="0" selected>conflict</option>
+				<option value="1">OK</option>
+				<option value="2">prefer</option>
+
+			</select>
+			</div>
+[09-Apr-2022 18:34:32 America/Detroit] Calendar renderday 622 ds:6/20/2022, N:Meeting night takeout orderer, K:6522, SP:1
+[09-Apr-2022 18:34:32 America/Detroit] Calendar renderday 644 out:			<div class="choice">
+			Meeting night takeout orderer
+			<select name="date_6/20/2022_6522" class="preference_selection">
+				<option value="0">conflict</option>
+				<option value="1" selected>OK</option>
+				<option value="2">prefer</option>
+
+			</select>
+			</div>
+[09-Apr-2022 18:34:32 America/Detroit] Calendar renderday 622 ds:7/18/2022, N:Meeting night takeout orderer, K:6522, SP:2
+[09-Apr-2022 18:34:32 America/Detroit] Calendar renderday 644 out:			<div class="choice">
+			Meeting night takeout orderer
+			<select name="date_7/18/2022_6522" class="preference_selection">
+				<option value="0">conflict</option>
+				<option value="1">OK</option>
+				<option value="2" selected>prefer</option>
+
+			</select>
+			</div>
+[09-Apr-2022 18:35:34 America/Detroit] Roster sortAvailable 170Ran out of workers, using a placeholder for 

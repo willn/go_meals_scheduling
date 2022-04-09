@@ -76,4 +76,6 @@ define('FROM_EMAIL', 'willie' . DOMAIN);
 
 define('PREFER_TO_AVOID_WORKER_RATIO', .55);
 
+define('DEFAULT_AVAIL', 1);
+
 ?>

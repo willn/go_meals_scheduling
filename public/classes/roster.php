@@ -389,6 +389,11 @@ EOSQL;
 		return $list;
 	}
 
+	/**
+	 * Get the list of all worker avoids.
+	 *
+	 * @return array username -> array of names they want to avoid.
+	 */
 	public function getAllAvoids() {
 		$out = [];
 		foreach($this->workers as $w) {

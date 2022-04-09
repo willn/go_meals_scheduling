@@ -32,17 +32,19 @@ class CalendarTest extends PHPUnit_Framework_TestCase {
 		$one = <<<EOHTML
 			<td class="weekday_selector weekday_num_1">
 				Tue:<br>
-				<a class="prefer">prefer</a>
+				<a class="conflict">conflict</a>
 				<a class="OK">OK</a>
-				<a class="avoid_shift">avoid</a>
+				<a class="prefer">prefer</a>
+
 			</td>
 EOHTML;
 		$two = <<<EOHTML
 			<td class="weekday_selector weekday_num_999">
 				Sun:<br>
-				<a class="prefer">prefer</a>
+				<a class="conflict">conflict</a>
 				<a class="OK">OK</a>
-				<a class="avoid_shift">avoid</a>
+				<a class="prefer">prefer</a>
+
 			</td>
 EOHTML;
 
@@ -105,24 +107,24 @@ EOHTML;
 					<td width="1%"><!-- weekly spacer --></td>
 								<td class="weekday_selector weekday_num_0">
 				Sun:<br>
-				<a class="prefer">prefer</a>
+				<a class="conflict">conflict</a>
 				<a class="OK">OK</a>
-				<a class="avoid_shift">avoid</a>
+				<a class="prefer">prefer</a>
 			</td>			<td class="weekday_selector weekday_num_1">
 				Mon:<br>
-				<a class="prefer">prefer</a>
+				<a class="conflict">conflict</a>
 				<a class="OK">OK</a>
-				<a class="avoid_shift">avoid</a>
+				<a class="prefer">prefer</a>
 			</td>			<td class="weekday_selector weekday_num_2">
 				Tue:<br>
-				<a class="prefer">prefer</a>
+				<a class="conflict">conflict</a>
 				<a class="OK">OK</a>
-				<a class="avoid_shift">avoid</a>
+				<a class="prefer">prefer</a>
 			</td>			<td class="weekday_selector weekday_num_3">
 				Wed:<br>
-				<a class="prefer">prefer</a>
+				<a class="conflict">conflict</a>
 				<a class="OK">OK</a>
-				<a class="avoid_shift">avoid</a>
+				<a class="prefer">prefer</a>
 			</td><td class="blank"></td><td class="blank"></td><td class="blank"></td>
 				</tr>
 EOHTML;
@@ -868,6 +870,59 @@ EOHTML;
 				$this->assertGreaterThan(1000, $id);
 			}
 		}
+	}
+
+
+    /**
+     * @dataProvider provideRenderDay
+     */
+    public function testRenderDay($date, $name, $key, $saved_pref, $expected) {
+        $result = $this->calendar->renderday($date, $name, $key, $saved_pref);
+        $this->assertEquals($expected, $result);
+    }
+
+    public function provideRenderDay() {
+		$zero = <<<EOHTML
+			<div class="choice">
+			Meeting night takeout orderer
+			<select name="date_5/4/2022_6522" class="preference_selection">
+				<option value="0" selected>conflict</option>
+				<option value="1">OK</option>
+				<option value="2">prefer</option>
+
+			</select>
+			</div>
+EOHTML;
+
+		$one = <<<EOHTML
+			<div class="choice">
+			Meeting night takeout orderer
+			<select name="date_6/20/2022_6522" class="preference_selection">
+				<option value="0">conflict</option>
+				<option value="1" selected>OK</option>
+				<option value="2">prefer</option>
+
+			</select>
+			</div>
+EOHTML;
+
+		$two = <<<EOHTML
+			<div class="choice">
+			Meeting night takeout orderer
+			<select name="date_7/18/2022_6522" class="preference_selection">
+				<option value="0">conflict</option>
+				<option value="1">OK</option>
+				<option value="2" selected>prefer</option>
+
+			</select>
+			</div>
+EOHTML;
+
+		return [
+			['5/4/2022', 'Meeting night takeout orderer', MEETING_NIGHT_ORDERER, 0, $zero],
+			['6/20/2022', 'Meeting night takeout orderer', MEETING_NIGHT_ORDERER, 1, $one],
+			['7/18/2022', 'Meeting night takeout orderer', MEETING_NIGHT_ORDERER, 2, $two],
+		];
 	}
 
     /**

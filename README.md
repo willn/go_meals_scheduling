@@ -102,7 +102,7 @@ We don't schedule meals on holidays, and sometimes the day before / after, consi
          1. example: 7/17/2017
       4. Take the list of workers who are assigned to work that job type, and assign each one an arbitrary number of points. Various things factor into this point score:
          1. skip if worker is fully assigned for this job type
-         2. skip if worker said "avoid" for this shift-date
+         2. skip if worker said "conflict" for this shift-date
          3. skip if worker has already been assigned this shift already
             1. remember there are multiple asst cooks and cleaner shifts per meal
          4. check "clean after cook" - if they've already been assigned the "other half" of this meal and they want to clean after cooking

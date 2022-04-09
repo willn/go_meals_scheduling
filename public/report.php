@@ -111,36 +111,8 @@ foreach($dbh->query($sql) as $row) {
 		round($num_prefs / $shifts, 2) : 0;
 }
 
-
-$assigned_data = [];
-$assigned_counts = [];
-if (file_exists(JSON_ASSIGNMENTS_FILE)) {
-	$assigned_data = json_decode(file_get_contents(JSON_ASSIGNMENTS_FILE), true);
-
-	// date => array(job_id => array(workers))
-	foreach($assigned_data as $date=>$info) {
-		// if a job key is specified, then only display info for that job
-		if ($job_key != 'all') {
-			if (!isset($info[$job_key])) {
-				continue;
-			}
-			foreach($info[$job_key] as $w) {
-				if (isset($assigned_counts[$job_key])) {
-					$assigned_counts[$job_key][$w]++;
-				}
-			}
-		}
-		else {
-			foreach($info as $shift_id=>$workers) {
-				foreach($workers as $w) {
-					if (isset($assigned_counts[$shift_id])) {
-						$assigned_counts[$shift_id][$w]++;
-					}
-				}
-			}
-		}
-	}
-}
+# comment out for now, not working, unsure on value
+#$assigned_counts = get_assigned_counts($job_key);
 
 // count the number of shifts actually assigned to workers
 $rows = '';
@@ -176,12 +148,6 @@ foreach($diffs as $key=>$diff) {
 		list($unused, $shift_id) = explode('_', $key);
 	}
 
-	$num_assigned = '***';
-	if (count($assigned_counts) &&
-		isset($assigned_counts[$shift_id][$row['username']])) {
-		$num_assigned = $assigned_counts[$shift_id][$row['username']];
-	}
-
 	$rows .= <<<EOHTML
 <tr>
 	<td>{$row['username']}</td>
@@ -189,7 +155,6 @@ foreach($diffs as $key=>$diff) {
 	<td align="right">{$shifts}</td>
 	<td align="right">{$num_prefs}</td>
 	<td align="right">{$diff}</td>
-	<td align="right">{$num_assigned}</td>
 </tr>
 EOHTML;
 }
@@ -252,6 +217,7 @@ $months_overlay = $calendar->renderMonthsOverlay($current_season);
 // ---- toString section ----
 print <<<EOHTML
 <h2>Meals Schedule Reporting</h2>
+<p><a href="index.php">Back to Roster</a></p>
 {$months_overlay}
 {$calendar->getJobsIndex($job_key)}
 <div class="responses">{$responses}</div>
@@ -277,7 +243,6 @@ Sundays: {$meals_summary['sunday']}
 		<th style="text-align: right;">shifts</th>
 		<th style="text-align: right;">available</th>
 		<th style="text-align: right;">diff</th>
-		<th style="text-align: right; width: 40%;">assignments</th>
 	</tr>
 </thead>
 <tbody>

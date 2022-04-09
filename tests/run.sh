@@ -43,7 +43,7 @@ run_unit_tests () {
 
 # run all the tests
 run_all_tests () {
-    echo "--- Run all tests\n"
+    echo "--- Run all tests"
 	run_lint_tests
 	run_unit_tests
 }

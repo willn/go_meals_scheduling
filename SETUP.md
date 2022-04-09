@@ -277,7 +277,7 @@ Check to make sure that there are no 'table setter' assignments which conflict w
 * see tests/CheckForConflictsTest.php
 * #!# need a test to ensure that nobody is double-scheduled... like head & asst or table setter
 
-### run avoids validation:
+### run conflicts validation:
 ```
 # is this needed with the new unit tests?
 cd ../utils/

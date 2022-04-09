@@ -79,7 +79,7 @@ Survey = {
 	},
 
 	/**
-	 * Get the <select> options, or prefer / ok / avoid shift.
+	 * Get the <select> options, or prefer / ok / conflict on the shift.
 	 */
 	getSelectOptions: function() {
 		var firstSelect = $('.choice select')[0];
@@ -131,9 +131,9 @@ Survey = {
 		$('.month_wrapper').each(function(i,e) {
 			$(this).find('h3').after(
 				`<p class="month_mark_all">mark entire month:
-					<a class="prefer">prefer</a>
+					<a class="conflict">conflict</a>
 					<a class="ok">OK</a>
-					<a class="avoid_shift">avoid</a></p>`
+					<a class="prefer">prefer</a></p>`
 			);
 		});
 	},

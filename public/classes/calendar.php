@@ -123,12 +123,16 @@ EOHTML;
 	 * @return string html for a spacer.
 	 */
 	public function getWeeklySpacerHtml() {
+		$preferences = get_pref_names();
+		$options = '';
+		foreach($preferences as $val => $label) {
+			$options .= "\t\t\t\t<a class=\"{$label}\">{$label}</a>\n";
+		}
+
 		return <<<EOHTML
 			<td class="week_selector">
 				This week:
-				<a class="prefer">prefer</a>
-				<a class="OK">OK</a>
-				<a class="avoid_shift">avoid</a>
+{$options}
 			</td>
 EOHTML;
 	}
@@ -147,13 +151,17 @@ EOHTML;
 			return '';
 		}
 
+		$preferences = get_pref_names();
+		$options = '';
+		foreach($preferences as $val => $label) {
+			$options .= "\t\t\t\t<a class=\"{$label}\">{$label}</a>\n";
+		}
+
 		$short_day = substr($day_of_week, 0, 3);
 		return <<<EOHTML
 			<td class="weekday_selector weekday_num_{$day_num}">
 				{$short_day}:<br>
-				<a class="prefer">prefer</a>
-				<a class="OK">OK</a>
-				<a class="avoid_shift">avoid</a>
+{$options}
 			</td>
 EOHTML;
 	}
@@ -434,7 +442,7 @@ EOHTML;
 	 *
 	 * @param object $worker An instance of a Worker object.
 	 * @param string $date_string text representing a date, i.e. '12/6/2009'
-	 * @param string $type The ttype of meal ('weekday', 'meeting', 'sunday')
+	 * @param string $type The type of meal ('weekday', 'meeting', 'sunday')
 	 * @return string the content to be rendered in the cell variable.
 	 */
 	public function generateCellWorker($worker, $date_string, $type) {
@@ -460,15 +468,17 @@ EOHTML;
 
 		$saved_prefs = $this->getSavedPrefs($worker->getId());
 		foreach($jobs as $key=>$name) {
+			// if this worker doesn't have this job, then skip
+			if (!array_key_exists($key, $worker->getTasks())) {
+				continue;
+			}
+
 			$saved_pref_val =
 				isset($saved_prefs[$key][$date_string]) ?
-					$saved_prefs[$key][$date_string] : NULL;
+					$saved_prefs[$key][$date_string] : DEFAULT_AVAIL;
 
-			// if this job is in the list of assigned tasks.
-			if (array_key_exists($key, $worker->getTasks())) {
-				$cell .= $this->renderday($date_string, $name, $key,
-					$saved_pref_val);
-			}
+			$cell .= $this->renderday($date_string, $name, $key,
+				$saved_pref_val);
 		}
 
 		return $cell;
@@ -608,23 +618,25 @@ EOJS;
 	 * @param int $key the job ID
 	 * @param int $saved_pref the preference score previously saved
 	 */
-	private function renderday($date_string, $name, $key, $saved_pref) {
-		$pref_names = get_pref_names();
+	public function renderday($date_string, $name, $key, $saved_pref) {
+		$preferences = get_pref_names();
 
-		$sel = ['', '', ''];
-		if (!is_numeric($saved_pref)) {
-			$saved_pref = 1;
+		if (!isset($saved_pref)) {
+			$saved_pref = DEFAULT_AVAIL;
 		}
-		$sel[$saved_pref] = 'selected';
+
+		$options = '';
+		foreach($preferences as $val => $label) {
+			$selected = ($saved_pref == $val) ? ' selected' : '';
+			$options .= "\t\t\t\t<option value=\"{$val}\"{$selected}>{$label}</option>\n";
+		}
 
 		$id = "{$date_string}_{$key}";
 		return <<<EOHTML
 			<div class="choice">
 			{$this->renderJobNameForDay($name)}
 			<select name="date_{$date_string}_{$key}" class="preference_selection">
-				<option value="2" {$sel[2]}>{$pref_names[2]}</option>
-				<option value="1" {$sel[1]}>{$pref_names[1]}</option>
-				<option value="0" {$sel[0]}>{$pref_names[0]}</option>
+{$options}
 			</select>
 			</div>
 EOHTML;
@@ -1004,7 +1016,9 @@ EOHTML;
 	 */
 	public function toString($worker=NULL, $availability=NULL) {
 		if (is_null($worker) && empty($availability)) {
-			return '';
+			return <<<EOHTML
+				<h2>No worker specified and no availability saved.</h2>
+EOHTML;
 		}
 
 		return $this->evalDates($worker, $availability);

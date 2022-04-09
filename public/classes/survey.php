@@ -212,6 +212,7 @@ EOHTML;
 		$current_season = get_current_season_months();
 		return <<<EOHTML
 		<h2>Welcome, {$this->worker_obj->getName()}</h2>
+		<p><a href="index.php">Back to Roster</a></p>
 		{$this->calendar->renderMonthsOverlay($current_season)}
 		<form method="POST" action="process.php">
 			<input type="hidden" name="username" value="{$_GET['worker']}">
