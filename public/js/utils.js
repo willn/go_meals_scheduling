@@ -19,14 +19,13 @@ var month_names = {
 $(document).ready(function() {
 	var $ = jQuery;
 	Survey.init();
-
 });
 
 /**
  * Various utilities which govern the survey.
  */
 Survey = {
-	option_levels: {},
+	optionLevels: {},
 
 	init: function() {
 		Survey.getSelectOptions();
@@ -36,7 +35,7 @@ Survey = {
 
 		$('#avoid_workers, #prefer_workers').select2({
 			placeholder: 'Select one or more names',
-			width: 350,
+			width: 350
 		}).on('change', Survey.workerPrefChange);
 
 		$('p.month_mark_all').on('click', 'a', Survey.markMonth);
@@ -56,7 +55,7 @@ Survey = {
 			found = false,
 			otherList, i, vals;
 
-		if (currentId == 'prefer_workers') {
+		if (currentId === 'prefer_workers') {
 			otherId = 'avoid_workers';
 			otherName = 'Avoids';
 		}
@@ -67,7 +66,7 @@ Survey = {
 			vals = otherList.select2('val');
 			for (i in vals) {
 				// does this name exist in the other list?
-				if (added.id == vals[i]) {
+				if (added.id === vals[i]) {
 					found = true;
 					vals.splice(i, 1);
 					otherList.select2('val', vals);
@@ -83,9 +82,9 @@ Survey = {
 	 * Get the <select> options, or prefer / ok / avoid shift.
 	 */
 	getSelectOptions: function() {
-		var first_select = $('.choice select')[0];
-		$(first_select).children().each(function() {
-			Survey.option_levels[$(this).text()] = $(this).val();
+		var firstSelect = $('.choice select')[0];
+		$(firstSelect).children().each(function() {
+			Survey.optionLevels[$(this).text()] = $(this).val();
 		});
 	},
 
@@ -109,10 +108,9 @@ Survey = {
 			Survey.getAffectedWeekdays(this).removeClass('affecting');
 		}).click(function() {
 			// get the option level number to set this to:
-			var level_num = Survey.option_levels[$(this).attr('class')];
-
+			var levelNum = Survey.optionLevels[$(this).attr('class')];
 			var weekdays = Survey.getAffectedWeekdays(this);
-			weekdays.find('select').val(level_num);
+			weekdays.find('select').val(levelNum);
 		});
 	},
 
@@ -123,8 +121,8 @@ Survey = {
 		function() {
 			$(this).parents('tr').find('td').removeClass('affecting');
 		}).click(function() {
-			var level_num = Survey.option_levels[$(this).attr('class')];
-			$(this).parents('tr').find(':input').val(level_num);
+			var levelNum = Survey.optionLevels[$(this).attr('class')];
+			$(this).parents('tr').find(':input').val(levelNum);
 		});
 	},
 
@@ -132,10 +130,10 @@ Survey = {
 		// add links to change all shifts in the entire month
 		$('.month_wrapper').each(function(i,e) {
 			$(this).find('h3').after(
-				'<p class="month_mark_all">mark entire month: \
-					<a class="prefer">prefer<\/a> \
-					<a class="ok">OK<\/a> \
-					<a class="avoid_shift">avoid<\/a><\/p>'
+				`<p class="month_mark_all">mark entire month:
+					<a class="prefer">prefer</a>
+					<a class="ok">OK</a>
+					<a class="avoid_shift">avoid</a></p>`
 			);
 		});
 	},

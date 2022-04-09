@@ -5,6 +5,7 @@
  */
 function select_day(dow, choice) {
 	var days = document.getElementsByTagName('td');
+	var i, s, options;
 	var selects;
 
 	var num = days.length;
