@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
