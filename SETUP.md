@@ -260,7 +260,7 @@ Copy and paste from "Confirm results check" section, and create custom ones for 
 
 1. Download from google spreadsheet, save as tab separated values (TSV)
   - rename file to schedule.txt
-2. go to http://gocoho.org/meals_scheduling/report.php?key=all#confirm_checks
+2. go to `http://gocoho.org/meals_scheduling/report.php?key=all#confirm_checks`
 ```
 # copy section of text
 vi checks.sh
@@ -291,21 +291,25 @@ php validate_schedule.php -f ../tests/data/schedule.tsv
 
 ## translate from Google sheet to Gather imports
 
-on mac:
-- Download sheet in CSV form
+### on mac:
+```
+- # Download sheet in CSV form
 - mv GO\ Meals\ Feb-April\ 2020\ -\ results.csv final_schedule.csv
-- Upload from desktop to gocoho host
+- # Upload from desktop to gocoho host
 - scp -P 1022 final_schedule.csv gocoho@gocoho.org:meals_scheduling_dev/utils/
+```
 
-on gocoho:
+### on gocoho:
+```
 - ssh gocoho
 - cd meals_scheduling_dev/utils/
 - php translate_to_gather_imports.php > imports.csv
 - #!# DO WE NEED TO ENTER "waive" FORMULA FOR MEETING NIGHT MEALS?
-- look for username mistranslations...
+- # look for username mistranslations...
   - `grep XXX imports.csv`
-  - if any users are missing, look up their user ID in Gather and edit
-    the sqlite table "auth_users" to update anyone's missing gather_id
+  - #if any users are missing, look up their user ID in Gather and edit
+     the sqlite table "auth_users" to update anyone's missing gather_id
+```
 
 ### make any changes to communities invited / max capacity
 * Confirm which communities are mentioned (covid era restricts to only GO)
@@ -315,7 +319,7 @@ on gocoho:
 
 ### on mac:
 - download the imports file
-- scp -P 1022 gocoho@gocoho.org:meals_scheduling_dev/utils/imports.csv .
+- `scp -P 1022 gocoho@gocoho.org:meals_scheduling_dev/utils/imports.csv .`
 - open gather site, and upload the clean entries
 - resolve any scheduling conflicts... meals currently add 2:15 before and after
   the announced meal serving time.
