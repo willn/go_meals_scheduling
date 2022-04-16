@@ -11,22 +11,13 @@ class Schedule {
 	protected $job_id;
 	protected $calendar;
 
-	// which shifts happen on which dates
-	protected $dates_and_shifts = [];
-
 	// the most difficult shifts to fill
 	// date => job_id => counts
 	protected $least_possible = [];
 
-	// make this a member variable as a cache
-	protected $dates_by_shift = [];
-
-	public function __construct($season_months=[]) {
-		if (empty($season_months)) {
-			$season_months = get_current_season_months();
-		}
-		$this->calendar = new Calendar($season_months);
-	}
+	// which shifts happen on which dates
+	protected $dates_and_shifts = [];
+	protected $dates_by_shift_cache = [];
 
 	public function getPossibleRatios() {
 		return $this->least_possible;
@@ -76,12 +67,13 @@ class Schedule {
 	/**
 	 * Figure out which days have meals, and which shifts are needed
 	 * for those days. Create each of those meals instances with those shifts.
+	 *
+	 * @param array $dates_and_shifts job_id => array( list of dates ).
 	 */
-	public function initializeShifts() {
-		$this->calendar->disableWebDisplay();
-		$this->dates_and_shifts = $this->calendar->evalDates();
+	public function initializeShifts($dates_and_shifts=[]) {
+		$this->dates_and_shifts = $dates_and_shifts;
 
-		foreach($this->dates_and_shifts as $date=>$shifts) {
+		foreach($dates_and_shifts as $date=>$shifts) {
 			$this->meals[$date] = get_a_meal_object($this, $date);
 			$this->meals[$date]->initShifts($shifts);
 		}
@@ -94,16 +86,23 @@ class Schedule {
 	 * @return array job_id => array( list of dates ).
 	 */
 	public function getDatesByShift() {
-		// XXX this looks wrong... :(
-		if (empty($this->dates_by_shift)) {
-			foreach($this->dates_and_shifts as $date=>$shifts) {
-				foreach($shifts as $index=>$job_id) {
-					$this->dates_by_shift[$job_id][] = $date;
-				}
-			}
+		if (empty($this->dates_by_shift_cache)) {
+			$this->loadDatesByShiftCache();
 		}
 
-		return $this->dates_by_shift;
+		return $this->dates_by_shift_cache;
+	}
+
+	/**
+	 * Load the dates by shift into the cache variable.
+	 */
+	public function loadDatesByShiftCache() {
+		foreach($this->dates_and_shifts as $date=>$shifts) {
+			foreach($shifts as $job_id => $job_entry) {
+				$this->dates_by_shift_cache[$job_id][] = $date;
+			}
+		}
+		return $this->dates_by_shift_cache;
 	}
 
 
@@ -133,33 +132,37 @@ class Schedule {
 	 * XXX: maybe this should be moved to Roster.
 	 *
 	 * @param array $slackers list of usernames of people who didn't take
-	 * their survey.
+	 *     their survey.
+	 * @return int count of affected slackers.
 	 */
 	public function addNonResponderPrefs($slackers) {
 		$dates_by_shift = $this->getDatesByShift();
+		$count = 0;
 
 		foreach($slackers as $username) {
-			$w = $this->getWorker($username);
-			if (!is_object($w)) {
+			$worker = $this->getWorker($username);
+			if (!is_object($worker)) {
 				echo "worker $username does not exist FATAL\n";
 				exit;
 			}
-			$shifts_assigned = $w->getAssignedShifts();
 
+			$shifts_assigned = $worker->getAssignedShifts();
 			foreach($shifts_assigned as $job_id) {
 				// figure out which dates and shifts to assign
-				$d_by_s = $dates_by_shift;
-				foreach ($d_by_s[$job_id] as $date) {
+				foreach ($dates_by_shift[$job_id] as $date) {
 					if (!isset($this->meals[$date])) {
 						echo "meal for date:{$date} doesn't exist FATAL\n";
 						exit;
 					}
 
-					$m = $this->meals[$date];
-					$m->addWorkerPref($username, $job_id, NON_RESPONSE_PREF);
+					$meal = $this->meals[$date];
+					$meal->addWorkerPref($username, $job_id, NON_RESPONSE_PREF);
+					$count++;
 				}
 			}
 		}
+
+		return $count;
 	}
 
 

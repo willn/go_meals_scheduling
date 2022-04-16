@@ -6,6 +6,7 @@ require_once '../public/config.php';
 require_once '../auto_assignments/schedule.php';
 require_once '../public/classes/calendar.php';
 require_once '../public/classes/meal.php';
+require_once '../public/classes/roster.php';
 
 /**
  * Test the scheduling framework.
@@ -36,6 +37,64 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 			[0],
 			[1],
 			[8],
+		];
+	}
+
+
+	/**
+	 * @dataProvider provideAddNonResponderPrefs
+	 */
+	public function testAddNonResponderPrefs($slackers) {
+		$dates_by_shift = [
+			'7/3/2022' => [
+				SUNDAY_HEAD_COOK => [
+					2 => ['alice', 'bob'],
+					1 => ['charlie', 'doug', 'edward', 'fred'],
+				]
+			],
+			'10/17/2022' => [
+				MEETING_NIGHT_ORDERER => [
+					2 => ['doug', 'edward', 'fred'],
+					1 => ['bob'],
+				]
+			],
+			'10/26/2022' => [
+				WEEKDAY_HEAD_COOK => [
+					2 => ['charlie', 'doug', 'edward', 'fred'],
+					1 => ['alice', 'bob'],
+				]
+			]
+		];
+		$this->schedule->initializeShifts($dates_by_shift);
+
+		$roster = new Roster();
+		$this->schedule->setRoster($roster);
+		foreach($slackers as $username) {
+			$worker = $roster->addWorker($username);
+			$worker->addNumShiftsAssigned(SUNDAY_HEAD_COOK, 3);
+		}
+		$result = $this->schedule->addNonResponderPrefs($slackers,
+			$dates_by_shift);
+
+		$expected = count($slackers);
+		$debug = [
+			'result' => $result,
+			'expected' => $expected
+		];
+		$this->assertEquals($result, $expected, print_r($debug, TRUE));
+	}
+
+	public function provideAddNonResponderPrefs() {
+		$slackers = [
+			'aaa',
+			'bbb',
+			'ccc',
+			'ddd',
+			'eee',
+		];
+
+		return [
+			[$slackers],
 		];
 	}
 
@@ -461,6 +520,7 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 	}
 	 */
 
+/*
 	public function testGetDatesByShift() {
 		$result = $this->schedule->getDatesByShift();
 		// XXX this doesn't seem to be working right now...

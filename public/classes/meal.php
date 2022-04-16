@@ -72,7 +72,7 @@ abstract class Meal {
 	public function initShifts($job_id_list) {
 		$job_instances = get_num_workers_per_job_per_meal();
 
-		foreach(array_values($job_id_list) as $job_id) {
+		foreach($job_id_list as $job_id => $job_entry) {
 			if (empty($job_instances[$job_id])) {
 				continue;
 			}

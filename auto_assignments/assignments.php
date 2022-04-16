@@ -15,6 +15,7 @@ global $job_key_clause;
 class Assignments {
 	public $roster;
 	public $schedule;
+	public $calendar;
 
 	/**
 	 * Construct an Assignments object.
@@ -30,10 +31,16 @@ class Assignments {
 	 * @param array $season_months array listing strings of each month to use.
 	 */
 	public function initialize($season_months=[]) {
-		$this->schedule = new Schedule($season_months);
+		if (empty($season_months)) {
+			$season_months = get_current_season_months();
+		}
+
+		$this->schedule = new Schedule();
 		$this->schedule->setRoster($this->roster);
 
 		$this->roster->setSchedule($this->schedule);
+
+		$this->calendar = new Calendar($season_months);
 	}
 
 	/**
@@ -41,7 +48,9 @@ class Assignments {
 	 */
 	public function run() {
 		// load the dates and shifts needed
-		$this->schedule->initializeShifts();
+
+		$this->calendar->disableWebDisplay();
+		$this->schedule->initializeShifts($this->calendar->evalDates());
 		$this->roster->loadNumShiftsAssigned();
 		$this->roster->loadRequests();
 		$this->loadPrefs();
