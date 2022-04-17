@@ -50,7 +50,8 @@ class Assignments {
 		// load the dates and shifts needed
 
 		$this->calendar->disableWebDisplay();
-		$this->schedule->initializeShifts($this->calendar->evalDates());
+		$dates = $this->calendar->evalDates();
+		$this->schedule->initializeShifts($dates);
 		$this->roster->loadNumShiftsAssigned();
 		$this->roster->loadRequests();
 		$this->loadPrefs();

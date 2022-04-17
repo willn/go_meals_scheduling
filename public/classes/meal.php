@@ -103,12 +103,15 @@ abstract class Meal {
 				exit;
 			}
 
-			$all_jobs_out = print_r($all_jobs, TRUE);
 			$assn_out = print_r($this->assigned, TRUE);
 			echo <<<EOTXT
-The job "{$all_jobs[$job_id]}" isn't scheduled for this date: {$this->date}
-U:{$username} P:{$pref}
-all jobs: {$all_jobs_out}
+Was not able to add worker preference for:
+Username: {$username}
+Job: ({$job_id}) "{$all_jobs[$job_id]}"
+Preference: {$pref}
+
+More info about this meal
+date: {$this->date}
 assigned: {$assn_out}
 FATAL
 

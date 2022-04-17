@@ -295,8 +295,8 @@ EOTXT;
 	 */
 	public function getNumPlaceholders() {
 		$count = 0;
-		foreach($this->meals as $m) {
-			$count += $m->getNumPlaceholders();
+		foreach($this->meals as $meal) {
+			$count += $meal->getNumPlaceholders();
 		}
 
 		return $count;
@@ -399,8 +399,8 @@ EOTXT;
 	 */
 	public function getNumMeals() {
 		$count = 0;
-		foreach($this->meals as $date=>$m) {
-			if (is_object($m)) {
+		foreach($this->meals as $date=>$meal) {
+			if (is_object($meal)) {
 				$count++;
 			}
 		}
@@ -415,8 +415,8 @@ EOTXT;
 	 */
 	public function getAssigned() {
 		$assignments = [];
-		foreach($this->meals as $date=>$m) {
-			$assignments[$date] = $m->getAssigned();
+		foreach($this->meals as $date=>$meal) {
+			$assignments[$date] = $meal->getAssigned();
 		}
 		return $assignments;
 	}

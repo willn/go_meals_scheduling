@@ -42,10 +42,8 @@ class Calendar {
 		}
 
 		$this->holidays = get_holidays();
-
-		if (empty($season_months)) {
-			$this->season_months = get_current_season_months();
-		}
+		$this->season_months = !empty($season_months) ?
+			$season_months : get_current_season_months();
 	}
 
 	/**
