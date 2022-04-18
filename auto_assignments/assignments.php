@@ -120,6 +120,7 @@ EOSQL;
 	public function makeAssignments() {
 		$all_jobs = get_all_jobs();
 
+		// iterate through each of the job types and make assignments for each
 		foreach(array_keys($all_jobs) as $job_id) {
 			$this->schedule->setJobId($job_id);
 			$this->roster->setJobId($job_id);
