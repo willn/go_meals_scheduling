@@ -46,24 +46,9 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testAddNonResponderPrefs($slackers) {
 		$dates_by_shift = [
-			'7/3/2022' => [
-				SUNDAY_HEAD_COOK => [
-					2 => ['alice', 'bob'],
-					1 => ['charlie', 'doug', 'edward', 'fred'],
-				]
-			],
-			'10/17/2022' => [
-				MEETING_NIGHT_ORDERER => [
-					2 => ['doug', 'edward', 'fred'],
-					1 => ['bob'],
-				]
-			],
-			'10/26/2022' => [
-				WEEKDAY_HEAD_COOK => [
-					2 => ['charlie', 'doug', 'edward', 'fred'],
-					1 => ['alice', 'bob'],
-				]
-			]
+			'7/3/2022' => [SUNDAY_ASST_COOK, SUNDAY_CLEANER, SUNDAY_HEAD_COOK],
+			'10/17/2022' => [MEETING_NIGHT_ORDERER, MEETING_NIGHT_CLEANER],
+			'10/26/2022' => [WEEKDAY_ASST_COOK, WEEKDAY_CLEANER, WEEKDAY_HEAD_COOK],
 		];
 		$this->schedule->initializeShifts($dates_by_shift);
 

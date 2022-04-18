@@ -63,19 +63,20 @@ class Schedule {
 		return $this->job_id;
 	}
 
-
 	/**
 	 * Figure out which days have meals, and which shifts are needed
 	 * for those days. Create each of those meals instances with those shifts.
 	 *
-	 * @param array $dates_and_shifts job_id => array( list of dates ).
+	 * @param array $dates_and_shifts dates are the key, value is a list of job
+	 *     IDs needed for that meal type.
+	 *     Example: [SUNDAY_ASST_COOK, SUNDAY_CLEANER, SUNDAY_HEAD_COOK]
 	 */
 	public function initializeShifts($dates_and_shifts=[]) {
 		$this->dates_and_shifts = $dates_and_shifts;
 
-		foreach($dates_and_shifts as $date=>$shifts) {
+		foreach($dates_and_shifts as $date=>$job_list) {
 			$this->meals[$date] = get_a_meal_object($this, $date);
-			$this->meals[$date]->initShifts($shifts);
+			$this->meals[$date]->initShifts($job_list);
 		}
 	}
 
@@ -98,7 +99,7 @@ class Schedule {
 	 */
 	public function loadDatesByShiftCache() {
 		foreach($this->dates_and_shifts as $date=>$shifts) {
-			foreach($shifts as $job_id => $job_entry) {
+			foreach($shifts as $job_id) {
 				$this->dates_by_shift_cache[$job_id][] = $date;
 			}
 		}

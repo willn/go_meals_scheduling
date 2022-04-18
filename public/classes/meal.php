@@ -67,12 +67,13 @@ abstract class Meal {
 	 * Add an empty slot for each shift to be filled for this job type.
 	 * Example: weekday asst cooks should get 2 empty slots to fill.
 	 *
-	 * @param array $job_id_list XXX
+	 * @param array $job_id_list list of job IDs which are needed for this meal
+	 *     type. Example: [SUNDAY_ASST_COOK, SUNDAY_CLEANER, SUNDAY_HEAD_COOK]
 	 */
 	public function initShifts($job_id_list) {
 		$job_instances = get_num_workers_per_job_per_meal();
 
-		foreach($job_id_list as $job_id => $job_entry) {
+		foreach($job_id_list as $job_id) {
 			if (empty($job_instances[$job_id])) {
 				continue;
 			}

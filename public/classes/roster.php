@@ -104,6 +104,8 @@ EOSQL;
 
 	/**
 	 * Set the job ID and cut down on the number of parameters passed.
+	 * Used as a filter, specifically for running auto-assignments.
+	 *
 	 * @param int $job_id the ID for the current job being processed.
 	 */
 	public function setJobId($job_id) {
@@ -168,7 +170,7 @@ EOSQL;
 		if (empty($this->least_available)) {
 			$name = get_job_name($this->job_id);
 			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . 
-				" Ran out of workers, using a placeholder for {$name}");
+				" Ran out of workers, using a placeholder for {$name} id:{$this->job_id}");
 		}
 
 		// Sort the list of workers by username (key)
