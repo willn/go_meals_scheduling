@@ -152,18 +152,20 @@ EOSQL;
 	 * Sort the available workers to see who has the tightest availabilty, and
 	 * schedule them first.
 	 *
-	 * @return array list of workers sorted by schedule availability
+	 * @return array list of workers (key username, value
+	 *     availability ratio) sorted ascending by schedule
+	 *     availability.  The worker with the tightest schedule comes first.
 	 */
 	public function sortAvailable() {
 		$this->least_available = [];
 
 		foreach($this->workers as $username=>$worker) {
-			$avail = $worker->getNumAvailableShiftsRatio($this->job_id);
-			if ($avail == 0) {
+			$avail_ratio = $worker->getNumAvailableShiftsRatio($this->job_id);
+			if ($avail_ratio == 0) {
 				continue;
 			}
 
-			$this->least_available[$username] = $avail;
+			$this->least_available[$username] = $avail_ratio;
 		}
 
 		// need to assign a placeholder for manual fixing later
