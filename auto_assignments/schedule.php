@@ -250,6 +250,10 @@ EOTXT;
 	 * @return boolean. If TRUE, then the meal was filled successfully.
 	 */
 	public function fillMeal($worker_freedom) {
+		if (empty($this->least_possible)) {
+			return FALSE;
+		}
+
 		$job_id = $this->job_id;
 
 		$date = get_first_associative_key($this->least_possible);

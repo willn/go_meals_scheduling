@@ -196,11 +196,8 @@ EOTXT;
 
 		// check that workers are defined
 		if (empty($this->possible_workers[$job_id])) {
-			$job_name = get_job_name($job_id);
-			echo <<<EOTXT
-no possible workers defined for job {$job_id}, {$job_name}, {$this->date}
-
-EOTXT;
+			# $job_name = get_job_name($job_id);
+			# echo "no workers defined for {$job_id}, {$job_name}, {$this->date}\n";
 			return 0;
 		}
 
@@ -321,6 +318,13 @@ EOTXT;
 	 * @return string the username, it could be PLACEHOLDER.
 	 */
 	public function pickWorker($job_id, $worker_freedom) {
+		if (empty($worker_freedom)) {
+            $name = get_job_name($job_id);
+            error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
+                " Ran out of workers, using a placeholder for {$name} date: {$this->date}");
+			return PLACEHOLDER;
+		}
+
 		$worker_points = [];
 
 		$assigned_worker_names = $this->getAssignedWorkerNamesByJobId($job_id);

@@ -209,13 +209,6 @@ EOHTML;
 
 		$meal_days = get_weekday_meal_days();
 
-		/*
-		 * Skip dates. Don't display selection options
-		 * for this date if we know in advance that we'll be cancelling
-		 * a meal on this date. Similar functionality to holidays.
-		 * https://github.com/willn/go_meals_scheduling/issues/17
-		 */
-		$skip_dates = get_skip_dates();
 		$reg_day_overrides = get_regular_day_overrides();
 
 		$day_of_week = NULL;
@@ -287,6 +280,12 @@ EOHTML;
 						$is_done = TRUE;
 						break;
 
+					/*
+					 * Skip dates. Don't display selection options
+					 * for this date if we know in advance that we'll be cancelling
+					 * a meal on this date. Similar functionality to holidays.
+					 * https://github.com/willn/go_meals_scheduling/issues/17
+					 */
 					case SKIP_NIGHT:
 						$cell = '<span class="skip">skip</span>';
 						$is_done = TRUE;
