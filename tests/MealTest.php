@@ -193,6 +193,24 @@ class MealTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @dataProvider provideAddWorkerPref
+	 */
+	public function testAddWorkerPref($username, $type, $job_id, $pref, $expected) {
+		$this->meal->initShifts($this->shifts[$type]);
+		$this->meal->addWorkerPref($username, $job_id, $pref);
+		$workers = $this->meal->getPossibleWorkers();
+		$this->assertEquals($workers, $expected);
+	}
+
+	public function provideAddWorkerPref() {
+		return [
+			['aaa', 'sunday', SUNDAY_HEAD_COOK, 1, [SUNDAY_HEAD_COOK => ['aaa' => 1]]],
+			['bbb', 'weekday', WEEKDAY_HEAD_COOK, 0, [WEEKDAY_HEAD_COOK => ['bbb' => 0]]],
+			['ccc', 'meeting', MEETING_NIGHT_ORDERER, 0, [MEETING_NIGHT_ORDERER => ['ccc' => 0]]],
+		];
+	}
+
+	/**
 	 * @dataProvider providePickWorker
 	 */
 	public function testPickWorker($override, $type, $job_id,

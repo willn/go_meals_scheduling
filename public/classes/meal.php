@@ -172,6 +172,12 @@ EOTXT;
 		return $count;
 	}
 
+	/**
+	 * Get the list of possible workers.
+	 */
+	public function getPossibleWorkers() {
+		return $this->possible_workers;
+	}
 
 	/**
 	 * Find the popularity vs open spaces ratio for this meal's job.
