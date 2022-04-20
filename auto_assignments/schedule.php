@@ -149,6 +149,11 @@ class Schedule {
 
 			$shifts_assigned = $worker->getAssignedShifts();
 			foreach($shifts_assigned as $job_id) {
+				// protect against error with the foreach below
+				if (!isset($dates_by_shift[$job_id])) {
+					continue;
+				}
+
 				// figure out which dates and shifts to assign
 				foreach ($dates_by_shift[$job_id] as $date) {
 					if (!isset($this->meals[$date])) {

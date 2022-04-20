@@ -44,14 +44,19 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider provideAddNonResponderPrefs
 	 */
-	public function testAddNonResponderPrefs($slackers, $dates_by_shift, $expected) {
+	public function testAddNonResponderPrefs($dates_by_shift, $expected) {
 		$this->schedule->initializeShifts($dates_by_shift);
 
 		$roster = new Roster();
 		$this->schedule->setRoster($roster);
+
+		// -------- 1st test ---------
+		$slackers = ['aaa', 'bbb', 'ccc', 'ddd', 'eee'];
 		foreach($slackers as $username) {
 			$worker = $roster->addWorker($username);
-			$worker->addNumShiftsAssigned(SUNDAY_HEAD_COOK, 3);
+			$worker->addNumShiftsAssigned(SUNDAY_HEAD_COOK, 1);
+			$worker->addNumShiftsAssigned(MEETING_NIGHT_ORDERER, 1);
+			$worker->addNumShiftsAssigned(WEEKDAY_HEAD_COOK, 1);
 		}
 		$result = $this->schedule->addNonResponderPrefs($slackers);
 
@@ -63,6 +68,7 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 		];
 		$this->assertEquals($result, $num, print_r($debug, TRUE));
 
+		// -------- 2nd test ---------
 		$assigned = $this->schedule->getAssigned();
 		$debug = [
 			'assigned' => $assigned,
@@ -72,17 +78,9 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function provideAddNonResponderPrefs() {
-		$slackers = [
-			'aaa',
-			'bbb',
-			'ccc',
-			'ddd',
-			'eee',
-		];
 
 		return [
 			[
-				$slackers,
 				['7/3/2022' => [SUNDAY_HEAD_COOK, SUNDAY_ASST_COOK, SUNDAY_CLEANER]], 
 				[
 					'7/3/2022' => [
@@ -92,6 +90,26 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 					]
 				],
 			],
+
+			[
+				['10/17/2022' => [MEETING_NIGHT_ORDERER]],
+				[
+					'10/17/2022' => [
+						MEETING_NIGHT_ORDERER => [0 => NULL],
+					]
+				],
+			],
+
+			[
+				['10/26/2022' => [WEEKDAY_HEAD_COOK, WEEKDAY_ASST_COOK, WEEKDAY_CLEANER]],
+				[
+					'10/26/2022' => [
+						WEEKDAY_HEAD_COOK => [0 => NULL],
+						WEEKDAY_ASST_COOK => [0 => NULL, 1 => NULL],
+						WEEKDAY_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL]
+					]
+				],
+			]
 		];
 	}
 
