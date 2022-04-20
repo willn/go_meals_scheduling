@@ -44,12 +44,7 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider provideAddNonResponderPrefs
 	 */
-	public function testAddNonResponderPrefs($slackers) {
-		$dates_by_shift = [
-			'7/3/2022' => [SUNDAY_ASST_COOK, SUNDAY_CLEANER, SUNDAY_HEAD_COOK],
-			'10/17/2022' => [MEETING_NIGHT_ORDERER, MEETING_NIGHT_CLEANER],
-			'10/26/2022' => [WEEKDAY_ASST_COOK, WEEKDAY_CLEANER, WEEKDAY_HEAD_COOK],
-		];
+	public function testAddNonResponderPrefs($slackers, $dates_by_shift, $expected) {
 		$this->schedule->initializeShifts($dates_by_shift);
 
 		$roster = new Roster();
@@ -58,15 +53,22 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 			$worker = $roster->addWorker($username);
 			$worker->addNumShiftsAssigned(SUNDAY_HEAD_COOK, 3);
 		}
-		$result = $this->schedule->addNonResponderPrefs($slackers,
-			$dates_by_shift);
+		$result = $this->schedule->addNonResponderPrefs($slackers);
 
-		$expected = count($slackers);
+		$num = count($slackers);
 		$debug = [
 			'result' => $result,
+			'num' => $num,
+			'slackers' => $slackers,
+		];
+		$this->assertEquals($result, $num, print_r($debug, TRUE));
+
+		$assigned = $this->schedule->getAssigned();
+		$debug = [
+			'assigned' => $assigned,
 			'expected' => $expected
 		];
-		$this->assertEquals($result, $expected, print_r($debug, TRUE));
+		$this->assertEquals($assigned, $expected, print_r($debug, TRUE));
 	}
 
 	public function provideAddNonResponderPrefs() {
@@ -79,10 +81,19 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 		];
 
 		return [
-			[$slackers],
+			[
+				$slackers,
+				['7/3/2022' => [SUNDAY_HEAD_COOK, SUNDAY_ASST_COOK, SUNDAY_CLEANER]], 
+				[
+					'7/3/2022' => [
+						SUNDAY_HEAD_COOK => [0 => NULL],
+						SUNDAY_ASST_COOK => [0 => NULL, 1 => NULL],
+						SUNDAY_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL]
+					]
+				],
+			],
 		];
 	}
-
 
 	/**
 	 * @dataProvider provideFillMeal

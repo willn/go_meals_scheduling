@@ -11,6 +11,27 @@ require_once 'testing_utils.php';
 class CalendarTest extends PHPUnit_Framework_TestCase {
 	protected $calendar;
 
+	protected $availability = [
+		'7/3/2022' => [
+			SUNDAY_HEAD_COOK => [
+				2 => ['alice', 'bob'],
+				1 => ['charlie', 'doug', 'edward', 'fred'],
+			]
+		],
+		'10/17/2022' => [
+			MEETING_NIGHT_ORDERER => [
+				2 => ['doug', 'edward', 'fred'],
+				1 => ['bob'],
+			]
+		],
+		'10/26/2022' => [
+			WEEKDAY_HEAD_COOK => [
+				2 => ['charlie', 'doug', 'edward', 'fred'],
+				1 => ['alice', 'bob'],
+			]
+		]
+	];
+
 	public function setUp() {
 		$this->calendar = new Calendar();
 	}
@@ -792,28 +813,8 @@ EOHTML;
 	 * Test that the dates returned from the calendar fit the proper form.
 	 */
 	public function testEvalDates() {
-		$availability = [
-			'7/3/2022' => [
-				SUNDAY_HEAD_COOK => [
-					2 => ['alice', 'bob'],
-					1 => ['charlie', 'doug', 'edward', 'fred'],
-				]
-			],
-			'10/17/2022' => [
-				MEETING_NIGHT_ORDERER => [
-					2 => ['doug', 'edward', 'fred'],
-					1 => ['bob'],
-				]
-			],
-			'10/26/2022' => [
-				WEEKDAY_HEAD_COOK => [
-					2 => ['charlie', 'doug', 'edward', 'fred'],
-					1 => ['alice', 'bob'],
-				]
-			]
-		];
 		$this->calendar->enableWebDisplay();
-		$dates_and_shifts = $this->calendar->evalDates(NULL, $availability);
+		$dates_and_shifts = $this->calendar->evalDates(NULL, $this->availability);
 		$this->assertNotEmpty($dates_and_shifts);
 
 		$example = file_get_contents('data/example_calendar.html');
@@ -824,30 +825,9 @@ EOHTML;
 	 * Test that the dates returned from the calendar fit the proper form.
 	 */
 	public function testEvalDatesWithWorker() {
-		$availability = [
-			'7/3/2022' => [
-				SUNDAY_HEAD_COOK => [
-					2 => ['alice', 'bob'],
-					1 => ['charlie', 'doug', 'edward', 'fred'],
-				]
-			],
-			'10/17/2022' => [
-				MEETING_NIGHT_ORDERER => [
-					2 => ['doug', 'edward', 'fred'],
-					1 => ['bob'],
-				]
-			],
-			'10/26/2022' => [
-				WEEKDAY_HEAD_COOK => [
-					2 => ['charlie', 'doug', 'edward', 'fred'],
-					1 => ['alice', 'bob'],
-				]
-			]
-		];
-
 		$this->calendar->enableWebDisplay();
 		$worker = new Worker('jane');
-		$dates_and_shifts = $this->calendar->evalDates($worker, $availability);
+		$dates_and_shifts = $this->calendar->evalDates($worker, $this->availability);
 		$this->assertNotEmpty($dates_and_shifts);
 
 		$example = file_get_contents('data/example_worker_calendar.html');
@@ -985,6 +965,26 @@ EOHTML;
         return [
             [$counts],
         ];
+    }
+
+    public function testGetShiftCounts() {
+		$this->calendar->enableWebDisplay();
+		$dates_and_shifts = $this->calendar->evalDates(NULL, $this->availability);
+        $result = $this->calendar->getShiftCounts();
+
+		// UPDATE-EACH-SEASON
+		$expected = [
+			'sunday' => 13,
+			'weekday' => 31,
+			'meeting' => 6,
+			'total' => 50,
+		];
+
+		$debug = [
+			'expected' => $expected,
+			'result' => $result,
+		];
+        $this->assertEquals($expected, $result, print_r($debug, TRUE));
     }
 }
 ?>
