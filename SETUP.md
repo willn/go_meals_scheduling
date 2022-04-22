@@ -177,6 +177,7 @@ git commit public/sqlite_data/work_allocation.db
 ```
 cd auto_assignments/
 php execute.php -u
+cd ..
 ```
 
 ### If we know that we need to cancel 1 or more meals, edit

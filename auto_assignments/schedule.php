@@ -313,11 +313,11 @@ EOTXT;
 	}
 
 	/**
-	 * Get the text of the schedule
+	 * Get the headers for the schedule
 	 * @param string $format string the chosen output format (txt, or sql). How the
 	 *     output should be displayed.
 	 */
-	public function getResults($format='txt' ) {
+	public function getHeaders($format='txt' ) {
 		switch ($format) {
 			case 'txt':
 				return $this->getTabbedHeaders();
@@ -334,12 +334,12 @@ EOTXT;
 	 *     output should be displayed.
 	 */
 	public function printResults($format='txt' ) {
-		echo $this->getResults($format);
+		echo $this->getHeaders($format);
 
 		$gather_ids = $this->roster->loadGatherIDs();
 		$missed_hobarters = 0;
-		foreach($this->meals as $date=>$m) {
-			if (!$m->printResults($format, $gather_ids)) {
+		foreach($this->meals as $date=>$meal) {
+			if (!$meal->printResults($format, $gather_ids)) {
 				$missed_hobarters++;
 			}
 		}

@@ -327,7 +327,7 @@ EOTXT;
 		if (empty($worker_freedom)) {
             $name = get_job_name($job_id);
             error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
-                " Ran out of workers, using a placeholder for {$name} date: {$this->date}");
+                " Use a placeholder for {$name} date: {$this->date}");
 			return PLACEHOLDER;
 		}
 
@@ -589,8 +589,10 @@ EOTXT;
 		$out_data = [];
 		$invited = ALL_3_COMMUNITY_IDS;
 
+
 		// check to make sure that all of the required instances are filled
-		foreach($this->assigned as $job_id=>$assignments) {
+		foreach($this->assigned as $job_id=>$entry) {
+			$assignments = $entry;
 
 			// check for un-assigned names
 			foreach($assignments as $shift_num=>$name) {
@@ -644,10 +646,6 @@ EOTXT;
 			else {
 				$table_setters = $assignments;
 				$order = 5;
-			}
-
-			if ($order != 4) {
-				continue;
 			}
 
 			switch($format) {
