@@ -1,7 +1,5 @@
 # Directions for setting up & running the Great Oak Meals Scheduling Survey
 
--------------------------------
-
 ## Update settings in order to calculate the needed shift counts
 
 ### Ask meals committee questions:
@@ -24,7 +22,6 @@
 The number of assignments needed is in tests/CalendarTest.php, in 
 provideGetAssignmentsNeededForCurrentSeason()
 
--------------------------------
 ## SEASON-START:
 If this is mid-season, skip to the MID-SEASON section
 
@@ -118,8 +115,6 @@ git add *
 git commit
 ```
 
--------------------------------
-
 ## MID-SEASON
 If this is mid-season, follow these directions, otherwise skip to
 FINISH-START-OF-SEASON.
@@ -133,8 +128,6 @@ sqlite> .read sql/reset_mid_season.sql
 cd ../
 git diff | view -
 ```
-
--------------------------------
 
 ## FINISH-START-OF-SEASON
 
@@ -168,8 +161,6 @@ crontab -e
 ### schedule a few reminders spaced out over the rest of the session to send reminder emails to laggards
 
 ### confirm with the Meals committee about which communities can attemnd the max capacity per meal
-
--------------------------------
 
 ## END-OF-SURVEY
 
@@ -287,9 +278,7 @@ php validate_schedule.php -f ../tests/data/schedule.tsv
 - upload any changes to google sheets and announce it
 
 
--------------------------------
-
-## translate from Google sheet to Gather imports
+## Translate from Google sheet to Gather imports
 
 ### on mac:
 ```
@@ -328,8 +317,6 @@ php validate_schedule.php -f ../tests/data/schedule.tsv
   - Meeting Night: 3:30 - 8:00
 
 
--------------------------------
-
 ## Development notes between seasons
 
 update public/config.php, update the season name, year, and season id
@@ -346,8 +333,6 @@ update public/config.php, update the season name, year, and season id
 # sqlite> insert into work_app_assignment values(NULL, 'a', 1, 4596, 1, 33, 59);
 ```
 
-
--------------------------------
 
 ## How to add a user with an override.
 
