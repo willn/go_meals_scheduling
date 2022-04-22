@@ -81,9 +81,9 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 
 		return [
 			[
-				['7/3/2022' => [SUNDAY_HEAD_COOK, SUNDAY_ASST_COOK, SUNDAY_CLEANER]], 
+				['7/10/2022' => [SUNDAY_HEAD_COOK, SUNDAY_ASST_COOK, SUNDAY_CLEANER]], 
 				[
-					'7/3/2022' => [
+					'7/10/2022' => [
 						SUNDAY_HEAD_COOK => [0 => NULL],
 						SUNDAY_ASST_COOK => [0 => NULL, 1 => NULL],
 						SUNDAY_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL]
@@ -109,7 +109,7 @@ class ScheduleTest extends PHPUnit_Framework_TestCase {
 						WEEKDAY_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL]
 					]
 				],
-			]
+			],
 		];
 	}
 

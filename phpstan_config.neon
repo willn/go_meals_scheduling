@@ -17,13 +17,15 @@ parameters:
 		- message: "#^If condition is always false\\.$#"
 		  count: 1
 		  path: auto_assignments/schedule.php
+
 		- message: "#^Negated boolean expression is always false.$#"
 		  count: 1
 		  path: public/classes/calendar.php
+
 		- message: "#^Class Worker constructor invoked with 1 parameter, 0 required.$#"
 		  count: 1
 		  path: public/classes/roster.php
+
 		- message: "#^If condition is always false\\.$#"
 		  count: 1
 		  path: public/classes/survey.php
-

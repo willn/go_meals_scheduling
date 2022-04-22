@@ -203,7 +203,7 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_get_a_meal_object($date, $expected) {
 		$schedule = new Schedule();
-		$meal = get_a_meal_object($schedule, $date, 1);
+		$meal = get_a_meal_object($schedule, $date);
 		$this->assertTrue($meal instanceof $expected);
 	}
 
@@ -212,6 +212,7 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 			['04/15/2018', 'SundayMeal'],
 			['04/16/2018', 'MeetingNightMeal'],
 			['04/18/2018', 'WeekdayMeal'],
+			['01/01/2018', 'Error'],
 		];
 	}
 

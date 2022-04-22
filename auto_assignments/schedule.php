@@ -76,7 +76,11 @@ class Schedule {
 
 		foreach($dates_and_shifts as $date=>$job_list) {
 			$this->meals[$date] = get_a_meal_object($this, $date);
-			$this->meals[$date]->initShifts($job_list);
+
+			// don't initialize skipped meals
+			if (!is_null($this->meals[$date])) {
+				$this->meals[$date]->initShifts($job_list);
+			}
 		}
 	}
 
@@ -156,9 +160,11 @@ class Schedule {
 
 				// figure out which dates and shifts to assign
 				foreach ($dates_by_shift[$job_id] as $date) {
+					// don't initialize skipped meals
 					if (!isset($this->meals[$date])) {
-						echo "meal for date:{$date} doesn't exist FATAL\n";
-						exit;
+						error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . 
+							"meal for date:{$date} doesn't exist");
+						continue;
 					}
 
 					$meal = $this->meals[$date];

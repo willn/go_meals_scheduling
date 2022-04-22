@@ -310,9 +310,13 @@ function get_a_meal_object($schedule, $date) {
 			return new WeekdayMeal($schedule, $date);
 		case MEETING_NIGHT_MEAL:
 			return new MeetingNightMeal($schedule, $date);
+		case SKIP_NIGHT:
+		case HOLIDAY_NIGHT:
+		case NOT_A_MEAL:
+			return new Error();
 	}
 
-	error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . "Could not find meal type");
+	error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " Could not find meal type {$date}");
 	exit;
 }
 
