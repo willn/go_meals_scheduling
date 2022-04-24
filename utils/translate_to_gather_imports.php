@@ -13,6 +13,7 @@ $data = array_map('str_getcsv', $lines);
 
 define('CREATE', 'create');
 define('GO_KITCHEN_AND_DINING_ROOM', '22;105');
+define('MISSING', 'XXX-');
 
 $header_cols = [
 	'date_time' => 'Date/Time',
@@ -25,7 +26,9 @@ $header_cols = [
 	'table_setter' => 'Table Setter',
 	'action' => 'Action',
 ];
-echo implode(',', array_values($header_cols)) . "\n";
+$translated_lines = [
+	implode(',', array_values($header_cols)) . "\n"
+];
 
 $roster = new Roster();
 $gather_ids = $roster->loadGatherIDs();
@@ -49,9 +52,10 @@ function get_gather_id($username, $gather_ids) {
 	}
 
 	// was unable to find username
-	return "XXX-{$username}";
+	return MISSING . $username;
 }
 
+$missing_users = [];
 foreach($data as $entry) {
 	$keyed = array_combine($header_keys, $entry);
 	$time_and_date_str = strtotime($keyed['date'] . ' ' . $keyed['time'] . 'pm');
@@ -71,7 +75,8 @@ foreach($data as $entry) {
 	$cleaners[] = get_gather_id($keyed['cleaner3'], $gather_ids);
 
 	// table setter
-	$table_setter = get_gather_id($keyed['table_setter'], $gather_ids);
+	$table_setter = defined('WEEKDAY_TABLE_SETTER') ?
+		get_gather_id($keyed['table_setter'], $gather_ids) : '';
 
 	$translated = [
 		'date_time' => date('c', $time_and_date_str),
@@ -84,7 +89,22 @@ foreach($data as $entry) {
 		'table_setter' => $table_setter,
 		'action' => CREATE,
 	];	
-	echo implode(',', array_values($translated)) . "\n";
+	$translated_lines[] = implode(',', array_values($translated)) . "\n";
+
+	$list = array_merge([$head_cook], $assts, $cleaners, [$table_setter]);
+	foreach($list as $gather_id) {
+		if (strpos($gather_id, MISSING) === 0) {
+			$missing_users[$gather_id] = 1;
+		}
+	}
+}
+
+if (!empty($missing_users)) {
+	ksort($missing_users);
+	print implode("\n", array_keys($missing_users)) . "\n";
+}
+else {
+	print implode('', $translated_lines);
 }
 
 ?>

@@ -937,9 +937,9 @@ EOHTML;
 			MEETING_NIGHT_CLEANER => 6,
 			MEETING_NIGHT_ORDERER => 6,
 
-			SUNDAY_ASST_COOK => 14,
-			SUNDAY_CLEANER => 7,
-			SUNDAY_HEAD_COOK => 7,
+			SUNDAY_ASST_COOK => 16,
+			SUNDAY_CLEANER => 8,
+			SUNDAY_HEAD_COOK => 8,
 
 			WEEKDAY_ASST_COOK => 40,
 			WEEKDAY_CLEANER => 20,
@@ -974,8 +974,8 @@ EOHTML;
 
 		// UPDATE-EACH-SEASON
 		$expected = [
-			'sunday' => 7,
-			'weekday' => 20,
+			'sunday' => 8,
+			'weekday' => 20, # 37 asst, 60 cleaners
 			'meeting' => 6,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
