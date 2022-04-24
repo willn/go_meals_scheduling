@@ -188,9 +188,9 @@ php execute.php -s
 tail -f error
 ```
 
+### Cancel extra meals
 Look at all of the shifts to see where the pain lies... head, asst, cleaner
 if we need to cancel meals, then mark these as skip dates.
-
 ```
 # add dates to get_skip_dates
 vi public/season.php
@@ -206,8 +206,7 @@ php execute.php -s > results.txt
 grep XXX !$
 ```
 
-### if some meals need to be cancelled, this would be a good time to look for
-  the hardest to fill days:
+### look for the hardest to days to fill:
 ```
 grep 'XXXXXXXX.*XXXXXXXX' results.txt
 ```
@@ -235,24 +234,16 @@ grep OVERAGE workers.txt
 egrep '(^name|\(0)' workers.txt | grep -B1 'j:' > workers_not_full.txt
 ```
 
-### download a copy of the schedule, and upload it to google drive
-```
-# on localhost
-cd ~/Desktop/
-scp -i ~/.ssh/id_dsa -P 1022 \
-	gocoho@gocoho.org:/home/gocoho/meals_scheduling_dev/auto_assignments/results.txt .
-```
-
-### Import into a google spreadsheet
+### upload a copy of the results.txt to google drive & import into a spreadsheet
 * try to move the under-assigned workers to fill the 'XXX' spots, making trades
 * do any swapping needed
 
 ### confirm preferences
-Copy and paste from "Confirm results check" section, and create custom ones for anything that's not a personal avoid request.
-
 1. Download from google spreadsheet, save as tab separated values (TSV)
   - rename file to schedule.txt
-2. go to `http://gocoho.org/meals_scheduling/report.php?key=all#confirm_checks`
+2.  On the schedule / report page, clear any filters. Go to the "confirm
+    checks" section, copy and paste from "Confirm results check" section.
+3. Run the checks script against that file.
 ```
 # copy section of text
 vi checks.sh
@@ -281,37 +272,27 @@ php validate_schedule.php -f ../tests/data/schedule.tsv
 
 ## Translate from Google sheet to Gather imports
 
-### on mac:
-```
-- # Download sheet in CSV form
-- mv GO\ Meals\ Feb-April\ 2020\ -\ results.csv final_schedule.csv
-- # Upload from desktop to gocoho host
-- scp -P 1022 final_schedule.csv gocoho@gocoho.org:meals_scheduling_dev/utils/
-```
+Download sheet in *CSV* form.  Rename file to `final_schedule.csv`
 
-### on gocoho:
 ```
-- ssh gocoho
-- cd meals_scheduling_dev/utils/
-- php translate_to_gather_imports.php > imports.csv
-- #!# DO WE NEED TO ENTER "waive" FORMULA FOR MEETING NIGHT MEALS?
-- # look for username mistranslations...
-  - `grep XXX imports.csv`
-  - #if any users are missing, look up their user ID in Gather and edit
-     the sqlite table "auth_users" to update anyone's missing gather_id
+cd meals_scheduling_dev/utils/
+php translate_to_gather_imports.php > imports.csv
 ```
+If the above translation has 1 or more missing ID names, it will output a list
+of names. Look up their ID in Gather, then:
 
-### make any changes to communities invited / max capacity
+1. for this season, update sqlite table "auth_users" to include their IDs
+2. for the future, copy and paste these entries to `sql/add_gather_ids.sql`
+3. Run the translate script again.
+
+### make any tweaks
 * Confirm which communities are mentioned (covid era restricts to only GO)
 * Confirm the times and dates of the meals
-* Confirm the capacities...
-  - Unfortunately, it appears that gather import does not support "capacity"
+* Unfortunately, it appears that gather import does not support "capacity" at this time.
 
-### on mac:
-- download the imports file
-- `scp -P 1022 gocoho@gocoho.org:meals_scheduling_dev/utils/imports.csv .`
-- open gather site, and upload the clean entries
-- resolve any scheduling conflicts... meals currently add 2:15 before and after
+### Upload to Gather
+* open gather site, and upload the clean entries
+* resolve any scheduling conflicts... meals currently add 2h 15m before and after
   the announced meal serving time.
   - Sundays: 3:15 - 7:45
   - Weekdays: 4:00 - 8:30
