@@ -4,7 +4,7 @@ Used by Great Oak Cohousing Association to schedule common meals over a several
 month season. This comprises both a survey for workers to fill out, as well as
 an auto-allocation algorithm looking for the best fit.
 
-[Structural Diagram in draw.io](https://www.draw.io/#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fwilln%2Fgo_meals_scheduling%2Fmaster%2Fdraw_io.xml)
+[Structural Diagram in diagrams.net](https://app.diagrams.net/#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fwilln%2Fgo_meals_scheduling%2Fmaster%2Fdraw_io.xml)
 
 ## Terms:
 * assignment - a collection of meals assigned to a person as a block
