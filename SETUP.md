@@ -23,7 +23,7 @@ The number of assignments needed is in tests/CalendarTest.php, in
 provideGetAssignmentsNeededForCurrentSeason()
 
 ## SEASON-START:
-If this is mid-season, skip to the MID-SEASON section
+If this is mid-season, skip to the [MID-SEASON section](SETUP.md#mid-season)
 
 ## Prepare to launch the survey
 
@@ -119,23 +119,27 @@ git commit
 If this is mid-season, follow these directions, otherwise skip to
 FINISH-START-OF-SEASON.
 
+### edit public/season.php
+* set the appropriate `DEADLINE` date
+
 ### clear out existing tables
 ```
 # from top-level
-sqlite3 work_allocation.db
+sqlite3 public/sqlite_data/work_allocation.db
 sqlite> .read sql/reset_mid_season.sql
 // exit sqlite
-cd ../
-git diff | view -
+git status # resolve differences
 ```
 
 ## FINISH-START-OF-SEASON
 
 ### stage everything from the meals dev repo to public_html
 ```
-cd ~/projects/go_meals_scheduling/
-#!# careful! - this will blank out any collected data...
+# careful! - this will blank out any collected data...
 rsync -e 'ssh -p 1022' -avz public/ gocoho@gocoho.org:/home/gocoho/public_html/meals_scheduling/
+# permissions might need to be reset:
+cd public_html/meals_scheduling/
+chmod -R g-w *
 ```
 
 ### test to make sure everything works, view in web browser
@@ -159,8 +163,6 @@ crontab -e
 ```
 
 ### schedule a few reminders spaced out over the rest of the session to send reminder emails to laggards
-
-### confirm with the Meals committee about which communities can attemnd the max capacity per meal
 
 ## END-OF-SURVEY
 

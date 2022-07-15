@@ -3,7 +3,7 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('April 21, 2022, 8:00pm'));
+define('DEADLINE', strtotime('July 23, 2022, 8:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
@@ -34,6 +34,15 @@ define('WEEKDAY_HEAD_COOK', 6518);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
+		'maxw' => [
+			SUNDAY_CLEANER => -6,
+			WEEKDAY_ASST_COOK => -1,
+			SUNDAY_ASST_COOK => -4,
+		],
+		'william' => [
+			SUNDAY_CLEANER => -3,
+			WEEKDAY_CLEANER => -3,
+		],
 	];
 }
 
