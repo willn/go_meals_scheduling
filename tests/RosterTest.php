@@ -240,12 +240,17 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 	 * NOTE: This is where we'll find out if we're short on labor for
 	 * the upcoming season. This is how we'll figure out how many meals
 	 * to cancel due to labor shortages.
-	public function testCompareLabor($job_id, $assigned_labor, $need) {
+	public function testCompareLabor($job_id, $assigned_labor, $need, $diff, $job_name) {
 		$all_jobs = get_all_jobs();
-		$debug = func_get_args();
-		$deficit = $need - $assigned_labor;
 
-		$this->assertGreaterThanOrEqual($deficit, 0, print_r($debug, TRUE));
+		$debug = [
+			'job_id' => $job_id,
+			'assigned_labor' => $assigned_labor,
+			'need' => $need,
+			'diff' => $diff,
+			'job_name' => $job_name,
+		];
+		$this->assertGreaterThanOrEqual($diff, 0, print_r($debug, TRUE));
 	}
 	 */
 
@@ -268,7 +273,7 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 			// this is relevant as an ordered list, not an associative array
 			$counts[] = [
 				'job_id' => $job_id,
-				'assigned' => $assigned_labor,
+				'assigned_labor' => $assigned_labor,
 				'need' => $need,
 				'diff' => ($need - $assigned_labor),
 				'job_name' => $all_jobs[$job_id],
