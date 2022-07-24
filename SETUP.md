@@ -181,7 +181,7 @@ right or wrong amount of labor.
 
 ### disable cronjobs
 
-## commit closed database:
+### commit closed database:
 ```
 rsync -e 'ssh -p 1022' -avz gocoho@gocoho.org:/home/gocoho/public_html/meals_scheduling/sqlite_data/work_allocation.db public/sqlite_data/work_allocation.db
 git status
@@ -200,7 +200,7 @@ cd ..
 vi public/constants.php   # set DEBUG_GET_LEAST_POSSIBLE to TRUE
 cd auto_assignments/
 php execute.php -s
-tail -f error
+tail -f error_log
 ```
 
 ### Cancel extra meals
