@@ -34,14 +34,27 @@ define('WEEKDAY_HEAD_COOK', 6518);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
+		'fonsea' => [
+			SUNDAY_ASST_COOK => -1,
+		],
+		'marta' => [
+			WEEKDAY_ASST_COOK => 5,
+		],
 		'maxw' => [
 			SUNDAY_CLEANER => -6,
 			WEEKDAY_ASST_COOK => -1,
 			SUNDAY_ASST_COOK => -4,
 		],
+		'pat' => [
+			WEEKDAY_ASST_COOK => 1,
+			WEEKDAY_CLEANER => 1,
+		],
 		'william' => [
 			SUNDAY_CLEANER => -3,
 			WEEKDAY_CLEANER => -3,
+		],
+		'willat' => [
+			WEEKDAY_ASST_COOK => 1,
 		],
 	];
 }
