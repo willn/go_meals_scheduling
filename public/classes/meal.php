@@ -791,13 +791,15 @@ EOTXT;
 class SundayMeal extends Meal {
 	protected $time_of_meal = '5:30';
 	protected $iso_time_of_meal = '17:30:00';
-	protected $communities = 'GO, SW, TS';
+	#protected $communities = 'GO, SW, TS'; // disable during covid
+	protected $communities = 'GO';
 }
 
 class WeekdayMeal extends Meal {
 	protected $time_of_meal = '6:15';
 	protected $iso_time_of_meal = '18:15:00';
-	protected $communities = 'GO, SW, TS';
+	#protected $communities = 'GO, SW, TS'; // disable during covid
+	protected $communities = 'GO';
 }
 
 class MeetingNightMeal extends Meal {

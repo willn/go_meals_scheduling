@@ -1,35 +1,33 @@
 date,time,communities,head_cook,asst1,asst2,cleaner1,cleaner2,cleaner3
-5/2/2022,6:15,"GO, SW, TS",tammy,liam,pat,pat,eric,kelly
-5/4/2022,5:45,GO,willie,,,,,
-5/9/2022,6:15,"GO, SW, TS",dale,nikki,nicholas,ted,nikki,drew
-5/10/2022,6:15,"GO, SW, TS",polly,nancy,meg,mac,dan,william
-5/11/2022,6:15,"GO, SW, TS",suzette,pat,maxw,kelly,amyh,ted
-5/15/2022,5:30,"GO, SW, TS",keithg,hope,rossella,eric,megan,william
-5/16/2022,5:45,GO,jeffh,,,,,
-5/17/2022,6:15,"GO, SW, TS",tammy,suzette,catherine,mac,jeff,michael
-5/18/2022,6:15,"GO, SW, TS",katie,ellie,suzette,pat,kelly,rossella
-5/22/2022,5:30,"GO, SW, TS",emilyadama,maxw,fonsea,maxw,william,jeffh
-5/23/2022,6:15,"GO, SW, TS",jennifer,pat,polly,ted,jeffh,amyh
-5/24/2022,6:15,"GO, SW, TS",keithg,polly,nancy,mac,eric,dan
-5/25/2022,6:15,"GO, SW, TS",dale,jennifer,nikki,rossella,catherine,nicholas
-6/1/2022,5:45,GO,jennifer,,,,,
-6/6/2022,6:15,"GO, SW, TS",dale,polly,justin,ted,jeff,amyh
-6/8/2022,6:15,"GO, SW, TS",tammy,glenn,emilyadama,mac,drew,william
-6/12/2022,5:30,"GO, SW, TS",keithg,rossella,maxw,maxw,amyh,jeffh
-6/13/2022,6:15,"GO, SW, TS",tammy,pat,nicholas,pat,jeffh,jeff
-6/14/2022,6:15,"GO, SW, TS",dan,nancy,willat,ted,catherine,dan
-6/15/2022,6:15,"GO, SW, TS",jennifer,nikki,meg,mac,nikki,pat
-6/19/2022,5:30,"GO, SW, TS",dan,maxw,fatima,maxw,jeffh,dan
-6/20/2022,5:45,GO,megan,,,,,
-6/21/2022,6:15,"GO, SW, TS",tammy,glenn,megan,mac,rossella,william
-6/22/2022,6:15,"GO, SW, TS",keithg,polly,justin,ted,nicholas,eric
-6/26/2022,5:30,"GO, SW, TS",dan,nancy,rossella,dan,amyh,eric
-6/27/2022,6:15,"GO, SW, TS",jennifer,jeffh,nicholas,jeffh,pat,drew
-6/29/2022,6:15,"GO, SW, TS",tammy,katie,,mac,catherine,michael
-7/6/2022,5:45,GO,gayle,,,,,
-7/10/2022,5:30,"GO, SW, TS",justin,hope,amyh,dan,megan,maxw
-7/13/2022,6:15,"GO, SW, TS",suzette,polly,nikki,mac,nikki,michael
-7/17/2022,5:30,"GO, SW, TS",eric,maxw,nancy,maxw,william,maxw
-7/18/2022,5:45,GO,gayle,,,,,
-7/20/2022,6:15,"GO, SW, TS",justin,suzette,keithg,mac,pat,nicholas
-7/24/2022,5:30,"GO, SW, TS",drew,terrence,polly,amyh,megan,eric
+8/3/2022,5:45,GO,gayle,,,,,
+8/7/2022,5:30,GO,dan,rossella,polly,amyh,eric,jeff
+8/10/2022,6:15,GO,keithg,pat,nicholas,mac,pat,jeffh
+8/15/2022,5:45,GO,gayle,,,,,
+8/16/2022,6:15,GO,suzette,nikki,emilyadama,mac,catherine,nikki
+8/21/2022,5:30,GO,keithg,fatima,nancy,megan,jeffh,dan
+8/23/2022,6:15,GO,dan,meg,willat,ted,eric,nicholas
+8/30/2022,6:15,GO,tammy,marta,katie,ted,rossella,amyh
+8/31/2022,6:15,GO,dale,polly,keithg,mac,catherine,michael
+9/7/2022,5:45,GO,willie,,,,,
+9/11/2022,5:30,GO,drew,hope,nancy,jeffh,amyh,dan
+9/13/2022,6:15,GO,tammy,suzette,nikki,ted,nikki,eric
+9/14/2022,6:15,GO,jennifer,justin,nicholas,mac,dan,jeff
+9/18/2022,5:30,GO,keithg,rossella,amyh,megan,eric,XXXXXXXX
+9/19/2022,5:45,GO,jennifer,,,,,
+9/20/2022,6:15,GO,tammy,marta,glenn,ted,kelly,pat
+9/21/2022,6:15,GO,dale,polly,nancy,mac,drew,catherine
+9/25/2022,5:30,GO,eric,terrence,eric,jeffh,dan,
+9/26/2022,6:15,GO,justin,suzette,megan,dan,amyh,jeff
+9/27/2022,6:15,GO,tammy,pat,liam,ted,pat,michael
+9/28/2022,6:15,GO,katie,ellie,nikki,nikki,mac,kelly
+10/4/2022,6:15,GO,tammy,polly,nancy,mac,nicholas,pat
+10/5/2022,5:45,GO,megan,,,,,
+10/10/2022,6:15,GO,jennifer,marta,suzette,rossella,pat,dan
+10/11/2022,6:15,GO,polly,nikki,jeffh,ted,jeffh,drew
+10/17/2022,5:45,GO,jeffh,,,,,
+10/18/2022,6:15,GO,suzette,pat,catherine,pat,amyh,pat
+10/19/2022,6:15,GO,jennifer,meg,polly,mac,kelly,rossella
+10/23/2022,5:30,GO,dan,hope,rossella,megan,amyh,eric
+10/24/2022,6:15,GO,dale,justin,jennifer,jeffh,eric,drew
+10/25/2022,6:15,GO,tammy,polly,marta,mac,michael,nicholas
+10/26/2022,6:15,GO,keithg,nancy,pat,XXXXXXXX,XXXXXXXX,XXXXXXXX

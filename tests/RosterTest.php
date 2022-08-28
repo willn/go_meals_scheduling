@@ -78,11 +78,11 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 					'all' => 0,
 					// UPDATE-EACH-SEASON
 					WEEKDAY_HEAD_COOK => 0,
-					WEEKDAY_ASST_COOK => -1,
+					WEEKDAY_ASST_COOK => 6,
 					SUNDAY_HEAD_COOK => 0,
-					SUNDAY_ASST_COOK => -4,
+					SUNDAY_ASST_COOK => -5,
 					MEETING_NIGHT_ORDERER => 0,
-					WEEKDAY_CLEANER => -3,
+					WEEKDAY_CLEANER => -2,
 					SUNDAY_CLEANER => -9, 
 					MEETING_NIGHT_CLEANER => 0,
 				]
@@ -96,6 +96,8 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @dataProvider provideTestOverrideUsersExist
+	 *
 	 * This checks to see if any override users do not exist in the db already.
 	 *
 	 * NOTE: If this is true, then they need to be created manually, as seen
@@ -106,7 +108,7 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 	 * of the work season, when new people move in and volunteer for jobs
 	 * before they have been given a new work system account.
 	 */
-	public function testOverrideUsersExist() {
+	public function testOverrideUsersExist($list) {
 		$num_shift_overrides = array_keys(get_num_shift_overrides());
 
 		$this->roster = new Roster();
@@ -115,7 +117,13 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 		$workers = array_keys($this->roster->getWorkers());
 
 		$diff = array_diff($num_shift_overrides, $workers);
-		$this->assertEquals([], $diff);
+		$this->assertEquals($list, $diff);
+	}
+
+	public function provideTestOverrideUsersExist() {
+		return [
+			[[ 1 => 'marta', 5 => 'willat']],
+		];
 	}
 
 
@@ -135,11 +143,11 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 					// UPDATE-EACH-SEASON
 					'all' => 0,
 					WEEKDAY_HEAD_COOK => 20,
-					WEEKDAY_ASST_COOK => 35,
+					WEEKDAY_ASST_COOK => 42,
 					SUNDAY_HEAD_COOK => 9,
-					SUNDAY_ASST_COOK => 12,
+					SUNDAY_ASST_COOK => 11,
 					MEETING_NIGHT_ORDERER => 6,
-					WEEKDAY_CLEANER => 57,
+					WEEKDAY_CLEANER => 58,
 					SUNDAY_CLEANER => 15, 
 					MEETING_NIGHT_CLEANER => 0,
 				]

@@ -181,11 +181,11 @@ class MealTest extends PHPUnit_Framework_TestCase {
 	public function testGetTimes() {
 		$sunday = new SundayMeal($this->schedule, '04/22/2018', 123);
 		$this->assertEquals($sunday->getTime(), '5:30');
-		$this->assertEquals($sunday->getCommunities(), 'GO, SW, TS');
+		$this->assertEquals($sunday->getCommunities(), 'GO');
 
 		$weekday = new WeekdayMeal($this->schedule, '04/23/2018', 124);
 		$this->assertEquals($weekday->getTime(), '6:15');
-		$this->assertEquals($weekday->getCommunities(), 'GO, SW, TS');
+		$this->assertEquals($weekday->getCommunities(), 'GO');
 
 		$meeting = new MeetingNightMeal($this->schedule, '04/16/2018', 125);
 		$this->assertEquals($meeting->getTime(), '5:45');
