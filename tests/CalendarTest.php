@@ -919,13 +919,13 @@ EOHTML;
 			MEETING_NIGHT_CLEANER => 6.0,
 			MEETING_NIGHT_ORDERER => 6.0,
 
-			SUNDAY_CLEANER => 13.0,
-			SUNDAY_HEAD_COOK => 13.0,
-			SUNDAY_ASST_COOK => 25.0,
+			SUNDAY_CLEANER => 11.0,
+			SUNDAY_HEAD_COOK => 11.0,
+			SUNDAY_ASST_COOK => 22.0,
 
-			WEEKDAY_ASST_COOK => 63.0,
-			WEEKDAY_CLEANER => 32.0,
-			WEEKDAY_HEAD_COOK => 32.0,
+			WEEKDAY_ASST_COOK => 60.0,
+			WEEKDAY_CLEANER => 30.0,
+			WEEKDAY_HEAD_COOK => 30.0,
 		];
 		$counts = $six_month_season;
 		if (defined('WEEKDAY_TABLE_SETTER')) {
@@ -947,6 +947,7 @@ EOHTML;
 		];
 
 		if (SUB_SEASON_FACTOR === .5) {
+			// change which season-length array we're using
 			$counts = $three_month_season;
 			if (defined('WEEKDAY_TABLE_SETTER')) {
 				$counts[WEEKDAY_TABLE_SETTER] = 34;
@@ -974,9 +975,9 @@ EOHTML;
 
 		// UPDATE-EACH-SEASON
 		$expected = [
-			'sunday' => 6,
-			'weekday' => 20,
-			'meeting' => 6,
+			'sunday' => 22,
+			'weekday' => 60,
+			'meeting' => 12,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
 			$carry += $item;

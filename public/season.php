@@ -9,11 +9,11 @@ define('DEADLINE', strtotime('July 23, 2022, 8:00pm'));
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', SUMMER);
+define('SEASON_NAME', FALL_WINTER);
 define('DOING_CSA_FARM_MEALS', TRUE);
 
 // If this is a whole season, then 1, half .5, etc.
-define('SUB_SEASON_FACTOR', .5);
+define('SUB_SEASON_FACTOR', 1);
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_CLEANER', 6525);
@@ -34,28 +34,6 @@ define('WEEKDAY_HEAD_COOK', 6518);
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
 	return [
-		'fonsea' => [
-			SUNDAY_ASST_COOK => -1,
-		],
-		'marta' => [
-			WEEKDAY_ASST_COOK => 5,
-		],
-		'maxw' => [
-			SUNDAY_CLEANER => -6,
-			WEEKDAY_ASST_COOK => -1,
-			SUNDAY_ASST_COOK => -4,
-		],
-		'pat' => [
-			WEEKDAY_ASST_COOK => 1,
-			WEEKDAY_CLEANER => 1,
-		],
-		'william' => [
-			SUNDAY_CLEANER => -3,
-			WEEKDAY_CLEANER => -3,
-		],
-		'willat' => [
-			WEEKDAY_ASST_COOK => 1,
-		],
 	];
 }
 
@@ -66,9 +44,10 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		8 => [1, 2, 8, 9, 14, 17, 22, 24, 28, 29],
-		9 => [6, 12],
-		10 => [2, 3, 9, 12, 16, 30],
+		11 => [23, 27],
+		12 => [26, 27, 28, 29, 30, 31],
+		1 => [2],
+		5 => [14, 28, 29],
 	];
 }
 

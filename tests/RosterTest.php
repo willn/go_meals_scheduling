@@ -31,7 +31,7 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 
 		ksort($db_labor);
 		ksort($expected);
-		$this->assertEquals($db_labor, $expected);
+		$this->assertEquals($expected, $db_labor);
 	}
 
 	public function provideLoadNumAssignmentsFromDatabase() {
@@ -40,13 +40,13 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					WEEKDAY_HEAD_COOK => 20,
-					WEEKDAY_ASST_COOK => 36,
-					SUNDAY_HEAD_COOK => 9,
-					SUNDAY_ASST_COOK => 16,
-					MEETING_NIGHT_ORDERER => 6,
-					WEEKDAY_CLEANER => 60,
-					SUNDAY_CLEANER => 24, 
+					WEEKDAY_HEAD_COOK => 40,
+					WEEKDAY_ASST_COOK => 72,
+					SUNDAY_HEAD_COOK => 18,
+					SUNDAY_ASST_COOK => 32,
+					MEETING_NIGHT_ORDERER => 12,
+					WEEKDAY_CLEANER => 120,
+					SUNDAY_CLEANER => 48, 
 					MEETING_NIGHT_CLEANER => 0,
 				]
 			]
@@ -78,12 +78,12 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 					'all' => 0,
 					// UPDATE-EACH-SEASON
 					WEEKDAY_HEAD_COOK => 0,
-					WEEKDAY_ASST_COOK => 6,
+					WEEKDAY_ASST_COOK => 0,
 					SUNDAY_HEAD_COOK => 0,
-					SUNDAY_ASST_COOK => -5,
+					SUNDAY_ASST_COOK => 0,
 					MEETING_NIGHT_ORDERER => 0,
-					WEEKDAY_CLEANER => -2,
-					SUNDAY_CLEANER => -9, 
+					WEEKDAY_CLEANER => 0,
+					SUNDAY_CLEANER => 0, 
 					MEETING_NIGHT_CLEANER => 0,
 				]
 			]
@@ -122,7 +122,6 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 
 	public function provideTestOverrideUsersExist() {
 		return [
-			[[ 1 => 'marta', 5 => 'willat']],
 		];
 	}
 
@@ -133,7 +132,7 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGetTotalLaborAvailable($expected) {
 		$this->loadLabor();
-		$this->assertEquals($this->labor, $expected);
+		$this->assertEquals($expected, $this->labor);
 	}
 
 	public function provideGetTotalLaborAvailable() {
@@ -142,13 +141,13 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					WEEKDAY_HEAD_COOK => 20,
-					WEEKDAY_ASST_COOK => 42,
-					SUNDAY_HEAD_COOK => 9,
-					SUNDAY_ASST_COOK => 11,
-					MEETING_NIGHT_ORDERER => 6,
-					WEEKDAY_CLEANER => 58,
-					SUNDAY_CLEANER => 15, 
+					WEEKDAY_HEAD_COOK => 40,
+					WEEKDAY_ASST_COOK => 72,
+					SUNDAY_HEAD_COOK => 18,
+					SUNDAY_ASST_COOK => 32,
+					MEETING_NIGHT_ORDERER => 12,
+					WEEKDAY_CLEANER => 120,
+					SUNDAY_CLEANER => 48, 
 					MEETING_NIGHT_CLEANER => 0,
 				]
 			]

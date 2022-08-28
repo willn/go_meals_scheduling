@@ -67,8 +67,12 @@ function does_season_wrap($season_months) {
  */
 function add_easter($holidays, $season=[]) {
 	// NOTE: Easter floats between March & April, so it's weird...
-	$does_wrap = does_season_wrap($season);
-	$year = ($does_wrap) ? (SEASON_YEAR + 1) : SEASON_YEAR;
+	# $does_wrap = does_season_wrap($season);
+	# $year = ($does_wrap) ? (SEASON_YEAR + 1) : SEASON_YEAR;
+
+	// is the next April in the current year or next?
+	$this_month = date('n');
+	$year = ($this_month > 4 ) ? (SEASON_YEAR + 1) : SEASON_YEAR;
 
 	// get unix timestamp of easter at noon
 	$easter_ts = easter_date($year) + (12 * 60 * 60);
@@ -133,7 +137,7 @@ function add_memorial($holidays) {
 function add_labor_day($holidays) {
 	$this_month = date('n');
 
-	// is September in the current year or next?
+	// is the next September in the current year or next?
 	$sept_year = ($this_month > 9 ) ? (SEASON_YEAR + 1) : SEASON_YEAR;
 
 	// labor day
