@@ -20,8 +20,12 @@
   - `get_regular_day_overrides()`
 
 ### Update unit tests
-The number of assignments needed is in tests/CalendarTest.php, in 
-provideGetAssignmentsNeededForCurrentSeason()
+* update config to examine a full 6-month season
+  - SUB_SEASON_FACTOR to 1 in order to get the full 6 months, in `public/season.php`
+  - set SEASON_NAME to the combo option (FALL_WINTER or SPRING_SUMMER)
+* run & fix unit tests
+  - The number of assignments needed is in tests/CalendarTest.php, in
+  `provideGetAssignmentsNeededForCurrentSeason()`
 
 ## SEASON-START:
 If this is mid-season, skip to the [MID-SEASON section](SETUP.md#mid-season)

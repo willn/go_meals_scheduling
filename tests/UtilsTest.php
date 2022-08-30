@@ -9,7 +9,7 @@ require_once '../auto_assignments/schedule.php';
 
 // UPDATE-EACH-SEASON
 define('EASTER_MONTH', 4);
-define('EASTER_DAY', 17);
+define('EASTER_DAY', 9);
 define('LABOR_DAY', 5);
 
 /**
@@ -91,17 +91,18 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function provide_add_easter() {
-		$other_day = 1;
-		if (EASTER_DAY === $other_day) {
-			$other_day = 2;
+		$some_other_day = 1;
+		// avoid a collision with this other date
+		if (EASTER_DAY === $some_other_day) {
+			$some_other_day = 2;
 		}
 
 		return [
 			[[], [EASTER_MONTH => [EASTER_DAY]]],
 			[[7 => [4]], [EASTER_MONTH => [EASTER_DAY], 7 => [4]]],
 			[
-				[EASTER_MONTH => [$other_day], 7 => [4]],
-				[EASTER_MONTH => [$other_day, EASTER_DAY], 7 => [4]],
+				[EASTER_MONTH => [$some_other_day], 7 => [4]],
+				[EASTER_MONTH => [$some_other_day, EASTER_DAY], 7 => [4]],
 			],
 		];
 	}
@@ -118,9 +119,9 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 		$september_dates = [(LABOR_DAY - 1), LABOR_DAY];
 
 		return [
-			[[], [9 => $september_dates]],
-			[[7 => [4]], [7 => [4], 9 => $september_dates]],
-			[[7 => [4], 12 => [25]], [7 => [4], 9 => $september_dates, 12 => [25]]],
+			[
+				[7 => [4], 12 => [25]],
+				[7 => [4], 9 => $september_dates, 12 => [25]]],
 		];
 	}
 

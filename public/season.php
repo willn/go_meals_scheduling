@@ -9,11 +9,11 @@ define('DEADLINE', strtotime('July 23, 2022, 8:00pm'));
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', FALL);
+define('SEASON_NAME', FALL_WINTER);
 define('DOING_CSA_FARM_MEALS', FALSE);
 
 // If this is a whole season, then 1, half .5, etc.
-define('SUB_SEASON_FACTOR', .5);
+define('SUB_SEASON_FACTOR', 1);
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_CLEANER', 6525);
@@ -44,6 +44,10 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
+		11 => [23, 27],
+		12 => [26, 27, 28, 29, 30, 31],
+		1 => [2],
+		5 => [14, 28, 29],
 	];
 }
 
