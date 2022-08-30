@@ -6,6 +6,7 @@
 * Do they want to update the list of hobarters?
   - Look for `function get_hobarters(`
 * Do they want to offer CSA farm meals this summer?
+  - Update `DOING_CSA_FARM_MEALS`
 
 ### check that there aren't uncommitted modifications
 `git status`
