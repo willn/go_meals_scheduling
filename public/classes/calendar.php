@@ -1091,7 +1091,7 @@ EOHTML;
 		}
 
 		ksort($list);
-		return "<p>" . implode($list, '<br>') . "</p>";
+		return "<p>" . implode('<br>', $list) . "</p>";
 	}
 
 	/**

@@ -190,7 +190,7 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 		return [
 			['', NOT_A_MEAL],
 			['07/04/2018', HOLIDAY_NIGHT],
-			#['???', SKIP_NIGHT], // current list is empty
+			// ['???', SKIP_NIGHT], // current list is empty
 			['04/15/2018', SUNDAY_MEAL],
 			['04/16/2018', MEETING_NIGHT_MEAL],
 			['04/18/2018', WEEKDAY_MEAL],
