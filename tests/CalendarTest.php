@@ -146,7 +146,12 @@ EOHTML;
 				<a class="conflict">conflict</a>
 				<a class="OK">OK</a>
 				<a class="prefer">prefer</a>
-			</td><td class="blank"></td><td class="blank"></td><td class="blank"></td>
+			</td>			<td class="weekday_selector weekday_num_4">
+				Thu:<br>
+				<a class="conflict">conflict</a>
+				<a class="OK">OK</a>
+				<a class="prefer">prefer</a>
+			</td><td class="blank"></td><td class="blank"></td>
 				</tr>
 EOHTML;
 
@@ -923,9 +928,9 @@ EOHTML;
 			SUNDAY_HEAD_COOK => 11.0,
 			SUNDAY_ASST_COOK => 22.0,
 
-			WEEKDAY_ASST_COOK => 60.0,
-			WEEKDAY_CLEANER => 30.0,
-			WEEKDAY_HEAD_COOK => 30.0,
+			WEEKDAY_ASST_COOK => 84.0,
+			WEEKDAY_CLEANER => 42.0,
+			WEEKDAY_HEAD_COOK => 42.0,
 		];
 		$counts = $six_month_season;
 		if (defined('WEEKDAY_TABLE_SETTER')) {
@@ -976,7 +981,7 @@ EOHTML;
 		// UPDATE-EACH-SEASON
 		$expected = [
 			'sunday' => 22,
-			'weekday' => 60,
+			'weekday' => 84,
 			'meeting' => 12,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
