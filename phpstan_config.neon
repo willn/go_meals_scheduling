@@ -18,7 +18,13 @@ parameters:
 		  count: 1
 		  path: auto_assignments/schedule.php
 
-		- message: "#^Negated boolean expression is always false.$#"
+		# change with DOING_CSA_FARM_MEALS
+		#- message: "#^Negated boolean expression is always false.$#"
+		- message: "#^Negated boolean expression is always true.$#"
+		  count: 1
+		  path: public/classes/calendar.php
+
+		- message: "#^Unreachable statement - code above always terminates.$#"
 		  count: 1
 		  path: public/classes/calendar.php
 
