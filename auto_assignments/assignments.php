@@ -98,15 +98,18 @@ EOSQL;
 			$count++;
 		}
 
-		$this->initNonResponerPrefs();
+		$slackers = $this->roster->getNonResponderNames();
+		$this->initNonResponderPrefs($slackers);
 	}
 
 	/**
 	 * This examines the overrides for those who have not taken the survey -
 	 * not just those folks who were in the database tobegin with.
+	 *
+	 * @param array $slackers list of usernames of people who have not
+	 *     submitted their survey.
 	 */
-	public function initNonResponerPrefs() {
-		$slackers = $this->roster->getNonResponderNames();
+	public function initNonResponderPrefs($slackers) {
 		sort($slackers);
 
 		$this->schedule->addNonResponderPrefs($slackers);

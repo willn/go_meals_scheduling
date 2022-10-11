@@ -5,6 +5,7 @@ $relative_dir = '../public/';
 require_once '../public/season.php';
 require_once '../public/classes/roster.php';
 require_once '../public/classes/calendar.php';
+require_once '../auto_assignments/schedule.php';
 
 class RosterTest extends PHPUnit_Framework_TestCase {
 	private $roster;
@@ -288,5 +289,79 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 		}
 		return $counts;
 	}
+
+
+	/**
+	 * @dataProvider provideAddNonResponderPrefs
+	public function testAddNonResponderPrefs($dates_by_shift, $expected) {
+		$this->roster->initLaborCount();
+
+		$schedule = new Schedule();
+		$this->roster->setSchedule($schedule);
+
+		// -------- 1st test ---------
+		$slackers = ['aaa', 'bbb', 'ccc', 'ddd', 'eee'];
+		foreach($slackers as $username) {
+			$worker = $this->roster->addWorker($username);
+			$worker->addNumShiftsAssigned(SUNDAY_HEAD_COOK, 1);
+			$worker->addNumShiftsAssigned(MEETING_NIGHT_ORDERER, 1);
+			$worker->addNumShiftsAssigned(WEEKDAY_HEAD_COOK, 1);
+		}
+		$result = $this->roster->addNonResponderPrefs($slackers);
+
+		$num = count($slackers);
+		$debug = [
+			'result' => $result,
+			'num' => $num,
+			'slackers' => $slackers,
+		];
+		$this->assertEquals($result, $num, print_r($debug, TRUE));
+
+		// -------- 2nd test ---------
+		$assigned = $this->roster->getAssigned();
+		$debug = [
+			'assigned' => $assigned,
+			'expected' => $expected
+		];
+		$this->assertEquals($assigned, $expected, print_r($debug, TRUE));
+	}
+	 */
+
+	public function provideAddNonResponderPrefs() {
+
+		return [
+			[
+				['7/10/2022' => [SUNDAY_HEAD_COOK, SUNDAY_ASST_COOK, SUNDAY_CLEANER]], 
+				[
+					'7/10/2022' => [
+						SUNDAY_HEAD_COOK => [0 => NULL],
+						SUNDAY_ASST_COOK => [0 => NULL, 1 => NULL],
+						SUNDAY_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL]
+					]
+				],
+			],
+
+			[
+				['10/17/2022' => [MEETING_NIGHT_ORDERER]],
+				[
+					'10/17/2022' => [
+						MEETING_NIGHT_ORDERER => [0 => NULL],
+					]
+				],
+			],
+
+			[
+				['10/26/2022' => [WEEKDAY_HEAD_COOK, WEEKDAY_ASST_COOK, WEEKDAY_CLEANER]],
+				[
+					'10/26/2022' => [
+						WEEKDAY_HEAD_COOK => [0 => NULL],
+						WEEKDAY_ASST_COOK => [0 => NULL, 1 => NULL],
+						WEEKDAY_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL]
+					]
+				],
+			],
+		];
+	}
+
 }
 ?>

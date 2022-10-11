@@ -10,7 +10,7 @@ require_once '../auto_assignments/schedule.php';
 // UPDATE-EACH-SEASON
 define('EASTER_MONTH', 4);
 define('EASTER_DAY', 9);
-define('LABOR_DAY', 5);
+define('LABOR_DAY', 4);
 
 /**
  * This is simple example to ensure the testing framework functions properly.
@@ -108,6 +108,22 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @dataProvider provide_add_memorial_day
+	 */
+	public function test_add_memorial_day($input, $expected) {
+		$result = add_memorial_day($input);
+		$this->assertEquals($expected, $result);
+	}
+
+	public function provide_add_memorial_day() {
+		return [
+			[
+				[7 => [4], 12 => [25]],
+				[5 => [28, 29], 7 => [4], 12 => [25]]],
+		];
+	}
+
+	/**
 	 * @dataProvider provide_add_labor_day
 	 */
 	public function test_add_labor_day($input, $expected) {
@@ -116,12 +132,30 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function provide_add_labor_day() {
-		$september_dates = [(LABOR_DAY - 1), LABOR_DAY];
-
 		return [
 			[
 				[7 => [4], 12 => [25]],
-				[7 => [4], 9 => $september_dates, 12 => [25]]],
+				[7 => [4], 9 => $this->get_september_dates(), 12 => [25]]],
+		];
+	}
+
+	public function get_september_dates() {
+		return [(LABOR_DAY - 1), LABOR_DAY];
+	}
+
+	/**
+	 * @dataProvider provide_add_thanksgiving_day
+	 */
+	public function test_add_thanksgiving_day($input, $expected) {
+		$result = add_thanksgiving_day($input);
+		$this->assertEquals($expected, $result);
+	}
+
+	public function provide_add_thanksgiving_day() {
+		return [
+			[
+				[7 => [4], 12 => [25]],
+				[7 => [4], 11 => [24, 27], 12 => [25]]],
 		];
 	}
 
@@ -138,6 +172,8 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function provide_get_holidays() {
+		$september_dates = [(LABOR_DAY - 1), LABOR_DAY];
+
 		$days = [
 			1 => [1],
 			// easter changes
@@ -145,7 +181,7 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 			// Memorial Day changes
 			5 => [28, 29],
 			7 => [4],
-			9 => [4, 5],
+			9 => $this->get_september_dates(),
 			10 => [31],
 			11 => [24, 27],
 			12 => [24, 25, 31],

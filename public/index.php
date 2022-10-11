@@ -10,7 +10,6 @@ require_once 'classes/survey.php';
 require_once 'classes/roster.php';
 
 require_once 'display/includes/header.php';
-require_once 'participation.php';
 
 $survey = new Survey();
 

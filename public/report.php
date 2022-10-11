@@ -42,7 +42,6 @@ EOHTML;
 }
 
 require_once('classes/calendar.php');
-require_once('participation.php');
 
 $calendar = new Calendar();
 $job_key = (isset($_GET['key']) && is_numeric($_GET['key'])) ?
