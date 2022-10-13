@@ -928,9 +928,9 @@ EOHTML;
 			SUNDAY_HEAD_COOK => 11.0,
 			SUNDAY_ASST_COOK => 22.0,
 
-			WEEKDAY_ASST_COOK => 84.0,
-			WEEKDAY_CLEANER => 42.0,
-			WEEKDAY_HEAD_COOK => 42.0,
+			WEEKDAY_ASST_COOK => 90.0,
+			WEEKDAY_CLEANER => 45.0,
+			WEEKDAY_HEAD_COOK => 45.0,
 		];
 		$counts = $six_month_season;
 		if (defined('WEEKDAY_TABLE_SETTER')) {
@@ -981,7 +981,7 @@ EOHTML;
 		// UPDATE-EACH-SEASON
 		$expected = [
 			'sunday' => 22,
-			'weekday' => 84,
+			'weekday' => 90,
 			'meeting' => 12,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {

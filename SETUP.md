@@ -4,7 +4,7 @@
 
 ### Ask meals committee questions:
 * Do they want to update the list of hobarters?
-  - Look for `function get_hobarters(`
+  - Look for `function get_hobarters`
 * Do they want to offer CSA farm meals this summer?
   - Update `DOING_CSA_FARM_MEALS`
 
