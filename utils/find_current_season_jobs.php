@@ -28,7 +28,7 @@ class CurrentSeasonIds {
 		// to ultimately create the all_jobs array.  :)
 		$jobs = array(
 			'MEETING_NIGHT_CLEANER' => 'Meeting night cleaner',
-			'MEETING_NIGHT_ORDERER' => 'Mtg takeout/potluck orderer',
+			'MEETING_NIGHT_ORDERER' => 'Mtg takeout orderer (2 meals)',
 			'SUNDAY_ASST_COOK' => 'Sunday asst cook',
 			'SUNDAY_CLEANER' => 'Sunday Meal Cleaner',
 			'SUNDAY_HEAD_COOK' => 'Sunday head cook',
@@ -53,7 +53,7 @@ EOSQL;
 			}
 			if ($prev === $count) {
 				echo "missed SQL: $sql\n";
-				$count++;
+				exit;
 			}
 			$prev++;
 		}

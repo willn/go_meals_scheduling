@@ -54,7 +54,7 @@ rm -rf home/ filedb.zip
 * clean the database
 ```
 cd ~/projects/go_meals_scheduling/
-chmod 644 work_allocation.db
+chmod 644 public/sqlite_data/work_allocation.db
 
 sqlite3 public/sqlite_data/work_allocation.db
 # view the current state of tables
@@ -95,7 +95,6 @@ vi ../public/season.php
 ```
 cd tests
 ./run.sh
-# the various testCompareLabor tests may fail until the rest of setup
 ```
 
 ### when tests pass, then commit

@@ -3,7 +3,7 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('July 23, 2022, 8:00pm'));
+define('DEADLINE', strtotime('October 22, 2022, 8:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
@@ -16,15 +16,15 @@ define('DOING_CSA_FARM_MEALS', FALSE);
 define('SUB_SEASON_FACTOR', 1);
 
 /* ----------- job ids --------------- */
-define('MEETING_NIGHT_CLEANER', 6525);
-define('MEETING_NIGHT_ORDERER', 6522);
-define('SUNDAY_ASST_COOK', 6521);
-define('SUNDAY_CLEANER', 6524);
-define('SUNDAY_HEAD_COOK', 6520);
-define('WEEKDAY_ASST_COOK', 6519);
-define('WEEKDAY_CLEANER', 6523);
-define('WEEKDAY_HEAD_COOK', 6518);
-# define('WEEKDAY_TABLE_SETTER', 6508); // temporary disabled
+define('MEETING_NIGHT_CLEANER', 6791);
+define('MEETING_NIGHT_ORDERER', 6788);
+define('SUNDAY_ASST_COOK', 6787);
+define('SUNDAY_CLEANER', 6790);
+define('SUNDAY_HEAD_COOK', 6786);
+define('WEEKDAY_ASST_COOK', 6785);
+define('WEEKDAY_CLEANER', 6789);
+define('WEEKDAY_HEAD_COOK', 6784);
+# define('WEEKDAY_TABLE_SETTER', 6774); not this season
 
 /**
  * Get the number of shift overrides.
