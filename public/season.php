@@ -13,7 +13,7 @@ define('SEASON_NAME', FALL_WINTER);
 define('DOING_CSA_FARM_MEALS', FALSE);
 
 // If this is a whole season, then 1, half .5, etc.
-define('SUB_SEASON_FACTOR', 1);
+define('SUB_SEASON_FACTOR', .5);
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_CLEANER', 6791);

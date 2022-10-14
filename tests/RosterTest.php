@@ -41,11 +41,11 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					WEEKDAY_HEAD_COOK => 48,
-					WEEKDAY_ASST_COOK => 96,
-					SUNDAY_HEAD_COOK => 18,
-					SUNDAY_ASST_COOK => 36,
-					MEETING_NIGHT_ORDERER => 12,
+					WEEKDAY_HEAD_COOK => 24,
+					WEEKDAY_ASST_COOK => 48,
+					SUNDAY_HEAD_COOK => 9,
+					SUNDAY_ASST_COOK => 18,
+					MEETING_NIGHT_ORDERER => 6,
 					WEEKDAY_CLEANER => 144,
 					SUNDAY_CLEANER => 54, 
 					MEETING_NIGHT_CLEANER => 0,
@@ -142,11 +142,11 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					WEEKDAY_HEAD_COOK => 48,
-					WEEKDAY_ASST_COOK => 96,
-					SUNDAY_HEAD_COOK => 18,
-					SUNDAY_ASST_COOK => 36,
-					MEETING_NIGHT_ORDERER => 12,
+					WEEKDAY_HEAD_COOK => 24,
+					WEEKDAY_ASST_COOK => 48,
+					SUNDAY_HEAD_COOK => 9,
+					SUNDAY_ASST_COOK => 18,
+					MEETING_NIGHT_ORDERER => 6,
 					WEEKDAY_CLEANER => 144,
 					SUNDAY_CLEANER => 54, 
 					MEETING_NIGHT_CLEANER => 0,

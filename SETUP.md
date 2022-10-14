@@ -35,7 +35,7 @@ If this is mid-season, skip to the [MID-SEASON section](SETUP.md#mid-season)
 ### edit public/season.php
 * set the appropriate `DEADLINE` date
 * display a farm meals night message? (`DOING_CSA_FARM_MEALS`)
-* set the `SUB_SEASON_FACTOR`
+* set the `SUB_SEASON_FACTOR` (perhaps for .5 to get 3 months)
 
 ### update the database
 
