@@ -239,18 +239,30 @@ function get_first_associative_key($dict) {
  * @return int the number associated with a given constant for a type of meal night.
  */
 function get_meal_type_by_date($date) {
+	# skip invalid dates
 	$date_ts = strtotime($date);
 	if (!$date_ts) {
 		return NOT_A_MEAL;
 	}
 
+	# skip invalid dates
 	$day_of_week = date('N', $date_ts);
 	if ($day_of_week == FALSE) {
 		return NOT_A_MEAL;
 	}
 
+	# skip un-supported days of the week
+	switch($day_of_week) {
+		# case THURSDAY:
+		case FRIDAY:
+		case SATURDAY:
+			return NOT_A_MEAL;
+	}
+
 	$month_num = date('n', $date_ts);
 	$day_num = date('j', $date_ts);
+
+	# if either the month or day of month turned out to be invalid
 	if (($month_num == FALSE) || ($day_num == FALSE)) {
 		return NOT_A_MEAL;
 	}
@@ -269,21 +281,17 @@ function get_meal_type_by_date($date) {
 		return SKIP_NIGHT;
 	}
 
-	if ($day_of_week == 7) {
+	if ($day_of_week == SUNDAY) {
 		return SUNDAY_MEAL;
 	}
 
 	// this is a weekday
 	$meal_days = get_weekday_meal_days();
 	if (in_array($day_of_week, $meal_days)) {
-		$reg_day_overrides = get_regular_day_overrides();
 
-		$is_reg_day_override = FALSE;
-		if (array_key_exists($month_num, $reg_day_overrides) &&
-			in_array($day_num, $reg_day_overrides[$month_num])) {
-				$is_reg_day_override = TRUE;
-		}
+		$is_reg_day_override = is_weeknight_override($month_num, $day_num);
 
+		# is this a meeting night?
 		$mtg_nights = get_mtg_nights();
 		$ordinal_int = intval(($day_num - 1) / 7) + 1;
 		if (!$is_reg_day_override &&
@@ -296,6 +304,22 @@ function get_meal_type_by_date($date) {
 	}
 
 	return NOT_A_MEAL;
+}
+
+/**
+ * Determine whether this date is a meeting -> weeknight override.
+ *
+ * @return boolean, If TRUE then this is an override date.
+ */
+function is_weeknight_override($month_num, $day_num) {
+	# look for meeting -> weekday overrides
+	$reg_day_overrides = get_regular_day_overrides();
+
+	if (array_key_exists($month_num, $reg_day_overrides) &&
+		in_array($day_num, $reg_day_overrides[$month_num])) {
+			return TRUE;
+	}
+	return FALSE;
 }
 
 /**
@@ -317,6 +341,7 @@ function get_a_meal_object($schedule, $date) {
 		case SKIP_NIGHT:
 		case HOLIDAY_NIGHT:
 		case NOT_A_MEAL:
+		default:
 			return new Error();
 	}
 

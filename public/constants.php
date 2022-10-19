@@ -50,13 +50,13 @@ define('PLACEHOLDER', 'XXXXXXXX');
 define('SKIP_USER', 'SKIP_USER');
 define('HAS_CONFLICT', -1);
 
-define('SUNDAY', 0);
 define('MONDAY', 1);
 define('TUESDAY', 2);
 define('WEDNESDAY', 3);
 define('THURSDAY', 4);
 define('FRIDAY', 5);
 define('SATURDAY', 6);
+define('SUNDAY', 7); # ISO 8601 representation
 
 define('JANUARY', 1);
 define('FEBRUARY', 2);
