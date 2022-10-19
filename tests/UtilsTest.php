@@ -246,10 +246,32 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 	public function provide_is_weeknight_override() {
 		return [
 			[1, 1, FALSE],
-			[1, 16, TRUE],
+			[1, 18, FALSE],
 			[12, 31, FALSE],
+
+			[1, 16, TRUE],
 		];
 	}
+
+	/**
+	 * @dataProvider provide_is_meeting_override
+	 */
+	public function test_is_meeting_override($month_num, $day_num, $expected) {
+		$result = is_meeting_override($month_num, $day_num);
+		$this->assertEquals($expected, $result);
+	}
+
+	public function provide_is_meeting_override() {
+		return [
+			[1, 1, FALSE],
+			[1, 16, FALSE],
+			[12, 31, FALSE],
+
+			[1, 18, TRUE],
+		];
+	}
+
+
 
 	/**
 	 * @dataProvider provide_get_a_meal_object

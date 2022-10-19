@@ -289,13 +289,17 @@ function get_meal_type_by_date($date) {
 	$meal_days = get_weekday_meal_days();
 	if (in_array($day_of_week, $meal_days)) {
 
-		$is_reg_day_override = is_weeknight_override($month_num, $day_num);
+		if (is_weeknight_override($month_num, $day_num)) {
+			return WEEKDAY_MEAL;
+		}
+		if (is_meeting_override($month_num, $day_num)) {
+			return MEETING_NIGHT_MEAL;
+		}
 
 		# is this a meeting night?
 		$mtg_nights = get_mtg_nights();
 		$ordinal_int = intval(($day_num - 1) / 7) + 1;
-		if (!$is_reg_day_override &&
-			array_key_exists($day_of_week, $mtg_nights) &&
+		if (array_key_exists($day_of_week, $mtg_nights) &&
 			($mtg_nights[$day_of_week] == $ordinal_int)) {
 			return MEETING_NIGHT_MEAL;
 		}
@@ -313,10 +317,26 @@ function get_meal_type_by_date($date) {
  */
 function is_weeknight_override($month_num, $day_num) {
 	# look for meeting -> weekday overrides
-	$reg_day_overrides = get_regular_day_overrides();
+	$overrides = get_regular_day_overrides();
 
-	if (array_key_exists($month_num, $reg_day_overrides) &&
-		in_array($day_num, $reg_day_overrides[$month_num])) {
+	if (array_key_exists($month_num, $overrides) &&
+		in_array($day_num, $overrides[$month_num])) {
+			return TRUE;
+	}
+	return FALSE;
+}
+
+/**
+ * Determine whether this date is a meeting -> weeknight override.
+ *
+ * @return boolean, If TRUE then this is an override date.
+ */
+function is_meeting_override($month_num, $day_num) {
+	# look for weekday -> meeting overrides
+	$overrides = get_meeting_night_overrides();
+
+	if (array_key_exists($month_num, $overrides) &&
+		in_array($day_num, $overrides[$month_num])) {
 			return TRUE;
 	}
 	return FALSE;
