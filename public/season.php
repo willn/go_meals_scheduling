@@ -44,6 +44,7 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
+		1 => [16],
 	];
 }
 
@@ -55,7 +56,6 @@ function get_skip_dates() {
  */
 function get_regular_day_overrides() {
 	return [
-		1 => [16]
 	];
 }
 
