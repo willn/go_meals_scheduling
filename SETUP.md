@@ -217,6 +217,11 @@ vi public/season.php
 # things line up
 cd tests/
 phpunit CalendarTest.php
+# make adjustments on the number of meals to make these tests pass
+git status
+git diff
+git add
+git commit
 ```
 
 ### count un-filled slots:
