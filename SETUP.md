@@ -265,7 +265,7 @@ egrep '(^name|\(0)' workers.txt | grep -B1 'j:' > workers_not_full.txt
 ### confirm preferences
 1. Download from google spreadsheet, save as tab separated values (TSV)
   - rename file to schedule.txt
-2.  On the schedule / report page, clear any filters. Go to the "confirm
+2.  On the schedule / report page, filter to "all" jobs. Go to the "confirm
     checks" section, copy and paste from "Confirm results check" section.
 3. Run the checks script against that file.
 ```
@@ -280,9 +280,10 @@ chmod +x checks.sh
 
 ### look for table setter conflicts
 Check to make sure that there are no 'table setter' assignments which conflict with head or asst cooking.
-* Download from google spreadsheet, as tab-delimited, save as schedule.txt in
-  auto-assignments/
-* phpunit tests/CheckForConflictsTest.php
+* Download from google spreadsheet, as tab-delimited
+* mv file to auto-assignments/schedule.txt
+* cd tests/
+* phpunit CheckForConflictsTest.php
 
 ### run conflicts validation:
 ```
@@ -291,15 +292,13 @@ cd ../utils/
 php validate_schedule.php -f ../tests/data/schedule.tsv
 ```
 
-- upload any changes to google sheets and announce it
-
-
 ## Translate from Google sheet to Gather imports
 
-Download sheet in *CSV* form.  Rename file to `final_schedule.csv`
+Download sheet again, this time in *CSV* form.
 
 ```
-cd meals_scheduling_dev/utils/
+mv ~/Downloads/meals\ winter\ 2022\ -\ results.csv utils/final_schedule.csv
+cd go_meals_scheduling_dev/utils/
 php translate_to_gather_imports.php > imports.csv
 ```
 If the above translation has 1 or more missing ID names, it will output a list
@@ -316,11 +315,14 @@ of names. Look up their ID in Gather, then:
 
 ### Upload to Gather
 * open gather site, and upload the clean entries
-* resolve any scheduling conflicts... meals currently add 2h 15m before and after
-  the announced meal serving time.
-  - Sundays: 3:15 - 7:45
-  - Weekdays: 4:00 - 8:30
-  - Meeting Night: 3:30 - 8:00
+* resolve any scheduling conflicts
+  - check the Kitchen and Dining Room availability
+  - meals currently add 2h 15m before and after the announced meal serving time.
+    - Sundays: 3:15 - 7:45
+    - Weekdays: 4:00 - 8:30
+    - Meeting Night: 3:30 - 8:00
+* If Gather complains about row 2, that is actually the second row in the file.
+  The header is the 1st.
 
 
 ## Development notes between seasons

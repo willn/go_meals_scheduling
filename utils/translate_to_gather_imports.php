@@ -101,6 +101,11 @@ foreach($data as $entry) {
 
 if (!empty($missing_users)) {
 	ksort($missing_users);
+	print <<<EOTXT
+Missing the following users. Fix them and try again.
+SELECT * from auth_user where gather_id is NULL order by id DESC limit 10;
+
+EOTXT;
 	print implode("\n", array_keys($missing_users)) . "\n";
 }
 else {

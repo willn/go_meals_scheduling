@@ -31,13 +31,7 @@ class CheckForConflictsTest extends PHPUnit_Framework_TestCase {
 	public function provide_check_for_conflicts() {
 		return [
 			# an empty array means no problems were found
-			['../auto_assignments/schedule.txt', [
-				'9/25/2022 head cook and asst2',
-				'10/18/2022 cleaner 1 and 3',
-				'10/26/2022 cleaner 1 and 2',
-				'10/26/2022 cleaner 1 and 3',
-				'10/26/2022 cleaner 3 and 2',
-			]],
+			['../auto_assignments/schedule.txt', []],
 		];
 	}
 
