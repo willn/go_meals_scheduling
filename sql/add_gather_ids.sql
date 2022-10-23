@@ -78,3 +78,7 @@ UPDATE auth_user SET gather_id='7108' WHERE username='pat';
 UPDATE auth_user SET gather_id='7372' WHERE username='rossella';
 UPDATE auth_user SET gather_id='3022' WHERE username='willat';
 UPDATE auth_user SET gather_id='7373' WHERE username='william';
+UPDATE auth_user SET gather_id='3022' where username='willaThiel';
+UPDATE auth_user SET gather_id='7807' where username='cj';
+UPDATE auth_user SET gather_id='7958' where username='adrienne';
+
