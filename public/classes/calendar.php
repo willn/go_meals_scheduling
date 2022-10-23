@@ -209,7 +209,8 @@ EOHTML;
 
 		$meal_days = get_weekday_meal_days();
 
-		$reg_day_overrides = get_regular_day_overrides();
+		# XXX was this left behind from a big refactor?
+		# $reg_day_overrides = get_regular_day_overrides();
 
 		$day_of_week = NULL;
 		$out = '';

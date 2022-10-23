@@ -275,9 +275,9 @@ chmod +x checks.sh
 
 ### look for table setter conflicts
 Check to make sure that there are no 'table setter' assignments which conflict with head or asst cooking.
-* Export from google spreadsheet, download as tab-delimited
-* see tests/CheckForConflictsTest.php
-* #!# need a test to ensure that nobody is double-scheduled... like head & asst or table setter
+* Download from google spreadsheet, as tab-delimited, save as schedule.txt in
+  auto-assignments/
+* phpunit tests/CheckForConflictsTest.php
 
 ### run conflicts validation:
 ```
