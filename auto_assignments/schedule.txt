@@ -1,0 +1,40 @@
+date	time	communities	head_cook	asst1	asst2	cleaner1	cleaner2	cleaner3
+11/2/2022	5:45	GO	willie					
+11/6/2022	5:30	GO	dan	willaThiel	drew	hope	mac	cj
+11/7/2022	6:15	GO	pat	suzette	nancy	pat	kelly	nicholas
+11/13/2022	5:30	GO	eric	liam	amyh	hope	amyh	dan
+11/14/2022	6:15	GO	jennifer	justin	cj	jennifer	cj	jeff
+11/20/2022	5:30	GO	keithg	terrence	meg	fatima	mac	dan
+11/21/2022	5:45	GO	gayle					
+11/28/2022	6:15	GO	maryking	justin	marta	justin	jeff	michael
+12/1/2022	6:15	GO	kelly	adrienne	pat	kelly	pat	catherine
+12/4/2022	5:30	GO	mac	nancy	katie	hope	amyh	keithg
+12/5/2022	6:15	GO	dale	suzette	becky	dan	polly	michael
+12/6/2022	6:15	GO	tammy	drew	emilyadama	drew	ted	glenn
+12/7/2022	5:45	GO	marta					
+12/8/2022	6:15	GO	kelly	meg	nicholas	jeff	kelly	eric
+12/11/2022	5:30	GO	mac	cj	meg	mac	cj	dan
+12/13/2022	6:15	GO	tammy	megan	keithg	ted	michael	amyh
+12/14/2022	6:15	GO	emilyadama	catherine	nikki	nikki	dan	nicholas
+12/15/2022	6:15	GO	kelly	adrienne	andrew	kelly	polly	jeff
+12/18/2022	5:30	GO	eric	pat	nancy	fatima	hope	mac
+12/19/2022	5:45	GO	megan					
+12/28/2022	6:15	GO	dale	megan	marta	ted	nicholas	catherine
+1/2/2023	6:15	GO	jennifer	marta	suzette	jennifer	jeff	nicholas
+1/3/2023	6:15	GO	megan	catherine	glenn	ted	glenn	michael
+1/4/2023	5:45	GO	gayle					
+1/5/2023	6:15	GO	emilyadama	pat	adrienne	pat	eric	kelly
+1/10/2023	6:15	GO	maryking	meg	katie	justin	amyh	catherine
+1/11/2023	6:15	GO	kelly	suzette	keithg	keithg	nicholas	cj
+1/12/2023	6:15	GO	dale	nancy	polly	ted	michael	jeff
+1/15/2023	5:30	GO	dan	willaThiel	amyh	keithg	amyh	cj
+1/17/2023	6:15	GO	tammy	liam	meg	jeff	eric	nikki
+1/18/2023	5:45	GO	jeffh					
+1/19/2023	6:15	GO	drew	pat	catherine	drew	amyh	glenn
+1/22/2023	5:30	GO	keithg	terrence	eric	hope	keithg	mac
+1/23/2023	6:15	GO	tammy	justin	marta	justin	michael	jeff
+1/25/2023	6:15	GO	katie	suzette	nancy	dan	nicholas	polly
+1/26/2023	6:15	GO	dale	andrew	meg	ted	jeff	keithg
+1/29/2023	5:30	GO	polly	fatima	eric	fatima	mac	hope
+1/30/2023	6:15	GO	dale	jennifer	drew	jennifer	drew	keithg
+1/31/2023	6:15	GO	tammy	nikki	ted	nikki	kelly	cj

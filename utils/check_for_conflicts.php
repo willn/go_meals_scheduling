@@ -54,6 +54,13 @@ function check_for_conflicts($filename) {
 		$cleaner2 = array_get($meal, 'cleaner2');
 		$cleaner3 = array_get($meal, 'cleaner3');
 
+		foreach([$head_cook, $asst1, $asst2, $cleaner1, $cleaner2, $cleaner3] as $job) {
+			if ($job == PLACEHOLDER) {
+				$has_error = TRUE;
+				$conflicts[] = "{$date} has placeholder assigned";
+			}
+		}
+
 		// ignore if this is a meeting night
 		if (empty($asst1 . $asst2 . $cleaner1 . $cleaner2 . $cleaner3)) {
 			continue;
