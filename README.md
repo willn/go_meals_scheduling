@@ -40,7 +40,7 @@ We don't schedule meals on holidays, and sometimes the day before / after, consi
 * Labor Day (Sunday & Monday)
 * Halloween
 * Christmas Eve & Christmas
-* Thanksgiving (no longer relevant on thursdays though)
+* Thanksgiving
 * Sunday following Thanksgiving
 * New Years Eve
 
