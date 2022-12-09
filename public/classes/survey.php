@@ -337,7 +337,7 @@ EOHTML;
 
 			// set defaults
 			if (!$found) {
-				$requests[$q . '_dc'] = ' checked';
+				$requests[$q . '_no'] = ' checked';
 			}
 		}
 
