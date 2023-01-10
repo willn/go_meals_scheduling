@@ -3,7 +3,7 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('October 22, 2022, 8:00pm'));
+define('DEADLINE', strtotime('January 21, 2023, 8:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
