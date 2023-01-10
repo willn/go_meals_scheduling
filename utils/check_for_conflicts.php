@@ -114,8 +114,13 @@ function check_for_conflicts($filename) {
  * @return array list of strings describing the problems found
  */
 function check_for_table_setter_conflicts($meal) {
-	if (!defined('WEEKDAY_TABLE_SETTER') || empty($table_setter)) {
+	if (!defined('WEEKDAY_TABLE_SETTER')) {
 		// no job, no problems
+		return [];
+	}
+
+	$table_setter = $meal['table_setter'];
+	if (empty($table_setter)) {
 		return [];
 	}
 

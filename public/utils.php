@@ -364,9 +364,6 @@ function get_a_meal_object($schedule, $date) {
 		default:
 			return new Error();
 	}
-
-	error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " Could not find meal type {$date}");
-	exit;
 }
 
 /**
