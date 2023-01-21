@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Get the associative array containing the database connection info of:
+ * host, database, user, password
+ */
+function get_hdup() {
+	return [
+		'host'=>'localhost',
+		'database'=>'database name',
+		'user'=>'username',
+		'password'=>'password',
+	];
+}
+?>

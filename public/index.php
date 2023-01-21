@@ -17,16 +17,6 @@ echo <<<EOHTML
 <h1>Great Oak Meals Scheduling</h1>
 EOHTML;
 
-// ----- check to see if the database is writable:
-global $db_is_writable;
-if (!$db_is_writable) {
-	echo <<<EOHTML
-		<div class="warning">
-			ERROR: Database is not writable
-		</div>
-EOHTML;
-}
-
 $dir = BASE_DIR;
 $report_link = <<<EOHTML
 <p class="summary_report">See the <a href="{$dir}/report.php">summary report</a></p>

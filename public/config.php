@@ -1,14 +1,10 @@
 <?php
+set_include_path('../' . PATH_SEPARATOR . '../public/');
+
 require_once 'season.php';
-
-global $relative_dir;
-if (!strlen($relative_dir)) {
-	$relative_dir = '.';
-}
-
-require_once "{$relative_dir}/utils.php";
-require_once "{$relative_dir}/season.php";
-require_once "{$relative_dir}/constants.php";
+require_once 'utils.php';
+require_once 'season.php';
+require_once 'constants.php';
 
 /*
  * If these names change, be sure to update the is_a_*_job() functions.

@@ -9,7 +9,7 @@ define('DEADLINE', strtotime('January 21, 2023, 8:00pm'));
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', FALL);
+define('SEASON_NAME', WINTER);
 define('DOING_CSA_FARM_MEALS', FALSE);
 
 // If this is a whole season, then 1, half .5, etc.
