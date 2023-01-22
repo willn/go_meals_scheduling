@@ -2,6 +2,7 @@
 require_once 'globals.php';
 require_once 'constants.php';
 require_once 'classes/meal.php';
+require_once 'mysql_api.php';
 
 /**
  * Get an element from an array, with a backup.
@@ -20,12 +21,12 @@ function array_get($array, $key, $default=NULL) {
  * highest number from the sqlite file.
  */
 function get_season_id() {
-	$dbh = create_sqlite_connection();
+	$mysql_api = get_mysql_api();
 
-	$sql = 'SELECT max(id) FROM work_app_season';
+	$sql = 'SELECT max(id) as max FROM work_app_season';
 	$id = NULL;
-	foreach ($dbh->query($sql) as $row) {
-		$id = $row[0];
+	foreach ($mysql_api->get($sql) as $row) {
+		$id = $row['max'];
 	}
 
 	return $id;

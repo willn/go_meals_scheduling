@@ -1,10 +1,7 @@
 <?php
-global $relative_dir;
-if (!isset($relative_dir)) {
-	$relative_dir = './';
-}
-require_once $relative_dir . 'globals.php';
+require_once 'globals.php';
 require_once 'WorkersList.php';
+require_once 'mysql_api.php';
 
 class Calendar {
 	const BLANK_DAY_HTML = '<td class="blank"></td>';
@@ -588,20 +585,20 @@ EOHTML;
 		$prefs_table = SCHEDULE_PREFS_TABLE;
 		$shifts_table = SCHEDULE_SHIFTS_TABLE;
 		$sql = <<<EOJS
-			select s.id, s.string, s.job_id, p.pref
+			select s.id, s.date_shift_string, s.job_id, p.pref
 				FROM {$shifts_table} as s, {$prefs_table} as p
 				WHERE s.id=p.date_id
 					AND worker_id={$worker_id}
-					ORDER BY s.string, s.job_id
+					ORDER BY s.date_shift_string, s.job_id
 EOJS;
 
-		global $dbh;
+		$mysql_api = get_mysql_api();
 		$data = [];
-		foreach ($dbh->query($sql) as $row) {
+		foreach ($mysql_api->get($sql) as $row) {
 			if (!array_key_exists($row['job_id'], $data)) {
 				$data[$row['job_id']] = [];
 			}
-			$data[$row['job_id']][$row['string']] = $row['pref'];
+			$data[$row['job_id']][$row['date_shift_string']] = $row['pref'];
 		}
 
 		return $data;
@@ -696,31 +693,31 @@ EOHTML;
 		$shifts_table = SCHEDULE_SHIFTS_TABLE;
 		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
-			SELECT s.string, s.job_id, a.username, p.pref
+			SELECT s.date_shift_string, s.job_id, a.username, p.pref
 				FROM {$auth_user_table} as a, {$prefs_table} as p,
 					{$shifts_table} as s
 				WHERE p.pref>0
 					AND a.id=p.worker_id
 					AND s.id = p.date_id
-				ORDER BY s.string ASC,
+				ORDER BY s.date_shift_string ASC,
 					p.pref DESC,
 					a.username ASC;
 EOSQL;
 		$data = [];
-		global $dbh;
-		foreach($dbh->query($sql) as $row) {
+		$mysql_api = get_mysql_api();
+		foreach($mysql_api->get($sql) as $row) {
 			$data[] = $row;
 		}
 
 		$dates = [];
 		foreach($data as $d) {
-			if (!array_key_exists($d['string'], $dates)) {
-				$dates[$d['string']] = [];
+			if (!array_key_exists($d['date_shift_string'], $dates)) {
+				$dates[$d['date_shift_string']] = [];
 			}
-			if (!array_key_exists($d['job_id'], $dates[$d['string']])) {
-				$dates[$d['string']][$d['job_id']] = [];
+			if (!array_key_exists($d['job_id'], $dates[$d['date_shift_string']])) {
+				$dates[$d['date_shift_string']][$d['job_id']] = [];
 			}
-			$dates[$d['string']][$d['job_id']][$d['pref']][] = $d['username'];
+			$dates[$d['date_shift_string']][$d['job_id']][$d['pref']][] = $d['username'];
 		}
 
 		return $dates;
@@ -770,8 +767,8 @@ EOSQL;
 		$request_keys = array_merge($request_keys, $this->special_prefs);
 
 		$data = [];
-		global $dbh;
-		foreach($dbh->query($sql) as $row) {
+		$mysql_api = get_mysql_api();
+		foreach($mysql_api->get($sql) as $row) {
 			$entry = [];
 			foreach($request_keys as $key) {
 				$entry[$key] = $row[$key];

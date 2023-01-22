@@ -1,5 +1,6 @@
 <?php
 require_once 'respondents.php';
+require_once 'mysql_api.php';
 
 /**
  * Track the list of workers.
@@ -29,9 +30,10 @@ class WorkersList {
 				ORDER BY username
 EOSQL;
 
-		$dbh = create_sqlite_connection();
+		$mysql_api = get_mysql_api();
 		$this->workers = [];
-		foreach ($dbh->query($sql, PDO::FETCH_ASSOC) as $row) {
+		$query = $mysql_api->get($sql);
+		foreach ($query as $row) {
 			$this->workers[$row['username']] = $row;
 		}
 	}

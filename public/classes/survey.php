@@ -3,12 +3,11 @@ global $relative_dir;
 if (!isset($relative_dir)) {
 	$relative_dir = './';
 }
-require_once $relative_dir . 'globals.php';
-
-require_once $relative_dir . 'classes/calendar.php';
-require_once $relative_dir . 'classes/roster.php';
-require_once $relative_dir . 'classes/worker.php';
-require_once $relative_dir . 'classes/WorkersList.php';
+require_once 'globals.php';
+require_once 'classes/calendar.php';
+require_once 'classes/roster.php';
+require_once 'classes/worker.php';
+require_once 'classes/WorkersList.php';
 
 class Survey {
 	protected $worker_obj;
@@ -19,7 +18,7 @@ class Survey {
 	protected $username;
 	protected $worker_id;
 
-	protected $dbh;
+	protected $mysql_api;
 
 	protected $saved = 0;
 	protected $summary;
@@ -48,10 +47,8 @@ class Survey {
 		$this->calendar = new Calendar();
 		$this->roster = new Roster();
 
-		global $dbh;
-		$this->dbh = $dbh;
-		if (is_null($dbh)) {
-			$this->dbh = create_sqlite_connection();
+		if (is_null($this->mysql_api)) {
+			$this->mysql_api = get_mysql_api();
 		}
 	}
 
@@ -432,7 +429,7 @@ EOSQL;
 
 		// get this worker's ID
 		$this->worker_id = NULL;
-		foreach($this->dbh->query($sql) as $row) {
+		foreach($this->mysql_api->get($sql) as $row) {
 			$this->worker_id = $row['id'];
 			return;
 		}
@@ -528,7 +525,7 @@ EOHTML;
 	 */
 	protected function saveRequests($post) {
 		$sql = $this->getSaveRequestsSQL($post);
-		$this->dbh->exec($sql);
+		$this->mysql_api->query($sql);
 	}
 
 	/**
@@ -553,15 +550,17 @@ EOHTML;
 
 		$bundle = array_get($post, 'bundle_shifts', '');
 		$table = SCHEDULE_COMMENTS_TABLE;
-		$comments = $this->dbh->quote(array_get($post, 'comments', []));
+		$comment_string = array_get($post, 'comments', []);
+		$mysql_link = $this->mysql_api->getLink();
+		$comments = mysqli_real_escape_string($mysql_link, $comment_string);
 		$clean_after = array_get($post, 'clean_after_self', '');
 		$bunch = array_get($post, 'bunch_shifts', '');
 		return <<<EOSQL
 replace into {$table}
 	values(
 		{$this->worker_id},
-		datetime('now'),
-		{$comments},
+		now(),
+		'{$comments}',
 		'{$avoid_list}',
 		'{$prefer_list}',
 		'{$clean_after}',
@@ -592,8 +591,8 @@ EOSQL;
 				foreach($dates as $d) {
 
 					$shift_id = NULL;
-					$sql = "select id from {$shifts_table} where string='{$d}' and job_id={$task}";
-					foreach($this->dbh->query($sql) as $row) {
+					$sql = "select id from {$shifts_table} where date_shift_string='{$d}' and job_id={$task}";
+					foreach($this->mysql_api->get($sql) as $row) {
 						$shift_id = $row['id'];
 						break;
 					}
@@ -603,10 +602,10 @@ EOSQL;
 REPLACE INTO {$shifts_table} VALUES(NULL, '{$d}', {$task})
 EOSQL;
 						// XXX add some escaping here
-						$this->dbh->exec($insert);
+						$this->mysql_api->query($insert);
 
 						// now check to make sure that entry was saved...
-						foreach($this->dbh->query($sql) as $row) {
+						foreach($this->mysql_api->get($sql) as $row) {
 							$shift_id = $row['id'];
 							break;
 						}
@@ -627,7 +626,7 @@ EOHTML;
 REPLACE INTO {$prefs_table} VALUES({$shift_id}, {$this->worker_id}, {$pref})
 EOSQL;
 					// XXX add some escaping here
-					$success = $this->dbh->exec($replace);
+					$success = $this->mysql_api->query($replace);
 					if ($success) {
 						$this->saved++;
 						if ($prev_pref !== $pref) {
@@ -654,6 +653,8 @@ EOSQL;
 	public function renderSaved() {
 		$summary_text = '';
 		$dates = '';
+
+		// XXX add preferences and comments here
 
 		if (!empty($this->summary)) {
 			foreach($this->summary as $job_id=>$info) {

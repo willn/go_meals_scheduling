@@ -1,9 +1,9 @@
 <?php
-global $relative_dir;
-require_once $relative_dir . 'utils.php';
-require_once $relative_dir . 'classes/worker.php';
+set_include_path('../' . PATH_SEPARATOR . '../public/');
 
-global $dbh;
+require_once 'utils.php';
+require_once 'classes/worker.php';
+require_once 'mysql_api.php';
 
 // -----------------------------------
 class Roster {
@@ -11,7 +11,7 @@ class Roster {
 	protected $gather_ids = [];
 
 	protected $job_id;
-	protected $dbh;
+	protected $mysql_api;
 	protected $num_shifts_per_season = 0;
 
 	// job_id => username => counts
@@ -25,10 +25,8 @@ class Roster {
 
 
 	public function __construct() {
-		global $dbh;
-		$this->dbh = $dbh;
-		if (is_null($dbh)) {
-			$this->dbh = create_sqlite_connection();
+		if (is_null($this->mysql_api)) {
+			$this->mysql_api = get_mysql_api();
 		}
 
 		$this->initLaborCount();
@@ -83,7 +81,7 @@ class Roster {
 			WHERE c.worker_id=a.id
 			ORDER BY a.username, c.timestamp
 EOSQL;
-		foreach($this->dbh->query($sql) as $row) {
+		foreach($this->mysql_api->get($sql) as $row) {
 			$w = $this->getWorker($row['username']);
 			if (!empty($row['avoid_workers'])) {
 				$w->setAvoids(explode(',', $row['avoid_workers']));
@@ -216,7 +214,7 @@ EOSQL;
 			ORDER BY u.username
 EOSQL;
 
-		$results = $this->dbh->query($sql);
+		$results = $this->mysql_api->get($sql);
 		foreach($results as $row) {
 			$username = $row['username'];
 			$job_id = $row['job_id'];
@@ -251,7 +249,7 @@ EOSQL;
 			ORDER BY username
 EOSQL;
 
-		$results = $this->dbh->query($sql);
+		$results = $this->mysql_api->get($sql);
 		if (empty($results)) {
 			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " Can't load gather IDs");
 			return [];

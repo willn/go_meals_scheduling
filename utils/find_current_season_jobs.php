@@ -13,11 +13,10 @@ $csi = new CurrentSeasonIds();
 $csi->run();
 
 class CurrentSeasonIds {
-	protected $dbh;
+	protected $mysql_api;
 
 	public function __construct() {
-		global $dbh;
-		$this->dbh = $dbh;
+		$this->mysql_api = get_mysql_api();
 	}
 
 	/**
@@ -40,13 +39,13 @@ class CurrentSeasonIds {
 
 		$jobs_table = SURVEY_JOB_TABLE;
 		$sql_format = <<<EOSQL
-select id from {$jobs_table} where season_id=%d and description like '%s';
+SELECT id from {$jobs_table} where season_id=%d and description like '%s';
 EOSQL;
 		$prev = 0;
 		$count = 0;
 		foreach($jobs as $define => $desc) {
 			$sql = sprintf($sql_format, get_season_id(), $desc . '%');
-			$result = $this->dbh->query($sql);
+			$result = $this->mysql_api->get($sql);
 			foreach ($result as $row) {
 				echo "define('{$define}', {$row['id']});\n";
 				$count++;

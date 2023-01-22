@@ -9,11 +9,10 @@ require_once("{$relative_dir}/config.php");
 require_once("{$relative_dir}/globals.php");
 
 class DatabaseHandler {
-	protected $dbh;
+	protected $mysql_api;
 
 	public function __construct() {
-		global $dbh;
-		$this->dbh = $dbh;
+		$this->mysql_api = get_mysql_api();
 	}
 
 	/**
@@ -23,7 +22,7 @@ class DatabaseHandler {
 		$auth_user_table = AUTH_USER_TABLE;
 		$sql = "SELECT count() FROM {$auth_user_table}";
 		$count = 0;
-		foreach ($this->dbh->query($sql) as $row) {
+		foreach ($this->mysql_api->get($sql) as $row) {
 			$count = $row[0];
 			break;
 		}

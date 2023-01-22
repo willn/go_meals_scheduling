@@ -2,12 +2,11 @@
 
 class Respondents {
 	protected $ids_clause;
-	protected $dbh;
+	protected $mysql_api;
 
 
 	public function __construct() {
-		global $dbh;
-		$this->dbh = $dbh;
+		$this->mysql_api = get_mysql_api();
 
 		$this->ids_clause = get_job_ids_clause();
 	}
@@ -29,7 +28,7 @@ class Respondents {
 				GROUP BY sa.worker_id
 EOSQL;
 		$all_workers = [];
-		foreach ($this->dbh->query($sql) as $row) {
+		foreach ($this->mysql_api->get($sql) as $row) {
 			$all_workers[$row['id']] = $row['username'];
 		}
 
@@ -56,7 +55,7 @@ EOSQL;
 				GROUP BY p.worker_id;
 EOSQL;
 		$responders = [];
-		foreach ($this->dbh->query($sql) as $row) {
+		foreach ($this->mysql_api->get($sql) as $row) {
 			$responders[$row['id']] = $row['username'];
 		}
 

@@ -1,4 +1,7 @@
 <?php
+set_include_path('../' . PATH_SEPARATOR . '../public/');
+require_once 'mysql_api.php';
+
 class Worker {
 	# this is an arbitrary amount
 	const ADJACENCY_LIMIT = 8;
@@ -25,7 +28,7 @@ class Worker {
 	protected $tasks = [];
 	protected $comments;
 
-	protected $dbh;
+	protected $mysql_api;
 
 	/**
 	 *
@@ -33,8 +36,7 @@ class Worker {
 	public function __construct($username) {
 		$this->username = $username;
 
-		global $dbh;
-		$this->dbh = $dbh;
+		$this->mysql_api = get_mysql_api();
 	}
 
 	public function debugLogSummary() {
@@ -534,7 +536,7 @@ EOTXT;
 	 */
 	protected function loadTasks() {
 		# quit if database connection doesn't exist
-		if (is_null($this->dbh)) {
+		if (is_null($this->mysql_api)) {
 			return;
 		}
 
@@ -560,7 +562,7 @@ EOTXT;
 EOSQL;
 
 		$tasks = [];
-		foreach ($this->dbh->query($task_sql) as $row) {
+		foreach ($this->mysql_api->get($task_sql) as $row) {
 			$tasks[$row['id']] = $row['description'];
 		}
 
@@ -586,7 +588,7 @@ EOSQL;
 				FROM {$table}
 				WHERE worker_id={$this->getId()}
 EOSQL;
-		foreach ($this->dbh->query($sql) as $row) {
+		foreach ($this->mysql_api->get($sql) as $row) {
 			$this->comments = $row;
 			return;
 		}

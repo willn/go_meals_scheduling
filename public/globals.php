@@ -30,8 +30,6 @@ function get_pref_names() {
 	];
 }
 
-$dbh = create_sqlite_connection();
-
 global $all_clean_jobs;
 
 $all_jobs = get_all_jobs();
@@ -52,39 +50,6 @@ function get_mtg_nights() {
 		WEDNESDAY => 1,
 		MONDAY => 3,
 	];
-}
-
-
-/**
- * Create a sqlite connection.
- */
-function create_sqlite_connection() {
-	global $db_is_writable;
-	$db_is_writable = FALSE;
-
-	// connect to SQLite database
-	try {
-		global $relative_dir;
-		if (!isset($relative_dir)) {
-			$relative_dir = '';
-		}
-		else {
-			$relative_dir .= '/';
-		}
-
-		$db_fullpath = "{$relative_dir}sqlite_data/work_allocation.db";
-		$db_is_writable = is_writable($db_fullpath);
-		$db_file = "sqlite:{$db_fullpath}";
-		$dbh = new PDO($db_file);
-		$timeout = 5; // in seconds
-		$dbh->setAttribute(PDO::ATTR_TIMEOUT, $timeout);
-	}
-	catch(PDOException $e) {
-		echo "problem loading sqlite file " . getcwd() . "/{$db_fullpath} {$e->getMessage()}\n";
-		exit;
-	}
-
-	return $dbh;
 }
 
 // create the job IDs 'OR' clause

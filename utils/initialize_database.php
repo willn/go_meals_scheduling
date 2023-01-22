@@ -40,9 +40,9 @@ class DatabaseInitializer extends DatabaseHandler {
 		$id = NULL;
 		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
-select id, username from {$auth_user_table} where username="aether"
+SELECT id, username from {$auth_user_table} where username="aether"
 EOSQL;
-		foreach ($this->dbh->query($sql) as $row) {
+		foreach ($this->mysql_api->get($sql) as $row) {
 			$id = $row['id'];
 			break;
 		}
@@ -54,13 +54,13 @@ EOSQL;
 
 		$table = ASSIGN_TABLE;
 		$sql = "delete from {$table} where worker_id={$id}";
-		$this->dbh->exec($sql);
+		$this->mysql_api->query($sql);
 		#!# need to add some error checking here... since table may not exist
 
 		// confirm this worked
-		$sql = "select count(*) from {$table} where worker_id={$id}";
+		$sql = "SELECT count(*) from {$table} where worker_id={$id}";
 		echo "SQL:$sql\n";
-		foreach ($this->dbh->query($sql) as $row) {
+		foreach ($this->mysql_api->get($sql) as $row) {
 			if ($row[0] != 0) {
 				$this->errors[] = "Aether Bunny assignments NOT removed";
 				return;
@@ -82,7 +82,7 @@ EOSQL;
 		}
 
 		$sql = file_get_contents($schema_sql_file);
-		$this->dbh->exec($sql);
+		$this->mysql_api->query($sql);
 		echo "Added scheduling tables\n";
 	}
 
@@ -94,7 +94,7 @@ EOSQL;
 		$key = 'username';
 		$auth_user_table = AUTH_USER_TABLE;
 		$sql = "SELECT {$key} FROM {$auth_user_table}";
-		foreach($this->dbh->query($sql, PDO::FETCH_ASSOC) as $row) {
+		foreach($this->mysql_api->get($sql, PDO::FETCH_ASSOC) as $row) {
 			$name = array_get($row, $key);
 			$users[$name] = TRUE;
 		}
@@ -117,7 +117,7 @@ INSERT INTO auth_user
 	VALUES('{$username}', '{$username}', '{$username}', '', '', 0, 1,
 		0, '', '')
 EOSQL;
-		if ($this->dbh->exec($sql) !== FALSE) {
+		if ($this->mysql_api->query($sql) !== FALSE) {
 			echo "Added {$username}\n";
 		}
 	}
@@ -137,7 +137,7 @@ SELECT {$key} FROM {$auth_user_table} WHERE username='{$username}';
 EOSQL;
 
 		$id = NULL;
-		foreach($this->dbh->query($sql, PDO::FETCH_ASSOC) as $row) {
+		foreach($this->mysql_api->get($sql, PDO::FETCH_ASSOC) as $row) {
 			$id = array_get($row, $key);
 			break;
 		}
@@ -160,7 +160,7 @@ INSERT INTO {$table}
 	VALUES($season_id, 'a', '{$worker_id}', 0, 0, 0);
 EOSQL;
 
-		if ($this->dbh->exec($sql) !== FALSE) {
+		if ($this->mysql_api->query($sql) !== FALSE) {
 			echo "Added assignment for {$username}\n";
 		}
 	}

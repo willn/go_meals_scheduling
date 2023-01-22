@@ -9,7 +9,6 @@ require_once $relative_dir . 'classes/roster.php';
 require_once $relative_dir . 'classes/meal.php';
 require_once 'schedule.php';
 
-global $dbh;
 global $job_key_clause;
 
 class Assignments {
@@ -65,14 +64,14 @@ class Assignments {
 	 * XXX: maybe this method could be moved to Roster?
 	 */
 	public function loadPrefs() {
-		global $dbh;
+		$mysql_api = get_mysql_api();
 
 		// load worker preferences per shift / date
 		$prefs_table = SCHEDULE_PREFS_TABLE;
 		$shifts_table = SCHEDULE_SHIFTS_TABLE;
 		$auth_user_table = AUTH_USER_TABLE;
 		$sql = <<<EOSQL
-			SELECT s.string as date, s.job_id, a.username, p.pref
+			SELECT s.date_shift_string as date, s.job_id, a.username, p.pref
 				FROM {$auth_user_table} as a, {$prefs_table} as p,
 					{$shifts_table} as s
 				WHERE p.pref>0
@@ -84,7 +83,7 @@ class Assignments {
 EOSQL;
 
 		$count = 0;
-		foreach($dbh->query($sql) as $row) {
+		foreach($mysql_api->get($sql) as $row) {
 			$u = $row['username'];
 			$d = $row['date'];
 			$ji = $row['job_id'];

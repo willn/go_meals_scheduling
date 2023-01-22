@@ -1,5 +1,6 @@
 <?php
 require_once('globals.php');
+require_once('mysql_api.php');
 
 global $relative_dir;
 if (!strlen($relative_dir)) {
@@ -68,8 +69,8 @@ $sql = <<<EOSQL
 		GROUP BY p.worker_id, s.job_id
 EOSQL;
 $user_pref_count = [];
-$dbh = create_sqlite_connection();
-foreach($dbh->query($sql) as $row) {
+$mysql_api = get_mysql_api();
+foreach($mysql_api->get($sql) as $row) {
 	$user_job = $row['username'] . '_' . $row['job_id'];
 	$user_pref_count[$user_job] = $row['num'];
 }
@@ -95,7 +96,7 @@ $sql = <<<EOSQL
 EOSQL;
 $diffs = array();
 $assignments = array();
-foreach($dbh->query($sql) as $row) {
+foreach($mysql_api->get($sql) as $row) {
 	$user_job = $row['username'] . '_' . $row['job_id'];
 
 	$num_prefs = isset($user_pref_count[$user_job]) ?

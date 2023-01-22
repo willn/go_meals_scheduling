@@ -54,13 +54,13 @@ class AddExternalWorkers extends DatabaseHandler {
 		$auth_user_table = AUTH_USER_TABLE;
 		$sql = "select id, username from {$auth_user_table} order by id";
 		$this->all_workers = array();
-		$result = $this->dbh->query($sql);
+		$result = $this->mysql_api->get($sql);
 		if ($result === FALSE) {
 			echo "failed to execute: $sql\n";
 			exit;
 		}
 
-		foreach ($this->dbh->query($sql) as $row) {
+		foreach ($this->mysql_api->get($sql) as $row) {
 			$this->all_workers[$row['username']] = $row['id'];
 		}
 
@@ -78,7 +78,7 @@ class AddExternalWorkers extends DatabaseHandler {
 		$table = ASSIGN_TABLE;
 		$sql = "select id from {$table} order by id desc limit 1";
 		$this->max_assign_id = NULL;
-		foreach ($this->dbh->query($sql) as $row) {
+		foreach ($this->mysql_api->get($sql) as $row) {
 			$this->max_assign_id = $row['id'];
 			break;
 		}
@@ -119,7 +119,7 @@ EOSQL;
 
 			$max_user_id++;
 			$sql = sprintf($insert_auth_f, $max_user_id, $username, $username);
-			$result = $this->dbh->query($sql);
+			$result = $this->mysql_api->query($sql);
 			if ($result === FALSE) {
 				echo "Failed to execute: $sql\n";
 				exit;
@@ -129,7 +129,7 @@ EOSQL;
 			foreach($jobs as $job_id=>$num_shifts) {
 				$sql = sprintf($insert_assn_f, $this->max_assign_id,
 					$max_user_id, $job_id, $num_shifts);
-				$result = $this->dbh->query($sql);
+				$result = $this->mysql_api->query($sql);
 
 				if ($result === FALSE) {
 					echo "Failed to execute: $sql\n";
