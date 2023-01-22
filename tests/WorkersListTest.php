@@ -1,15 +1,14 @@
 <?php
-global $relative_dir;
-$relative_dir = '../public';
+use PHPUnit\Framework\TestCase;
 
 require_once '../public/globals.php';
 require_once '../public/classes/WorkersList.php';
 
 
-class WorkersListTest extends PHPUnit_Framework_TestCase {
+class WorkersListTest extends TestCase {
 	private $list;
 
-	public function setUp() {
+	public function setUp() : void {
 		$this->list = new WorkersList('test');
 	}
 

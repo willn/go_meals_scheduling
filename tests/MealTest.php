@@ -1,4 +1,6 @@
 <?php
+use PHPUnit\Framework\TestCase;
+
 set_include_path('../' . PATH_SEPARATOR . '../public/');
 global $relative_dir;
 $relative_dir = '../public/';
@@ -10,7 +12,7 @@ require_once '../auto_assignments/schedule.php';
 /**
  * This is simple example to ensure the testing framework functions properly.
  */
-class MealTest extends PHPUnit_Framework_TestCase {
+class MealTest extends TestCase {
 	protected $meal;
 	protected $schedule;
 	protected $roster;
@@ -34,7 +36,7 @@ class MealTest extends PHPUnit_Framework_TestCase {
 		],
 	];
 
-	public function setUp() {
+	public function setUp() : void {
 		$this->roster = new Roster();
 		$this->schedule = new Schedule();
 		$this->schedule->setRoster($this->roster);

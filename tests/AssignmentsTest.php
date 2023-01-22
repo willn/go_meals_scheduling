@@ -1,17 +1,20 @@
 <?php
+use PHPUnit\Framework\TestCase;
+
 set_include_path('../' . PATH_SEPARATOR . '../public/');
 global $relative_dir;
 $relative_dir = '../auto_assignments/';
 require_once '../auto_assignments/assignments.php';
 
-class AssignmentsTest extends PHPUnit_Framework_TestCase {
+class AssignmentsTest extends TestCase {
 	private $assignments;
 
-	public function setUp() {
+	public function setUp() : void {
 		$this->assignments = new Assignments();
 	}
 
 	public function testConstruct() {
+		$this->assignments = new Assignments();
 		$this->assertInstanceOf('Assignments', $this->assignments);
 	}
 

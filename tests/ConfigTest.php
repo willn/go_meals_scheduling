@@ -1,4 +1,6 @@
 <?php
+use PHPUnit\Framework\TestCase;
+
 global $relative_dir;
 $relative_dir = '../public/';
 require_once '../public/utils.php';
@@ -7,7 +9,7 @@ require_once '../public/config.php';
 /**
  * This is simple example to ensure the testing framework functions properly.
  */
-class ConfigTest extends PHPUnit_Framework_TestCase {
+class ConfigTest extends TestCase {
 	private $season = [];
 
 	/**
@@ -49,8 +51,8 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 			if ($id === ALL_ID) {
 				$id = 1;
 			}
-			$this->assertInternalType("int", $id);
-			$this->assertInternalType("string", $name);
+			$this->assertIsInt($id);
+			$this->assertIsString($name);
 		}
 	}
 

@@ -1,4 +1,6 @@
 <?php
+use PHPUnit\Framework\TestCase;
+
 global $relative_dir;
 $relative_dir = '../public/';
 
@@ -7,11 +9,11 @@ require_once '../public/classes/roster.php';
 require_once '../public/classes/calendar.php';
 require_once '../auto_assignments/schedule.php';
 
-class RosterTest extends PHPUnit_Framework_TestCase {
+class RosterTest extends TestCase {
 	private $roster;
 	private $labor;
 
-	public function setUp() {
+	public function setUp() : void {
 		$this->loadLabor();
 	}
 
@@ -180,12 +182,12 @@ class RosterTest extends PHPUnit_Framework_TestCase {
 		$debug = [];
 		foreach($shifts as $worker => $assignments) {
 			$debug['worker'] = $worker;
-			$this->assertInternalType('string', $worker);
+			$this->assertIsString($worker);
 			$this->assertNotEmpty($assignments);
 
 			foreach($assignments as $job_id => $assn_count) {
 				$debug['job id'] = $job_id;
-				$this->assertInternalType('int', $job_id);
+				$this->assertIsInt($job_id);
 				$debug['assn count'] = $assn_count;
 
 				/*

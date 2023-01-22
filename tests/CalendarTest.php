@@ -1,6 +1,8 @@
 <?php
-global $relative_dir;
-$relative_dir = '../public/';
+use PHPUnit\Framework\TestCase;
+
+set_include_path('../' . PATH_SEPARATOR . '../public/');
+
 require_once '../public/constants.php';
 require_once '../public/config.php';
 require_once '../public/season.php';
@@ -8,7 +10,7 @@ require_once '../public/classes/worker.php';
 require_once '../public/classes/calendar.php';
 require_once 'testing_utils.php';
 
-class CalendarTest extends PHPUnit_Framework_TestCase {
+class CalendarTest extends TestCase {
 	protected $calendar;
 
 	protected $availability = [
@@ -32,7 +34,7 @@ class CalendarTest extends PHPUnit_Framework_TestCase {
 		]
 	];
 
-	public function setUp() {
+	public function setUp() : void {
 		$this->calendar = new Calendar();
 	}
 
@@ -933,13 +935,13 @@ EOHTML;
 			MEETING_NIGHT_CLEANER => 6,
 			MEETING_NIGHT_ORDERER => 6,
 
-			SUNDAY_ASST_COOK => 20,
-			SUNDAY_CLEANER => 10,
-			SUNDAY_HEAD_COOK => 10,
+			SUNDAY_ASST_COOK => 24,
+			SUNDAY_CLEANER => 12,
+			SUNDAY_HEAD_COOK => 12,
 
-			WEEKDAY_ASST_COOK => 54,
-			WEEKDAY_CLEANER => 27,
-			WEEKDAY_HEAD_COOK => 27,
+			WEEKDAY_ASST_COOK => 88,
+			WEEKDAY_CLEANER => 44,
+			WEEKDAY_HEAD_COOK => 44,
 		];
 
 		if (SUB_SEASON_FACTOR === .5) {
@@ -971,8 +973,8 @@ EOHTML;
 
 		// UPDATE-EACH-SEASON
 		$expected = [
-			'sunday' => 10,
-			'weekday' => 27,
+			'sunday' => 12,
+			'weekday' => 44,
 			'meeting' => 6,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {

@@ -1,6 +1,6 @@
 <?php
-global $relative_dir;
-$relative_dir = '../public/';
+use PHPUnit\Framework\TestCase;
+
 require_once '../public/constants.php';
 require_once '../public/utils.php';
 require_once '../public/config.php';
@@ -15,7 +15,7 @@ define('LABOR_DAY', 4);
 /**
  * This is simple example to ensure the testing framework functions properly.
  */
-class UtilsTest extends PHPUnit_Framework_TestCase {
+class UtilsTest extends TestCase {
 	/**
 	 * @dataProvider provide_array_get
 	 */

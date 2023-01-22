@@ -1,13 +1,15 @@
 <?php
+use PHPUnit\Framework\TestCase;
+
 global $relative_dir;
 $relative_dir = '../public/';
 require_once "{$relative_dir}/globals.php";
 require_once "{$relative_dir}/classes/respondents.php";
 
-class RespondentsTest extends PHPUnit_Framework_TestCase {
+class RespondentsTest extends TestCase {
 	protected $respondents;
 
-	public function setUp() {
+	public function setUp() : void {
 		$this->respondents = new Respondents();
 	}
 

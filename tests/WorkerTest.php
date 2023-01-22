@@ -1,12 +1,14 @@
 <?php
+use PHPUnit\Framework\TestCase;
+
 require_once '../public/classes/worker.php';
 require_once '../public/season.php';
 
-class WorkerTest extends PHPUnit_Framework_TestCase {
+class WorkerTest extends TestCase {
 	private $worker;
 	private $default_username;
 
-	public function setUp() {
+	public function setUp() : void {
 		$this->worker = new Worker($this->default_username);
 	}
 

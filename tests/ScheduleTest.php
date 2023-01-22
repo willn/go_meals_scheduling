@@ -1,4 +1,6 @@
 <?php
+use PHPUnit\Framework\TestCase;
+
 set_include_path('../' . PATH_SEPARATOR . '../public/');
 global $relative_dir;
 $relative_dir = '../public/';
@@ -12,10 +14,10 @@ require_once '../public/classes/roster.php';
  * Test the scheduling framework.
  * NOTE: for now, this doesn't do anything, since calling PDO breaks the tests.
  */
-class ScheduleTest extends PHPUnit_Framework_TestCase {
+class ScheduleTest extends TestCase {
 	protected $schedule;
 
-	public function setUp() {
+	public function setUp() : void {
 		$this->schedule = new Schedule();
 	}
 

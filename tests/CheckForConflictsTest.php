@@ -1,9 +1,11 @@
 <?php
+use PHPUnit\Framework\TestCase;
+
 global $relative_dir;
 $relative_dir = '../public/';
 require_once '../utils/check_for_conflicts.php';
 
-class CheckForConflictsTest extends PHPUnit_Framework_TestCase {
+class CheckForConflictsTest extends TestCase {
 
 	/**
 	 * @dataProvider provide_check_for_table_setter_conflicts

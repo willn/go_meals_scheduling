@@ -1,4 +1,6 @@
 <?php
+use PHPUnit\Framework\TestCase;
+
 global $relative_dir;
 $relative_dir = '../public/';
 require_once '../public/config.php';
@@ -6,10 +8,10 @@ require_once '../public/globals.php';
 require_once '../public/classes/survey.php';
 require_once 'testing_utils.php';
 
-class SurveyTest extends PHPUnit_Framework_TestCase {
+class SurveyTest extends TestCase {
 	private $assignments;
 
-	public function setUp() {
+	public function setUp() : void {
 		$this->survey = new Survey();
 		$this->survey->setWorker('testuser', 59);
 	}
@@ -137,8 +139,8 @@ EOHTML;
 		$result1 = "replace into schedule_comments
 	values(
 		59,
-		datetime('now'),
-		'it''s ok',
+		now(),
+		'it\'s ok',
 		'amyh,annie',
 		'becky,bennie',
 		'no',

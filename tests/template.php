@@ -1,9 +1,11 @@
 <?php
+use PHPUnit\Framework\TestCase;
+
 global $relative_dir;
 $relative_dir = '../public/';
 require_once '../public/classes/xxx.php';
 
-class XXXTest extends PHPUnit_Framework_TestCase {
+class XXXTest extends TestCase {
 	private $xxx;
 
 	public function setUp() {

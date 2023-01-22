@@ -1,9 +1,11 @@
 <?php
+use PHPUnit\Framework\TestCase;
+
 global $relative_dir;
 $relative_dir = '../public/';
 require_once "{$relative_dir}/gather_utils.php";
 
-class GatherUtilsTest extends PHPUnit_Framework_TestCase {
+class GatherUtilsTest extends TestCase {
 	/**
 	 * @dataProvider provide_map_usernames_to_gather_id
 	 */
