@@ -939,9 +939,9 @@ EOHTML;
 			SUNDAY_CLEANER => 12,
 			SUNDAY_HEAD_COOK => 12,
 
-			WEEKDAY_ASST_COOK => 88,
-			WEEKDAY_CLEANER => 44,
-			WEEKDAY_HEAD_COOK => 44,
+			WEEKDAY_ASST_COOK => 48,
+			WEEKDAY_CLEANER => 24,
+			WEEKDAY_HEAD_COOK => 24,
 		];
 
 		if (SUB_SEASON_FACTOR === .5) {
@@ -974,7 +974,7 @@ EOHTML;
 		// UPDATE-EACH-SEASON
 		$expected = [
 			'sunday' => 12,
-			'weekday' => 44,
+			'weekday' => 24,
 			'meeting' => 6,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {

@@ -266,8 +266,7 @@ class UtilsTest extends TestCase {
 			[1, 1, FALSE],
 			[1, 16, FALSE],
 			[12, 31, FALSE],
-
-			[1, 18, TRUE],
+			[1, 18, FALSE],
 		];
 	}
 

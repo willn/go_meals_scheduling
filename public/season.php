@@ -46,9 +46,9 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		11 => [1, 3, 8, 9, 10, 15, 16, 17, 22, 23, 29, 30],
-		12 => [12, 20, 21, 22, 26, 27, 29],
-		1 => [8, 9, 16, 24],
+		2 => [2, 9, 13, 14, 16, 21, 22, 23],
+		3 => [2, 8, 9, 16, 23, 27, 28, 30],
+		4 => [6, 13, 20, 27],
 	];
 }
 
@@ -71,7 +71,6 @@ function get_regular_day_overrides() {
  */
 function get_meeting_night_overrides() {
 	return [
-		1 => [18]
 	];
 }
 
