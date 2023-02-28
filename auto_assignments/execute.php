@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 1);
+ini_set('display_errors', '1');
 
 # set the include path to be the top-level of the meals scheduling project
 set_include_path('../' . PATH_SEPARATOR . '../public/');

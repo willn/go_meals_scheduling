@@ -383,11 +383,13 @@ EOHTML;
 EOHTML;
 		}
 
+		#!# breaking the phpstan rules here...
 		// return an array
 		if (!$this->web_display) {
 			return $dates_and_shifts;
 		}
 
+		#!# could this be a single element array?
 		// return a string
 		return $out;
 	}
@@ -1053,7 +1055,7 @@ EOHTML;
 	 *
 	 * @param array $summary associative array, key is the job id, value is the number
 	 *    of dates during the season when this shift is assigned.
-	 * @param int $sub_season_factor number (default 1) if the jobs were assigned
+	 * @param float $sub_season_factor number (default 1) if the jobs were assigned
 	 *     across an entire season, but we're only scheduling part of it,
 	 *     then this would be a fractional number (<1). Split the number of
 	 *     jobs according to the factor.
