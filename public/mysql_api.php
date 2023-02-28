@@ -72,14 +72,13 @@ class MysqlApi {
 	 * Query the database.
 	 *
 	 * @param string $query A SQL command to be executed.
-	 * @return mysqli_result mysql database connection resource.
+	 * @return boolean Whether the query succeeded or failed.
 	 */
 	public function query($query) {
 		if (is_null($this->link)) {
 			$this->connect();
 		}
-
-		if (is_null($this->link) && (!$this->connect())) {
+		if (is_null($this->link)) {
 			return FALSE;
 		}
 
@@ -89,7 +88,7 @@ class MysqlApi {
 			error_log("Could not get a result from the query, err: {$err}");
 			return FALSE;
 		}
-		return $result;
+		return TRUE;
 	}
 
 	/**
@@ -105,7 +104,7 @@ class MysqlApi {
 		$found = [];
 
 		$result = $this->query($query);
-		if ($result === FALSE) {
+		if ($result == FALSE) {
 			return FALSE;
 		}
 
