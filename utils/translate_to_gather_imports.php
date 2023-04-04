@@ -81,7 +81,7 @@ foreach($data as $entry) {
 	$translated = [
 		'date_time' => date('c', $time_and_date_str),
 		'locations' => GO_KITCHEN_AND_DINING_ROOM,
-		'formula' => NULL,
+		'formula' => '',
 		'communities' => str_replace(', ', ';', $keyed['communities']),
 		'head_cook' => $head_cook,
 		'asst_cook' => implode(';', $assts),
