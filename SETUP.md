@@ -18,68 +18,121 @@
   - `get_num_shift_overrides()`
   - `get_skip_dates()`
   - `get_regular_day_overrides()`
-
-### Update unit tests
-* update config to examine a full 6-month season
-  - SUB_SEASON_FACTOR to 1 in order to get the full 6 months, in `public/season.php`
-  - set SEASON_NAME to the combo option (FALL_WINTER or SPRING_SUMMER)
-* run & fix unit tests
-  - The number of assignments needed is in tests/CalendarTest.php, in
-  `provideGetAssignmentsNeededForCurrentSeason()`
+  - `get_meeting_night_overrides()`
 
 ## SEASON-START:
 If this is mid-season, skip to the [MID-SEASON section](SETUP.md#mid-season)
-
-## Prepare to launch the survey
 
 ### edit public/season.php
 * set the appropriate `DEADLINE` date
 * display a farm meals night message? (`DOING_CSA_FARM_MEALS`)
 * set the `SUB_SEASON_FACTOR` (perhaps for .5 to get 3 months)
 
-### update the database
+### Update unit tests
+* run & fix unit tests
+  - The number of assignments needed is in tests/CalendarTest.php, in
+  `provideGetAssignmentsNeededForCurrentSeason()`
 
-* grab the latest sqlite file from work hosting, fix permissions, and commit:
-  - login to the work web UI, go to more reports, and "Download SQLite3
-	database from host"
-  - locally:
+### update and clean up the database
+
+* grab the database from the work app and export / import to mysql:
 ```
-open http://gocoho.tklapp.com/download/database/
-cd ~/Downloads/
-unzip filedb.zip
-mv home/django/work/db.sqlite3 ~/projects/go_meals_scheduling/public/sqlite_data/work_allocation.db
-rm -rf home/ filedb.zip
-```
+cd sql/
+scp gocoho.tklapp.com:/home/django/work/db.sqlite3 .
 
-* clean the database
-```
-cd ~/projects/go_meals_scheduling/
-chmod 644 public/sqlite_data/work_allocation.db
+# XXX Note: there is a lot of opportunity for automation below
 
-sqlite3 public/sqlite_data/work_allocation.db
-# view the current state of tables
-sqlite> .tables
+# copy & paste the following lines:
+sqlite3 db.sqlite3 <<'END_OF_SQL'
+.output work.sql
+.dump auth_user work_app_assignment work_app_committee work_app_job work_app_season
+.exit
+END_OF_SQL
 
-# drop a bunch of tables
-sqlite> .read sql/drops.sql
+# confirm that we got the needed tables
+grep 'CREATE TABLE' work.sql | sed 's/^CREATE TABLE IF NOT EXISTS //' | cut -d\" -f2
+	auth_user
+	work_app_committee
+	work_app_season
+	work_app_job
+	work_app_assignment
+
+# trim some lines from the top
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+
+# trim from the bottom:
+COMMIT;
+
+# On the lines for CREATE TABLE, make some changes:
+% s/integer/MEDIUMINT/g
+% s/AUTOINCREMENT/AUTO_INCREMENT/gi
+
+# remove the quotes from the each of the CREATE TABLE lines
+. s/"//g
+
+# rename any column named "index" to something else
+/CREATE TABLE.*index
+Then rename index to indexCount
+
+# Grow the size of 'description' column in the work_app_job table from 40 to 80
+
+# reset the local database
+# get the list of current tables
+mysql -u gocoho_work_allocation -p gocoho_work_allocation
+SELECT CONCAT('DROP TABLE IF EXISTS `', table_name, '`;')
+	FROM information_schema.tables
+	WHERE table_schema = 'gocoho_work_allocation';
+
+# paste these statements somewhere, remove the pipes, then run them manually to
+# drop the tables. Don't drop the entire database, since then we have to reset
+# permissions, etc.
+
+mysql> show tables;
+Empty set (0.00 sec)
+
+# import the wanted tables
+mysql -u gocoho_work_allocation -p gocoho_work_allocation < work.sql
+mysql -u gocoho_work_allocation -p gocoho_work_allocation -e "alter table auth_user drop column password;"
 
 # confirm - there should be 4 tables
-sqlite> .tables
-auth_user            work_app_job
-work_app_assignment  work_app_season
-```
+mysql> show tables;
++----------------------------------+
+| Tables_in_gocoho_work_allocation |
++----------------------------------+
+| auth_user                        |
+| work_app_assignment              |
+| work_app_committee               |
+| work_app_job                     |
+| work_app_season                  |
++----------------------------------+
+5 rows in set (0.00 sec)
 
-* add the Gather IDs 
-```
-sqlite> .read sql/add_gather_ids.sql
-# confirm
-sqlite> .schema auth_user
-# The last field listed should be "gather_id"
-sqlite> exit
-git add !$
-git commit !$
-```
+# add the Gather IDs 
+mysql -u gocoho_work_allocation -p gocoho_work_allocation < add_gather_ids.sql
 
+# confirm that the recent users have a gather ID
+mysql -u gocoho_work_allocation -p gocoho_work_allocation -e "select username, gather_id from auth_user order by id desc limit 20;"
+
+# add additional meals scheduling survey tables
+mysql -u gocoho_work_allocation -p gocoho_work_allocation < scheduling_survey_schema.sql
+
+# confirm those were added:
+mysql> show tables;
++----------------------------------+
+| Tables_in_gocoho_work_allocation |
++----------------------------------+
+| auth_user                        |
+| schedule_comments                |
+| schedule_prefs                   |
+| schedule_shifts                  |
+| work_app_assignment              |
+| work_app_committee               |
+| work_app_job                     |
+| work_app_season                  |
++----------------------------------+
+8 rows in set (0.00 sec)
+```
 
 ### get new job IDs for the season, and update the defines for each job in config.php
 ```
@@ -90,6 +143,7 @@ vi ../public/season.php
 ```
 
 ### update the unit tests which are going to fail based on changed info
+
 * look for the UPDATE-EACH-SEASON
 * make sure that unit tests work:
 ```
@@ -103,6 +157,7 @@ git status
 git add
 git commit
 ```
+XXX #!#
 
 * initialize the database
 ```
@@ -140,10 +195,7 @@ git status # resolve differences
 ### stage everything from the meals dev repo to public_html
 ```
 # careful! - this will blank out any collected data...
-rsync -e 'ssh -p 1022' -avz public/ gocoho@gocoho.org:/home/gocoho/public_html/meals_scheduling/
-# permissions might need to be reset:
-cd public_html/meals_scheduling/
-chmod -R g-w *
+./push_all_to_production.sh
 ```
 
 ### test to make sure everything works, view in web browser
@@ -161,9 +213,7 @@ mkdir ~/backups
 chmod 700 ~/backups/
 
 crontab -e
-# uncomment the following lines:
-20 *   *   *   *   /bin/cp -f ~/meals_scheduling_dev/public/sqlite_data/work_allocation.db ~/backups/
-50 5 * * * /bin/cp -f public_html/meals_scheduling/sqlite_data/work_allocation.db ~/backups/work_allocation.db_daily
+XXX need to write new mysqldump and rotate backup routines
 ```
 
 ### schedule a few reminders spaced out over the rest of the session to send reminder emails to laggards
@@ -187,9 +237,16 @@ right or wrong amount of labor.
 
 ### commit closed database:
 ```
-rsync -e 'ssh -p 1022' -avz gocoho@gocoho.org:/home/gocoho/public_html/meals_scheduling/sqlite_data/work_allocation.db public/sqlite_data/work_allocation.db
-git status
-git commit public/sqlite_data/work_allocation.db
+# on gocoho:
+mysqldump -u gocoho_work_allocation -p gocoho_work_allocation > end_of_survey.sql
+
+# on localhost:
+cd go_meals_scheduling/sql/
+rsync -e 'ssh -p 1022' -avz gocoho@gocoho.org:/home/gocoho/end_of_survey.sql .
+mysql -u gocoho_work_allocation -p gocoho_work_allocation
+drop database gocoho_work_allocation;
+create database gocoho_work_allocation;
+mysql -u gocoho_work_allocation -p gocoho_work_allocation < end_of_survey.sql
 ```
 
 ### check for any un-assigned workers
@@ -213,8 +270,7 @@ if we need to cancel meals, then mark these as skip dates.
 ```
 # add dates to get_skip_dates
 vi public/season.php
-# run the unit test for CalendarTest::testRenderSeasonDateSummary until
-# things line up
+# run the unit test for CalendarTest::testRenderSeasonDateSummary until things line up
 cd tests/
 phpunit CalendarTest.php
 # make adjustments on the number of meals to make these tests pass
@@ -224,59 +280,37 @@ git add
 git commit
 ```
 
-### count un-filled slots:
+### make a run, and analyze the results
 ```
-php execute.php -s > results.txt
-grep XXX !$
-```
-
-### look for the hardest to days to fill:
-```
-grep 'XXXXXXXX.*XXXXXXXX' results.txt
-```
-
-### check for hobarter ratio:
-```
-grep HOBART results.txt
-```
-
-### Examine workers:
-```
-php execute.php -w > workers.txt
-```
-
-### Someone may have volunteered to take too many additional meals
-
-Reduce the number of needed volunteer / override positions mentioned
-with this:
-```
-grep OVERAGE workers.txt
-```
-
-### find the people who aren't fully assigned:
-```
-egrep '(^name|\(0)' workers.txt | grep -B1 'j:' > workers_not_full.txt
+./analyze_results.sh
 ```
 
 ### upload a copy of the results.txt to google drive & import into a spreadsheet
 * try to move the under-assigned workers to fill the 'XXX' spots, making trades
 * do any swapping needed
 
+### if there are no meeting night cleaners...
+* then delete the placeholders for those shifts, just leave it blank
+
 ### confirm preferences
-1. Download from google spreadsheet, save as tab separated values (TSV)
-  - rename file to schedule.txt
-2.  On the schedule / report page, filter to "all" jobs. Go to the "confirm
-    checks" section, copy and paste from "Confirm results check" section.
-3. Run the checks script against that file.
 ```
+# Download from google spreadsheet, save as tab separated values (TSV)
+cd ~/Downloads
+mv <downloaded filename> schedule.txt
+
+# On the schedule / report page, filter to "all" jobs. Copy the "confirm checks" section & paste:
 # copy section of text
 vi checks.sh
-# paste
+# paste & save
+
 chmod +x checks.sh
 ./checks.sh | more
-# read the comments and make sure they apply cleanly with auto-checks,
-# otherwise make trades
+# read the comments and make sure they apply cleanly with auto-checks, or make trades
 ```
+
+### Teen workers
+
+Ensure that teen workers are paired with a parent.
 
 ### look for table setter conflicts
 Check to make sure that there are no 'table setter' assignments which conflict with head or asst cooking.
@@ -289,7 +323,7 @@ Check to make sure that there are no 'table setter' assignments which conflict w
 ```
 # is this needed with the new unit tests?
 cd ../utils/
-php validate_schedule.php -f ../tests/data/schedule.tsv
+php validate_schedule.php -f ../auto_assignments/schedule.txt
 ```
 
 ## Translate from Google sheet to Gather imports
@@ -304,7 +338,7 @@ php translate_to_gather_imports.php > imports.csv
 If the above translation has 1 or more missing ID names, it will output a list
 of names. Look up their ID in Gather, then:
 
-1. for this season, update sqlite table "auth_users" to include their IDs
+1. for this season, update database table `auth_users` to include their IDs
 2. for the future, copy and paste these entries to `sql/add_gather_ids.sql`
 3. Run the translate script again.
 
@@ -347,8 +381,6 @@ update public/config.php, update the season name, year, and season id
 They need to be entered into the database...
 
 ```
-% sqlite3 work_allocation.db
-
 # get the username of the peron
 sqlite> select id from auth_user where username='XXX';
 164
