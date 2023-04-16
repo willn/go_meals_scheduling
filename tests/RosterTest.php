@@ -43,12 +43,12 @@ class RosterTest extends TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					WEEKDAY_HEAD_COOK => 24,
-					WEEKDAY_ASST_COOK => 48,
+					WEEKDAY_HEAD_COOK => 23,
+					WEEKDAY_ASST_COOK => 46,
 					SUNDAY_HEAD_COOK => 10,
 					SUNDAY_ASST_COOK => 20,
 					MEETING_NIGHT_ORDERER => 6,
-					WEEKDAY_CLEANER => 72,
+					WEEKDAY_CLEANER => 60,
 					SUNDAY_CLEANER => 30, 
 					MEETING_NIGHT_CLEANER => 0,
 				]
@@ -144,12 +144,12 @@ class RosterTest extends TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					WEEKDAY_HEAD_COOK => 25,
-					WEEKDAY_ASST_COOK => 50,
+					WEEKDAY_HEAD_COOK => 24,
+					WEEKDAY_ASST_COOK => 48,
 					SUNDAY_HEAD_COOK => 10,
 					SUNDAY_ASST_COOK => 21,
 					MEETING_NIGHT_ORDERER => 6,
-					WEEKDAY_CLEANER => 84,
+					WEEKDAY_CLEANER => 72,
 					SUNDAY_CLEANER => 30, 
 					MEETING_NIGHT_CLEANER => 0,
 				]
