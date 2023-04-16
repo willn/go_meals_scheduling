@@ -114,9 +114,6 @@ mysql -u gocoho_work_allocation -p gocoho_work_allocation < add_gather_ids.sql
 # confirm that the recent users have a gather ID
 mysql -u gocoho_work_allocation -p gocoho_work_allocation -e "select username, gather_id from auth_user order by id desc limit 20;"
 
-# add additional meals scheduling survey tables
-mysql -u gocoho_work_allocation -p gocoho_work_allocation < scheduling_survey_schema.sql
-
 # confirm those were added:
 mysql> show tables;
 +----------------------------------+
@@ -157,7 +154,6 @@ git status
 git add
 git commit
 ```
-XXX #!#
 
 * initialize the database
 ```
@@ -192,50 +188,75 @@ git status # resolve differences
 
 ## FINISH-START-OF-SEASON
 
-### stage everything from the meals dev repo to public_html
+### stage everything from the meals dev repo to `public_html`
 ```
-# careful! - this will blank out any collected data...
+# on remote host:
+gocoho
+cd public_html/meals_scheduling/
+rm -rf *
+
+# on localhost:
 ./push_all_to_production.sh
+
+cd sql/
+# the local mysql root user
+mysqldump -u root -p gocoho_work_allocation > transfer.sql
+scp -i ~/.ssh/id_dsa -P 1022 transfer.sql gocoho@gocoho.org:
+# remove the heading from the dump file
+# remove these statements: ' CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+% s/^.*SET character_set_client = .*//
+% s/.*@saved_cs_client     = @@character_set_client.*//
+% s/`//g
+% s/ DEFAULT;/;/
+# remove the trailing statements at the end
+
+# on gocoho:
+cd ~
+mysql -u gocoho_work_allocation -p gocoho_work_allocation
+SELECT CONCAT('DROP TABLE IF EXISTS `', table_name, '`;')
+	FROM information_schema.tables
+	WHERE table_schema = 'gocoho_work_allocation';
+
+# copy and paste and remove the pipes and run the results...
+
+MariaDB [gocoho_work_allocation]> show tables;
+Empty set (0.000 sec)
+
+mysql -u gocoho_work_allocation -p gocoho_work_allocation < transfer.sql
 ```
 
 ### test to make sure everything works, view in web browser
 * confirm that the calendar dates are correct
 * confirm the holidays and meeting nights are correct
 * fill in some entries and save them, then revert
-* resync code to clean up and reset database
+* resync code to clean up
 * load listing page again to make sure that the database is writeable
 
 ### notify participants that the survey is ready
 
 ### set up database backup routine on the webserver:
-```
-mkdir ~/backups
-chmod 700 ~/backups/
-
-crontab -e
-XXX need to write new mysqldump and rotate backup routines
-```
+`crontab -e`
 
 ### schedule a few reminders spaced out over the rest of the session to send reminder emails to laggards
 
-## MID-SURVEY
+# MID-SURVEY
 
-### Missing labor
+## Missing labor
 
 Figure out which meals shifts are missing labor. This can be helpful to do in
 advance so that volunteers can be sought while the survey is open. In addition,
 this can be used to cancel / skip certain types of meals.
 
-### uncomment RosterTest::testCompareLabor()
+## uncomment RosterTest::testCompareLabor()
 
 This output should be helpful in divulging which shift types have the
 right or wrong amount of labor.
 
-## END-OF-SURVEY
+# END-OF-SURVEY
 
-### disable cronjobs
+## disable cronjobs
 
-### commit closed database:
+## commit closed database:
 ```
 # on gocoho:
 mysqldump -u gocoho_work_allocation -p gocoho_work_allocation > end_of_survey.sql
@@ -249,14 +270,14 @@ create database gocoho_work_allocation;
 mysql -u gocoho_work_allocation -p gocoho_work_allocation < end_of_survey.sql
 ```
 
-### check for any un-assigned workers
+## check for any un-assigned workers
 ```
 cd auto_assignments/
 php execute.php -u
 cd ..
 ```
 
-### If we know that we need to cancel 1 or more meals, edit
+## If we know that we need to cancel 1 or more meals, edit
 ```
 vi public/constants.php   # set DEBUG_GET_LEAST_POSSIBLE to TRUE
 cd auto_assignments/
@@ -264,7 +285,7 @@ php execute.php -s
 tail -f error_log
 ```
 
-### Cancel extra meals
+## Cancel extra meals
 Look at all of the shifts to see where the pain lies... head, asst, cleaner
 if we need to cancel meals, then mark these as skip dates.
 ```
@@ -280,19 +301,19 @@ git add
 git commit
 ```
 
-### make a run, and analyze the results
+## make a run, and analyze the results
 ```
 ./analyze_results.sh
 ```
 
-### upload a copy of the results.txt to google drive & import into a spreadsheet
+## upload a copy of the results.txt to google drive & import into a spreadsheet
 * try to move the under-assigned workers to fill the 'XXX' spots, making trades
 * do any swapping needed
 
-### if there are no meeting night cleaners...
+## if there are no meeting night cleaners...
 * then delete the placeholders for those shifts, just leave it blank
 
-### confirm preferences
+## confirm preferences
 ```
 # Download from google spreadsheet, save as tab separated values (TSV)
 cd ~/Downloads
@@ -308,18 +329,18 @@ chmod +x checks.sh
 # read the comments and make sure they apply cleanly with auto-checks, or make trades
 ```
 
-### Teen workers
+## Teen workers
 
 Ensure that teen workers are paired with a parent.
 
-### look for table setter conflicts
+## look for table setter conflicts
 Check to make sure that there are no 'table setter' assignments which conflict with head or asst cooking.
 * Download from google spreadsheet, as tab-delimited
 * mv file to auto-assignments/schedule.txt
 * cd tests/
 * phpunit CheckForConflictsTest.php
 
-### run conflicts validation:
+## run conflicts validation:
 ```
 # is this needed with the new unit tests?
 cd ../utils/

@@ -311,6 +311,7 @@ EOHTML;
 						break;
 				}
 
+				$message = '';
 				if (!$is_done) {
 					if (!$this->web_display) {
 						$dates_and_shifts = $this->addJobsToDatesAndShifts(
@@ -322,6 +323,9 @@ EOHTML;
 					else {
 						$cell = $this->generateCellWorker($worker, $date_string, $type);
 					}
+
+					$message = empty($cell) ? '' : 
+						$this->addMessage($day_of_week, $month_num);
 				}
 
 				// #!# suppress this display unless it's report mode...
@@ -341,8 +345,6 @@ EOHTML;
 				}
 
 				// render an individual calendar day table cell
-				$message = empty($cell) ? '' : 
-					$this->addMessage($day_of_week, $month_num);
 				$table .= <<<EOHTML
 				<td class="dow_{$day_of_week}">
 					<div class="date_number">{$day_num}{$tally}</div>{$cell}{$message}
