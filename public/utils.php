@@ -254,7 +254,7 @@ function get_meal_type_by_date($date) {
 
 	# skip un-supported days of the week
 	switch($day_of_week) {
-		# case THURSDAY:
+		case THURSDAY:
 		case FRIDAY:
 		case SATURDAY:
 			return NOT_A_MEAL;

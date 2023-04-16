@@ -41,6 +41,7 @@ define('MEETING_NIGHT_MEAL', 5);
 
 define('ALL_ID', 'all');
 
+define('DEBUG', TRUE);
 define('DEBUG_GET_LEAST_POSSIBLE', FALSE);
 
 define('JSON_ASSIGNMENTS_FILE', 'results/output.json');

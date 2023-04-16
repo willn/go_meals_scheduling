@@ -80,12 +80,12 @@ class RosterTest extends TestCase {
 				[
 					'all' => 0,
 					// UPDATE-EACH-SEASON
-					WEEKDAY_HEAD_COOK => 0,
-					WEEKDAY_ASST_COOK => 0,
+					WEEKDAY_HEAD_COOK => 1,
+					WEEKDAY_ASST_COOK => 2,
 					SUNDAY_HEAD_COOK => 0,
-					SUNDAY_ASST_COOK => 0,
+					SUNDAY_ASST_COOK => 1,
 					MEETING_NIGHT_ORDERER => 0,
-					WEEKDAY_CLEANER => 0,
+					WEEKDAY_CLEANER => 12,
 					SUNDAY_CLEANER => 0, 
 					MEETING_NIGHT_CLEANER => 0,
 				]
@@ -144,12 +144,12 @@ class RosterTest extends TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					WEEKDAY_HEAD_COOK => 24,
-					WEEKDAY_ASST_COOK => 48,
+					WEEKDAY_HEAD_COOK => 25,
+					WEEKDAY_ASST_COOK => 50,
 					SUNDAY_HEAD_COOK => 9,
-					SUNDAY_ASST_COOK => 18,
+					SUNDAY_ASST_COOK => 19,
 					MEETING_NIGHT_ORDERER => 6,
-					WEEKDAY_CLEANER => 72,
+					WEEKDAY_CLEANER => 84,
 					SUNDAY_CLEANER => 27, 
 					MEETING_NIGHT_CLEANER => 0,
 				]
@@ -225,6 +225,7 @@ class RosterTest extends TestCase {
 		$debug = [
 			'expected' => $expected,
 			'input' => $input,
+			'results' => $results,
 		];
 		$this->assertEquals($expected, $results, print_r($debug, TRUE));
 	}

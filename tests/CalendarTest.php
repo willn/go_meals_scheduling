@@ -122,39 +122,7 @@ EOHTML;
 
 	public function provideRenderDaySelectors() {
 		$one = <<<EOHTML
-<tr class="day_labels">
-				<td width="1%"><!-- weekly spacer --></td>
-								<th class="day_of_week">Sun</th><th class="day_of_week">Mon</th>				<th class="day_of_week">Tue</th><th class="day_of_week">Wed</th>				<th class="day_of_week">Thu</th><th class="day_of_week">Fri</th>				<th class="day_of_week">Sat</th>
-			</tr>
-				<tr class="weekdays">
-					<td width="1%"><!-- weekly spacer --></td>
-								<td class="weekday_selector weekday_num_0">
-				Sun:<br>
-				<a class="conflict">conflict</a>
-				<a class="OK">OK</a>
-				<a class="prefer">prefer</a>
-			</td>			<td class="weekday_selector weekday_num_1">
-				Mon:<br>
-				<a class="conflict">conflict</a>
-				<a class="OK">OK</a>
-				<a class="prefer">prefer</a>
-			</td>			<td class="weekday_selector weekday_num_2">
-				Tue:<br>
-				<a class="conflict">conflict</a>
-				<a class="OK">OK</a>
-				<a class="prefer">prefer</a>
-			</td>			<td class="weekday_selector weekday_num_3">
-				Wed:<br>
-				<a class="conflict">conflict</a>
-				<a class="OK">OK</a>
-				<a class="prefer">prefer</a>
-			</td>			<td class="weekday_selector weekday_num_4">
-				Thu:<br>
-				<a class="conflict">conflict</a>
-				<a class="OK">OK</a>
-				<a class="prefer">prefer</a>
-			</td><td class="blank"></td><td class="blank"></td>
-				</tr>
+<tr class="day_labels"><td width="1%"><!-- weekly spacer --></td><th class="day_of_week">Sun</th><th class="day_of_week">Mon</th><th class="day_of_week">Tue</th><th class="day_of_week">Wed</th><th class="day_of_week">Thu</th><th class="day_of_week">Fri</th><th class="day_of_week">Sat</th></tr><tr class="weekdays"><td width="1%"><!-- weekly spacer --></td><td class="weekday_selector weekday_num_0">Sun:<br><a class="conflict">conflict</a><a class="OK">OK</a><a class="prefer">prefer</a></td><td class="weekday_selector weekday_num_1">Mon:<br><a class="conflict">conflict</a><a class="OK">OK</a><a class="prefer">prefer</a></td><td class="weekday_selector weekday_num_2">Tue:<br><a class="conflict">conflict</a><a class="OK">OK</a><a class="prefer">prefer</a></td><td class="weekday_selector weekday_num_3">Wed:<br><a class="conflict">conflict</a><a class="OK">OK</a><a class="prefer">prefer</a></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
 EOHTML;
 
 		$two = <<<EOHTML
@@ -939,9 +907,9 @@ EOHTML;
 			SUNDAY_CLEANER => 12,
 			SUNDAY_HEAD_COOK => 12,
 
-			WEEKDAY_ASST_COOK => 48,
-			WEEKDAY_CLEANER => 24,
-			WEEKDAY_HEAD_COOK => 24,
+			WEEKDAY_ASST_COOK => 64,
+			WEEKDAY_CLEANER => 32,
+			WEEKDAY_HEAD_COOK => 32,
 		];
 
 		if (SUB_SEASON_FACTOR === .5) {
@@ -974,7 +942,7 @@ EOHTML;
 		// UPDATE-EACH-SEASON
 		$expected = [
 			'sunday' => 12,
-			'weekday' => 24,
+			'weekday' => 32,
 			'meeting' => 6,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {

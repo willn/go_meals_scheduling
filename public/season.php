@@ -3,14 +3,14 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('January 21, 2023, 8:00pm'));
+define('DEADLINE', strtotime('April 22, 2023, 8:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', WINTER);
-define('DOING_CSA_FARM_MEALS', FALSE);
+define('SEASON_NAME', SPRING);
+define('DOING_CSA_FARM_MEALS', TRUE);
 
 // If this is a whole season, then 1, half .5, etc.
 define('SUB_SEASON_FACTOR', .5);
@@ -33,9 +33,36 @@ define('WEEKDAY_HEAD_COOK', 6784);
  */
 function get_num_shift_overrides() {
 	// username => [job_id => num_meals]
+
+	/*
+	 * short in spring 2023:
+	 * WEEKDAY_CLEANER - 4, 24 shifts
+	 * WEEKDAY_HEAD_COOK - 1, 2 shifts
+	 * WEEKDAY_ASST_COOK - 2, 4 shifts
+	 * plan is to pull some labor forward from summer to spring hoping that
+	 * some new members will be able to pickup some work later in the summer.
+	 */
+
 	return [
-		'catherine' => [WEEKDAY_CLEANER => -1],
-		'pat' => [WEEKDAY_CLEANER => 1],
+		// liam will be leaving for the second half, assign him fully for 1st half
+		'liam' => [
+			WEEKDAY_ASST_COOK => 1,
+			SUNDAY_ASST_COOK => 1,
+		],
+
+		// pull forward, borrow from summer.
+		// When summer comes, flip these to negatives:
+		'dale' => [WEEKDAY_HEAD_COOK => 1],
+
+		'marta' => [WEEKDAY_ASST_COOK => 1],
+
+		'amanda' => [WEEKDAY_CLEANER => 2],
+		'amyh' => [WEEKDAY_CLEANER => 2],
+		'catherine' => [WEEKDAY_CLEANER => 1],
+		'eric' => [WEEKDAY_CLEANER => 1],
+		'kelly' => [WEEKDAY_CLEANER => 2],
+		'michael' => [WEEKDAY_CLEANER => 2],
+		'ted' => [WEEKDAY_CLEANER => 2],
 	];
 }
 
@@ -46,9 +73,6 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		2 => [2, 9, 13, 14, 16, 19, 21, 22, 23],
-		3 => [2, 8, 9, 16, 23, 27, 28, 30],
-		4 => [2, 6, 13, 20, 23, 27],
 	];
 }
 

@@ -72,23 +72,23 @@ class MysqlApi {
 	 * Query the database.
 	 *
 	 * @param string $query A SQL command to be executed.
-	 * @return boolean Whether the query succeeded or failed.
+	 * @return mysqli_result
 	 */
 	public function query($query) {
 		if (is_null($this->link)) {
 			$this->connect();
 		}
 		if (is_null($this->link)) {
-			return FALSE;
+			return NULL;
 		}
 
-		$result = mysqli_query($this->link, $query);
-		if (!$result) {
+		$mysqli_result = mysqli_query($this->link, $query);
+		if (!$mysqli_result) {
 			$err = mysqli_error($this->link);
 			error_log("Could not get a result from the query, err: {$err}");
-			return FALSE;
+			return NULL;
 		}
-		return TRUE;
+		return $mysqli_result;
 	}
 
 	/**
@@ -103,12 +103,16 @@ class MysqlApi {
 	public function get($query, $primary_key=NULL, $do_stripslashes=TRUE) {
 		$found = [];
 
-		$result = $this->query($query);
-		if ($result == FALSE) {
+		if (DEBUG) {
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " sql:$query ");
+		}
+
+		$mysqli_result = $this->query($query);
+		if ($mysqli_result == FALSE) {
 			return FALSE;
 		}
 
-		while($info = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+		while($info = mysqli_fetch_array($mysqli_result, MYSQLI_ASSOC)) {
 			if ($do_stripslashes) {
 				$info = array_map('stripslashes', $info);
 			}

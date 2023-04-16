@@ -38,7 +38,7 @@ $all_jobs = get_all_jobs();
  * Get the list of the weekdays where meals are served.
  */
 function get_weekday_meal_days() {
-	return [MONDAY, TUESDAY, WEDNESDAY, THURSDAY];
+	return [MONDAY, TUESDAY, WEDNESDAY];
 }
 
 /**
