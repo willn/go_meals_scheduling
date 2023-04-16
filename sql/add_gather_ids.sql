@@ -1,4 +1,4 @@
-ALTER TABLE auth_user ADD COLUMN "gather_id" string;
+ALTER TABLE auth_user ADD COLUMN gather_id VARCHAR(80);
 
 UPDATE auth_user SET gather_id='5382' WHERE username='amanda';
 UPDATE auth_user SET gather_id='2668' WHERE username='amyh';
@@ -80,5 +80,10 @@ UPDATE auth_user SET gather_id='3022' WHERE username='willat';
 UPDATE auth_user SET gather_id='7373' WHERE username='william';
 UPDATE auth_user SET gather_id='3022' where username='willaThiel';
 UPDATE auth_user SET gather_id='7807' where username='cj';
+UPDATE auth_user SET gather_id='7957' where username='aarons';
 UPDATE auth_user SET gather_id='7958' where username='adrienne';
-
+UPDATE auth_user SET gather_id='7990' where username='nate';
+UPDATE auth_user SET gather_id='7991' where username='kiley';
+UPDATE auth_user SET gather_id='7243' where username='frank';
+UPDATE auth_user SET gather_id='7242' where username='shelly';
+UPDATE auth_user SET gather_id='8317' where username='robb';

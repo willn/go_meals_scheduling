@@ -200,9 +200,18 @@ EOHTML;
 			$entry = "\n" .
 				'<li><a href="/meals_scheduling/report.php?key=6247">Weekday Table Setter</a></li>';
 		}
-		// UPDATE-EACH-SEASON
+
+		$mtg_clean = MEETING_NIGHT_CLEANER;
+		$mtg_order = MEETING_NIGHT_ORDERER;
+		$sun_asst = SUNDAY_ASST_COOK;
+		$sun_clean = SUNDAY_CLEANER;
+		$sun_head = SUNDAY_HEAD_COOK;
+		$week_asst = WEEKDAY_ASST_COOK;
+		$week_clean = WEEKDAY_CLEANER;
+		$week_head = WEEKDAY_HEAD_COOK;
+
 		$out = <<<EOHTML
-<ul id="filter_overlay"><li><a href="/meals_scheduling/report.php?key=all">all</a></li><li><a href="/meals_scheduling/report.php?key=6784">Weekday head cook</a></li><li><a href="/meals_scheduling/report.php?key=6785">Weekday meal asst cook</a></li><li><a href="/meals_scheduling/report.php?key=6789">Weekday Meal cleaner</a></li><li><a href="/meals_scheduling/report.php?key=6786">Sunday head cook</a></li><li><a href="/meals_scheduling/report.php?key=6787">Sunday meal asst cook</a></li><li><a href="/meals_scheduling/report.php?key=6790">Sunday Meal Cleaner</a></li><li><a href="/meals_scheduling/report.php?key=6788">Meeting night takeout orderer</a></li><li><a href="/meals_scheduling/report.php?key=6791">Meeting night cleaner</a></li></ul>
+<ul id="filter_overlay"><li><a href="/meals_scheduling/report.php?key=all">all</a></li><li><a href="/meals_scheduling/report.php?key={$week_head}">Weekday head cook</a></li><li><a href="/meals_scheduling/report.php?key={$week_asst}">Weekday meal asst cook</a></li><li><a href="/meals_scheduling/report.php?key={$week_clean}">Weekday Meal cleaner</a></li><li><a href="/meals_scheduling/report.php?key={$sun_head}">Sunday head cook</a></li><li><a href="/meals_scheduling/report.php?key={$sun_asst}">Sunday meal asst cook</a></li><li><a href="/meals_scheduling/report.php?key={$sun_clean}">Sunday Meal Cleaner</a></li><li><a href="/meals_scheduling/report.php?key={$mtg_order}">Meeting night takeout orderer</a></li><li><a href="/meals_scheduling/report.php?key={$mtg_clean}">Meeting night cleaner</a></li></ul>
 
 EOHTML;
 		$this->assertEquals($result, remove_html_whitespace($out));
@@ -828,10 +837,12 @@ EOHTML;
 
     public function provideRenderDay() {
 		// UPDATE-EACH-SEASON
+		$mtg_orderer_job_id = MEETING_NIGHT_ORDERER;
+
 		$zero = <<<EOHTML
 			<div class="choice">
 			Meeting night takeout orderer
-			<select name="date_5/4/2022_6788" class="preference_selection">
+			<select name="date_5/4/2022_{$mtg_orderer_job_id}" class="preference_selection">
 				<option value="0" selected>conflict</option>
 				<option value="1">OK</option>
 				<option value="2">prefer</option>
@@ -843,7 +854,7 @@ EOHTML;
 		$one = <<<EOHTML
 			<div class="choice">
 			Meeting night takeout orderer
-			<select name="date_6/20/2022_6788" class="preference_selection">
+			<select name="date_6/20/2022_{$mtg_orderer_job_id}" class="preference_selection">
 				<option value="0">conflict</option>
 				<option value="1" selected>OK</option>
 				<option value="2">prefer</option>
@@ -855,7 +866,7 @@ EOHTML;
 		$two = <<<EOHTML
 			<div class="choice">
 			Meeting night takeout orderer
-			<select name="date_7/18/2022_6788" class="preference_selection">
+			<select name="date_7/18/2022_{$mtg_orderer_job_id}" class="preference_selection">
 				<option value="0">conflict</option>
 				<option value="1">OK</option>
 				<option value="2" selected>prefer</option>

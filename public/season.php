@@ -16,15 +16,15 @@ define('DOING_CSA_FARM_MEALS', TRUE);
 define('SUB_SEASON_FACTOR', .5);
 
 /* ----------- job ids --------------- */
-define('MEETING_NIGHT_CLEANER', 6791);
-define('MEETING_NIGHT_ORDERER', 6788);
-define('SUNDAY_ASST_COOK', 6787);
-define('SUNDAY_CLEANER', 6790);
-define('SUNDAY_HEAD_COOK', 6786);
-define('WEEKDAY_ASST_COOK', 6785);
-define('WEEKDAY_CLEANER', 6789);
-define('WEEKDAY_HEAD_COOK', 6784);
-# define('WEEKDAY_TABLE_SETTER', 6774); not this season
+define('MEETING_NIGHT_CLEANER', 7057);
+define('MEETING_NIGHT_ORDERER', 7054);
+define('SUNDAY_ASST_COOK', 7053);
+define('SUNDAY_CLEANER', 7056);
+define('SUNDAY_HEAD_COOK', 7052);
+define('WEEKDAY_ASST_COOK', 7051);
+define('WEEKDAY_CLEANER', 7055);
+define('WEEKDAY_HEAD_COOK', 7050);
+# define('WEEKDAY_TABLE_SETTER', 7040); // not this season
 
 /**
  * Get the number of shift overrides.
