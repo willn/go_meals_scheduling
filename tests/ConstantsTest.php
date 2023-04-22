@@ -15,7 +15,8 @@ class ConstantsTest extends TestCase {
 	 * Test that DEBUG is turned off
 	 */
 	public function test_debug_off() {
-		$this->assertEquals(FALSE, DEBUG);
+		$this->assertEquals(FALSE, DEBUG, 'Is DEBUG FALSE?');
+		$this->assertEquals(FALSE, DEBUG_GET_LEAST_POSSIBLE, 'Is DEBUG_GET_LEAST_POSSIBLE False?');
 	}
 }
 ?>
