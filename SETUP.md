@@ -321,7 +321,7 @@ git commit
 ./analyze_results.sh
 ```
 
-## upload a copy of the results.txt to google drive & import into a spreadsheet
+## upload a copy of the `schedule.txt` to google drive & import into a spreadsheet
 * try to move the under-assigned workers to fill the 'XXX' spots, making trades
 * do any swapping needed
 
@@ -334,11 +334,9 @@ git commit
 cd ~/Downloads
 mv <downloaded filename> schedule.txt
 
-# On the schedule / report page, filter to "all" jobs. Copy the "confirm checks" section & paste:
-# copy section of text
+# On the scheduling system, report page, filter to "all" jobs. Copy the "confirm checks" section & paste:
 vi checks.sh
 # paste & save
-
 chmod +x checks.sh
 ./checks.sh | more
 # read the comments and make sure they apply cleanly with auto-checks, or make trades
@@ -367,12 +365,14 @@ php validate_schedule.php -f ../auto_assignments/schedule.txt
 Download sheet again, this time in *CSV* form.
 
 ```
-mv ~/Downloads/meals\ winter\ 2022\ -\ results.csv utils/final_schedule.csv
+mv ~/Downloads/<file name>.csv utils/final_schedule.csv
 cd go_meals_scheduling_dev/utils/
 php translate_to_gather_imports.php > imports.csv
 ```
 If the above translation has 1 or more missing ID names, it will output a list
-of names. Look up their ID in Gather, then:
+of names.
+
+Look up their ID in Gather, then:
 
 1. for this season, update database table `auth_users` to include their IDs
 2. for the future, copy and paste these entries to `sql/add_gather_ids.sql`

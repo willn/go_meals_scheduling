@@ -914,9 +914,9 @@ EOHTML;
 			MEETING_NIGHT_CLEANER => 6,
 			MEETING_NIGHT_ORDERER => 6,
 
-			SUNDAY_ASST_COOK => 18,
-			SUNDAY_CLEANER => 9,
-			SUNDAY_HEAD_COOK => 9,
+			SUNDAY_ASST_COOK => 20,
+			SUNDAY_CLEANER => 10,
+			SUNDAY_HEAD_COOK => 10,
 
 			WEEKDAY_ASST_COOK => 48,
 			WEEKDAY_CLEANER => 24,
@@ -952,7 +952,7 @@ EOHTML;
 
 		// UPDATE-EACH-SEASON
 		$expected = [
-			'sunday' => 9,
+			'sunday' => 10,
 			'weekday' => 24,
 			'meeting' => 6,
 		];

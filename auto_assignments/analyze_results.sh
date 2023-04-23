@@ -4,7 +4,7 @@
 # Run an allocation, and analyze the results
 #-----------------------------------------------
 
-RESULTS='results.txt' 
+RESULTS='schedule.txt' 
 WORKERS='workers.txt'
 
 echo "count un-filled slots:"

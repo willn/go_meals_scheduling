@@ -1,41 +1,41 @@
 date	time	communities	head_cook	asst1	asst2	cleaner1	cleaner2	cleaner3
-5/1/2023	6:15	GO	katie	kelly	tammy	ted	amanda	rossella
-5/3/2023	5:45	GO	gayle			XXXXXXXX		
-5/7/2023	5:30	GO	willie	ellie	nancy	mac	amanda	cj
+5/1/2023	6:15	GO	emilyadama	kelly	tammy	ted	amanda	rossella
+5/3/2023	5:45	GO	gayle					
+5/7/2023	5:30	GO	willie	ellie	amyh	mac	amanda	cj
 5/8/2023	6:15	GO	tevah	emilyadama	dale	amyh	michael	keithg
-5/10/2023	6:15	GO	frank	rossella	suzette	mac	kelly	drew
-5/15/2023	5:45	GO	jeffh			XXXXXXXX		
+5/10/2023	6:15	GO	frank	rossella	megan	mac	kelly	drew
+5/15/2023	5:45	GO	megan					
 5/16/2023	6:15	GO	tammy	kelly	nancy	ted	amanda	justin
 5/17/2023	6:15	GO	dale	emilyadama	michael	jeff	eric	kelly
-5/21/2023	5:30	GO	eric	liam	meg	mac	cj	amanda
+5/21/2023	5:30	GO	eric	liam	meg	robb	cj	keithg
 5/22/2023	6:15	GO	rossella	marta	kelly	amyh	michael	ted
 5/24/2023	6:15	GO	maryking	glenn	pat	mac	keithg	kelly
 5/30/2023	6:15	GO	dale	shelly	frank	ted	amanda	michael
 5/31/2023	6:15	GO	jennifer	justin	nancy	justin	kelly	mac
-6/4/2023	5:30	GO	eric	liam	keithg	keithg	mac	jeffh
-6/6/2023	6:15	GO	megan	rossella	marta	amyh	catherine	kelly
-6/7/2023	5:45	GO	jennifer			XXXXXXXX		
-6/12/2023	6:15	GO	kelly	tammy	cj	amanda	cj	rossella
+6/4/2023	5:30	GO	eric	liam	keithg	mac	jeffh	michael
+6/6/2023	6:15	GO	katie	rossella	marta	amyh	catherine	kelly
+6/7/2023	5:45	GO	jennifer					
+6/11/2023	5:30	GO	keithg	terrence	frank	mac	keithg	tevah
+6/12/2023	6:15	GO	kelly	tammy	katie	amanda	cj	rossella
 6/13/2023	6:15	GO	emilyadama	andrew	shelly	ted	eric	catherine
 6/14/2023	6:15	GO	jennifer	justin	michael	justin	jeff	kelly
-6/19/2023	5:45	GO	megan			XXXXXXXX		
+6/19/2023	5:45	GO	jeffh					
 6/21/2023	6:15	GO	dale	nancy	catherine	amyh	catherine	kelly
-6/25/2023	5:30	GO	drew	terrence	katie	jeffh	dan	tevah
+6/25/2023	5:30	GO	drew	terrence	amanda	mac	amanda	dan
 6/26/2023	6:15	GO	kelly	meg	keithg	keithg	amyh	michael
 6/27/2023	6:15	GO	maryking	marta	liam	dan	amanda	michael
 6/28/2023	6:15	GO	tammy	pat	emilyadama	ted	jeff	kelly
-7/2/2023	5:30	GO	keithg	dan	amanda	mac	keithg	cj
+7/2/2023	5:30	GO	keithg	robb	drew	keithg	amanda	cj
 7/3/2023	6:15	GO	dale	jennifer	nancy	amyh	michael	eric
-7/5/2023	5:45	GO	gayle			XXXXXXXX		
-7/9/2023	5:30	GO	dan	willaThiel	tevah	tevah	robb	michael
+7/5/2023	5:45	GO	gayle					
+7/9/2023	5:30	GO	dan	willaThiel	tevah	tevah	jeffh	michael
 7/10/2023	6:15	GO	tammy	frank	katie	amyh	amanda	cj
 7/11/2023	6:15	GO	suzette	andrew	rossella	catherine	dan	amanda
 7/12/2023	6:15	GO	jennifer	justin	nancy	ted	michael	drew
-7/16/2023	5:30	GO	eric	amyh	frank	mac	jeffh	amanda
-7/17/2023	5:45	GO	justin			XXXXXXXX		
-7/18/2023	6:15	GO	emilyadama	marta	megan	dan	eric	rossella
-7/23/2023	5:30	GO	frank	robb	dan	robb	tevah	michael
+7/16/2023	5:30	GO	eric	nancy	dan	mac	robb	dan
+7/17/2023	5:45	GO	justin					
+7/18/2023	6:15	GO	megan	marta	suzette	dan	eric	rossella
+7/23/2023	5:30	GO	frank	dan	amyh	jeffh	tevah	dan
 7/24/2023	6:15	GO	dale	meg	rossella	amyh	drew	michael
 7/25/2023	6:15	GO	pat	michael	liam	ted	amanda	cj
-7/30/2023	5:30	GO	dan	terrence	nancy	mac	robb	michael
-MISSED HOBARTERS: 5 of 39 0.13
+7/30/2023	5:30	GO	dan	nancy	cj	mac	robb	michael
