@@ -36,9 +36,10 @@ function get_num_shift_overrides() {
 
 	/*
 	 * short in spring 2023:
-	 * WEEKDAY_CLEANER - 4, 24 shifts
-	 * WEEKDAY_HEAD_COOK - 1, 2 shifts
-	 * WEEKDAY_ASST_COOK - 2, 4 shifts
+	 * WEEKDAY_HEAD_COOK - 1 shifts 
+	 * WEEKDAY_ASST_COOK - 2 shifts
+	 * WEEKDAY_CLEANER - 12 shifts
+	 * 
 	 * plan is to pull some labor forward from summer to spring hoping that
 	 * some new members will be able to pickup some work later in the summer.
 	 */
@@ -55,6 +56,7 @@ function get_num_shift_overrides() {
 		'dale' => [WEEKDAY_HEAD_COOK => 1],
 
 		'marta' => [WEEKDAY_ASST_COOK => 1],
+		'nancy' => [WEEKDAY_ASST_COOK => 1],
 
 		'amanda' => [WEEKDAY_CLEANER => 2],
 		'amyh' => [WEEKDAY_CLEANER => 2],
@@ -73,6 +75,9 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
+		5 => [2, 9, 14, 23],
+		6 => [5, 11, 18, 20],
+		7 => [19, 26, 31],
 	];
 }
 

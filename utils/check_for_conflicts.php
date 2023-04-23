@@ -18,6 +18,12 @@ function parse_schedule_file($filename=FILE) {
 	$out = [];
 	foreach($content as $line) {
 		$pieces = array_map('trim', explode("\t", $line));
+
+		# ignore missed hobarters line
+		if ((count($pieces) == 1) && (substr($line, 0, 17) === 'MISSED HOBARTERS:')) {
+			continue;
+		}
+
 		$out[] = array_combine($cols, $pieces);
 	}
 
@@ -47,23 +53,23 @@ function check_for_conflicts($filename) {
 		$date = array_get($meal, 'date');
 
 		# first half of the meal
-		$head_cook = array_get($meal, 'head_cook');
-		$asst1 = array_get($meal, 'asst1');
-		$asst2 = array_get($meal, 'asst2');
-		$cleaner1 = array_get($meal, 'cleaner1');
-		$cleaner2 = array_get($meal, 'cleaner2');
-		$cleaner3 = array_get($meal, 'cleaner3');
+		$head_cook = trim(array_get($meal, 'head_cook'));
+		$asst1 = trim(array_get($meal, 'asst1'));
+		$asst2 = trim(array_get($meal, 'asst2'));
+		$cleaner1 = trim(array_get($meal, 'cleaner1'));
+		$cleaner2 = trim(array_get($meal, 'cleaner2'));
+		$cleaner3 = trim(array_get($meal, 'cleaner3'));
+
+		// ignore if this is a meeting night
+		if (empty($asst1 . $asst2 . $cleaner2 . $cleaner3)) {
+			continue;
+		}
 
 		foreach([$head_cook, $asst1, $asst2, $cleaner1, $cleaner2, $cleaner3] as $job) {
 			if ($job == PLACEHOLDER) {
 				$has_error = TRUE;
 				$conflicts[] = "{$date} has placeholder assigned";
 			}
-		}
-
-		// ignore if this is a meeting night
-		if (empty($asst1 . $asst2 . $cleaner1 . $cleaner2 . $cleaner3)) {
-			continue;
 		}
 
 		if ($head_cook == $asst1) {

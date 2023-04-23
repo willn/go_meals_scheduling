@@ -264,15 +264,19 @@ mysqldump -u gocoho_work_allocation -p gocoho_work_allocation > end_of_survey.sq
 # on localhost:
 cd go_meals_scheduling/sql/
 rsync -e 'ssh -p 1022' -avz gocoho@gocoho.org:/home/gocoho/end_of_survey.sql .
-mysql -u gocoho_work_allocation -p gocoho_work_allocation
-drop database gocoho_work_allocation;
-create database gocoho_work_allocation;
+
+# add the following 2 lines to the top of end_of_survey.sql
+DROP DATABASE gocoho_work_allocation;
+CREATE DATABASE gocoho_work_allocation;
+USE gocoho_work_allocation;
+
+# load it up
 mysql -u gocoho_work_allocation -p gocoho_work_allocation < end_of_survey.sql
 ```
 
 ## check for any un-assigned workers
 ```
-cd auto_assignments/
+cd ../auto_assignments/
 php execute.php -u
 cd ..
 ```
@@ -289,7 +293,7 @@ php execute.php -s
 ```
 
 ## Cancel extra meals
-Look at all of the shifts to see where the pain lies... head, asst, cleaner
+Look at the "Number of placeholders" line to see where we're missing labor.
 if we need to cancel meals, then mark these as skip dates.
 ```
 # add dates to get_skip_dates
@@ -297,6 +301,10 @@ vi public/season.php
 
 # continue running and adjusting skipped dates, until no more "Use a placeholder # for" messages
 php execute.php -s
+```
+
+## Borrowed labor
+Confirm whether any "borrowed" labor was actually needed. If not, then remove the borrowed labor.
 
 # run the unit test for CalendarTest::testRenderSeasonDateSummary until things line up
 cd tests/
@@ -307,11 +315,6 @@ git diff
 git add
 git commit
 ```
-
-## Borrowed labor
-
-Confirm whether any "borrowed" labor was actually needed. If not, then
-remove the borrowed labor.
 
 ## make a run, and analyze the results
 ```

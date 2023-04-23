@@ -81,7 +81,7 @@ class RosterTest extends TestCase {
 					'all' => 0,
 					// UPDATE-EACH-SEASON
 					WEEKDAY_HEAD_COOK => 1,
-					WEEKDAY_ASST_COOK => 2,
+					WEEKDAY_ASST_COOK => 3,
 					SUNDAY_HEAD_COOK => 0,
 					SUNDAY_ASST_COOK => 1,
 					MEETING_NIGHT_ORDERER => 0,
@@ -145,7 +145,7 @@ class RosterTest extends TestCase {
 					// UPDATE-EACH-SEASON
 					'all' => 0,
 					WEEKDAY_HEAD_COOK => 24,
-					WEEKDAY_ASST_COOK => 48,
+					WEEKDAY_ASST_COOK => 49,
 					SUNDAY_HEAD_COOK => 10,
 					SUNDAY_ASST_COOK => 21,
 					MEETING_NIGHT_ORDERER => 6,
@@ -251,6 +251,7 @@ class RosterTest extends TestCase {
 	 * NOTE: This is where we'll find out if we're short on labor for
 	 * the upcoming season. This is how we'll figure out how many meals
 	 * to cancel due to labor shortages.
+	 */
 	public function testCompareLabor($job_id, $assigned_labor, $need, $diff, $job_name) {
 		$all_jobs = get_all_jobs();
 
@@ -263,7 +264,6 @@ class RosterTest extends TestCase {
 		];
 		$this->assertGreaterThanOrEqual($diff, 0, print_r($debug, TRUE));
 	}
-	 */
 
 	public function provideCompareLabor() {
 		$all_jobs = get_all_jobs();
@@ -280,6 +280,11 @@ class RosterTest extends TestCase {
 		foreach($num_shifts_needed as $job_id => $need) {
 			$assigned_labor = $this->labor[$job_id];
 			$success = ($need >= $assigned_labor);
+
+			# if we're skipping meeting night cleaner, then skip it
+			if (($job_id == MEETING_NIGHT_CLEANER ) && ($assigned_labor == 0)) {
+				continue;
+			}
 
 			// this is relevant as an ordered list, not an associative array
 			$counts[] = [

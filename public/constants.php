@@ -42,7 +42,7 @@ define('MEETING_NIGHT_MEAL', 5);
 define('ALL_ID', 'all');
 
 define('DEBUG', FALSE);
-define('DEBUG_FIND_CANCEL_MEALS', TRUE);
+define('DEBUG_FIND_CANCEL_MEALS', FALSE);
 
 define('JSON_ASSIGNMENTS_FILE', 'results/output.json');
 
