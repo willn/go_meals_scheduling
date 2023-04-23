@@ -324,10 +324,11 @@ EOTXT;
 	 * @return string the username, it could be PLACEHOLDER.
 	 */
 	public function pickWorker($job_id, $worker_freedom) {
+		$name = get_job_name($job_id);
+
 		if (empty($worker_freedom)) {
-            $name = get_job_name($job_id);
-            error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
-                " Use a placeholder for {$name} date: {$this->date}");
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
+				" Use a placeholder for {$name} date: {$this->date}");
 			return PLACEHOLDER;
 		}
 
@@ -429,7 +430,13 @@ EOTXT;
 		$username = get_first_associative_key($worker_points);
 
 		// may need to insert a placeholder for later manual correction
-		return is_null($username) ? PLACEHOLDER : $username;
+		$picked = $username;
+		if (is_null($username)) {
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
+				" Use a placeholder for {$name} date: {$this->date}");
+			$picked = PLACEHOLDER;
+		}
+		return $picked;
 	}
 
 	/**
@@ -443,15 +450,14 @@ EOTXT;
 	 * @return string username or NULL if assignment failed
 	 */
 	public function fill($job_id, $worker_freedom) {
+		$name = get_job_name($job_id);
+
 		// don't add anymore workers, this meal is fully assigned
 		if (!$this->hasOpenShifts($job_id)) {
 			echo "this meal {$this->date} $job_id is filled\n";
 			sleep(1);
 			return '';
 		}
-
-		// get the name of the worker to fill this slot with
-		$username = $this->pickWorker($job_id, $worker_freedom);
 
 		// assign to the first available shift slot
 		$is_available = FALSE;
@@ -467,53 +473,14 @@ EOTXT;
 			break;
 		}
 
+		// this meal is fully-assigned, do not assign more
 		if (!$is_available) {
-			echo "all slots are full\n";
-			return PLACEHOLDER;
+			return NULL;
 		}
 
+		// get the name of the worker to fill this slot with
+		$username = $this->pickWorker($job_id, $worker_freedom);
 		$this->assigned[$job_id][$next_key] = $username;
-		if ($username == PLACEHOLDER) {
-			return $username;
-		}
-
-		$worker = $this->schedule->getWorker($username);
-
-		// remove from this meal's pool if not bundling
-		if (!$worker->wantsBundling()) {
-			unset($this->possible_workers[$job_id][$username]);
-		}
-/* #!# disabled for now... not sure this works properly
-		// if the first assignment, consider bundling
-		else if ($key == 0) {
-			$num_needed = count($this->assigned[$job_id]) - ($key + 1);
-			// first, skip if this job is fully staffed already
-			if ($num_needed < 1) {
-				return $username;
-			}
-
-			// Make sure the worker needs enough shifts to fulfill the bundle
-			$to_fill = $worker->getNumShiftsOpen($job_id);
-			if ($to_fill < $num_needed) {
-				return $username;
-			}
-
-#!# update remaining shifts left
-			// do the bundling
-			foreach($this->assigned[$job_id] as $num=>$w) {
-				if ($num == $key) {
-					continue;
-				}
-
-				$this->assigned[$job_id][$num] = $username;
-
-				// #!# this breaks shit... but without it, people get
-				// over-assigned.
-				// $worker->setAssignedShift($job_id, $this->date);
-			}
-		}
-*/
-
 		return $username;
 	}
 
@@ -544,16 +511,19 @@ EOTXT;
 	 * @return int number of placeholders for this meal.
 	 */
 	public function getNumPlaceholders() {
-		$count = 0;
+		$summary = [];
+
 		foreach($this->assigned as $job_id=>$assignments) {
+			$summary[$job_id] = 0;
+
 			foreach($assignments as $assn) {
 				if ($assn == PLACEHOLDER) {
-					$count++;
+					$summary[$job_id]++;
 				}
 			}
 		}
 
-		return $count;
+		return $summary;
 	}
 
 

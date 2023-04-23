@@ -16,6 +16,33 @@ function array_get($array, $key, $default=NULL) {
 }
 
 /**
+ * Combine and add the values of 2 associative arrays which have numbers as
+ * values.
+ *
+ * @param array $one an associative array where the values are numbers.
+ * @param array $two an associative array where the values are numbers.
+ * @return array The combined values.
+ */
+function associative_array_add($one, $two) {
+	$all_keys = $one + $two;
+	$combined = [];
+
+	foreach($one as $key => $value) {
+		$combined[$key] = $value;
+		if (isset($two[$key])) {
+			$combined[$key] += $two[$key];
+		}
+		unset($all_keys[$key]);
+	}
+
+	// process any missed keys from two
+	foreach($all_keys as $key => $value) {
+		$combined[$key] = $two[$key];
+	}
+	return $combined;
+}
+
+/**
  * Get the upcoming season's ID.
  * Since the seasons are no longer mathematically predictable, this returns the
  * highest number from the sqlite file.

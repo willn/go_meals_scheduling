@@ -242,9 +242,10 @@ EOTXT;
 
 		asort($this->least_possible);
 
-		if (DEBUG_GET_LEAST_POSSIBLE) {
+		if (DEBUG_FIND_CANCEL_MEALS) {
 			$job_name = get_job_name($job_id);
-			error_log(__FILE__ . ' ' . __LINE__ . " least possible for {$job_name}: " . var_export($this->least_possible, TRUE));
+			error_log(__FILE__ . ' ' . __LINE__ . " ratios for {$job_name} (<1 is bad): " .
+				var_export($this->least_possible, TRUE));
 		}
 
 		return TRUE;
@@ -310,12 +311,27 @@ EOTXT;
 	 * @return int number of placeholders for the schedule.
 	 */
 	public function getNumPlaceholders() {
-		$count = 0;
+		$summary = [];
+
 		foreach($this->meals as $meal) {
-			$count += $meal->getNumPlaceholders();
+			$placeholders = $meal->getNumPlaceholders();
+
+			$meal_class = get_class($meal);
+			if (!array_key_exists($meal_class, $summary)) {
+				$summary[$meal_class] = $placeholders;
+				continue;
+			}
+
+			$count = array_reduce(array_values($placeholders),
+				function($carry, $amount) { return $carry + $amount; }); 
+			if ($count == 0) {
+				continue;
+			}
+
+			$summary[$meal_class] = associative_array_add($summary[$meal_class], $placeholders);
 		}
 
-		return $count;
+		return $summary;
 	}
 
 	/**

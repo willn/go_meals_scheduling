@@ -40,6 +40,11 @@ unset($all_jobs['all']);
 $assignments = new Assignments();
 $assignments->run();
 
+if (DEBUG_FIND_CANCEL_MEALS) {
+	error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " Number of placeholders: " .
+		 print_r( $assignments->getNumPlaceholders(), true ));
+}
+
 // output as CSV
 if (array_key_exists('c', $options)) {
 	$assignments->outputCSV();

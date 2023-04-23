@@ -279,10 +279,13 @@ cd ..
 
 ## If we know that we need to cancel 1 or more meals, edit
 ```
-vi public/constants.php   # set DEBUG_GET_LEAST_POSSIBLE to TRUE
+vi public/constants.php   # set DEBUG_FIND_CANCEL_MEALS to TRUE
 cd auto_assignments/
-php execute.php -s
+# open another window to watch
 tail -f error_log
+
+# run the allocation
+php execute.php -s
 ```
 
 ## Cancel extra meals
@@ -291,6 +294,10 @@ if we need to cancel meals, then mark these as skip dates.
 ```
 # add dates to get_skip_dates
 vi public/season.php
+
+# continue running and adjusting skipped dates, until no more "Use a placeholder # for" messages
+php execute.php -s
+
 # run the unit test for CalendarTest::testRenderSeasonDateSummary until things line up
 cd tests/
 phpunit CalendarTest.php
@@ -300,6 +307,11 @@ git diff
 git add
 git commit
 ```
+
+## Borrowed labor
+
+Confirm whether any "borrowed" labor was actually needed. If not, then
+remove the borrowed labor.
 
 ## make a run, and analyze the results
 ```

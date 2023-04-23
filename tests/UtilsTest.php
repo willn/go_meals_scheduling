@@ -16,6 +16,7 @@ define('LABOR_DAY', 4);
  * This is simple example to ensure the testing framework functions properly.
  */
 class UtilsTest extends TestCase {
+
 	/**
 	 * @dataProvider provide_array_get
 	 */
@@ -25,13 +26,36 @@ class UtilsTest extends TestCase {
 	}
 
 	public function provide_array_get() {
-		return array(
-			array('foo', 0),
-			array('quux', 3),
-			array(NULL, 10),
-			array(NULL, -1),
-			array('hey', 9, 'hey'),
-		);
+		return [
+			['foo', 0],
+			['quux', 3],
+			[NULL, 10],
+			[NULL, -1],
+			['hey', 9, 'hey'],
+		];
+	}
+
+	/**
+	 * @dataProvider provide_associative_array_add
+	 */
+	public function test_associative_array_add($one, $two, $expected) {
+		$result = associative_array_add($one, $two);
+		$debug = [
+			'one' => $one,
+			'two' => $two,
+			'expected' => $expected,
+			'result' => $result,
+		];
+		$this->assertEquals($expected, $result, print_r($debug, TRUE));
+	}
+
+	public function provide_associative_array_add() {
+		$one = ['a' => 1, 'b' => 3, 'c' => 5];
+		$two = ['a' => 2, 'b' => 4, 'd' => 6];
+
+		return [
+			[$one, $two, ['a' => 3, 'b' => 7, 'c' => 5, 'd' => 6]],
+		];
 	}
 
 	public function test_get_season_id() {
