@@ -3,6 +3,8 @@
 ## Update settings in order to calculate the needed shift counts
 
 ### Ask meals committee questions:
+* How many meals are they planning on serving this season?
+  - Will they be reducing the load down from the "full schedule"?
 * Do they want to update the list of hobarters?
   - Look for `function get_hobarters`
 * Do they want to offer CSA farm meals this summer?
@@ -256,7 +258,7 @@ right or wrong amount of labor.
 
 ## disable cronjobs
 
-## commit closed database:
+## copy closed database locally:
 ```
 # on gocoho:
 mysqldump -u gocoho_work_allocation -p gocoho_work_allocation > end_of_survey.sql
@@ -270,7 +272,7 @@ DROP DATABASE gocoho_work_allocation;
 CREATE DATABASE gocoho_work_allocation;
 USE gocoho_work_allocation;
 
-# load it up
+# load it up locally
 mysql -u gocoho_work_allocation -p gocoho_work_allocation < end_of_survey.sql
 ```
 
