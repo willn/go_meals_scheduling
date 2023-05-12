@@ -74,6 +74,12 @@ class SeasonTest extends TestCase {
 		}
 	}
 
+	public function test_get_meeting_night_overrides() {
+		$overrides = get_meeting_night_overrides();
+		$this->assertIsArray($overrides);
+		$this->assertEmpty($overrides);
+	}
+
 	/**
 	 * @dataProvider provide_get_current_season_months
 	 */
