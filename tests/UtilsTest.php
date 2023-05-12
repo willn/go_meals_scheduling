@@ -8,8 +8,8 @@ require_once '../public/globals.php';
 require_once '../auto_assignments/schedule.php';
 
 // UPDATE-EACH-SEASON
-define('EASTER_MONTH', 4);
-define('EASTER_DAY', 9);
+define('EASTER_MONTH', 3);
+define('EASTER_DAY', 31);
 define('LABOR_DAY', 4);
 
 /**
@@ -201,7 +201,7 @@ class UtilsTest extends TestCase {
 		$days = [
 			1 => [1],
 			// easter changes
-			4 => [EASTER_DAY],
+			EASTER_MONTH => [EASTER_DAY],
 			// Memorial Day changes
 			5 => [28, 29],
 			7 => [4],

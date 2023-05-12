@@ -1,5 +1,6 @@
 <?php
 require_once 'database_config.php';
+require_once 'constants.php';
 
 /*
  * Database connection and interaction library
@@ -50,11 +51,12 @@ class MysqlApi {
 		}
 
 		if (!extension_loaded('mysqli')) {
+			error_log('mysqli extension is not loaded');
 			return FALSE;
 		}
 
-		$this->link = mysqli_connect($this->host, $this->user, $this->password);
-		if (is_null($this->link)) {
+		$this->link = @mysqli_connect($this->host, $this->user, $this->password);
+		if ($this->link === FALSE) {
 			error_log('unable to establish connection with mysql database');
 			return FALSE;
 		}
@@ -103,7 +105,7 @@ class MysqlApi {
 	public function get($query, $primary_key=NULL, $do_stripslashes=TRUE) {
 		$found = [];
 
-		if (DEBUG) {
+		if (defined(DEBUG) && DEBUG) {
 			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " sql:$query ");
 		}
 

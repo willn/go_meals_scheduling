@@ -10,6 +10,7 @@ function get_hdup() {
 		'database'=>'database name',
 		'user'=>'username',
 		'password'=>'password',
+		'unit_test_password' => 'unit_test_password',
 	];
 }
 ?>
