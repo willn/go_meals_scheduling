@@ -589,13 +589,7 @@ EOSQL;
 				// process each date instance
 				$prev_pref = NULL;
 				foreach($dates as $d) {
-
-					$shift_id = NULL;
-					$sql = "select id from {$shifts_table} where date_shift_string='{$d}' and job_id={$task}";
-					foreach($this->mysql_api->get($sql) as $row) {
-						$shift_id = $row['id'];
-						break;
-					}
+					$shift_id = $this->getShiftIdByDateAndJobId($d, $task);
 
 					if (is_null($shift_id)) {
 						$insert = <<<EOSQL
@@ -604,12 +598,9 @@ EOSQL;
 						// XXX add some escaping here
 						$this->mysql_api->query($insert);
 
-						// now check to make sure that entry was saved...
-						foreach($this->mysql_api->get($sql) as $row) {
-							$shift_id = $row['id'];
-							break;
-						}
+						$shift_id = $this->getShiftIdByDateAndJobId($d, $task);
 
+						// now check to make sure that entry was saved...
 						if (is_null($shift_id)) {
 							echo <<<EOHTML
 								<p class="error">
@@ -643,6 +634,20 @@ EOSQL;
 				}
 			}
 		}
+	}
+
+	/**
+	 * Get the shift ID from the database, given a date and a job ID.
+	 */
+	public function getShiftIdByDateAndJobId($date, $job_id) {
+		$shifts_table = SCHEDULE_SHIFTS_TABLE;
+
+		$sql = "SELECT id from {$shifts_table} where date_shift_string='{$date}' and job_id={$job_id}";
+		foreach($this->mysql_api->get($sql) as $row) {
+			return $row['id'];
+		}
+
+		return NULL;
 	}
 
 

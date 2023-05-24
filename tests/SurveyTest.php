@@ -152,5 +152,21 @@ EOHTML;
 			[$example1, $result1],
 		];
 	}
+
+	/**
+	 * @dataProvider provideGetShiftIdByDateAndJobId
+	 */
+	public function testGetShiftIdByDateAndJobId($date, $job_id, $expected) {
+		$result = $this->survey->getShiftIdByDateAndJobId($date, $job_id);
+		$this->assertEquals($expected, $result);
+	}
+
+	public function provideGetShiftIdByDateAndJobId() {
+		return [
+			['7/2/2023', '7052', 1],
+			['7/30/2023', '7052', 5],
+			['7/30/2023', '7053', 138],
+		];
+	}
 }
 ?>
