@@ -80,8 +80,8 @@ class RosterTest extends TestCase {
 				[
 					'all' => 0,
 					// UPDATE-EACH-SEASON
-					WEEKDAY_HEAD_COOK => -1,
-					WEEKDAY_ASST_COOK => -3,
+					WEEKDAY_HEAD_COOK => 0,
+					WEEKDAY_ASST_COOK => -1,
 					SUNDAY_HEAD_COOK => 0,
 					SUNDAY_ASST_COOK => -1,
 					MEETING_NIGHT_ORDERER => 0,
@@ -144,8 +144,8 @@ class RosterTest extends TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					WEEKDAY_HEAD_COOK => 22,
-					WEEKDAY_ASST_COOK => 43,
+					WEEKDAY_HEAD_COOK => 23,
+					WEEKDAY_ASST_COOK => 45,
 					SUNDAY_HEAD_COOK => 10,
 					SUNDAY_ASST_COOK => 19,
 					MEETING_NIGHT_ORDERER => 6,

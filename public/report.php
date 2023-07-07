@@ -243,6 +243,7 @@ Sundays: {$meals_summary['sunday']}
 		<th style="text-align: right;">shifts</th>
 		<th style="text-align: right;">available</th>
 		<th style="text-align: right;">diff</th>
+		<th style="text-align: right;">ratio</th>
 	</tr>
 </thead>
 <tbody>
