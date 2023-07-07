@@ -81,14 +81,14 @@ class MysqlApi {
 			$this->connect();
 		}
 		if (is_null($this->link)) {
-			return NULL;
+			# return NULL; wrong return type
 		}
 
 		$mysqli_result = mysqli_query($this->link, $query);
 		if (!$mysqli_result) {
 			$err = mysqli_error($this->link);
 			error_log("Could not get a result from the query, err: {$err}");
-			return NULL;
+			# return NULL; wrong return type
 		}
 		return $mysqli_result;
 	}
@@ -105,7 +105,7 @@ class MysqlApi {
 	public function get($query, $primary_key=NULL, $do_stripslashes=TRUE) {
 		$found = [];
 
-		if (defined(DEBUG) && DEBUG) {
+		if (defined('DEBUG') && DEBUG) {
 			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " sql:$query ");
 		}
 

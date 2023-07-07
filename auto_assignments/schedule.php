@@ -331,7 +331,7 @@ EOTXT;
 			$summary[$meal_class] = associative_array_add($summary[$meal_class], $placeholders);
 		}
 
-		return $summary;
+		return count($summary);
 	}
 
 	/**

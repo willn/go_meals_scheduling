@@ -184,7 +184,7 @@ class Worker {
 	 *
 	 * @param int $job_id the ID of the shift
 	 * @param string $date date of availability
-	 * @param string $pref the preference level of the worker. 
+	 * @param float $pref the preference level of the worker. 
 	 *     (prefer = 2, OK = 1, no response = .5, conflict = 0), see also
 	 *     NON_RESPONSE_PREF.
 	 */

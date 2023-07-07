@@ -475,7 +475,7 @@ EOTXT;
 
 		// this meal is fully-assigned, do not assign more
 		if (!$is_available) {
-			return NULL;
+			return '';
 		}
 
 		// get the name of the worker to fill this slot with
@@ -523,7 +523,7 @@ EOTXT;
 			}
 		}
 
-		return $summary;
+		return count($summary);
 	}
 
 

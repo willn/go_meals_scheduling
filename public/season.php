@@ -47,24 +47,24 @@ function get_num_shift_overrides() {
 	return [
 		// liam will be leaving for the second half, assign him fully for 1st half
 		'liam' => [
-			WEEKDAY_ASST_COOK => 1,
-			SUNDAY_ASST_COOK => 1,
+			WEEKDAY_ASST_COOK => -1,
+			SUNDAY_ASST_COOK => -1,
 		],
 
 		// pull forward, borrow from summer.
 		// When summer comes, flip these to negatives:
-		'dale' => [WEEKDAY_HEAD_COOK => 1],
+		'dale' => [WEEKDAY_HEAD_COOK => -1],
 
-		'marta' => [WEEKDAY_ASST_COOK => 1],
-		'nancy' => [WEEKDAY_ASST_COOK => 1],
+		'marta' => [WEEKDAY_ASST_COOK => -1],
+		'nancy' => [WEEKDAY_ASST_COOK => -1],
 
-		'amanda' => [WEEKDAY_CLEANER => 2],
-		'amyh' => [WEEKDAY_CLEANER => 2],
-		'catherine' => [WEEKDAY_CLEANER => 1],
-		'eric' => [WEEKDAY_CLEANER => 1],
-		'kelly' => [WEEKDAY_CLEANER => 2],
-		'michael' => [WEEKDAY_CLEANER => 2],
-		'ted' => [WEEKDAY_CLEANER => 2],
+		'amanda' => [WEEKDAY_CLEANER => -2],
+		'amyh' => [WEEKDAY_CLEANER => -2],
+		'catherine' => [WEEKDAY_CLEANER => -1],
+		'eric' => [WEEKDAY_CLEANER => -1],
+		'kelly' => [WEEKDAY_CLEANER => -2],
+		'michael' => [WEEKDAY_CLEANER => -2],
+		'ted' => [WEEKDAY_CLEANER => -2],
 	];
 }
 
@@ -75,9 +75,6 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		5 => [2, 9, 14, 23],
-		6 => [5, 18, 20],
-		7 => [19, 26, 31],
 	];
 }
 
