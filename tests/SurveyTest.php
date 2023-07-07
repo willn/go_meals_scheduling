@@ -155,17 +155,18 @@ EOHTML;
 
 	/**
 	 * @dataProvider provideGetShiftIdByDateAndJobId
-	 */
 	public function testGetShiftIdByDateAndJobId($date, $job_id, $expected) {
+		# NOTE: 'schedule_shifts' table is empty until a survey is saved
 		$result = $this->survey->getShiftIdByDateAndJobId($date, $job_id);
 		$this->assertEquals($expected, $result);
 	}
+	 */
 
 	public function provideGetShiftIdByDateAndJobId() {
 		return [
-			['7/2/2023', '7052', 1],
-			['7/30/2023', '7052', 5],
-			['7/30/2023', '7053', 138],
+			['8/6/2023', SUNDAY_HEAD_COOK, 1],
+			['8/27/2023', SUNDAY_HEAD_COOK, 5],
+			['8/27/2023', SUNDAY_ASST_COOK, 138],
 		];
 	}
 }
