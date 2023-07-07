@@ -173,19 +173,17 @@ git commit
 ```
 
 ## MID-SEASON
-If this is mid-season, follow these directions, otherwise skip to
-FINISH-START-OF-SEASON.
+If this is mid-season, follow these directions, otherwise skip to [FINISH-START-OF-SEASON](SETUP.md#finish-start-of-season).
 
 ### edit public/season.php
 * set the appropriate `DEADLINE` date
 
 ### clear out existing tables
+#!!#
 ```
-# from top-level
-sqlite3 public/sqlite_data/work_allocation.db
-sqlite> .read sql/reset_mid_season.sql
-// exit sqlite
-git status # resolve differences
+# from top-level directory
+./connect_to_mysql.sh < sql/reset_mid_season.sql
+$ git status # resolve differences, run unit tests, etc.
 ```
 
 ## FINISH-START-OF-SEASON
