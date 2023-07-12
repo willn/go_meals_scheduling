@@ -148,7 +148,6 @@ EOHTML;
 			// cell is empty
 			[NULL, NULL, ''],
 
-			// non tuesdays
 			[MONDAY, MARCH, ''],
 			[WEDNESDAY, MARCH, ''],
 			[TUESDAY, MAY, ''],
@@ -881,6 +880,27 @@ EOHTML;
 			['7/18/2022', 'Meeting night takeout orderer', MEETING_NIGHT_ORDERER, 2, $two],
 		];
 	}
+
+    public function testGetGetNumShiftsNeeded() {
+        $result = $this->calendar->getNumShiftsNeeded();
+		$expected = [
+			// UPDATE-EACH-SEASON
+			MEETING_NIGHT_CLEANER => 6,
+			MEETING_NIGHT_ORDERER => 6,
+			SUNDAY_ASST_COOK => 24,
+			SUNDAY_CLEANER => 36,
+			SUNDAY_HEAD_COOK => 12,
+			WEEKDAY_ASST_COOK => 64,
+			WEEKDAY_CLEANER => 96,
+			WEEKDAY_HEAD_COOK => 32,
+		];
+
+		$debug = [
+			'expected' => $expected,
+			'result' => $result,
+		];
+        $this->assertEquals($expected, $result, print_r($debug, TRUE));
+    }
 
     /**
      * @dataProvider providegetAssignmentsNeededForCurrentSeason
