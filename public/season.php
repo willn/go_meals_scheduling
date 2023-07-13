@@ -40,6 +40,7 @@ function get_num_shift_overrides() {
 		],
 
 		'tammy' => [WEEKDAY_HEAD_COOK => 1], // can be a SUNDAY
+		'janet' => [WEEKDAY_CLEANER => 6],
 
 		// pulled forward to spring, flipped for summer:
 		'dale' => [WEEKDAY_HEAD_COOK => -1],
