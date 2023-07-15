@@ -22,6 +22,8 @@
   - `get_regular_day_overrides()`
   - `get_meeting_night_overrides()`
 
+
+
 ## SEASON-START:
 If this is mid-season, skip to the [MID-SEASON section](SETUP.md#mid-season)
 
@@ -172,19 +174,50 @@ git add *
 git commit
 ```
 
+
+
 ## MID-SEASON
 If this is mid-season, follow these directions, otherwise skip to [FINISH-START-OF-SEASON](SETUP.md#finish-start-of-season).
 
 ### edit public/season.php
 * set the appropriate `DEADLINE` date
 
-### clear out existing tables
-#!!#
+### clear out prior data from tables
+`./connect_to_mysql.sh < sql/reset_mid_season.sql`
+
+### Add any new users
+
+If someone new has moved in, or started working in the system, their usernames
+will need to be added.
+
 ```
-# from top-level directory
-./connect_to_mysql.sh < sql/reset_mid_season.sql
-$ git status # resolve differences, run unit tests, etc.
+# Create entries for these people in the `auth_user` table - last is gather ID
+sqlite> INSERT INTO auth_user VALUES(NULL, NULL, 0, 'FIRST-NAME', 'LAST-NAME',
+	'example@asdf.com', 0, 1, '2023-07-15', 'username', 12349999);
+
+# get the ID of the person
+mysql> select id from auth_user where username='XXX';
+164
+
+# get the max assignment id:
+mysql> select max(id) from work_app_assignment;
+9254
+
+# get the current season ID:
+mysql> select max(id) from work_app_season;
+
+# add a new entry
+	"id", -- max assignment id + 1
+	"type", 
+	"instances",
+	"job_id",
+	"reason_id",
+	"season_id",
+	"worker_id"
+mysql> INSERT INTO work_app_assignment VALUES(13623, '', 1, 4594, 0, 33, 164);
 ```
+
+
 
 ## FINISH-START-OF-SEASON
 
@@ -199,37 +232,22 @@ rm -rf *
 ./push_all_to_production.sh
 
 cd sql/
-# the local mysql root user
+# This needs to be the local mysql **root** user
 mysqldump -u root -p gocoho_work_allocation > transfer.sql
+
+# transfer the file to production
 scp -i ~/.ssh/id_dsa -P 1022 transfer.sql gocoho@gocoho.org:
-# remove the heading from the dump file
-# remove these statements: ' CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
-% s/^.*SET character_set_client = .*//
-% s/.*@saved_cs_client     = @@character_set_client.*//
-% s/`//g
-% s/ DEFAULT;/;/
-# remove the trailing statements at the end
 
 # on gocoho:
 cd ~
-mysql -u gocoho_work_allocation -p gocoho_work_allocation
-SELECT CONCAT('DROP TABLE IF EXISTS `', table_name, '`;')
-	FROM information_schema.tables
-	WHERE table_schema = 'gocoho_work_allocation';
-
-# copy and paste and remove the pipes and run the results...
-
-MariaDB [gocoho_work_allocation]> show tables;
-Empty set (0.000 sec)
-
 mysql -u gocoho_work_allocation -p gocoho_work_allocation < transfer.sql
 ```
 
 ### test to make sure everything works, view in web browser
+* resync code to clean up
 * confirm that the calendar dates are correct
 * confirm the holidays and meeting nights are correct
-* fill in some entries and save them, then revert
-* resync code to clean up
+* fill in some entries and save them
 * load listing page again to make sure that the database is writeable
 
 ### notify participants that the survey is ready
@@ -238,6 +256,8 @@ mysql -u gocoho_work_allocation -p gocoho_work_allocation < transfer.sql
 `crontab -e`
 
 ### schedule a few reminders spaced out over the rest of the session to send reminder emails to laggards
+
+
 
 # MID-SURVEY
 
@@ -251,6 +271,8 @@ this can be used to cancel / skip certain types of meals.
 
 This output should be helpful in divulging which shift types have the
 right or wrong amount of labor.
+
+
 
 # END-OF-SURVEY
 
@@ -411,30 +433,4 @@ update public/config.php, update the season name, year, and season id
 # sqlite> insert into work_app_assignment values(NULL, 'a', 1, 4596, 1, 33, 59);
 ```
 
-
-## How to add a user with an override.
-
-They need to be entered into the database...
-
-```
-# get the username of the peron
-sqlite> select id from auth_user where username='XXX';
-164
-
-# get the max assignment id:
-sqlite> select max(id) from work_app_assignment;
-9254
-
-# add a new entry
-insert into work_app_assignment values(
-        "id", -- max assignment id + 1
-        "type", 
-        "instances",
-        "job_id",
-        "reason_id",
-        "season_id",
-        "worker_id"
-);
-insert into work_app_assignment values(13623, '', 1, 4594, 0, 33, 164);
-```
 
