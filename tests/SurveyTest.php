@@ -164,9 +164,9 @@ EOHTML;
 
 	public function provideGetShiftIdByDateAndJobId() {
 		return [
-			['8/6/2023', SUNDAY_HEAD_COOK, 1],
-			['8/27/2023', SUNDAY_HEAD_COOK, 5],
-			['8/27/2023', SUNDAY_ASST_COOK, 138],
+			['7/2/2023', SUNDAY_HEAD_COOK, 1],
+			['7/30/2023', SUNDAY_HEAD_COOK, 5],
+			['7/30/2023', SUNDAY_ASST_COOK, 138],
 		];
 	}
 }
