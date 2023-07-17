@@ -39,6 +39,12 @@ function get_num_shift_overrides() {
 			SUNDAY_ASST_COOK => -1,
 		],
 
+		/*
+		 * volunteers for summer 2023
+		 * still short:
+		 * 4 weekday cleaner
+		 * 1 sunday asst cook
+		 */
 		'tammy' => [WEEKDAY_HEAD_COOK => 1], // can be a SUNDAY
 		'janet' => [WEEKDAY_CLEANER => 6],
 		'alexc' => [WEEKDAY_CLEANER => 9],
@@ -53,7 +59,7 @@ function get_num_shift_overrides() {
 		'amyh' => [WEEKDAY_CLEANER => -2],
 		'catherine' => [WEEKDAY_CLEANER => -1],
 		'eric' => [WEEKDAY_CLEANER => -1],
-		'kelly' => [WEEKDAY_CLEANER => -2],
+		'kelly' => [WEEKDAY_ASST_COOK => 1],
 		'michael' => [WEEKDAY_CLEANER => -2],
 		'ted' => [WEEKDAY_CLEANER => -2],
 	];
