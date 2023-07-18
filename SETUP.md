@@ -287,11 +287,6 @@ mysqldump -u gocoho_work_allocation -p gocoho_work_allocation > end_of_survey.sq
 cd go_meals_scheduling/sql/
 rsync -e 'ssh -p 1022' -avz gocoho@gocoho.org:/home/gocoho/end_of_survey.sql .
 
-# add the following 2 lines to the top of end_of_survey.sql
-DROP DATABASE gocoho_work_allocation;
-CREATE DATABASE gocoho_work_allocation;
-USE gocoho_work_allocation;
-
 # load it up locally
 mysql -u gocoho_work_allocation -p gocoho_work_allocation < end_of_survey.sql
 ```
