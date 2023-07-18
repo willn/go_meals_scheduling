@@ -87,8 +87,8 @@ class RosterTest extends TestCase {
 					SUNDAY_CLEANER => 0, 
 					SUNDAY_HEAD_COOK => 0,
 
-					WEEKDAY_ASST_COOK => -1,
-					WEEKDAY_CLEANER => 3,
+					WEEKDAY_ASST_COOK => 0,
+					WEEKDAY_CLEANER => 6,
 					WEEKDAY_HEAD_COOK => 0,
 				]
 			]
@@ -129,7 +129,7 @@ class RosterTest extends TestCase {
 		return [
 			[[
 				2 => 'janet',
-				3 => 'alexc'
+				3 => 'alexc',
 				4 => 'nicholas'
 			]]
 		];
