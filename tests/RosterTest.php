@@ -89,7 +89,7 @@ class RosterTest extends TestCase {
 
 					WEEKDAY_ASST_COOK => 0,
 					WEEKDAY_CLEANER => 6,
-					WEEKDAY_HEAD_COOK => 0,
+					WEEKDAY_HEAD_COOK => -1,
 				]
 			]
 		];
@@ -128,9 +128,9 @@ class RosterTest extends TestCase {
 	public function provideTestOverrideUsersExist() {
 		return [
 			[[
-				2 => 'janet',
-				3 => 'alexc',
-				4 => 'nicholas'
+				1 => 'janet',
+				2 => 'alexc',
+				3 => 'nicholas'
 			]]
 		];
 	}
@@ -160,7 +160,7 @@ class RosterTest extends TestCase {
 
 					WEEKDAY_ASST_COOK => 46,
 					WEEKDAY_CLEANER => 66,
-					WEEKDAY_HEAD_COOK => 23,
+					WEEKDAY_HEAD_COOK => 22,
 				]
 			]
 		];

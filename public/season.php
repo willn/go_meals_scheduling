@@ -45,7 +45,6 @@ function get_num_shift_overrides() {
 		 * 1 weekday cleaner
 		 * 1 sunday asst cook
 		 */
-		'tammy' => [WEEKDAY_HEAD_COOK => 1], // can be a SUNDAY
 		'janet' => [WEEKDAY_CLEANER => 6],
 		'alexc' => [WEEKDAY_CLEANER => 9],
 		'nicholas' => [WEEKDAY_CLEANER => 1],
