@@ -42,12 +42,13 @@ function get_num_shift_overrides() {
 		/*
 		 * volunteers for summer 2023
 		 * still short:
-		 * 4 weekday cleaner
+		 * 1 weekday cleaner
 		 * 1 sunday asst cook
 		 */
 		'tammy' => [WEEKDAY_HEAD_COOK => 1], // can be a SUNDAY
 		'janet' => [WEEKDAY_CLEANER => 6],
 		'alexc' => [WEEKDAY_CLEANER => 9],
+		'nicholas' => [WEEKDAY_CLEANER => 1],
 
 		// Jeff takes Katie's sunday asst cook
 		'jeff' => [SUNDAY_ASST_COOK => 1],
@@ -71,7 +72,15 @@ function get_num_shift_overrides() {
  * @return array keys are the month number, values are an array of day numbers.
  */
 function get_skip_dates() {
+	// 10 weekday meals
+	// 2 sundays
+	// remaining: 1 weekday cleaners, 1 sunday asst cook
 	return [
+		/*
+		8 => [28, 30],
+		9 => [5, 19, 27, 20, 11],
+		10 => [10, 22, 29, 23, 30],
+		*/
 	];
 }
 

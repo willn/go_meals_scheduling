@@ -130,6 +130,7 @@ class RosterTest extends TestCase {
 			[[
 				2 => 'janet',
 				3 => 'alexc'
+				4 => 'nicholas'
 			]]
 		];
 	}
@@ -157,8 +158,8 @@ class RosterTest extends TestCase {
 					SUNDAY_CLEANER => 30, 
 					SUNDAY_HEAD_COOK => 10,
 
-					WEEKDAY_ASST_COOK => 45,
-					WEEKDAY_CLEANER => 63,
+					WEEKDAY_ASST_COOK => 46,
+					WEEKDAY_CLEANER => 66,
 					WEEKDAY_HEAD_COOK => 23,
 				]
 			]
