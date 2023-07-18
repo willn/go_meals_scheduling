@@ -48,6 +48,7 @@ function get_num_shift_overrides() {
 		'janet' => [WEEKDAY_CLEANER => 6],
 		'alexc' => [WEEKDAY_CLEANER => 9],
 		'nicholas' => [WEEKDAY_CLEANER => 1],
+		'nancy' => [SUNDAY_ASST_COOK => 1],
 
 		// Jeff takes Katie's sunday asst cook
 		'jeff' => [SUNDAY_ASST_COOK => 1],
@@ -73,7 +74,7 @@ function get_num_shift_overrides() {
 function get_skip_dates() {
 	// 10 weekday meals
 	// 2 sundays
-	// remaining: 1 weekday cleaners, 1 sunday asst cook
+	// remaining: 1 weekday cleaners
 	return [
 		/*
 		8 => [28, 30],
