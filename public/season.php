@@ -3,7 +3,7 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('July 22, 2023, 8:00pm'));
+define('DEADLINE', strtotime('July 22, 2023, 11:05pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
@@ -57,7 +57,7 @@ function get_num_shift_overrides() {
 		// pulled forward to spring, flipped for summer:
 		'dale' => [WEEKDAY_HEAD_COOK => -1],
 		'amanda' => [WEEKDAY_CLEANER => -2],
-		'amyh' => [WEEKDAY_CLEANER => -2],
+		'amyh' => [WEEKDAY_CLEANER => -1],
 		'catherine' => [WEEKDAY_CLEANER => -1],
 		'eric' => [WEEKDAY_CLEANER => -1],
 		'kelly' => [WEEKDAY_ASST_COOK => 1],
@@ -72,15 +72,10 @@ function get_num_shift_overrides() {
  * @return array keys are the month number, values are an array of day numbers.
  */
 function get_skip_dates() {
-	// 10 weekday meals
-	// 2 sundays
-	// remaining: 1 weekday cleaners
 	return [
-		/*
-		8 => [28, 30],
-		9 => [5, 19, 27, 20, 11],
-		10 => [10, 22, 29, 23, 30],
-		*/
+		8 => [14, 15, 16, 20, 22],
+		9 => [12, 19, 25, 26],
+		10 => [3, 8, 10],
 	];
 }
 

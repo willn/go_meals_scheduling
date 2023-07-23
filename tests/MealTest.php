@@ -249,5 +249,13 @@ class MealTest extends TestCase {
 			[$override, 'sunday', SUNDAY_HEAD_COOK, $freedom, 'bbb'],
 		];
 	}
+
+	public function testGetNumPlaceholders() {
+		$this->meal->setAssignment(123, 'abc', PLACEHOLDER);
+		$this->meal->setAssignment(456, 'def', PLACEHOLDER);
+		$this->meal->setAssignment(789, 'def', 'somebody');
+		$num = $this->meal->getNumPlaceholders();
+		$this->assertEquals($num, 2);
+	}
 }
 ?>

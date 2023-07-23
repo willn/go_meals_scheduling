@@ -311,27 +311,13 @@ EOTXT;
 	 * @return int number of placeholders for the schedule.
 	 */
 	public function getNumPlaceholders() {
-		$summary = [];
-
+		$count = 0;
 		foreach($this->meals as $meal) {
-			$placeholders = $meal->getNumPlaceholders();
-
-			$meal_class = get_class($meal);
-			if (!array_key_exists($meal_class, $summary)) {
-				$summary[$meal_class] = $placeholders;
-				continue;
-			}
-
-			$count = array_reduce(array_values($placeholders),
-				function($carry, $amount) { return $carry + $amount; }); 
-			if ($count == 0) {
-				continue;
-			}
-
-			$summary[$meal_class] = associative_array_add($summary[$meal_class], $placeholders);
+			$np = $meal->getNumPlaceholders();
+			$count += $np;
 		}
 
-		return count($summary);
+		return $count;
 	}
 
 	/**

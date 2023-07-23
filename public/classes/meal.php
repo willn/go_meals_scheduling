@@ -480,8 +480,15 @@ EOTXT;
 
 		// get the name of the worker to fill this slot with
 		$username = $this->pickWorker($job_id, $worker_freedom);
-		$this->assigned[$job_id][$next_key] = $username;
+		$this->setAssignment($job_id, $next_key, $username);
 		return $username;
+	}
+
+	/**
+	 * Make an assignment
+	 */
+	public function setAssignment($job_id, $key, $username) {
+		$this->assigned[$job_id][$key] = $username;
 	}
 
 
@@ -508,22 +515,20 @@ EOTXT;
 
 	/**
 	 * Find out how many placeholders have been assigned to this meal.
-	 * @return int number of placeholders for this meal.
+	 * @return int number placeholders which have been assigned for this meal.
 	 */
 	public function getNumPlaceholders() {
-		$summary = [];
+		$count = 0;
 
 		foreach($this->assigned as $job_id=>$assignments) {
-			$summary[$job_id] = 0;
-
 			foreach($assignments as $assn) {
-				if ($assn == PLACEHOLDER) {
-					$summary[$job_id]++;
+				if (($assn == PLACEHOLDER) || empty($assn)) {
+					$count++;
 				}
 			}
 		}
 
-		return count($summary);
+		return $count;
 	}
 
 
