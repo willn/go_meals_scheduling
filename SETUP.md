@@ -321,11 +321,14 @@ php execute.php -s
 ```
 
 ## Borrowed labor
-Confirm whether any "borrowed" labor was actually needed. If not, then remove the borrowed labor.
+Confirm whether any "borrowed" labor was actually needed. If not, then
+remove the borrowed labor.
 
-# run the unit test for CalendarTest::testRenderSeasonDateSummary until things line up
+### run the unit test for CalendarTest::testRenderSeasonDateSummary until things line up
+```
 cd tests/
 phpunit CalendarTest.php
+
 # make adjustments on the number of meals to make these tests pass
 git status
 git diff
