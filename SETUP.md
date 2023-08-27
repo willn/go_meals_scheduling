@@ -1,20 +1,29 @@
 # Directions for setting up & running the Great Oak Meals Scheduling Survey
 
-## Update settings in order to calculate the needed shift counts
+## Setup for the upcoming season or sub-season
+
+Update settings in order to calculate the needed shift counts. The Meals
+committee needs to know how much meals labor will be needed.
 
 ### Ask meals committee questions:
 * How many meals are they planning on serving this season?
   - Will they be reducing the load down from the "full schedule"?
 * Do they want to update the list of hobarters?
   - Look for `function get_hobarters`
-* Do they want to offer CSA farm meals this summer?
+* Do they want to offer CSA farm meals this summer? Disable for fall / winter.
   - Update `DOING_CSA_FARM_MEALS`
 
-### check that there aren't uncommitted modifications
+### Full `SUB_SEASON_FACTOR`
+
+Set the `SUB_SEASON_FACTOR` to 1.0 for a 6-month season in order to get
+the count needed for the full season.
+
+### check that there aren't any other uncommitted modifications
 `git status`
 
 ### update public/season.php
-* set `SEASON_NAME`
+* set `SEASON_NAME` - use the combo season name (e.g. `FALL_WINTER`) to get the
+  full 6 months.
 * make sure the right months are included in `get_current_season_months()`
 * remove any previous season's data:
   - `get_num_shift_overrides()`
@@ -22,6 +31,18 @@
   - `get_regular_day_overrides()`
   - `get_meeting_night_overrides()`
 
+### Ensure the number of meals per assignment is correct:
+
+See `function get_num_meals_per_assignment`
+
+### Get the counts
+
+Push the code to the webserver:
+
+`./push_all_to_production.sh`
+
+Open the scheduling system in a web browser, and check the summary report. At
+the bottom, it should have a report listing the amount of labor needed.
 
 
 ## SEASON-START:
@@ -30,7 +51,8 @@ If this is mid-season, skip to the [MID-SEASON section](SETUP.md#mid-season)
 ### edit public/season.php
 * set the appropriate `DEADLINE` date
 * display a farm meals night message? (`DOING_CSA_FARM_MEALS`)
-* set the `SUB_SEASON_FACTOR` (perhaps for .5 to get 3 months)
+* set the `SUB_SEASON_FACTOR` (to .5 to work on 3 months)
+* set `SEASON_NAME` - use the short season name to get 3 months
 
 ### Update unit tests
 * run & fix unit tests
@@ -341,12 +363,12 @@ git commit
 ./analyze_results.sh
 ```
 
+## if there are no meeting night cleaners...
+* then delete the placeholders for those shifts, just leave it blank
+
 ## upload a copy of the `schedule.txt` to google drive & import into a spreadsheet
 * try to move the under-assigned workers to fill the 'XXX' spots, making trades
 * do any swapping needed
-
-## if there are no meeting night cleaners...
-* then delete the placeholders for those shifts, just leave it blank
 
 ## confirm preferences
 ```
