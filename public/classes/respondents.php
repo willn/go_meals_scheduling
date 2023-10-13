@@ -80,9 +80,9 @@ EOHTML;
 		}
 
 		$parts = array();
-		$hours = $seconds/60/60%24;
-		if ($hours > 0) {
-			$parts[] = $hours;
+		$num_hours = ($seconds / 60 / 60) % 24;
+		if ($num_hours > 0) {
+			$parts[] = $num_hours;
 		}
 
 		$mins = $seconds/60%60;

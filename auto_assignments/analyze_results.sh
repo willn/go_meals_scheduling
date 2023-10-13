@@ -8,7 +8,7 @@ RESULTS='schedule.txt'
 WORKERS='workers.txt'
 
 echo "count un-filled slots:"
-`php execute.php -s > ${RESULTS}`;
+#`php execute.php -s > ${RESULTS}`;
 grep XXX $RESULTS | grep -v '			';
 
 echo ""

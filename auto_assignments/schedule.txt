@@ -1,41 +1,38 @@
 date	time	communities	head_cook	asst1	asst2	cleaner1	cleaner2	cleaner3
-5/1/2023	6:15	GO	emilyadama	kelly	tammy	ted	amanda	rossella
-5/3/2023	5:45	GO	gayle					
-5/7/2023	5:30	GO	willie	ellie	amyh	mac	amanda	cj
-5/8/2023	6:15	GO	tevah	emilyadama	dale	amyh	michael	keithg
-5/10/2023	6:15	GO	frank	rossella	megan	mac	kelly	drew
-5/15/2023	5:45	GO	megan					
-5/16/2023	6:15	GO	tammy	kelly	nancy	ted	amanda	justin
-5/17/2023	6:15	GO	dale	emilyadama	michael	jeff	eric	kelly
-5/21/2023	5:30	GO	eric	liam	meg	robb	cj	keithg
-5/22/2023	6:15	GO	rossella	marta	kelly	amyh	michael	ted
-5/24/2023	6:15	GO	maryking	glenn	pat	mac	keithg	kelly
-5/30/2023	6:15	GO	dale	shelly	frank	ted	amanda	michael
-5/31/2023	6:15	GO	jennifer	justin	nancy	justin	kelly	mac
-6/4/2023	5:30	GO	eric	liam	keithg	mac	jeffh	michael
-6/6/2023	6:15	GO	katie	rossella	marta	amyh	catherine	kelly
-6/7/2023	5:45	GO	jennifer					
-6/11/2023	5:30	GO	keithg	terrence	frank	mac	keithg	tevah
-6/12/2023	6:15	GO	kelly	tammy	katie	amanda	cj	rossella
-6/13/2023	6:15	GO	emilyadama	andrew	shelly	ted	eric	catherine
-6/14/2023	6:15	GO	jennifer	justin	michael	justin	jeff	kelly
-6/19/2023	5:45	GO	jeffh					
-6/21/2023	6:15	GO	dale	nancy	catherine	amyh	catherine	kelly
-6/25/2023	5:30	GO	drew	terrence	amanda	mac	amanda	dan
-6/26/2023	6:15	GO	kelly	meg	keithg	keithg	amyh	michael
-6/27/2023	6:15	GO	maryking	marta	liam	dan	amanda	michael
-6/28/2023	6:15	GO	tammy	pat	emilyadama	ted	jeff	kelly
-7/2/2023	5:30	GO	keithg	robb	drew	keithg	amanda	cj
-7/3/2023	6:15	GO	dale	jennifer	nancy	amyh	michael	eric
-7/5/2023	5:45	GO	gayle					
-7/9/2023	5:30	GO	dan	willaThiel	tevah	tevah	jeffh	michael
-7/10/2023	6:15	GO	tammy	frank	katie	amyh	amanda	cj
-7/11/2023	6:15	GO	suzette	andrew	rossella	catherine	dan	amanda
-7/12/2023	6:15	GO	jennifer	justin	nancy	ted	michael	drew
-7/16/2023	5:30	GO	eric	nancy	dan	mac	robb	dan
-7/17/2023	5:45	GO	justin					
-7/18/2023	6:15	GO	megan	marta	suzette	dan	eric	rossella
-7/23/2023	5:30	GO	frank	dan	amyh	jeffh	tevah	dan
-7/24/2023	6:15	GO	dale	meg	rossella	amyh	drew	michael
-7/25/2023	6:15	GO	pat	michael	liam	ted	amanda	cj
-7/30/2023	5:30	GO	dan	nancy	cj	mac	robb	michael
+8/1/2023	6:15	GO	rossella	nancy	michael	amanda	michael	eric
+8/6/2023	5:30	GO	eric	tevah	amanda	mac	jeffh	robb
+8/7/2023	6:15	GO	dale	shelly	frank	amyh	alexc	rossella
+8/8/2023	6:15	GO	tammy	andrew	keithg	dan	janet	jeff
+8/9/2023	6:15	GO	maryking	glenn	catherine	ted	drew	cj
+8/13/2023	5:30	GO	keithg	terrence	dan	mac	amanda	keithg
+8/16/2023	6:15	GO	katie	emilyadama	nancy	amyh	alexc	eric
+8/21/2023	5:45	GO	gayle					
+8/23/2023	6:15	GO	dale	frank	michael	mac	rossella	michael
+8/27/2023	5:30	GO	drew	dan	frank	jeffh	cj	michael
+8/28/2023	6:15	GO	emilyadama	shelly	marta	amyh	amanda	keithg
+8/29/2023	6:15	GO	pat	katie	suzette	janet	rossella	jeff
+8/30/2023	6:15	GO	dale	nancy	megan	alexc	catherine	michael
+9/5/2023	6:15	GO	kelly	justin	fatima	justin	janet	cj
+9/6/2023	5:45	GO	megan					
+9/10/2023	5:30	GO	dan	amyh	meg	tevah	amanda	cj
+9/11/2023	6:15	GO	frank	kelly	emilyadama	ted	alexc	drew
+9/13/2023	6:15	GO	tammy	marta	michael	michael	mac	kelly
+9/17/2023	5:30	GO	eric	keithg	nancy	keithg	michael	amanda
+9/18/2023	5:45	GO	jeffh					
+9/20/2023	6:15	GO	emilyadama	rossella	jennifer	janet	catherine	alexc
+9/24/2023	5:30	GO	willie	ellie	amyh	dan	michael	XXXXXXXX
+9/27/2023	6:15	GO	maryking	marta	nancy	kelly	keithg	justin
+10/1/2023	5:30	GO	dan	willaThiel	drew	mac	tevah	cj
+10/2/2023	6:15	GO	jennifer	justin	dale	justin	ted	amanda
+10/4/2023	5:45	GO	justin					
+10/9/2023	6:15	GO	jennifer	justin	kelly	amyh	alexc	jeff
+10/11/2023	6:15	GO	tammy	pat	meg	mac	keithg	kelly
+10/15/2023	5:30	GO	eric	nancy	robb	mac	robb	tevah
+10/16/2023	5:45	GO	gayle					
+10/17/2023	6:15	GO	megan	andrew	kelly	ted	amanda	janet
+10/18/2023	6:15	GO	jennifer	marta	emilyadama	dan	alexc	kelly
+10/22/2023	5:30	GO	frank	terrence	jeff	mac	jeffh	dan
+10/24/2023	6:15	GO	kelly	rossella	pat	janet	drew	alexc
+10/25/2023	6:15	GO	tevah	rossella	cj	amyh	cj	kelly
+10/29/2023	5:30	GO	keithg	nancy	eric	mac	keithg	robb
+10/30/2023	6:15	GO	suzette	kelly	meg	alexc	dan	nicholas

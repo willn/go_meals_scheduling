@@ -43,14 +43,16 @@ class RosterTest extends TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					WEEKDAY_HEAD_COOK => 23,
-					WEEKDAY_ASST_COOK => 46,
-					SUNDAY_HEAD_COOK => 10,
-					SUNDAY_ASST_COOK => 20,
-					MEETING_NIGHT_ORDERER => 6,
-					WEEKDAY_CLEANER => 60,
-					SUNDAY_CLEANER => 30, 
 					MEETING_NIGHT_CLEANER => 0,
+					MEETING_NIGHT_ORDERER => 6,
+
+					SUNDAY_ASST_COOK => 20,
+					SUNDAY_CLEANER => 60, 
+					SUNDAY_HEAD_COOK => 10,
+
+					WEEKDAY_ASST_COOK => 46,
+					WEEKDAY_CLEANER => 120,
+					WEEKDAY_HEAD_COOK => 23,
 				]
 			]
 		];
@@ -88,8 +90,8 @@ class RosterTest extends TestCase {
 					SUNDAY_HEAD_COOK => 0,
 
 					WEEKDAY_ASST_COOK => 0,
-					WEEKDAY_CLEANER => 7,
-					WEEKDAY_HEAD_COOK => -1,
+					WEEKDAY_CLEANER => 0,
+					WEEKDAY_HEAD_COOK => 1,
 				]
 			]
 		];
@@ -127,11 +129,9 @@ class RosterTest extends TestCase {
 
 	public function provideTestOverrideUsersExist() {
 		return [
-			[[
-				1 => 'janet',
-				2 => 'alexc',
-				3 => 'nicholas'
-			]]
+			[
+				[]
+			]
 		];
 	}
 
@@ -155,12 +155,12 @@ class RosterTest extends TestCase {
 					MEETING_NIGHT_ORDERER => 6,
 
 					SUNDAY_ASST_COOK => 20,
-					SUNDAY_CLEANER => 30, 
+					SUNDAY_CLEANER => 60, 
 					SUNDAY_HEAD_COOK => 10,
 
 					WEEKDAY_ASST_COOK => 46,
-					WEEKDAY_CLEANER => 67,
-					WEEKDAY_HEAD_COOK => 22,
+					WEEKDAY_CLEANER => 120,
+					WEEKDAY_HEAD_COOK => 24,
 				]
 			]
 		];

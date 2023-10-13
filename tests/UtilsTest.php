@@ -10,7 +10,9 @@ require_once '../auto_assignments/schedule.php';
 // UPDATE-EACH-SEASON
 define('EASTER_MONTH', 3);
 define('EASTER_DAY', 31);
-define('LABOR_DAY', 4);
+
+// XXX this ought to get automated
+define('LABOR_DAY', 2);
 
 /**
  * This is simple example to ensure the testing framework functions properly.
