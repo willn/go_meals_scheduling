@@ -33,7 +33,8 @@ the count needed for the full season.
 
 ### Ensure the number of meals per assignment is correct:
 
-See `function get_num_meals_per_assignment`
+In `public/config.php`, confirm in `function get_num_meals_per_assignment`, and
+sync up with what's in the job assigments.
 
 ### Get the counts
 
@@ -50,9 +51,9 @@ If this is mid-season, skip to the [MID-SEASON section](SETUP.md#mid-season)
 
 ### edit public/season.php
 * set the appropriate `DEADLINE` date
-* display a farm meals night message? (`DOING_CSA_FARM_MEALS`)
-* set the `SUB_SEASON_FACTOR` (to .5 to work on 3 months)
 * set `SEASON_NAME` - use the short season name to get 3 months
+* set the `SUB_SEASON_FACTOR` (to .5 to work on 3 months)
+* display a farm meals night message? (`DOING_CSA_FARM_MEALS`)
 
 ### Update unit tests
 * run & fix unit tests

@@ -885,14 +885,14 @@ EOHTML;
         $result = $this->calendar->getNumShiftsNeeded();
 		$expected = [
 			// UPDATE-EACH-SEASON
-			MEETING_NIGHT_CLEANER => 12,
-			MEETING_NIGHT_ORDERER => 12,
-			SUNDAY_ASST_COOK => 44,
-			SUNDAY_CLEANER => 66,
-			SUNDAY_HEAD_COOK => 22,
-			WEEKDAY_ASST_COOK => 128,
-			WEEKDAY_CLEANER => 192,
-			WEEKDAY_HEAD_COOK => 64,
+			MEETING_NIGHT_CLEANER => 6,
+			MEETING_NIGHT_ORDERER => 6,
+			SUNDAY_ASST_COOK => 20,
+			SUNDAY_CLEANER => 30,
+			SUNDAY_HEAD_COOK => 10,
+			WEEKDAY_ASST_COOK => 64,
+			WEEKDAY_CLEANER => 96,
+			WEEKDAY_HEAD_COOK => 32,
 		];
 
 		$debug = [
@@ -934,16 +934,16 @@ EOHTML;
 
 		// UPDATE-EACH-SEASON
 		$three_month_season = [
-			MEETING_NIGHT_CLEANER => 12,
-			MEETING_NIGHT_ORDERER => 12,
+			MEETING_NIGHT_CLEANER => 6,
+			MEETING_NIGHT_ORDERER => 6,
 
-			SUNDAY_ASST_COOK => 44,
-			SUNDAY_CLEANER => 11,
-			SUNDAY_HEAD_COOK => 22,
+			SUNDAY_ASST_COOK => 20,
+			SUNDAY_CLEANER => 10,
+			SUNDAY_HEAD_COOK => 10,
 
-			WEEKDAY_ASST_COOK => 128,
+			WEEKDAY_ASST_COOK => 64,
 			WEEKDAY_CLEANER => 32,
-			WEEKDAY_HEAD_COOK => 64,
+			WEEKDAY_HEAD_COOK => 32,
 		];
 
 		if (SUB_SEASON_FACTOR === .5) {
@@ -975,9 +975,9 @@ EOHTML;
 
 		// UPDATE-EACH-SEASON
 		$expected = [
-			'meeting' => 12,
-			'sunday' => 22,
-			'weekday' => 64,
+			'meeting' => 6,
+			'sunday' => 10,
+			'weekday' => 32,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
 			$carry += $item;

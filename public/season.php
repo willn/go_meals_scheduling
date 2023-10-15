@@ -3,17 +3,17 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('October 22, 2023, 8:00pm'));
+define('DEADLINE', strtotime('October 21, 2023, 8:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', FALL_WINTER);
-define('DOING_CSA_FARM_MEALS', FALSE);
+define('SEASON_NAME', FALL);
 
 // If this is a whole season, then 1, half .5, etc.
 define('SUB_SEASON_FACTOR', .5);
+define('DOING_CSA_FARM_MEALS', FALSE);
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_CLEANER', 7057);

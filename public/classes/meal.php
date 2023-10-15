@@ -7,8 +7,8 @@ define('DEFAULT_AVOID_WORKER_SCORE', 7);
 define('DEFAULT_PREFERS_SCORE', 4);
 
 define('GO_DINING_ROOM_ID', 22);
-define('GO_COMMUNITY_ONLY', 'GO');
-define('ALL_3_COMMUNITY_IDS', 'GO;SW;TS');
+# define('INVITED_COMMUNITIES', 'GO;SW;TS');
+define('INVITED_COMMUNITIES', 'GO;TS');
 
 # '2019-10-28T02:01:03'
 define('ISO_8601_DATE_ONLY', 'Y-m-d');
@@ -579,7 +579,7 @@ EOTXT;
 			$invited = ALL_3_COMMUNITY_IDS;
 			if (is_a_mtg_night_job($job_id)) {
 				$is_mtg_night_job = TRUE;
-				$invited = GO_COMMUNITY_ONLY;
+				$invited = INVITED_COMMUNITIES;
 				/*
 				 * Pad the assignments array for output since meeting
 				 * nights are missing some shifts.

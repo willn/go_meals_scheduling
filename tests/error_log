@@ -1948,3 +1948,195 @@ Stack trace:
     [cleaner3] => XXXXXXXX
 )
 
+[13-Oct-2023 08:26:23 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:90 W:1 S:2
+[13-Oct-2023 08:26:23 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:80 W:1 S:1
+[13-Oct-2023 08:26:23 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[13-Oct-2023 08:26:23 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:100 W:1 S:2
+[13-Oct-2023 08:26:23 America/Detroit] num meals: Array
+(
+    [7054] => 6
+    [7057] => 6
+    [7052] => 10
+    [7053] => 10
+    [7056] => 10
+    [7050] => 32
+    [7051] => 32
+    [7055] => 32
+)
+
+[13-Oct-2023 08:26:23 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[13-Oct-2023 12:26:24 UTC] unable to establish connection with mysql database
+[13-Oct-2023 08:26:30 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:90 W:1 S:2
+[13-Oct-2023 08:26:30 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:80 W:1 S:1
+[13-Oct-2023 08:26:30 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[13-Oct-2023 08:26:30 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:100 W:1 S:2
+[13-Oct-2023 08:26:30 America/Detroit] num meals: Array
+(
+    [7054] => 6
+    [7057] => 6
+    [7052] => 10
+    [7053] => 10
+    [7056] => 10
+    [7050] => 32
+    [7051] => 32
+    [7055] => 32
+)
+
+[13-Oct-2023 08:26:30 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[13-Oct-2023 12:26:30 UTC] unable to establish connection with mysql database
+[13-Oct-2023 08:26:41 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:90 W:1 S:2
+[13-Oct-2023 08:26:41 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:80 W:1 S:1
+[13-Oct-2023 08:26:41 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[13-Oct-2023 08:26:41 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:100 W:1 S:2
+[13-Oct-2023 08:26:41 America/Detroit] num meals: Array
+(
+    [7054] => 6
+    [7057] => 6
+    [7052] => 10
+    [7053] => 10
+    [7056] => 10
+    [7050] => 32
+    [7051] => 32
+    [7055] => 32
+)
+
+[13-Oct-2023 08:26:41 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[13-Oct-2023 08:27:14 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:90 W:1 S:2
+[13-Oct-2023 08:27:14 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:80 W:1 S:1
+[13-Oct-2023 08:27:14 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[13-Oct-2023 08:27:14 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:100 W:1 S:2
+[13-Oct-2023 08:27:14 America/Detroit] num meals: Array
+(
+    [7054] => 6
+    [7057] => 6
+    [7052] => 10
+    [7053] => 10
+    [7056] => 10
+    [7050] => 32
+    [7051] => 32
+    [7055] => 32
+)
+
+[13-Oct-2023 08:27:14 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[13-Oct-2023 08:27:32 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:90 W:1 S:2
+[13-Oct-2023 08:27:32 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:80 W:1 S:1
+[13-Oct-2023 08:27:32 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[13-Oct-2023 08:27:32 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:100 W:1 S:2
+[13-Oct-2023 08:27:32 America/Detroit] num meals: Array
+(
+    [7054] => 6
+    [7057] => 6
+    [7052] => 10
+    [7053] => 10
+    [7056] => 10
+    [7050] => 32
+    [7051] => 32
+    [7055] => 32
+)
+
+[13-Oct-2023 08:27:32 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[13-Oct-2023 08:28:13 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:90 W:1 S:2
+[13-Oct-2023 08:28:13 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:80 W:1 S:1
+[13-Oct-2023 08:28:13 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[13-Oct-2023 08:28:13 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:100 W:1 S:2
+[13-Oct-2023 08:28:13 America/Detroit] num meals: Array
+(
+    [7054] => 6
+    [7057] => 6
+    [7052] => 10
+    [7053] => 10
+    [7056] => 10
+    [7050] => 32
+    [7051] => 32
+    [7055] => 32
+)
+
+[13-Oct-2023 08:28:13 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[13-Oct-2023 08:28:32 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:90 W:1 S:2
+[13-Oct-2023 08:28:32 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:80 W:1 S:1
+[13-Oct-2023 08:28:32 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[13-Oct-2023 08:28:32 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:100 W:1 S:2
+[13-Oct-2023 08:28:32 America/Detroit] num meals: Array
+(
+    [7054] => 6
+    [7057] => 6
+    [7052] => 10
+    [7053] => 10
+    [7056] => 10
+    [7050] => 32
+    [7051] => 32
+    [7055] => 32
+)
+
+[13-Oct-2023 08:28:32 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[13-Oct-2023 08:29:15 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:90 W:1 S:2
+[13-Oct-2023 08:29:15 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:80 W:1 S:1
+[13-Oct-2023 08:29:15 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[13-Oct-2023 08:29:15 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:100 W:1 S:2
+[13-Oct-2023 08:29:15 America/Detroit] num meals: Array
+(
+    [7054] => 6
+    [7057] => 6
+    [7052] => 10
+    [7053] => 10
+    [7056] => 10
+    [7050] => 32
+    [7051] => 32
+    [7055] => 32
+)
+
+[13-Oct-2023 08:29:15 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[14-Oct-2023 21:09:37 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:90 W:1 S:2
+[14-Oct-2023 21:09:37 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:80 W:1 S:1
+[14-Oct-2023 21:09:37 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[14-Oct-2023 21:09:37 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:100 W:1 S:2
+[14-Oct-2023 21:09:37 America/Detroit] num meals: Array
+(
+    [7054] => 6
+    [7057] => 6
+    [7052] => 10
+    [7053] => 10
+    [7056] => 10
+    [7050] => 32
+    [7051] => 32
+    [7055] => 32
+)
+
+[14-Oct-2023 21:09:37 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[15-Oct-2023 01:09:38 UTC] unable to establish connection with mysql database
+[14-Oct-2023 21:09:43 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:90 W:1 S:2
+[14-Oct-2023 21:09:43 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:80 W:1 S:1
+[14-Oct-2023 21:09:43 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[14-Oct-2023 21:09:43 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:100 W:1 S:2
+[14-Oct-2023 21:09:43 America/Detroit] num meals: Array
+(
+    [7054] => 6
+    [7057] => 6
+    [7052] => 10
+    [7053] => 10
+    [7056] => 10
+    [7050] => 32
+    [7051] => 32
+    [7055] => 32
+)
+
+[14-Oct-2023 21:09:43 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[15-Oct-2023 01:09:43 UTC] unable to establish connection with mysql database
+[14-Oct-2023 22:30:02 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:90 W:1 S:2
+[14-Oct-2023 22:30:02 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:80 W:1 S:1
+[14-Oct-2023 22:30:02 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[14-Oct-2023 22:30:02 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:100 W:1 S:2
+[14-Oct-2023 22:30:02 America/Detroit] num meals: Array
+(
+    [7054] => 6
+    [7057] => 6
+    [7052] => 10
+    [7053] => 10
+    [7056] => 10
+    [7050] => 32
+    [7051] => 32
+    [7055] => 32
+)
+
+[14-Oct-2023 22:30:02 America/Detroit] Calendar getNumberAssignmentsPerJobId 1079  M:6 W:1 S:1
+[15-Oct-2023 02:30:03 UTC] unable to establish connection with mysql database

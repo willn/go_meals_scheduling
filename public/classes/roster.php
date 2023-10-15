@@ -231,7 +231,7 @@ EOSQL;
 				($row['instances'] * $meals_per_job[$job_id]) :
 				($row['instances'] * $this->num_shifts_per_season);
 			$worker->addNumShiftsAssigned($job_id, $num_instances);
-			$this->total_labor_avail[$job_id] += $num_instances;
+			$this->total_labor_avail[$job_id] += intval($num_instances);
 		}
 	}
 
@@ -298,7 +298,7 @@ EOSQL;
 					continue;
 				}
 				$worker->addNumShiftsAssigned($job_id, $num_instances);
-				$this->total_labor_avail[$job_id] += $num_instances;
+				$this->total_labor_avail[$job_id] += intval($num_instances);
 			}
 		}
 	}
@@ -436,7 +436,7 @@ EOSQL;
 		}
 
 		foreach($num_jobs_assigned as $job_id => $num_assn) {
-			$diff = ($this->total_labor_avail[$job_id] - $num_assn);
+			$diff = ($this->total_labor_avail[$job_id] - intval($num_assn));
 			if ($diff != 0) {
 				echo <<<EOTXT
 REMAINING AVAILABLE SHIFTS FOR {$job_id} ({$all_jobs[$job_id]}): {$diff}
