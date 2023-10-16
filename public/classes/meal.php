@@ -766,8 +766,8 @@ class SundayMeal extends Meal {
 }
 
 class WeekendMeal extends Meal {
-	protected $time_of_meal = '10:00';
-	protected $iso_time_of_meal = '10:00:00';
+	protected $time_of_meal = '10:30';
+	protected $iso_time_of_meal = '10:30:00';
 	protected $communities = 'GO, SW, TS';
 }
 
