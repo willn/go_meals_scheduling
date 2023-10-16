@@ -265,6 +265,10 @@ cd sql/
 # This needs to be the local mysql **root** user
 mysqldump -u root -p gocoho_work_allocation > transfer.sql
 
+# Remove bits from the SQL file which we don't want or need:
+cat transfer.sql | sed 's/utf8mb4_0900_ai_ci/utf8_general_ci/g' | sed 's/CHARSET=utf8mb4/CHARSET=utf8/g' > transfer_clean.sql
+mv transfer_clean.sql transfer.sql
+
 # transfer the file to production
 scp -i ~/.ssh/id_dsa -P 1022 transfer.sql gocoho@gocoho.org:
 

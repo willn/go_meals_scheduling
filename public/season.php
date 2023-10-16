@@ -70,9 +70,23 @@ function get_num_shift_overrides() {
 function get_skip_dates() {
 	return [
 		// populated with weekend dates, not listing the dates we're using
-		11 => [3, 4, 5, 10, 12, 17, 18, 24, 25],
+		11 => [3, 4, 5, 10, 12, 17, 18, 19, 24, 25],
 		12 => [1, 2, 8, 9, 10, 16, 17, 22, 23, 29, 30],
-		1 => [5, 7, 12, 13, 14, 19, 20, 26, 27, 28],
+		1 => [5, 6, 12, 14, 19, 20, 26, 27, 28],
+	];
+}
+
+/**
+ * Reserve and declare the timing of special weekend meals.
+ */
+function get_special_weekend_days() {
+	return [
+		'11/11/2023' => ['head_cook' => 'eric', 'type' => 'brunch'],
+		'12/3/2023' => ['head_cook' => 'frank', 'type' => 'brunch'],
+		'12/15/2023' => ['head_cook' => 'lauram', 'type' => 'dinner'],
+		'1/7/2024' => ['head_cook' => 'dan', 'type' => 'brunch'],
+		'1/13/2024' => ['head_cook' => 'eric', 'type' => 'brunch'],
+		'1/21/2024' => ['head_cook' => 'dan', 'type' => 'brunch'],
 	];
 }
 

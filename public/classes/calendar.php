@@ -325,10 +325,10 @@ EOHTML;
 							$jobs, $dates_and_shifts, $date_string);
 					}
 					else if (is_null($worker)) {
-						$cell = $this->generateCell($date_string, $availability, $tally, $type);
+						$cell = $this->generateReportCell($date_string, $availability, $tally, $type);
 					}
 					else {
-						$cell = $this->generateCellWorker($worker, $date_string, $type);
+						$cell = $this->generateReportCellForWorker($worker, $date_string, $type);
 					}
 
 					$message = empty($cell) ? '' : 
@@ -410,7 +410,7 @@ EOHTML;
 	 *     are: 'sunday', 'meeting', 'weekday', 'weekend'
 	 * @return string the content to be rendered in the cell variable.
 	 */
-	function generateCell($date_string, $availability, &$tally, $type) {
+	function generateReportCell($date_string, $availability, &$tally, $type) {
 		if (empty($availability)) {
 			return '';
 		}
@@ -452,12 +452,16 @@ EOHTML;
 	 * @param string $type The type of meal ('weekday', 'meeting', 'sunday')
 	 * @return string the content to be rendered in the cell variable.
 	 */
-	public function generateCellWorker($worker, $date_string, $type) {
+	public function generateReportCellForWorker($worker, $date_string, $type) {
 		$cell = '';
 		$jobs = [];
+
 		switch($type) {
 			case 'sunday':
 				$jobs = get_sunday_jobs();
+				break;
+			case 'weekend':
+				$jobs = get_weekend_jobs();
 				break;
 			case 'meeting':
 				$jobs = get_mtg_jobs();
@@ -474,21 +478,54 @@ EOHTML;
 		}
 
 		$saved_prefs = $this->getSavedPrefs($worker->getId());
-		foreach($jobs as $key=>$name) {
+		foreach($jobs as $job_id=>$name) {
 			// if this worker doesn't have this job, then skip
-			if (!array_key_exists($key, $worker->getTasks())) {
+			if (!array_key_exists($job_id, $worker->getTasks())) {
 				continue;
 			}
 
-			$saved_pref_val =
-				isset($saved_prefs[$key][$date_string]) ?
-					$saved_prefs[$key][$date_string] : DEFAULT_AVAIL;
+			// XXX special for this season - if this is a weekend head cook,
+			// these are already assigned, so skip displaying an input for it.
+			if ($job_id === WEEKEND_HEAD_COOK) {
+				continue;
+			}
 
-			$cell .= $this->renderday($date_string, $name, $key,
+			// recall the value that was saved already - if any exists
+			$saved_pref_val =
+				isset($saved_prefs[$job_id][$date_string]) ?
+					$saved_prefs[$job_id][$date_string] : DEFAULT_AVAIL;
+
+			$cell .= $this->renderSurveyJob($date_string, $name, $job_id,
 				$saved_pref_val);
 		}
 
-		return $cell;
+		$job_message = $this->getSpecialMessage($date_string, $type);
+		return $job_message . $cell;
+	}
+
+	/**
+	 * Display a special message for this meal.
+	 * @param string $date_string text representing a date, i.e. '12/6/2009'
+	 * @param string $type The type of meal ('weekday', 'meeting', 'sunday')
+	 */
+	public function getSpecialMessage($date_string, $type) {
+		if ($type !== 'weekend') {
+			return '';
+		}
+
+		$special_dates = get_special_weekend_days();
+		if (!isset($special_dates[$date_string])) {
+			return '';
+		}
+
+		$meal = new WeekendMeal(NULL, '');
+		if ($special_dates[$date_string]['type'] === 'dinner') {
+			$meal = new WeekdayMeal(NULL, '');
+		}
+		$time = $meal->getTime();
+
+		return $special_dates[$date_string]['head_cook'] . ' ' .
+			$special_dates[$date_string]['type'] . ' ' . $time;
 	}
 
 	/**
@@ -618,14 +655,15 @@ EOJS;
 
 
 	/*
-	 * Draw an individual survey table cell for one day.
+	 * Draw an individual entry for one job survey (select list) on a given date.
 	 *
 	 * @param string $date_string text representing a date, i.e. '12/6/2009'
 	 * @param string $name string name of the job
 	 * @param int $key the job ID
 	 * @param int $saved_pref the preference score previously saved
+	 * @return string the rendered HTML
 	 */
-	public function renderday($date_string, $name, $key, $saved_pref) {
+	public function renderSurveyJob($date_string, $name, $key, $saved_pref) {
 		$preferences = get_pref_names();
 
 		if (!isset($saved_pref)) {

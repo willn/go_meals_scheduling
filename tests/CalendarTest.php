@@ -879,14 +879,14 @@ EOHTML;
 
 
     /**
-     * @dataProvider provideRenderDay
+     * @dataProvider provideRenderSurveyJob
      */
-    public function testRenderDay($date, $name, $key, $saved_pref, $expected) {
-        $result = $this->calendar->renderday($date, $name, $key, $saved_pref);
+    public function testRenderSurveyJob($date, $name, $key, $saved_pref, $expected) {
+        $result = $this->calendar->renderSurveyJob($date, $name, $key, $saved_pref);
         $this->assertEquals($expected, $result);
     }
 
-    public function provideRenderDay() {
+    public function provideRenderSurveyJob() {
 		// UPDATE-EACH-SEASON
 		$mtg_orderer_job_id = MEETING_NIGHT_ORDERER;
 		$mtg_ord_name = MEETING_NIGHT_ORDERER_NAME;
