@@ -43,7 +43,7 @@ class ConfigTest extends TestCase {
 
 	public function test_get_all_jobs() {
 		$jobs = get_all_jobs();
-		$job_count = defined('WEEKDAY_TABLE_SETTER') ? 10 : 9;
+		$job_count = defined('WEEKDAY_TABLE_SETTER') ? 13 : 12;
 		$this->assertEquals($job_count, count($jobs));
 
 		foreach($jobs as $id => $name) {
@@ -168,6 +168,10 @@ class ConfigTest extends TestCase {
 			SUNDAY_HEAD_COOK => 1,
 			SUNDAY_ASST_COOK => 2,
 			SUNDAY_CLEANER => 3,
+
+			WEEKEND_HEAD_COOK => 1,
+			WEEKEND_ASST_COOK => 2,
+			WEEKEND_CLEANER => 3,
 
 			WEEKDAY_HEAD_COOK => 1,
 			WEEKDAY_ASST_COOK => 2,

@@ -280,11 +280,8 @@ function get_meal_type_by_date($date) {
 	}
 
 	# skip un-supported days of the week
-	switch($day_of_week) {
-		case THURSDAY:
-		case FRIDAY:
-		case SATURDAY:
-			return NOT_A_MEAL;
+	if ($day_of_week == THURSDAY) {
+		return NOT_A_MEAL;
 	}
 
 	$month_num = date('n', $date_ts);
@@ -309,8 +306,14 @@ function get_meal_type_by_date($date) {
 		return SKIP_NIGHT;
 	}
 
+	switch($day_of_week) {
+		case FRIDAY:
+		case SATURDAY:
+			return WEEKEND_MEAL;
+	}
+
 	if ($day_of_week == SUNDAY) {
-		return SUNDAY_MEAL;
+		return WEEKEND_OVER_SUNDAYS ? WEEKEND_MEAL : SUNDAY_MEAL;
 	}
 
 	// this is a weekday
@@ -380,6 +383,8 @@ function is_meeting_override($month_num, $day_num) {
 function get_a_meal_object($schedule, $date) {
 	$type = get_meal_type_by_date($date);
 	switch($type) {
+		case WEEKEND_MEAL:
+			return new WeekendMeal($schedule, $date);
 		case SUNDAY_MEAL:
 			return new SundayMeal($schedule, $date);
 		case WEEKDAY_MEAL:

@@ -22,11 +22,6 @@ parameters:
 		  count: 1
 		  path: auto_assignments/schedule.php
 
-		- message: "#^Negated boolean expression is always false\\.$#"
-		  count: 1
-		  path: public/classes/calendar.php
-
-		# change with DOING_CSA_FARM_MEALS
 		- message: "#^Class Worker constructor invoked with 1 parameter, 0 required.$#"
 		  count: 1
 		  path: public/classes/roster.php
@@ -38,3 +33,11 @@ parameters:
 		- message: "#^Right side of && is always false\\.$#"
 		  count: 1
 		  path: public/mysql_api.php
+
+		- message: "#^Ternary operator condition is always true\\.$#"
+		  count: 1
+		  path: public/utils.php
+
+		- message: "#^Ternary operator condition is always true\\.$#"
+		  count: 1
+		  path: public/classes/calendar.php

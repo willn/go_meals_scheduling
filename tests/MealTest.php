@@ -183,15 +183,19 @@ class MealTest extends TestCase {
 	public function testGetTimes() {
 		$sunday = new SundayMeal($this->schedule, '04/22/2018', 123);
 		$this->assertEquals($sunday->getTime(), '5:30');
-		$this->assertEquals($sunday->getCommunities(), 'GO');
+		$this->assertEquals($sunday->getCommunities(), 'GO, SW, TS');
 
 		$weekday = new WeekdayMeal($this->schedule, '04/23/2018', 124);
 		$this->assertEquals($weekday->getTime(), '6:15');
-		$this->assertEquals($weekday->getCommunities(), 'GO');
+		$this->assertEquals($weekday->getCommunities(), 'GO, SW, TS');
 
 		$meeting = new MeetingNightMeal($this->schedule, '04/16/2018', 125);
 		$this->assertEquals($meeting->getTime(), '5:45');
 		$this->assertEquals($meeting->getCommunities(), 'GO');
+
+		$weekend = new WeekendMeal($this->schedule, '11/11/2023', 126);
+		$this->assertEquals($weekend->getTime(), '10:00');
+		$this->assertEquals($weekend->getCommunities(), 'GO, SW, TS');
 	}
 
 	/**

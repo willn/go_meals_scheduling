@@ -77,6 +77,12 @@ class Schedule {
 		foreach($dates_and_shifts as $date=>$job_list) {
 			$this->meals[$date] = get_a_meal_object($this, $date);
 
+			if (get_class($this->meals[$date]) == 'Error') {
+				echo "current meal class Error\n";
+				echo "FAIL " . __FILE__ . ' ' . __LINE__. "\n";
+				exit;
+			}
+
 			// don't initialize skipped meals
 			if (!is_null($this->meals[$date])) {
 				$this->meals[$date]->initShifts($job_list);

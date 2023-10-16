@@ -87,3 +87,8 @@ UPDATE auth_user SET gather_id='7991' where username='kiley';
 UPDATE auth_user SET gather_id='7243' where username='frank';
 UPDATE auth_user SET gather_id='7242' where username='shelly';
 UPDATE auth_user SET gather_id='8317' where username='robb';
+UPDATE auth_user SET gather_id='8335' where username='lauram';
+UPDATE auth_user SET gather_id='8563' where username='janet';
+UPDATE auth_user SET gather_id='8446' where username='alexc';
+UPDATE auth_user SET gather_id='8001' where username='sallie';
+UPDATE auth_user SET gather_id='8772' where username='danieloc';

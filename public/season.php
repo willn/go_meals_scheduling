@@ -13,18 +13,43 @@ define('SEASON_NAME', FALL);
 
 // If this is a whole season, then 1, half .5, etc.
 define('SUB_SEASON_FACTOR', .5);
-define('DOING_CSA_FARM_MEALS', FALSE);
+define('WEEKEND_OVER_SUNDAYS', TRUE);
 
 /* ----------- job ids --------------- */
-define('MEETING_NIGHT_CLEANER', 7057);
-define('MEETING_NIGHT_ORDERER', 7054);
+define('MEETING_NIGHT_CLEANER', 7338);
+define('MEETING_NIGHT_ORDERER', 7335);
+define('WEEKEND_ASST_COOK', 7334);
+define('WEEKEND_CLEANER', 7337);
+define('WEEKEND_HEAD_COOK', 7333);
+define('WEEKDAY_ASST_COOK', 7332);
+define('WEEKDAY_CLEANER', 7336);
+define('WEEKDAY_HEAD_COOK', 7331);
+
+// previous season jobs, keep for unit tests & for the future
 define('SUNDAY_ASST_COOK', 7053);
 define('SUNDAY_CLEANER', 7056);
 define('SUNDAY_HEAD_COOK', 7052);
-define('WEEKDAY_ASST_COOK', 7051);
-define('WEEKDAY_CLEANER', 7055);
-define('WEEKDAY_HEAD_COOK', 7050);
-# define('WEEKDAY_TABLE_SETTER', 7040); // not this season
+
+/* ----------- job titles --------------- */
+define('MEETING_NIGHT_CLEANER_NAME', 'Meeting night cleaner');
+define('MEETING_NIGHT_ORDERER_NAME', 'Mtg takeout orderer (2 meals)');
+define('SUNDAY_ASST_COOK_NAME', 'Sunday asst cook');
+define('SUNDAY_CLEANER_NAME', 'Sunday Meal cleaner');
+define('SUNDAY_HEAD_COOK_NAME', 'Sunday head cook');
+define('WEEKEND_ASST_COOK_NAME', 'Weekend asst cook');
+define('WEEKEND_CLEANER_NAME', 'Weekend Meal cleaner');
+define('WEEKEND_HEAD_COOK_NAME', 'Weekend head cook');
+define('WEEKDAY_ASST_COOK_NAME', 'Weekday asst cook');
+define('WEEKDAY_CLEANER_NAME', 'Weekday Meal cleaner');
+define('WEEKDAY_HEAD_COOK_NAME', 'Weekday head cook');
+
+
+/**
+ * Whether we're hosting CSA farm meals this summer.
+ */
+function doing_csa_farm_meals() {
+	return FALSE;
+}
 
 /**
  * Get the number of shift overrides.
@@ -44,6 +69,10 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
+		// populated with weekend dates, not listing the dates we're using
+		11 => [3, 4, 5, 10, 12, 17, 18, 24, 25],
+		12 => [1, 2, 8, 9, 10, 16, 17, 22, 23, 29, 30],
+		1 => [5, 7, 12, 13, 14, 19, 20, 26, 27, 28],
 	];
 }
 

@@ -11,7 +11,7 @@ committee needs to know how much meals labor will be needed.
 * Do they want to update the list of hobarters?
   - Look for `function get_hobarters`
 * Do they want to offer CSA farm meals this summer? Disable for fall / winter.
-  - Update `DOING_CSA_FARM_MEALS`
+  - Update `function doing_csa_farm_meals()`
 
 ### Full `SUB_SEASON_FACTOR`
 
@@ -53,7 +53,7 @@ If this is mid-season, skip to the [MID-SEASON section](SETUP.md#mid-season)
 * set the appropriate `DEADLINE` date
 * set `SEASON_NAME` - use the short season name to get 3 months
 * set the `SUB_SEASON_FACTOR` (to .5 to work on 3 months)
-* display a farm meals night message? (`DOING_CSA_FARM_MEALS`)
+* display a farm meals night message? (`function doing_csa_farm_meals`)
 
 ### Update unit tests
 * run & fix unit tests
@@ -84,7 +84,7 @@ grep 'CREATE TABLE' work.sql | sed 's/^CREATE TABLE IF NOT EXISTS //' | cut -d\"
 	work_app_job
 	work_app_assignment
 
-# trim some lines from the top
+# in work.sql, trim some lines from the top
 PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 
@@ -103,6 +103,7 @@ COMMIT;
 Then rename index to indexCount
 
 # Grow the size of 'description' column in the work_app_job table from 40 to 80
+/CREATE TABLE IF NOT EXISTS work_app_job
 
 # reset the local database
 # get the list of current tables
@@ -122,7 +123,7 @@ Empty set (0.00 sec)
 mysql -u gocoho_work_allocation -p gocoho_work_allocation < work.sql
 mysql -u gocoho_work_allocation -p gocoho_work_allocation -e "alter table auth_user drop column password;"
 
-# confirm - there should be 4 tables
+# confirm - there should be 5 tables
 mysql> show tables;
 +----------------------------------+
 | Tables_in_gocoho_work_allocation |
@@ -135,11 +136,17 @@ mysql> show tables;
 +----------------------------------+
 5 rows in set (0.00 sec)
 
-# add the Gather IDs 
-mysql -u gocoho_work_allocation -p gocoho_work_allocation < add_gather_ids.sql
+# add the Gather IDs, and table creation scripts for scheduling survey-only stuff
+mysql -u gocoho_work_allocation -p gocoho_work_allocation < add_gather_ids.sql 
+mysql -u gocoho_work_allocation -p gocoho_work_allocation < scheduling_survey_schema.sql
 
-# confirm that the recent users have a gather ID
-mysql -u gocoho_work_allocation -p gocoho_work_allocation -e "select username, gather_id from auth_user order by id desc limit 20;"
+# confirm that the recently created users have a gather ID
+select id, username, date_joined from auth_user
+	WHERE date_joined > DATE_ADD(CURDATE(), INTERVAL -366 DAY) AND
+		gather_id is NULL order by date_joined;
+
+## if they don't, then look it up and manually update it in the `add_gather_ids.sql` file.
+
 
 # confirm those were added:
 mysql> show tables;

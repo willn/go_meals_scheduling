@@ -252,8 +252,7 @@ class UtilsTest extends TestCase {
 		return [
 			['', NOT_A_MEAL],
 			['07/04/2018', HOLIDAY_NIGHT],
-			// ['???', SKIP_NIGHT], // current list is empty
-			['04/15/2018', SUNDAY_MEAL],
+			['04/15/2018', WEEKEND_OVER_SUNDAYS ? WEEKEND_MEAL : SUNDAY_MEAL],
 			['04/16/2018', MEETING_NIGHT_MEAL],
 			['04/18/2018', WEEKDAY_MEAL],
 
@@ -309,7 +308,7 @@ class UtilsTest extends TestCase {
 
 	public function provide_get_a_meal_object() {
 		return [
-			['04/15/2018', 'SundayMeal'],
+			['04/15/2018', WEEKEND_OVER_SUNDAYS ? 'WeekendMeal' : 'SundayMeal'],
 			['04/16/2018', 'MeetingNightMeal'],
 			['04/18/2018', 'WeekdayMeal'],
 			['01/01/2018', 'Error'],

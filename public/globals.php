@@ -82,6 +82,10 @@ function is_a_sunday_job($job_id) {
 	return array_key_exists($job_id, get_sunday_jobs());
 }
 
+function is_a_weekend_job($job_id) {
+	return array_key_exists($job_id, get_weekend_jobs());
+}
+
 function is_a_cook_job($job_id) {
 	$all_cook_jobs = get_cook_jobs();
 	return in_array($job_id, $all_cook_jobs);
@@ -105,6 +109,12 @@ function is_a_head_cook_job($job_id) {
 		return TRUE;
 	}
 
+	$weekend_jobs = get_weekend_jobs();
+	if (isset($weekend_jobs[$job_id]) &&
+		strstr($weekend_jobs[$job_id], 'head cook')) {
+		return TRUE;
+	}
+
 	$mtg_jobs = get_mtg_jobs();
 	if (isset($mtg_jobs[$job_id]) &&
 		strstr($mtg_jobs[$job_id], 'takeout orderer')) {
@@ -123,6 +133,11 @@ function get_job_name($job_id) {
 	$weekday_jobs = get_weekday_jobs();
 	if (isset($weekday_jobs[$job_id])) {
 		return $weekday_jobs[$job_id];
+	}
+
+	$weekend_jobs = get_weekend_jobs();
+	if (isset($weekend_jobs[$job_id])) {
+		return $weekend_jobs[$job_id];
 	}
 
 	$sunday_jobs = get_sunday_jobs();

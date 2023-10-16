@@ -31,13 +31,13 @@ define('SCHEDULE_COMMENTS_TABLE', 'schedule_comments');
 define('SCHEDULE_PREFS_TABLE', 'schedule_prefs');
 define('SCHEDULE_SHIFTS_TABLE', 'schedule_shifts');
 
-// temporary constants... I hope
 define('NOT_A_MEAL', 0);
 define('HOLIDAY_NIGHT', 1);
 define('SKIP_NIGHT', 2);
 define('SUNDAY_MEAL', 3);
 define('WEEKDAY_MEAL', 4);
 define('MEETING_NIGHT_MEAL', 5);
+define('WEEKEND_MEAL', 6);
 
 define('ALL_ID', 'all');
 

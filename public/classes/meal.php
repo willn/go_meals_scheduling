@@ -7,8 +7,6 @@ define('DEFAULT_AVOID_WORKER_SCORE', 7);
 define('DEFAULT_PREFERS_SCORE', 4);
 
 define('GO_DINING_ROOM_ID', 22);
-# define('INVITED_COMMUNITIES', 'GO;SW;TS');
-define('INVITED_COMMUNITIES', 'GO;TS');
 
 # '2019-10-28T02:01:03'
 define('ISO_8601_DATE_ONLY', 'Y-m-d');
@@ -562,7 +560,6 @@ EOTXT;
 
 		$is_mtg_night_job = FALSE;
 		$out_data = [];
-		$invited = ALL_3_COMMUNITY_IDS;
 
 
 		// check to make sure that all of the required instances are filled
@@ -576,10 +573,8 @@ EOTXT;
 				}
 			}
 
-			$invited = ALL_3_COMMUNITY_IDS;
 			if (is_a_mtg_night_job($job_id)) {
 				$is_mtg_night_job = TRUE;
-				$invited = INVITED_COMMUNITIES;
 				/*
 				 * Pad the assignments array for output since meeting
 				 * nights are missing some shifts.
@@ -659,6 +654,7 @@ EOTXT;
 		case 'gather_csv':
 			#!# should this be broken out into another function?
 
+			$invited = $this->getCommunities();
 			$line = [
 				'create', // action
 				date(ISO_8601_DATE_ONLY, strtotime($this->date)) . 'T' . $this->getIsoTime(),
@@ -766,21 +762,25 @@ EOTXT;
 class SundayMeal extends Meal {
 	protected $time_of_meal = '5:30';
 	protected $iso_time_of_meal = '17:30:00';
-	#protected $communities = 'GO, SW, TS'; // disable during covid
-	protected $communities = 'GO';
+	protected $communities = 'GO, SW, TS';
+}
+
+class WeekendMeal extends Meal {
+	protected $time_of_meal = '10:00';
+	protected $iso_time_of_meal = '10:00:00';
+	protected $communities = 'GO, SW, TS';
 }
 
 class WeekdayMeal extends Meal {
 	protected $time_of_meal = '6:15';
 	protected $iso_time_of_meal = '18:15:00';
-	#protected $communities = 'GO, SW, TS'; // disable during covid
-	protected $communities = 'GO';
+	protected $communities = 'GO, SW, TS';
 }
 
 class MeetingNightMeal extends Meal {
 	protected $time_of_meal = '5:45';
 	protected $iso_time_of_meal = '17:45:00';
-	protected $communities = 'GO';
+	protected $communities = 'GO'; // Great Oak only
 }
 
 ?>

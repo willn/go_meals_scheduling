@@ -188,6 +188,7 @@ foreach($per_shift as $job_name=>$num_assn_shifts) {
 	switch($meal_type) {
 		#!# divide by number of shifts per assignment
 		case 'weekday':
+		case 'weekend':
 		case 'sunday':
 			if (stristr($shift_type, 'asst cook')) {
 				$num_workers_per_shift = 2;
@@ -228,6 +229,7 @@ print <<<EOHTML
 
 <p>
 Sundays: {$meals_summary['sunday']}
+<br>Weekends: {$meals_summary['weekend']}
 <br>Weekdays: {$meals_summary['weekday']}
 <br> Meetings: {$meals_summary['meeting']}
 </p>

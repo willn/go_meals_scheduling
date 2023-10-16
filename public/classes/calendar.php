@@ -17,9 +17,10 @@ class Calendar {
 	protected $is_report = FALSE;
 
 	protected $num_shifts = [
+		'meeting' => 0,
 		'sunday' => 0,
 		'weekday' => 0,
-		'meeting' => 0,
+		'weekend' => 0,
 	];
 
 	protected $special_prefs = [
@@ -164,7 +165,7 @@ EOHTML;
 	/**
 	 * Figure out which dates have which shifts applied to them.
 	 *
-	 * @param object $worker (optional) either NULL or instance of Worker
+	 * @param Worker $worker (optional) either NULL or instance of Worker
 	 *     If set, then this calendar will act in survey mode, presenting
 	 *     the worker with the list of shifts they need to fill for each day
 	 *     that the shift is available. If not set, then use report mode and show
@@ -181,12 +182,12 @@ EOHTML;
 	 *				1 => ['charlie', 'doug', 'edward', 'fred'],
 	 *		],
  	 * ]
-	 * @return string html to render all the calendar months of the
-	 *     season... or to just return the dates_and_shifts array if
-	 *     this is not for web_display.
+	 * @return array the dates_and_shifts array or a single entry
+	 *     with the html to render all the calendar months of the season.
 	 */
 	public function evalDates($worker=NULL, $availability=NULL) {
 		$sunday_jobs = get_sunday_jobs();
+		$weekend_jobs = get_weekend_jobs();
 		$mtg_nights = get_mtg_nights();
 
 		$mtg_day_count = [];
@@ -264,7 +265,7 @@ EOHTML;
 EOHTML;
 				}
 
-				#!# need to fix the validity of this id value
+				#!# need to fix the DOM validity of this id value
 				$date_string = "{$month_num}/{$day_num}/{$season_year}";
 				$cell = '';
 
@@ -287,6 +288,12 @@ EOHTML;
 					case SKIP_NIGHT:
 						$cell = '<span class="skip">skip</span>';
 						$is_done = TRUE;
+						break;
+
+					case WEEKEND_MEAL:
+						$type = 'weekend';
+						$this->num_shifts[$type]++;
+						$jobs = get_weekend_jobs();
 						break;
 
 					case SUNDAY_MEAL:
@@ -385,15 +392,11 @@ EOHTML;
 EOHTML;
 		}
 
-		#!# breaking the phpstan rules here...
-		// return an array
 		if (!$this->web_display) {
 			return $dates_and_shifts;
 		}
 
-		#!# could this be a single element array?
-		// return a string
-		return $out;
+		return [$out];
 	}
 
 	/**
@@ -403,7 +406,8 @@ EOHTML;
 	 * @param array $availability a structured array of when people
 	 *     are available to work.
 	 * @param string $tally a count of each meal-type instance.
-	 * @param string $type the type of meal this is servicing.
+	 * @param string $type the type of meal this is servicing. Possible types
+	 *     are: 'sunday', 'meeting', 'weekday', 'weekend'
 	 * @return string the content to be rendered in the cell variable.
 	 */
 	function generateCell($date_string, $availability, &$tally, $type) {
@@ -420,6 +424,9 @@ EOHTML;
 			case 'sunday':
 				$code = 'S';
 				break;
+			case 'weekend':
+				$code = 'WE';
+				break;
 			case 'meeting':
 				$code = 'M';
 				break;
@@ -432,6 +439,7 @@ EOHTML;
 		$tally .= <<<EOHTML
 <span class="type_count">[{$code}{$this->num_shifts[$type]}]</span>
 EOHTML;
+
 		return $this->list_available_workers($availability[$date_string], ($type === 'sunday'));
 	}
 
@@ -507,7 +515,7 @@ EOHTML;
 	 *     happens on this calendar date.
 	 */
 	public function addMessage($day_of_week, $month_num) {
-		if (!DOING_CSA_FARM_MEALS) {
+		if (!doing_csa_farm_meals()) {
 			return '';
 		}
 
@@ -690,6 +698,7 @@ EOHTML;
 
 	/**
 	 * Load which dates the workers have marked as being available.
+	 * @return array associative array of date-string -> [ job_id -> preferences]
 	 */
 	function getWorkerDates() {
 		// grab all the preferences for every date
@@ -911,9 +920,9 @@ EOHTML;
 	 *     the value is an associative array. That array consists of
 	 *     keys which are the positive preferences and (2 or 1) and the list
 	 *     of usernames who left that preference in alphabetical order.
-	 * @param bool $is_sunday IF this date is a sunday or not.
+	 * @param bool $is_weekend IF this date is a weekend or not.
 	 */
-	public function list_available_workers($cur_date_jobs, $is_sunday=FALSE) {
+	public function list_available_workers($cur_date_jobs, $is_weekend=FALSE) {
 		$cell = '';
 
 		if (is_null($cur_date_jobs)) {
@@ -922,8 +931,9 @@ EOHTML;
 		}
 
 		$job_titles = [];
-		if ($is_sunday) {
-			$job_titles = get_sunday_jobs();
+		// XXX where is the handling for weekday meals?
+		if ($is_weekend) {
+			$job_titles = WEEKEND_OVER_SUNDAYS ? get_weekend_jobs() : get_sunday_jobs();
 		}
 		else {
 			$mtg_jobs = get_mtg_jobs();
@@ -995,12 +1005,12 @@ EOHTML;
 	/**
 	 * Output this calendar to a string
 	 *
-	 * @param array $worker (optional)
+	 * @param Worker $worker (optional)
 	 *     If set, then this calendar will act in survey mode, presenting
 	 *     the worker with the list of shifts they need to fill for each day
 	 *     that the shift is available. If not set, then use report mode and show
 	 *     a summary of all available workers for that date.
-	 * @param string $availability a structured array of when people
+	 * @param array $availability a structured array of when people
 	 *     are available to work. The first level is the date, then the job ID,
 	 *     then the preference level (2 - prefer, 1 - OK) which points to an
 	 *     array listing the usernames who fit into that preference level.
@@ -1020,20 +1030,22 @@ EOHTML;
 EOHTML;
 		}
 
-		return $this->evalDates($worker, $availability);
+		$out = $this->evalDates($worker, $availability);
+		return $out[0];
 	}
 
 
 	/**
 	 * Count the number of times each shift appears.
-	 * @param array $dates_and_shifts associative array of date to array of shifts
-	 *     needed for that meal.
+	 * @param array $dates_and_job_ids associative array of date to array of job
+	 *     IDs needed for that meal.
+	 *     Ex: ['11/1/2023'] => [0 => 7054, 1 => 7057]
 	 */
-	function getShiftsPerDate($dates_and_shifts) {
+	function getShiftsPerDate($dates_and_job_ids) {
 		$summary = [];
 
-		foreach($dates_and_shifts as $date => $shifts) {
-			foreach($shifts as $job_id) {
+		foreach($dates_and_job_ids as $date => $jobs) {
+			foreach($jobs as $job_id) {
 				if (!isset($summary[$job_id])) {
 					$summary[$job_id] = 0;
 				}
@@ -1070,7 +1082,7 @@ EOHTML;
 			$shifts = get_num_meals_per_assignment($this->season_months,
 				$job_id, $sub_season_factor);
 			if ($shifts != 0) {
-				$num_days[$job_id] = ceil((($meals * $workers) / $shifts));
+				$num_days[$job_id] = intval(ceil((($meals * $workers) / $shifts)));
 			}
 		}
 

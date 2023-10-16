@@ -57,6 +57,7 @@ class ScheduleTest extends TestCase {
 		foreach($slackers as $username) {
 			$worker = $roster->addWorker($username);
 			$worker->addNumShiftsAssigned(SUNDAY_HEAD_COOK, 1);
+			$worker->addNumShiftsAssigned(WEEKEND_HEAD_COOK, 1);
 			$worker->addNumShiftsAssigned(MEETING_NIGHT_ORDERER, 1);
 			$worker->addNumShiftsAssigned(WEEKDAY_HEAD_COOK, 1);
 		}
@@ -82,6 +83,17 @@ class ScheduleTest extends TestCase {
 	public function provideAddNonResponderPrefs() {
 
 		return [
+			[
+				['11/11/2023' => [WEEKEND_HEAD_COOK, WEEKEND_ASST_COOK, WEEKEND_CLEANER]], 
+				[
+					'11/11/2023' => [
+						WEEKEND_HEAD_COOK => [0 => NULL],
+						WEEKEND_ASST_COOK => [0 => NULL, 1 => NULL],
+						WEEKEND_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL]
+					]
+				],
+			],
+
 			[
 				['7/10/2022' => [SUNDAY_HEAD_COOK, SUNDAY_ASST_COOK, SUNDAY_CLEANER]], 
 				[

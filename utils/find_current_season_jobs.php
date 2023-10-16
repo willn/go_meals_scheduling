@@ -26,15 +26,20 @@ class CurrentSeasonIds {
 		// don't use all_jobs here, because these string definitions are used
 		// to ultimately create the all_jobs array.  :)
 		$jobs = array(
-			'MEETING_NIGHT_CLEANER' => 'Meeting night cleaner',
-			'MEETING_NIGHT_ORDERER' => 'Mtg takeout orderer (2 meals)',
-			'SUNDAY_ASST_COOK' => 'Sunday asst cook',
-			'SUNDAY_CLEANER' => 'Sunday Meal Cleaner',
-			'SUNDAY_HEAD_COOK' => 'Sunday head cook',
-			'WEEKDAY_ASST_COOK' => 'Weekday asst cook',
-			'WEEKDAY_CLEANER' => 'Weekday Meal cleaner',
-			'WEEKDAY_HEAD_COOK' => 'Weekday head cook',
-			'WEEKDAY_TABLE_SETTER' => 'Weekday Table Setter',
+			'MEETING_NIGHT_CLEANER' => MEETING_NIGHT_CLEANER_NAME,
+			'MEETING_NIGHT_ORDERER' => MEETING_NIGHT_ORDERER_NAME,
+
+			# 'SUNDAY_ASST_COOK' => SUNDAY_ASST_COOK_NAME,
+			# 'SUNDAY_CLEANER' => SUNDAY_CLEANER_NAME,
+			# 'SUNDAY_HEAD_COOK' => SUNDAY_HEAD_COOK_NAME,
+
+			'WEEKEND_ASST_COOK' => WEEKEND_ASST_COOK_NAME,
+			'WEEKEND_CLEANER' => WEEKEND_CLEANER_NAME,
+			'WEEKEND_HEAD_COOK' => WEEKEND_HEAD_COOK_NAME,
+
+			'WEEKDAY_ASST_COOK' => WEEKDAY_ASST_COOK_NAME,
+			'WEEKDAY_CLEANER' => WEEKDAY_CLEANER_NAME,
+			'WEEKDAY_HEAD_COOK' => WEEKDAY_HEAD_COOK_NAME,
 		);
 
 		$jobs_table = SURVEY_JOB_TABLE;

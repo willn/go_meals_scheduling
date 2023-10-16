@@ -246,11 +246,15 @@ EOHTML;
 
 		$sunday_cook = $sunday_clean = FALSE;
 		$weekday_cook = $weekday_clean = FALSE;
+		$weekend_cook = $weekend_clean = FALSE;
 		$mtg_cook = $mtg_clean = FALSE;
 		foreach($tasks as $task_id=>$unused) {
 			if (is_a_cook_job($task_id)) {
 				if (is_a_sunday_job($task_id)) {
 					$sunday_cook = TRUE;
+				}
+				else if (is_a_weekend_job($task_id)) {
+					$weekend_cook = TRUE;
 				}
 				else if (is_a_mtg_night_job($task_id)) {
 					$mtg_cook = TRUE;
@@ -263,6 +267,9 @@ EOHTML;
 				if (is_a_sunday_job($task_id)) {
 					$sunday_clean = TRUE;
 				}
+				else if (is_a_weekend_job($task_id)) {
+					$weekend_clean = TRUE;
+				}
 				else if (is_a_mtg_night_job($task_id)) {
 					$mtg_clean = TRUE;
 				}
@@ -274,8 +281,9 @@ EOHTML;
 
 		$clean_after_cook =
 			(($sunday_cook && $sunday_clean) ||
-			($weekday_cook && $weekday_clean) ||
-			($mtg_cook && $mtg_clean));
+				($weekend_cook && $weekend_clean) ||
+				($weekday_cook && $weekday_clean) ||
+				($mtg_cook && $mtg_clean));
 
 		if (!$clean_after_cook) {
 			return '';
