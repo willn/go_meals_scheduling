@@ -124,7 +124,12 @@ EOSQL;
 
 		// iterate through each of the job types and make assignments for each
 		foreach(array_keys($all_jobs) as $job_id) {
+			if ($job_id === ALL_ID) {
+				continue;
+			}
+
 			$this->schedule->setJobId($job_id);
+			$this->schedule->initPlaceholderCount($job_id);
 			$this->roster->setJobId($job_id);
 			$this->schedule->sortPossibleRatios();
 
@@ -134,6 +139,10 @@ EOSQL;
 				$worker_freedom = $this->roster->sortAvailable();
 				$success = $this->schedule->fillMeal($worker_freedom);
 			}
+
+			$count = $this->schedule->getPlaceholderCount($job_id);
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
+				" Placeholder count {$count} for job ID:{$job_id}");
 		}
 	}
 

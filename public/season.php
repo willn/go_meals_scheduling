@@ -96,7 +96,7 @@ function get_special_weekend_days() {
  *
  * @return array keys are the month number, values are an array of day numbers.
  */
-function get_regular_day_overrides() {
+function get_weekday_overrides() {
 	return [
 	];
 }

@@ -52,8 +52,8 @@ class SeasonTest extends TestCase {
 		}
 	}
 
-	public function test_get_regular_day_overrides() {
-		$reg_overrides = get_regular_day_overrides();
+	public function test_get_weekday_overrides() {
+		$reg_overrides = get_weekday_overrides();
 		$this->assertIsArray($reg_overrides);
 
 		if (empty($reg_overrides)) {

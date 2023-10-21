@@ -10,6 +10,7 @@ class Schedule {
 	protected $roster;
 	protected $job_id;
 	protected $calendar;
+	protected $placeholders_by_job_id = [];
 
 	// the most difficult shifts to fill
 	// date => job_id => counts
@@ -44,6 +45,20 @@ class Schedule {
 	 */
 	public function setRoster($r) {
 		$this->roster = $r;
+	}
+
+	/**
+	 * Set this Job ID's placeholder count to 0.
+	 */
+	public function initPlaceholderCount($job_id) {
+		$this->placeholders_by_job_id[$job_id] = 0;
+	}
+
+	/**
+	 * Get this Job ID's placeholder count.
+	 */
+	public function getPlaceholderCount($job_id) {
+		return $this->placeholders_by_job_id[$job_id];
 	}
 
 	/**
@@ -299,6 +314,7 @@ EOTXT;
 		$worker = $this->getWorker($username);
 		// if this wasn't able to be filled, don't do the rest of the steps
 		if ($username === PLACEHOLDER) {
+			$this->placeholders_by_job_id[$job_id]++;
 			return TRUE;
 		}
 

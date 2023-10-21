@@ -325,8 +325,6 @@ EOTXT;
 		$name = get_job_name($job_id);
 
 		if (empty($worker_freedom)) {
-			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
-				" Use a placeholder for {$name} date: {$this->date}");
 			return PLACEHOLDER;
 		}
 
@@ -430,8 +428,6 @@ EOTXT;
 		// may need to insert a placeholder for later manual correction
 		$picked = $username;
 		if (is_null($username)) {
-			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
-				" Use a placeholder for {$name} date: {$this->date}");
 			$picked = PLACEHOLDER;
 		}
 		return $picked;
