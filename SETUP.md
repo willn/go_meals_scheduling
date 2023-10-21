@@ -13,6 +13,9 @@ committee needs to know how much meals labor will be needed.
 * Do they want to offer CSA farm meals this summer? Disable for fall / winter.
   - Update `function doing_csa_farm_meals()`
 
+### Ask Process committee
+* Are there any meeting nights that will be rescheduled?
+
 ### Full `SUB_SEASON_FACTOR`
 
 Set the `SUB_SEASON_FACTOR` to 1.0 for a 6-month season in order to get
@@ -301,7 +304,7 @@ Figure out which meals shifts are missing labor. This can be helpful to do in
 advance so that volunteers can be sought while the survey is open. In addition,
 this can be used to cancel / skip certain types of meals.
 
-## uncomment RosterTest::testCompareLabor()
+Un-comment `RosterTest::testCompareLabor()`
 
 This output should be helpful in divulging which shift types have the
 right or wrong amount of labor.
