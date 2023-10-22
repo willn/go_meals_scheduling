@@ -261,14 +261,14 @@ class UtilsTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider provide_is_weeknight_override
+	 * @dataProvider provide_is_weekday_override
 	 */
-	public function test_is_weeknight_override($month_num, $day_num, $expected) {
-		$result = is_weeknight_override($month_num, $day_num);
+	public function test_is_weekday_override($month_num, $day_num, $expected) {
+		$result = is_weekday_override($month_num, $day_num);
 		$this->assertEquals($expected, $result);
 	}
 
-	public function provide_is_weeknight_override() {
+	public function provide_is_weekday_override() {
 		return [
 			[1, 1, FALSE],
 			[1, 18, FALSE],

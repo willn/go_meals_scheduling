@@ -95,7 +95,7 @@ class RosterTest extends TestCase {
 
 					WEEKDAY_ASST_COOK => 0,
 					WEEKDAY_CLEANER => 0,
-					WEEKDAY_HEAD_COOK => 1,
+					WEEKDAY_HEAD_COOK => 0,
 
 					WEEKEND_ASST_COOK => 0,
 					WEEKEND_CLEANER => 0,
@@ -168,7 +168,7 @@ class RosterTest extends TestCase {
 
 					WEEKDAY_ASST_COOK => 34,
 					WEEKDAY_CLEANER => 51,
-					WEEKDAY_HEAD_COOK => 18,
+					WEEKDAY_HEAD_COOK => 17,
 
 					WEEKEND_ASST_COOK => 12,
 					WEEKEND_CLEANER => 18, 
@@ -272,6 +272,7 @@ class RosterTest extends TestCase {
 	 * NOTE: This is where we'll find out if we're short on labor for
 	 * the upcoming season. This is how we'll figure out how many meals
 	 * to cancel due to labor shortages.
+	 */
 	public function testCompareLabor($job_id, $assigned_labor, $need, $diff, $job_name) {
 		$all_jobs = get_all_jobs();
 
@@ -284,7 +285,6 @@ class RosterTest extends TestCase {
 		];
 		$this->assertGreaterThanOrEqual($diff, 0, print_r($debug, TRUE));
 	}
-	 */
 
 	public function provideCompareLabor() {
 		$all_jobs = get_all_jobs();

@@ -263,12 +263,6 @@ EOTXT;
 
 		asort($this->least_possible);
 
-		if (DEBUG_FIND_CANCEL_MEALS) {
-			$job_name = get_job_name($job_id);
-			error_log(__FILE__ . ' ' . __LINE__ . " ratios for {$job_name} (<1 is bad): " .
-				var_export($this->least_possible, TRUE));
-		}
-
 		return TRUE;
 	}
 

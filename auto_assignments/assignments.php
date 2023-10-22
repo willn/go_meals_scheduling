@@ -132,6 +132,7 @@ EOSQL;
 			$this->schedule->initPlaceholderCount($job_id);
 			$this->roster->setJobId($job_id);
 			$this->schedule->sortPossibleRatios();
+			$least_poss = $this->schedule->getPossibleRatios();
 
 			// keep assigning until all the meals have been assigned
 			$success = TRUE;
@@ -140,9 +141,17 @@ EOSQL;
 				$success = $this->schedule->fillMeal($worker_freedom);
 			}
 
-			$count = $this->schedule->getPlaceholderCount($job_id);
-			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
-				" Placeholder count {$count} for job ID:{$job_id}");
+			if (DEBUG_FIND_CANCEL_MEALS) {
+				$job_name = get_job_name($job_id);
+				$count = $this->schedule->getPlaceholderCount($job_id);
+				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
+					" Placeholder count {$count} for {$job_name}");
+				if (($count != 0) && !empty($least_poss)) {
+					error_log(__FILE__ . ' ' . __LINE__ .
+						" ratios for {$job_name} (<1 is bad): " .
+						var_export($least_poss, TRUE));
+				}
+			}
 		}
 	}
 

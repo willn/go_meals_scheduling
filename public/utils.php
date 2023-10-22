@@ -320,7 +320,7 @@ function get_meal_type_by_date($date) {
 	$meal_days = get_weekday_meal_days();
 	if (in_array($day_of_week, $meal_days)) {
 
-		if (is_weeknight_override($month_num, $day_num)) {
+		if (is_weekday_override($month_num, $day_num)) {
 			return WEEKDAY_MEAL;
 		}
 		if (is_meeting_override($month_num, $day_num)) {
@@ -346,7 +346,7 @@ function get_meal_type_by_date($date) {
  *
  * @return boolean, If TRUE then this is an override date.
  */
-function is_weeknight_override($month_num, $day_num) {
+function is_weekday_override($month_num, $day_num) {
 	# look for meeting -> weekday overrides
 	$overrides = get_weekday_overrides();
 

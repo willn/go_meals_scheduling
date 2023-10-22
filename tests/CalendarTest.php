@@ -934,15 +934,15 @@ EOHTML;
 		];
 	}
 
-    public function testGetGetNumShiftsNeeded() {
+    public function testGetNumShiftsNeeded() {
         $result = $this->calendar->getNumShiftsNeeded();
 		$expected = [
 			// UPDATE-EACH-SEASON
 			MEETING_NIGHT_CLEANER => 6,
 			MEETING_NIGHT_ORDERER => 6,
-			WEEKDAY_ASST_COOK => 64,
-			WEEKDAY_CLEANER => 96,
-			WEEKDAY_HEAD_COOK => 32,
+			WEEKDAY_ASST_COOK => 34,
+			WEEKDAY_CLEANER => 51,
+			WEEKDAY_HEAD_COOK => 17,
 			WEEKEND_ASST_COOK => 12,
 			WEEKEND_CLEANER => 18,
 			WEEKEND_HEAD_COOK => 6,
@@ -990,9 +990,9 @@ EOHTML;
 			MEETING_NIGHT_CLEANER => 6,
 			MEETING_NIGHT_ORDERER => 6,
 
-			WEEKDAY_ASST_COOK => 64,
-			WEEKDAY_CLEANER => 32,
-			WEEKDAY_HEAD_COOK => 32,
+			WEEKDAY_ASST_COOK => 34,
+			WEEKDAY_CLEANER => 17,
+			WEEKDAY_HEAD_COOK => 17,
 
 			WEEKEND_ASST_COOK => 12,
 			WEEKEND_CLEANER => 6,
@@ -1030,7 +1030,7 @@ EOHTML;
 		$expected = [
 			'meeting' => 6,
 			'sunday' => 0,
-			'weekday' => 32,
+			'weekday' => 17,
 			'weekend' => 6,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {

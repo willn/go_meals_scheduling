@@ -12,6 +12,7 @@ committee needs to know how much meals labor will be needed.
   - Look for `function get_hobarters`
 * Do they want to offer CSA farm meals this summer? Disable for fall / winter.
   - Update `function doing_csa_farm_meals()`
+* Which meal formula should we use?
 
 ### Ask Process committee
 * Are there any meeting nights that will be rescheduled?
@@ -353,7 +354,7 @@ if we need to cancel meals, then mark these as skip dates.
 # add dates to get_skip_dates
 vi public/season.php
 
-# continue running and adjusting skipped dates, until no more "Use a placeholder # for" messages
+# continue running and adjusting skipped dates, until it no longer reports on "Placeholder count X"
 php execute.php -s
 ```
 
