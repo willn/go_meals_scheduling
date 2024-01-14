@@ -15,6 +15,7 @@ abstract class Meal {
 	protected $schedule;
 	protected $date;
 	protected $day_of_week;
+	const BILLING_FORMULA = 780; // GO Meals at Touchstone
 
 	const HOBART = 'hobart';
 	const AVOID_WORKERS = 'avoid_workers';
@@ -777,6 +778,8 @@ class MeetingNightMeal extends Meal {
 	protected $time_of_meal = '5:45';
 	protected $iso_time_of_meal = '17:45:00';
 	protected $communities = 'GO'; // Great Oak only
+
+	const BILLING_FORMULA = 556; // No pantry fee
 }
 
 ?>

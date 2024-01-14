@@ -13,6 +13,9 @@ committee needs to know how much meals labor will be needed.
 * Do they want to offer CSA farm meals this summer? Disable for fall / winter.
   - Update `function doing_csa_farm_meals()`
 * Which meal formula should we use?
+  - Update instances of `Meal::BILLING_FORMULA`
+* Where will these meals be hosted?
+  - Update `utils/translate_to_gather_imports.php`
 
 ### Ask Process committee
 * Are there any meeting nights that will be rescheduled?
@@ -322,7 +325,7 @@ right or wrong amount of labor.
 mysqldump -u gocoho_work_allocation -p gocoho_work_allocation > end_of_survey.sql
 
 # on localhost:
-cd go_meals_scheduling/sql/
+cd meals_scheduling/sql/
 rsync -e 'ssh -p 1022' -avz gocoho@gocoho.org:/home/gocoho/end_of_survey.sql .
 
 # load it up locally
@@ -397,8 +400,9 @@ vi checks.sh
 # paste & save
 chmod +x checks.sh
 ./checks.sh | more
-# read the comments and make sure they apply cleanly with auto-checks, or make trades
 ```
+
+Read the comments for special requests at the bottom of the full report as well.
 
 ## Teen workers
 
@@ -424,7 +428,7 @@ Download sheet again, this time in *CSV* form.
 
 ```
 mv ~/Downloads/<file name>.csv utils/final_schedule.csv
-cd go_meals_scheduling_dev/utils/
+cd meals_scheduling/utils/
 php translate_to_gather_imports.php > imports.csv
 ```
 If the above translation has 1 or more missing ID names, it will output a list
@@ -437,12 +441,12 @@ Look up their ID in Gather, then:
 3. Run the translate script again.
 
 ### make any tweaks
-* Confirm which communities are mentioned (covid era restricts to only GO)
+* Confirm which communities are mentioned
 * Confirm the times and dates of the meals
 * Unfortunately, it appears that gather import does not support "capacity" at this time.
 
 ### Upload to Gather
-* open gather site, and upload the clean entries
+* open gather site, and upload the entries
 * resolve any scheduling conflicts
   - check the Kitchen and Dining Room availability
   - meals currently add 2h 15m before and after the announced meal serving time.

@@ -60,10 +60,20 @@ function get_num_shift_overrides() {
 	// XXX we may need to shift back 1 weekend head cook for Frank, and 1
 	// weekday head cook for Tammy... borrow from next half-season
 	return [
+		// XXX - shift labor to the 2nd half of the season
+		'tammy' => [
+			WEEKDAY_HEAD_COOK => -1,
+			WEEKDAY_ASST_COOK => -1,
+		],
+		'dale' => [WEEKDAY_HEAD_COOK => -3],
+
 		'emilyadama' => [WEEKDAY_HEAD_COOK => 1],
 
-		// XXX - shift 1 meal to the 2nd half of the season
-		'tammy' => [WEEKDAY_HEAD_COOK => -1],
+		// borrow some labor from the 2nd half
+		'kelly' => [WEEKDAY_HEAD_COOK => 1],
+		'danieloc' => [WEEKDAY_HEAD_COOK => 1],
+		'keithg' => [WEEKDAY_HEAD_COOK => 1],
+		'marta' => [WEEKDAY_ASST_COOK => 1],
 	];
 }
 
@@ -74,8 +84,8 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		11 => [3, 4, 5, 6, 7, 10, 12, 13, 17, 18, 19, 21, 22, 24, 25, 27],
-		12 => [1, 2, 8, 9, 10, 11, 16, 17, 19, 20, 22, 23, 29, 30],
+		11 => [3, 4, 5, 6, 10, 12, 13, 17, 18, 19, 21, 22, 24, 25, 27],
+		12 => [1, 2, 8, 9, 10, 11, 16, 17, 19, 20, 22, 23, 26, 29, 30],
 		1 => [2, 5, 6, 8, 9, 10, 12, 14, 15, 19, 20, 26, 27, 28, 31],
 	];
 }

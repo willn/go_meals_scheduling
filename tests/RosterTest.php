@@ -138,6 +138,7 @@ class RosterTest extends TestCase {
 	public function provideTestOverrideUsersExist() {
 		return [
 			[
+				// Only users who don't exist in the DB
 				[0 => 'emilyadama']
 			]
 		];
