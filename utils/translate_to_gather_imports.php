@@ -1,19 +1,21 @@
 <?php
 
+define('GO_KITCHEN_AND_DINING_ROOM', '22;105');
+define('TS_KITCHEN_AND_DINING_ROOM', '21;116');
+define('LOCATIONS_TO_RESERVE', TS_KITCHEN_AND_DINING_ROOM);
+define('CREATE', 'create');
+define('MISSING', 'XXX-');
+
+define('FILENAME', 'final_schedule.csv');
+
 global $relative_dir;
 $relative_dir = '../public/';
 require_once "{$relative_dir}/classes/roster.php";
-
-define('FILENAME', 'final_schedule.csv');
 
 $lines = file(FILENAME);
 $header = array_shift($lines);
 $header_keys = str_getcsv($header);
 $data = array_map('str_getcsv', $lines);
-
-define('CREATE', 'create');
-define('GO_KITCHEN_AND_DINING_ROOM', '22;105');
-define('MISSING', 'XXX-');
 
 $header_cols = [
 	'date_time' => 'Date/Time',
@@ -58,7 +60,10 @@ function get_gather_id($username, $gather_ids) {
 $missing_users = [];
 foreach($data as $entry) {
 	$keyed = array_combine($header_keys, $entry);
-	$time_and_date_str = strtotime($keyed['date'] . ' ' . $keyed['time'] . 'pm');
+	$time_split = explode(':', $keyed['time']);
+	$meridiem = ($time_split[0] < 8) ? 'pm': 'am';
+	$time_and_date_str = strtotime($keyed['date'] . ' ' . $keyed['time'] . $meridiem);
+	$meal_type = get_meal_type_by_date($keyed['date']);
 
 	// head cook
 	$head_cook = get_gather_id($keyed['head_cook'], $gather_ids);
@@ -80,8 +85,9 @@ foreach($data as $entry) {
 
 	$translated = [
 		'date_time' => date('c', $time_and_date_str),
-		'locations' => GO_KITCHEN_AND_DINING_ROOM,
-		'formula' => '',
+		'locations' => LOCATIONS_TO_RESERVE,
+		'formula' => ($meal_type === MEETING_NIGHT_MEAL) ? 
+			MeetingNightMeal::BILLING_FORMULA : Meal::BILLING_FORMULA,
 		'communities' => str_replace(', ', ';', $keyed['communities']),
 		'head_cook' => $head_cook,
 		'asst_cook' => implode(';', $assts),
@@ -111,5 +117,4 @@ EOTXT;
 else {
 	print implode('', $translated_lines);
 }
-
 ?>
