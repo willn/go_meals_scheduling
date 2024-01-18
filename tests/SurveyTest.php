@@ -154,20 +154,30 @@ EOHTML;
 	}
 
 	/**
-	 * @dataProvider provideGetShiftIdByDateAndJobId
-	public function testGetShiftIdByDateAndJobId($date, $job_id, $expected) {
-		# NOTE: 'schedule_shifts' table is empty until a survey is saved
-		$result = $this->survey->getShiftIdByDateAndJobId($date, $job_id);
-		$this->assertEquals($expected, $result);
-	}
+	 * XXX
+	 * @dataProvider provideTestUpdatePreferences
 	 */
+	public function testUpdatePreferences($shift_id, $worker_id, $pref, $task, $date) {
+		$result = $this->survey->updatePreferences($shift_id, $worker_id, $pref,
+			$task, $date);
+		$this->assertEquals($result, $pref);
+error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " R:{$result}, P:{$pref}");
+	}
 
-	public function provideGetShiftIdByDateAndJobId() {
+	
+	public function provideTestUpdatePreferences() {
 		return [
-			['7/2/2023', SUNDAY_HEAD_COOK, 1],
-			['7/30/2023', SUNDAY_HEAD_COOK, 5],
-			['7/30/2023', SUNDAY_ASST_COOK, 138],
+			[123, 456, HAS_CONFLICT_PREF, 2, '1/17/24'],
+			[123, 456, OK_PREF, 2, '1/17/24'],
+			[123, 456, PREFER_DATE_PREF, 2, '1/17/24'],
 		];
 	}
+
+	/*
+	 * NOTE: For getShiftIdByDateAndJobId The 'schedule_shifts'
+	 * table is empty until a survey is saved, so it is not stable
+	 * from season to season.
+	 */
+
 }
 ?>

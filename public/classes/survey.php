@@ -582,7 +582,6 @@ EOSQL;
 	 * Save the stated preferences.
 	 */
 	protected function savePreferences() {
-		$pref_names = get_pref_names();
 		$shifts_table = SCHEDULE_SHIFTS_TABLE;
 
 		// reverse the array to process the higer priority preferences first,
@@ -596,17 +595,17 @@ EOSQL;
 			foreach($data as $task=>$dates) {
 				// process each date instance
 				$prev_pref = NULL;
-				foreach($dates as $d) {
-					$shift_id = $this->getShiftIdByDateAndJobId($d, $task);
+				foreach($dates as $date) {
+					$shift_id = $this->getShiftIdByDateAndJobId($date, $task);
 
 					if (is_null($shift_id)) {
 						$insert = <<<EOSQL
-REPLACE INTO {$shifts_table} VALUES(NULL, '{$d}', {$task})
+REPLACE INTO {$shifts_table} VALUES(NULL, '{$date}', {$task})
 EOSQL;
 						// XXX add some escaping here
 						$this->mysql_api->query($insert);
 
-						$shift_id = $this->getShiftIdByDateAndJobId($d, $task);
+						$shift_id = $this->getShiftIdByDateAndJobId($date, $task);
 
 						// now check to make sure that entry was saved...
 						if (is_null($shift_id)) {
@@ -620,28 +619,47 @@ EOHTML;
 						}
 					}
 
-					$prefs_table = SCHEDULE_PREFS_TABLE;
-					$replace = <<<EOSQL
-REPLACE INTO {$prefs_table} VALUES({$shift_id}, {$this->worker_id}, {$pref})
-EOSQL;
-					// XXX add some escaping here
-					$success = $this->mysql_api->query($replace);
-					if ($success) {
-						$this->saved++;
-						if ($prev_pref !== $pref) {
-							$this->summary[$task][] = '<hr>';
-						}
-						$prev_pref = $pref;
-
-						$s = "{$d} {$pref_names[$pref]}";
-						if ($pref > 1) {
-							$s = "<b>{$s}</b>";
-						}
-						$this->summary[$task][] = $s;
+					$pref = $this->updatePreferences($shift_id,
+						$this->worker_id, $pref, $task, $date);
+					if ($prev_pref !== $pref) {
+						$this->summary[$task][] = '<hr>';
 					}
+					$prev_pref = $pref;
 				}
 			}
 		}
+	}
+
+	/**
+	 * Update the selected preferences.
+	 */
+	public function updatePreferences($shift_id, $worker_id, $pref, $task, $date) {
+		$pref_names = get_pref_names();
+		$prefs_table = SCHEDULE_PREFS_TABLE;
+
+		// ensure a valid preference value has been specified
+		if (!array_key_exists($pref, $pref_names)) {
+			return NULL;
+		}
+
+		$replace = <<<EOSQL
+REPLACE INTO {$prefs_table} VALUES({$shift_id}, {$this->worker_id}, {$pref})
+EOSQL;
+		// XXX add some escaping here
+		$success = $this->mysql_api->query($replace);
+		if (!$success) {
+			return NULL;
+		}
+
+		$this->saved++;
+
+		$s = "{$date} {$pref_names[$pref]}";
+		if ($pref > 1) {
+			$s = "<b>{$s}</b>";
+		}
+		$this->summary[$task][] = $s;
+
+		return $pref;
 	}
 
 	/**

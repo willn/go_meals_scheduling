@@ -46,10 +46,16 @@ define('DEBUG_FIND_CANCEL_MEALS', FALSE);
 
 define('JSON_ASSIGNMENTS_FILE', 'results/output.json');
 
-define('NON_RESPONSE_PREF', .5);
 define('PLACEHOLDER', 'XXXXXXXX');
 define('SKIP_USER', 'SKIP_USER');
-define('HAS_CONFLICT', -1);
+
+# date & shift preference levels
+define('HAS_CONFLICT_PREF', 0);
+define('NON_RESPONSE_PREF', .5);
+define('OK_PREF', 1);
+define('PREFER_DATE_PREF', 2);
+define('CLEAN_AFTER_COOK_PREF', 3);
+define('DO_BUNDLING_PREF', 5);
 
 define('MONDAY', 1);
 define('TUESDAY', 2);

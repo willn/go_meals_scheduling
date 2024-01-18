@@ -184,9 +184,7 @@ class Worker {
 	 *
 	 * @param int $job_id the ID of the shift
 	 * @param string $date date of availability
-	 * @param float $pref the preference level of the worker. 
-	 *     (prefer = 2, OK = 1, no response = .5, conflict = 0), see also
-	 *     NON_RESPONSE_PREF.
+	 * @param float $pref the preference level of the worker (e.g. OK_PREF).
 	 */
 	public function addAvailability($job_id, $date, $pref) {
 		if (!isset($this->avail_shifts[$job_id])) {
@@ -355,17 +353,13 @@ class Worker {
 	 * @param string $date the date
 	 * @param int $job_id the job number
 	 * @return int a numeric string representing any conflicts for the day.
-	 *    -1 for HAS_CONFLICT
-	 *     0 is OK, no conflict
-	 *     3 to promote cleaning after cooking
-	 *     5 to promote bundling
 	 */
 	public function getDateScore($date, $job_id) {
 		$todays_shifts = $this->getShiftsAssignedByDate($date);
 
 		// if not scheduled for today, then no conflict
 		if (empty($todays_shifts)) {
-			return 0;
+			return OK_PREF;
 		}
 
 		// would they prefer to clean after themselves?
@@ -398,13 +392,13 @@ class Worker {
 			// look to see if they already have a cooking job
 			if ($have_cooking) {
 				// if they want to bundle, then there's no conflict
-				return $do_bundling ? 5 : HAS_CONFLICT;
+				return $do_bundling ? DO_BUNDLING_PREF : HAS_CONFLICT_PREF;
 			}
 
 			// conflict found if they already have a cleaning shift and don't
 			// want to cook before cleaning
 			return (($have_cleaning) && ($clean_after_self === FALSE)) ?
-				HAS_CONFLICT : 3;
+				HAS_CONFLICT_PREF : CLEAN_AFTER_COOK_PREF;
 		}
 		#!# add mention of table setter
 
@@ -412,13 +406,13 @@ class Worker {
 		// look to see if they already have a cleaning job
 		if ($have_cleaning) {
 			// if they want to bundle, then there's no conflict
-			return $do_bundling ? 5 : HAS_CONFLICT;
+			return $do_bundling ? DO_BUNDLING_PREF : HAS_CONFLICT_PREF;
 		}
 
 		// conflict found if they already have a cooking shift and don't
 		// want to clean up after themselves
 		return (($have_cooking) && ($clean_after_self === FALSE)) ?
-			HAS_CONFLICT : 3;
+			HAS_CONFLICT_PREF : CLEAN_AFTER_COOK_PREF;
 	}
 
 	/**

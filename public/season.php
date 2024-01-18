@@ -3,13 +3,13 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('October 21, 2023, 8:00pm'));
+define('DEADLINE', strtotime('January 26, 2024, 8:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', FALL);
+define('SEASON_NAME', WINTER);
 
 // If this is a whole season, then 1, half .5, etc.
 define('SUB_SEASON_FACTOR', .5);
@@ -60,20 +60,18 @@ function get_num_shift_overrides() {
 	// XXX we may need to shift back 1 weekend head cook for Frank, and 1
 	// weekday head cook for Tammy... borrow from next half-season
 	return [
-		// XXX - shift labor to the 2nd half of the season
+		// handle labor shifted from the 1st half of the season
 		'tammy' => [
-			WEEKDAY_HEAD_COOK => -1,
-			WEEKDAY_ASST_COOK => -1,
+			WEEKDAY_HEAD_COOK => 1,
+			WEEKDAY_ASST_COOK => 1,
 		],
-		'dale' => [WEEKDAY_HEAD_COOK => -3],
+		'dale' => [WEEKDAY_HEAD_COOK => 3],
 
-		'emilyadama' => [WEEKDAY_HEAD_COOK => 1],
-
-		// borrow some labor from the 2nd half
-		'kelly' => [WEEKDAY_HEAD_COOK => 1],
-		'danieloc' => [WEEKDAY_HEAD_COOK => 1],
-		'keithg' => [WEEKDAY_HEAD_COOK => 1],
-		'marta' => [WEEKDAY_ASST_COOK => 1],
+		// payback some labor borrowed in the 1st half
+		'kelly' => [WEEKDAY_HEAD_COOK => -1],
+		'danieloc' => [WEEKDAY_HEAD_COOK => -1],
+		'keithg' => [WEEKDAY_HEAD_COOK => -1],
+		'marta' => [WEEKDAY_ASST_COOK => -1],
 	];
 }
 
@@ -84,9 +82,6 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		11 => [3, 4, 5, 6, 10, 12, 13, 17, 18, 19, 21, 22, 24, 25, 27],
-		12 => [1, 2, 8, 9, 10, 11, 16, 17, 19, 20, 22, 23, 26, 29, 30],
-		1 => [2, 5, 6, 8, 9, 10, 12, 14, 15, 19, 20, 26, 27, 28, 31],
 	];
 }
 
@@ -95,12 +90,6 @@ function get_skip_dates() {
  */
 function get_special_weekend_days() {
 	return [
-		'11/11/2023' => ['head_cook' => 'eric', 'type' => 'brunch'],
-		'12/3/2023' => ['head_cook' => 'frank', 'type' => 'brunch'],
-		'12/15/2023' => ['head_cook' => 'lauram', 'type' => 'dinner'],
-		'1/7/2024' => ['head_cook' => 'dan', 'type' => 'brunch'],
-		'1/13/2024' => ['head_cook' => 'eric', 'type' => 'brunch'],
-		'1/21/2024' => ['head_cook' => 'dan', 'type' => 'brunch'],
 	];
 }
 
@@ -112,7 +101,6 @@ function get_special_weekend_days() {
  */
 function get_weekday_overrides() {
 	return [
-		1 => [15],
 	];
 }
 
@@ -124,7 +112,6 @@ function get_weekday_overrides() {
  */
 function get_meeting_night_overrides() {
 	return [
-		1 => [17],
 	];
 }
 

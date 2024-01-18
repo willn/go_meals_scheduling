@@ -181,7 +181,7 @@ class UtilsTest extends TestCase {
 		return [
 			[
 				[7 => [4], 12 => [25]],
-				[7 => [4], 11 => [23, 26], 12 => [25]]],
+				[7 => [4], 11 => [28], 12 => [25]]],
 		];
 	}
 
@@ -209,7 +209,7 @@ class UtilsTest extends TestCase {
 			7 => [4],
 			9 => $this->get_september_dates(),
 			10 => [31],
-			11 => [23, 26],
+			11 => [28],
 			12 => [24, 25, 31],
 		];
 
