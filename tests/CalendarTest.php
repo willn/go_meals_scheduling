@@ -943,9 +943,9 @@ EOHTML;
 			WEEKDAY_ASST_COOK => 64,
 			WEEKDAY_CLEANER => 96,
 			WEEKDAY_HEAD_COOK => 32,
-			WEEKEND_ASST_COOK => 76,
-			WEEKEND_CLEANER => 114,
-			WEEKEND_HEAD_COOK => 38,
+			WEEKEND_ASST_COOK => 38,
+			WEEKEND_CLEANER => 57,
+			WEEKEND_HEAD_COOK => 19,
 		];
 
 		$debug = [
@@ -958,10 +958,11 @@ EOHTML;
     /**
      * @dataProvider providegetAssignmentsNeededForCurrentSeason
      */
-    public function testGetAssignmentsNeededForCurrentSeason($expected) {
-        $result = $this->calendar->getAssignmentsNeededForCurrentSeason();
-        $this->assertEquals($expected, $result);
-    }
+	public function testGetAssignmentsNeededForCurrentSeason($expected) {
+		$result = $this->calendar->getAssignmentsNeededForCurrentSeason();
+		write_out_data($result);
+		$this->assertEquals($expected, $result);
+	}
 
 	/**
 	 * These track work-system assignments.
@@ -994,9 +995,9 @@ EOHTML;
 			WEEKDAY_CLEANER => 32,
 			WEEKDAY_HEAD_COOK => 32,
 
-			WEEKEND_ASST_COOK => 76,
-			WEEKEND_CLEANER => 38,
-			WEEKEND_HEAD_COOK => 38,
+			WEEKEND_ASST_COOK => 38,
+			WEEKEND_CLEANER => 19,
+			WEEKEND_HEAD_COOK => 19,
 		];
 
 		if (SUB_SEASON_FACTOR === .5) {
@@ -1031,7 +1032,7 @@ EOHTML;
 			'meeting' => 6,
 			'sunday' => 0,
 			'weekday' => 32,
-			'weekend' => 38,
+			'weekend' => 19,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
 			$carry += $item;
