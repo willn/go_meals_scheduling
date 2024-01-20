@@ -228,8 +228,11 @@ If someone new has moved in, or started working in the system, their usernames
 will need to be added.
 
 ```
+# Confirm who the most recently added workers are:
+SELECT id, first_name, last_name FROM auth_user ORDER BY id DESC LIMIT 5;
+
 # Create entries for these people in the `auth_user` table - last is gather ID
-sqlite> INSERT INTO auth_user VALUES(NULL, NULL, 0, 'FIRST-NAME', 'LAST-NAME',
+INSERT INTO auth_user VALUES(NULL, NULL, 0, 'FIRST-NAME', 'LAST-NAME',
 	'example@asdf.com', 0, 1, '2023-07-15', 'username', 12349999);
 
 # get the ID of the person
@@ -273,8 +276,11 @@ cd sql/
 mysqldump -u root -p gocoho_work_allocation > transfer.sql
 
 # Remove bits from the SQL file which we don't want or need:
-cat transfer.sql | sed 's/utf8mb4_0900_ai_ci/utf8_general_ci/g' | sed 's/CHARSET=utf8mb4/CHARSET=utf8/g' > transfer_clean.sql
-mv transfer_clean.sql transfer.sql
+cat transfer.sql | sed 's/^.*SET character_set_client =.*//' \
+	| sed 's/^.*SET @saved_cs_client     = @@character_set_client.*//' \
+	| sed 's/^.*SET character_set_client = @saved_cs_client.*//' \
+	> transfer_clean.sql
+mv -f transfer_clean.sql transfer.sql
 
 # transfer the file to production
 scp -i ~/.ssh/id_dsa -P 1022 transfer.sql gocoho@gocoho.org:
