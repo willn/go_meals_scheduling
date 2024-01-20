@@ -279,6 +279,7 @@ mysqldump -u root -p gocoho_work_allocation > transfer.sql
 cat transfer.sql | sed 's/^.*SET character_set_client =.*//' \
 	| sed 's/^.*SET @saved_cs_client     = @@character_set_client.*//' \
 	| sed 's/^.*SET character_set_client = @saved_cs_client.*//' \
+	| sed 's/^) \(.*\)$/) \1;/' \
 	> transfer_clean.sql
 mv -f transfer_clean.sql transfer.sql
 
