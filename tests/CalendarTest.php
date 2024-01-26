@@ -934,6 +934,26 @@ EOHTML;
 		];
 	}
 
+	/**
+	 * @dataProvider provideGenerateReportCellForWorker
+	public function testGenerateReportCellForWorker($date_string, $type, $expected) {
+		$worker = new Worker('foo');
+		$result = $this->calendar->generateReportCellForWorker($worker, $date_string, $type);
+		$debug = [
+			'expected' => $expected,
+			'result' => $result,
+		];
+        $this->assertEquals($expected, $result, print_r($debug, TRUE));
+	}
+
+	public function provideGenerateReportCellForWorker() {
+		return [
+			['1/25/24', 'weekday', 'xxx'],
+			#['1/25/24', 'weekend', 'zzz'],
+		];
+	}
+	 */
+
     public function testGetNumShiftsNeeded() {
         $result = $this->calendar->getNumShiftsNeeded();
 		$expected = [

@@ -521,8 +521,10 @@ EOHTML;
 		}
 		$time = $meal->getTime();
 
-		return $special_dates[$date_string]['head_cook'] . ' ' .
-			$special_dates[$date_string]['type'] . ' ' . $time;
+		return '<div class="special_survey_msg">' .
+			$special_dates[$date_string]['head_cook'] . ' ' .
+			$special_dates[$date_string]['type'] . ' ' . $time .
+			'</div>';
 	}
 
 	/**
