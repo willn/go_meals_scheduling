@@ -13,14 +13,14 @@ function remove_html_whitespace($input) {
 
 /**
  * Write out the data to a file.
+ * #!# expected is pass by reference
  */
-function write_out_data($data) {
-    $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
-	if (!array_key_exists(1, $trace) || !array_key_exists('function', $trace[1])) {
-		error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " bad trace");
+function write_out_data($method, $data) {
+	$data_file = 'auto-data/' . str_replace('::', '__', $method) . '.json';
+	if (file_exists($data_file)) {
 		return;
 	}
 
-	$function_name = $trace[1]['function'];
-	file_put_contents('auto-data/' . $function_name . '.json', json_encode($data, true));
+	# write out the data
+	file_put_contents($data_file, json_encode($data, true));
 }

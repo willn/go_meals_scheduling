@@ -960,7 +960,7 @@ EOHTML;
      */
 	public function testGetAssignmentsNeededForCurrentSeason($expected) {
 		$result = $this->calendar->getAssignmentsNeededForCurrentSeason();
-		write_out_data($result);
+		write_out_data(__METHOD__, $result);
 		$this->assertEquals($expected, $result);
 	}
 

@@ -72,6 +72,19 @@ function get_num_shift_overrides() {
 		'danieloc' => [WEEKDAY_HEAD_COOK => -1],
 		'keithg' => [WEEKDAY_HEAD_COOK => -1],
 		'marta' => [WEEKDAY_ASST_COOK => -1],
+
+		// remove work
+		'fatima' => [
+			WEEKEND_ASST_COOK => -1,
+			MEETING_NIGHT_CLEANER => -1,
+		],
+		'robb' => [
+			WEEKEND_CLEANER => -6,
+			MEETING_NIGHT_CLEANER => -1,
+		],
+		'meg' => [
+			WEEKDAY_ASST_COOK => -2,
+		],
 	];
 }
 
@@ -96,9 +109,9 @@ function get_special_weekend_days() {
 	return [
 		'2/18/2024' => ['head_cook' => 'dan', 'type' => 'brunch'],
 		'2/24/2024' => ['head_cook' => 'eric', 'type' => 'brunch'],
-		'3/09/2024' => ['head_cook' => 'eric', 'type' => 'brunch'],
+		'3/9/2024' => ['head_cook' => 'eric', 'type' => 'brunch'],
 		'3/24/2024' => ['head_cook' => 'frank', 'type' => 'brunch'],
-		'4/07/2024' => ['head_cook' => 'laura', 'type' => 'brunch'],
+		'4/7/2024' => ['head_cook' => 'lauram', 'type' => 'brunch'],
 		'4/21/2024' => ['head_cook' => 'dan', 'type' => 'brunch'],
 	];
 }

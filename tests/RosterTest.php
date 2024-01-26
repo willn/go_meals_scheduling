@@ -8,10 +8,11 @@ require_once '../public/season.php';
 require_once '../public/classes/roster.php';
 require_once '../public/classes/calendar.php';
 require_once '../auto_assignments/schedule.php';
+require_once 'testing_utils.php';
 
 class RosterTest extends TestCase {
 	private $roster;
-	private $labor;
+	private $total_labor_avail;
 
 	public function setUp() : void {
 		$this->loadLabor();
@@ -20,8 +21,8 @@ class RosterTest extends TestCase {
 	private function loadLabor() {
 		$this->roster = new Roster();
 		$this->roster->loadNumShiftsAssigned();
-		$this->labor = $this->roster->getTotalLaborAvailable();
-		ksort($this->labor);
+		$this->total_labor_available = $this->roster->getTotalLaborAvailable();
+		ksort($this->total_labor_available);
 	}
 
 	/**
@@ -86,19 +87,19 @@ class RosterTest extends TestCase {
 				[
 					'all' => 0,
 					// UPDATE-EACH-SEASON
-					MEETING_NIGHT_CLEANER => 0,
+					MEETING_NIGHT_CLEANER => -2,
 					MEETING_NIGHT_ORDERER => 0,
 
 					SUNDAY_ASST_COOK => 0,
 					SUNDAY_CLEANER => 0, 
 					SUNDAY_HEAD_COOK => 0,
 
-					WEEKDAY_ASST_COOK => 0,
+					WEEKDAY_ASST_COOK => -2,
 					WEEKDAY_CLEANER => 0,
 					WEEKDAY_HEAD_COOK => 1,
 
-					WEEKEND_ASST_COOK => 0,
-					WEEKEND_CLEANER => 0,
+					WEEKEND_ASST_COOK => -1,
+					WEEKEND_CLEANER => -6,
 					WEEKEND_HEAD_COOK => 0,
 				]
 			]
@@ -151,7 +152,9 @@ class RosterTest extends TestCase {
 	 */
 	public function testGetTotalLaborAvailable($expected) {
 		$this->loadLabor();
-		$this->assertEquals($expected, $this->labor);
+		$result = $this->total_labor_available;
+		write_out_data(__METHOD__, $result);
+		$this->assertEquals($expected, $result);
 	}
 
 	public function provideGetTotalLaborAvailable() {
@@ -160,19 +163,19 @@ class RosterTest extends TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					MEETING_NIGHT_CLEANER => 6,
+					MEETING_NIGHT_CLEANER => 4,
 					MEETING_NIGHT_ORDERER => 6,
 
 					SUNDAY_ASST_COOK => 0,
 					SUNDAY_CLEANER => 0, 
 					SUNDAY_HEAD_COOK => 0,
 
-					WEEKDAY_ASST_COOK => 34,
+					WEEKDAY_ASST_COOK => 32,
 					WEEKDAY_CLEANER => 51,
 					WEEKDAY_HEAD_COOK => 18,
 
-					WEEKEND_ASST_COOK => 12,
-					WEEKEND_CLEANER => 18, 
+					WEEKEND_ASST_COOK => 11,
+					WEEKEND_CLEANER => 12, 
 					WEEKEND_HEAD_COOK => 6,
 				]
 			]
@@ -223,7 +226,7 @@ class RosterTest extends TestCase {
 		}
 
 		ksort($summary);
-		$this->assertEquals($this->labor, $summary);
+		$this->assertEquals($this->total_labor_available, $summary);
 	}
 
 	/**
@@ -300,7 +303,7 @@ class RosterTest extends TestCase {
 
 		$counts = [];
 		foreach($num_shifts_needed as $job_id => $need) {
-			$assigned_labor = $this->labor[$job_id];
+			$assigned_labor = $this->total_labor_available[$job_id];
 			$success = ($need >= $assigned_labor);
 
 			# if we're skipping meeting night cleaner, then skip it
