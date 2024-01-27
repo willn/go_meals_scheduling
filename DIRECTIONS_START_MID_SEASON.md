@@ -41,7 +41,7 @@ mysql> select max(id) from work_app_season;
 mysql> INSERT INTO work_app_assignment VALUES(13623, '', 1, 4594, 0, 33, 164);
 ```
 
-If this is mid-season, follow these directions, otherwise skip to [FINISH-START-OF-SEASON](SETUP.md#finish-start-of-season).
+If this is mid-season, follow these directions, otherwise skip to [FINISH-START-OF-SEASON](./DIRECTIONS_START_COMPLETE.md)
 
 
 ## FINISH-START-OF-SEASON

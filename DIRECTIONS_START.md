@@ -54,7 +54,7 @@ the bottom, it should have a report listing the amount of labor needed.
 
 
 ## SEASON-START:
-If this is mid-season, skip to the [MID-SEASON section](SETUP.md#mid-season)
+If this is mid-season, skip to the [MID-SEASON section](./DIRECTIONS_START_MID_SEASON.md)
 
 ### edit public/season.php
 * set the appropriate `DEADLINE` date
