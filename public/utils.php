@@ -307,7 +307,6 @@ function get_meal_type_by_date($date) {
 	}
 
 	switch($day_of_week) {
-		case FRIDAY:
 		case SATURDAY:
 			return WEEKEND_MEAL;
 	}

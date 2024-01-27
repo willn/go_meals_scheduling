@@ -127,6 +127,11 @@ EOSQL;
 			if ($job_id === ALL_ID) {
 				continue;
 			}
+			$job_name = get_job_name($job_id);
+			if (DEBUG_ASSIGNMENTS) {
+				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
+					" job id:{$job_id} {$job_name}");
+			}
 
 			$this->schedule->setJobId($job_id);
 			$this->schedule->initPlaceholderCount($job_id);
@@ -142,7 +147,6 @@ EOSQL;
 			}
 
 			if (DEBUG_FIND_CANCEL_MEALS) {
-				$job_name = get_job_name($job_id);
 				$count = $this->schedule->getPlaceholderCount($job_id);
 				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
 					" Placeholder count {$count} for {$job_name}");

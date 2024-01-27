@@ -97,7 +97,7 @@ class ConfigTest extends TestCase {
 			12 => 'December',
 		];
 
-		$out = [
+		$cases = [
 			// 6-month seasons use a different algorithm
 			[$season_6mos, MEETING_NIGHT_CLEANER, 1, 2],
 			[$season_6mos, MEETING_NIGHT_ORDERER, 1, 2],
@@ -125,6 +125,9 @@ class ConfigTest extends TestCase {
 			[$season_3mos, WEEKDAY_ASST_COOK, .5, 1],
 			[$season_3mos, WEEKDAY_HEAD_COOK, .5, 1],
 			[$season_3mos, WEEKDAY_CLEANER, .5, 3],
+			[$season_3mos, WEEKEND_ASST_COOK, .5, 1],
+			[$season_3mos, WEEKEND_HEAD_COOK, .5, 1],
+			[$season_3mos, WEEKEND_CLEANER, .5, 3],
 
 			[$season_2mos, MEETING_NIGHT_CLEANER, .33, 1],
 			[$season_2mos, MEETING_NIGHT_ORDERER, .33, 1],
@@ -137,14 +140,14 @@ class ConfigTest extends TestCase {
 		];
 
 		if (defined('WEEKDAY_TABLE_SETTER')) {
-			$out += [
+			$cases += [
 				[$season_6mos, WEEKDAY_TABLE_SETTER, 1, 6],
 				[$season_4mos, WEEKDAY_TABLE_SETTER, 1, 4],
 				[$season_3mos, WEEKDAY_TABLE_SETTER, .5, 3],
 				[$season_2mos, WEEKDAY_TABLE_SETTER, .33, 2],
 			];
 		}
-		return $out;
+		return $cases;
 	}
 
 	/**

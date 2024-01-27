@@ -42,6 +42,7 @@ define('WEEKEND_MEAL', 6);
 define('ALL_ID', 'all');
 
 define('DEBUG', FALSE);
+define('DEBUG_ASSIGNMENTS', FALSE);
 define('DEBUG_FIND_CANCEL_MEALS', FALSE);
 
 define('JSON_ASSIGNMENTS_FILE', 'results/output.json');

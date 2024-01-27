@@ -456,15 +456,15 @@ EOTXT;
 
 		// assign to the first available shift slot
 		$is_available = FALSE;
-		$next_key = NULL;
-		foreach($this->assigned[$job_id] as $key=>$w) {
-			if (!is_null($w)) {
+		$next_shift_count = NULL;
+		foreach($this->assigned[$job_id] as $shift_count=>$worker) {
+			if (!is_null($worker)) {
 				// slot is taken already
 				continue;
 			}
 
 			$is_available = TRUE;
-			$next_key = $key;
+			$next_shift_count = $shift_count;
 			break;
 		}
 
@@ -475,15 +475,20 @@ EOTXT;
 
 		// get the name of the worker to fill this slot with
 		$username = $this->pickWorker($job_id, $worker_freedom);
-		$this->setAssignment($job_id, $next_key, $username);
+		if (DEBUG_ASSIGNMENTS) {
+			error_log('worker freedom: ' . print_r( $worker_freedom, true ));
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
+				" picked: {$username} id:{$job_id} date:{$this->date}");
+		}
+		$this->setAssignment($job_id, $next_shift_count, $username);
 		return $username;
 	}
 
 	/**
 	 * Make an assignment
 	 */
-	public function setAssignment($job_id, $key, $username) {
-		$this->assigned[$job_id][$key] = $username;
+	public function setAssignment($job_id, $shift_count, $username) {
+		$this->assigned[$job_id][$shift_count] = $username;
 	}
 
 
@@ -540,6 +545,11 @@ EOTXT;
 	 */
 	public function printResults($format='txt', $gather_ids=[]) {
 		if (empty($this->assigned)) {
+			return TRUE;
+		}
+
+		$this_class = get_class($this);
+		if (DEBUG_ASSIGNMENTS && ($this_class !== 'WeekdayMeal')) {
 			return TRUE;
 		}
 
@@ -689,8 +699,8 @@ EOTXT;
 		$is_cleaning = is_a_clean_job($job_id);
 
 		$names = [];
-		foreach($this->assigned as $jid=>$job) {
-			$j_clean = is_a_clean_job($jid);
+		foreach($this->assigned as $shift_count=>$job) {
+			$j_clean = is_a_clean_job($shift_count);
 			if ($is_cleaning !== $j_clean) {
 				continue;
 			}
