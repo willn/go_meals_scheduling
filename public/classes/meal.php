@@ -368,7 +368,7 @@ EOTXT;
 
 			$today = $worker->getDateScore($this->date, $job_id);
 			// skip if there's a date conflict
-			if ($today == HAS_CONFLICT) {
+			if ($today == HAS_CONFLICT_PREF) {
 				continue;
 			}
 			$promotes += $today;

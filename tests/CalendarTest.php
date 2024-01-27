@@ -935,7 +935,7 @@ EOHTML;
 	}
 
 	/**
-	 * @dataProvider provideGenerateReportCellForWorker
+	 * dataProvider provideGenerateReportCellForWorker
 	public function testGenerateReportCellForWorker($date_string, $type, $expected) {
 		$worker = new Worker('foo');
 		$result = $this->calendar->generateReportCellForWorker($worker, $date_string, $type);
