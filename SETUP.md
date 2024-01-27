@@ -372,10 +372,10 @@ php execute.php -s
 Confirm whether any "borrowed" labor was actually needed. If not, then
 remove the borrowed labor.
 
-### run the unit test for CalendarTest::testRenderSeasonDateSummary until things line up
+### run the unit tests and adjust until things work
 ```
 cd tests/
-phpunit CalendarTest.php
+./run.sh
 
 # make adjustments on the number of meals to make these tests pass
 git status
@@ -385,15 +385,14 @@ git commit
 ```
 
 ## make a run, and analyze the results
-```
-./analyze_results.sh
-```
+`./analyze_results.sh`
 
 ## if there are no meeting night cleaners...
 * then delete the placeholders for those shifts, just leave it blank
 
 ## upload a copy of the `schedule.txt` to google drive & import into a spreadsheet
-* try to move the under-assigned workers to fill the 'XXX' spots, making trades
+* refer to workers.txt and try to move the under-assigned workers to
+  fill the 'XXX' spots, making trades
 * do any swapping needed
 
 ## confirm preferences
