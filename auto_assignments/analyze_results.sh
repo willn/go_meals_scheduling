@@ -26,9 +26,11 @@ echo "";
 echo "Is there excess volunteer labor?"
 grep OVERAGE $WORKERS;
 
+UNFILLED='not_filled_workers.txt';
 echo "";
-echo "find the people who aren't fully assigned:";
-egrep '(^name|\(0)' workers.txt | grep -B1 'j:'
+echo "find the people who aren't fully assigned: ${UNFILLED}";
+egrep '(^name|\(0)' workers.txt | grep -B1 'j:' > ${UNFILLED}
+cat ${UNFILLED}
 
 
 echo "";

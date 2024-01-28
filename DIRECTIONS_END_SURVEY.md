@@ -90,8 +90,7 @@ Read the comments for special requests at the bottom of the full report as well.
 
 Ensure that teen workers are paired with a parent.
 
-## look for table setter conflicts
-Check to make sure that there are no 'table setter' assignments which conflict with head or asst cooking.
+## Auto-check for conflicts
 * Download from google spreadsheet, as tab-delimited
 * mv file to auto-assignments/schedule.txt
 * cd tests/

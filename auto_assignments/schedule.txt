@@ -1,31 +1,28 @@
 date	time	communities	head_cook	asst1	asst2	cleaner1	cleaner2	cleaner3
-11/1/2023	5:45	GO	jeffh			sallie		
-11/7/2023	6:15	GO, SW, TS	lauram	rossella	nancy	amanda	frank	cj
-11/8/2023	6:15	GO, SW, TS	keithg	danieloc	shelly	kelly	michael	cj
-11/11/2023	10:30	GO, SW, TS	XXXXXXXX	mac	XXXXXXXX	michael	robb	eric
-11/14/2023	6:15	GO, SW, TS	megan	sallie	meg	sallie	jeffh	michael
-11/15/2023	6:15	GO, SW, TS	danieloc	marta	cj	cj	alexc	kelly
-11/20/2023	5:45	GO	katie			robb		
-11/28/2023	6:15	GO, SW, TS	XXXXXXXX	sallie	kelly	amanda	sallie	alexc
-11/29/2023	6:15	GO, SW, TS	danieloc	marta	lauram	dan	lauram	michael
-12/3/2023	10:30	GO, SW, TS	XXXXXXXX	dan	fatima	michael	robb	eric
-12/4/2023	6:15	GO, SW, TS	jennifer	danieloc	kiley	michael	cj	XXXXXXXX
-12/5/2023	6:15	GO, SW, TS	XXXXXXXX	rossella	meg	jeffh	frank	kelly
-12/6/2023	5:45	GO	gayle			kathyboblitt		
-12/12/2023	6:15	GO, SW, TS	emilyadama	shelly	katie	amanda	kelly	lauram
-12/13/2023	6:15	GO, SW, TS	katie	marta	cj	cj	danieloc	kelly
-12/15/2023	10:30	GO, SW, TS	XXXXXXXX	nancy	drew	robb	drew	eric
-12/18/2023	5:45	GO	jeffh			mac		
-12/27/2023	6:15	GO, SW, TS	maryking	tammy	marta	cj	alexc	frank
-1/3/2024	5:45	GO	sallie			fatima		
-1/7/2024	10:30	GO, SW, TS	XXXXXXXX	lauram	cj	amyh	robb	drew
-1/13/2024	10:30	GO, SW, TS	XXXXXXXX	eric	nancy	amyh	michael	robb
-1/16/2024	6:15	GO, SW, TS	kelly	lauram	sallie	dan	jeffh	amanda
-1/17/2024	5:45	GO	sallie			drew		
-1/21/2024	10:30	GO, SW, TS	XXXXXXXX	mac	willaThiel	amyh	robb	drew
-1/22/2024	6:15	GO, SW, TS	keithg	amyh	jennifer	michael	danieloc	alexc
-1/23/2024	6:15	GO, SW, TS	XXXXXXXX	kelly	suzette	cj	amanda	sallie
-1/24/2024	6:15	GO, SW, TS	XXXXXXXX	dale	nancy	alexc	lauram	danieloc
-1/29/2024	6:15	GO, SW, TS	dale	danieloc	nancy	amanda	kelly	cj
-1/30/2024	6:15	GO, SW, TS	kelly	marta	amyh	dan	michael	alexc
-MISSED HOBARTERS: 17 of 29 0.59
+2/5/2024	6:15	GO, SW, TS	dale	jennifer	kelly	amanda	cj	alexc
+2/7/2024	5:45	GO	sallie			drew		
+2/13/2024	6:15	GO, SW, TS	megan	sallie	nancy	dan	michael	kelly
+2/18/2024	10:30	GO, SW, TS	dan	mac	willaThiel	amyh	eric	michael
+2/19/2024	5:45	GO	gayle			mac		
+2/21/2024	6:15	GO, SW, TS	dale	danieloc	cj	cj	alexc	sallie
+2/26/2024	6:15	GO, SW, TS	dale	katie	amyh	amanda	michael	kelly
+3/4/2024	6:15	GO, SW, TS	dale	kelly	shelly	cj	alexc	michael
+3/6/2024	5:45	GO	jeffh			sallie		
+3/9/2024	10:30	GO, SW, TS	eric	nancy	mac	drew	eric	michael
+3/12/2024	6:15	GO, SW, TS	kelly	marta	shelly	danieloc	jeffh	sallie
+3/13/2024	6:15	GO, SW, TS	jennifer	amyh	kiley	kelly	frank	alexc
+3/18/2024	5:45	GO	jeffh			kathyboblitt		
+3/19/2024	6:15	GO, SW, TS	katie	sallie	suzette	dan	amanda	cj
+3/20/2024	6:15	GO, SW, TS	tammy	tammy	nancy	cj	michael	kelly
+3/25/2024	6:15	GO, SW, TS	dale	cj	rossella	kelly	jeffh	frank
+4/2/2024	6:15	GO, SW, TS	kelly	lauram	marta	dan	cj	amanda
+4/3/2024	5:45	GO	sallie					
+4/7/2024	10:30	GO, SW, TS	lauram	drew	kiley	drew	amyh	eric
+4/8/2024	6:15	GO, SW, TS	keithg	nancy	marta	amanda	alexc	michael
+4/10/2024	6:15	GO, SW, TS	lauram	danieloc	nancy	kelly	amyh	cj
+4/15/2024	5:45	GO	katie					
+4/17/2024	6:15	GO, SW, TS	tammy	tammy	nancy	michael	cj	lauram
+4/21/2024	10:30	GO, SW, TS	frank	dan	eric	drew	amyh	michael
+4/22/2024	6:15	GO, SW, TS	dale	rossella	danieloc	amanda	alexc	lauram
+4/23/2024	6:15	GO, SW, TS	maryking	dale	sallie	danieloc	frank	jeffh
+4/29/2024	6:15	GO, SW, TS	dale	nancy	lauram	cj	danieloc	lauram

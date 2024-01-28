@@ -1051,7 +1051,7 @@ EOHTML;
 		$expected = [
 			'meeting' => 6,
 			'sunday' => 0,
-			'weekday' => 18,
+			'weekday' => 17,
 			'weekend' => 4,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {

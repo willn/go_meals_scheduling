@@ -95,9 +95,9 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		2 => [3, 4, 5, 10, 11, 12, 14, 17, 18, 21, 25, 26, 28],
-		3 => [2, 3, 4, 5, 10, 16, 17, 23, 24, 25, 27, 30, 31],
-		4 => [1, 6, 13, 14, 17, 20, 24, 27, 28, 29],
+		2 => [3, 4, 6, 10, 11, 12, 14, 17, 20, 24, 25, 27, 28],
+		3 => [2, 3, 5, 10, 11, 16, 17, 23, 24, 26, 27, 30, 31],
+		4 => [1, 6, 9, 13, 14, 16, 20, 24, 27, 28, 30],
 	];
 }
 
@@ -106,7 +106,7 @@ function get_skip_dates() {
  */
 function get_special_weekend_days() {
 	return [
-		'2/24/2024' => ['head_cook' => 'eric', 'type' => 'brunch'],
+		'2/18/2024' => ['head_cook' => 'dan', 'type' => 'brunch'],
 		'3/9/2024' => ['head_cook' => 'eric', 'type' => 'brunch'],
 		'4/7/2024' => ['head_cook' => 'lauram', 'type' => 'brunch'],
 		'4/21/2024' => ['head_cook' => 'frank', 'type' => 'brunch'],
