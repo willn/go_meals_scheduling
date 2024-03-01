@@ -296,14 +296,18 @@ class UtilsTest extends TestCase {
 	}
 
 
-
 	/**
 	 * @dataProvider provide_get_a_meal_object
 	 */
 	public function test_get_a_meal_object($date, $expected) {
 		$schedule = new Schedule();
 		$meal = get_a_meal_object($schedule, $date);
-		$this->assertTrue($meal instanceof $expected);
+		$debug = [
+			'date' => $date,
+			'expected' => $expected,
+			'meal' => get_class($meal),
+		];
+		$this->assertTrue($meal instanceof $expected, print_r($debug, TRUE));
 	}
 
 	public function provide_get_a_meal_object() {

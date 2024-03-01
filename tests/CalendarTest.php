@@ -958,14 +958,14 @@ EOHTML;
         $result = $this->calendar->getNumShiftsNeeded();
 		$expected = [
 			// UPDATE-EACH-SEASON
-			MEETING_NIGHT_CLEANER => 6,
-			MEETING_NIGHT_ORDERER => 6,
-			WEEKDAY_ASST_COOK => 36,
-			WEEKDAY_CLEANER => 54,
-			WEEKDAY_HEAD_COOK => 18,
-			WEEKEND_ASST_COOK => 8,
-			WEEKEND_CLEANER => 12,
-			WEEKEND_HEAD_COOK => 4,
+			MEETING_NIGHT_CLEANER => 12,
+			MEETING_NIGHT_ORDERER => 12,
+			WEEKDAY_ASST_COOK => 130,
+			WEEKDAY_CLEANER => 195,
+			WEEKDAY_HEAD_COOK => 65,
+			WEEKEND_ASST_COOK => 100,
+			WEEKEND_CLEANER => 150,
+			WEEKEND_HEAD_COOK => 50,
 		];
 
 		$debug = [
@@ -993,13 +993,13 @@ EOHTML;
 			MEETING_NIGHT_CLEANER => 6,
 			MEETING_NIGHT_ORDERER => 6,
 
-			SUNDAY_ASST_COOK => 22,
-			SUNDAY_CLEANER => 11,
-			SUNDAY_HEAD_COOK => 11,
+			WEEKEND_ASST_COOK => 50,
+			WEEKEND_CLEANER => 25,
+			WEEKEND_HEAD_COOK => 25,
 
-			WEEKDAY_ASST_COOK => 50,
-			WEEKDAY_CLEANER => 25,
-			WEEKDAY_HEAD_COOK => 25,
+			WEEKDAY_ASST_COOK => 65,
+			WEEKDAY_CLEANER => 33,
+			WEEKDAY_HEAD_COOK => 33,
 		];
 		$counts = $six_month_season;
 		if (defined('WEEKDAY_TABLE_SETTER')) {
@@ -1049,10 +1049,10 @@ EOHTML;
 
 		// UPDATE-EACH-SEASON
 		$expected = [
-			'meeting' => 6,
+			'meeting' => 12,
 			'sunday' => 0,
-			'weekday' => 17,
-			'weekend' => 4,
+			'weekday' => 65,
+			'weekend' => 50,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
 			$carry += $item;

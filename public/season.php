@@ -3,16 +3,16 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('January 26, 2024, 8:00pm'));
+define('DEADLINE', strtotime('April 20, 2024, 8:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', WINTER);
+define('SEASON_NAME', SPRING_SUMMER);
 
 // If this is a whole season, then 1, half .5, etc.
-define('SUB_SEASON_FACTOR', .5);
+define('SUB_SEASON_FACTOR', 1);
 define('WEEKEND_OVER_SUNDAYS', TRUE);
 
 /* ----------- job ids --------------- */
@@ -57,34 +57,7 @@ function doing_csa_farm_meals() {
  * @return array username => array(job_id => num_meals)
  */
 function get_num_shift_overrides() {
-	// XXX we may need to shift back 1 weekend head cook for Frank, and 1
-	// weekday head cook for Tammy... borrow from next half-season
 	return [
-		// handle labor shifted from the 1st half of the season
-		'tammy' => [
-			WEEKDAY_HEAD_COOK => 1,
-			WEEKDAY_ASST_COOK => 1,
-		],
-		'dale' => [WEEKDAY_HEAD_COOK => 3],
-
-		// payback some labor borrowed in the 1st half
-		'kelly' => [WEEKDAY_HEAD_COOK => -1],
-		'danieloc' => [WEEKDAY_HEAD_COOK => -1],
-		'keithg' => [WEEKDAY_HEAD_COOK => -1],
-		'marta' => [WEEKDAY_ASST_COOK => -1],
-
-		// remove work
-		'fatima' => [
-			WEEKEND_ASST_COOK => -1,
-			MEETING_NIGHT_CLEANER => -1,
-		],
-		'robb' => [
-			WEEKEND_CLEANER => -6,
-			MEETING_NIGHT_CLEANER => -1,
-		],
-		'meg' => [
-			WEEKDAY_ASST_COOK => -2,
-		],
 	];
 }
 
@@ -95,9 +68,6 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		2 => [3, 4, 6, 10, 11, 12, 14, 17, 20, 24, 25, 27, 28],
-		3 => [2, 3, 5, 10, 11, 16, 17, 23, 24, 26, 27, 30, 31],
-		4 => [1, 6, 9, 13, 14, 16, 20, 24, 27, 28, 30],
 	];
 }
 
@@ -106,10 +76,6 @@ function get_skip_dates() {
  */
 function get_special_weekend_days() {
 	return [
-		'2/18/2024' => ['head_cook' => 'dan', 'type' => 'brunch'],
-		'3/9/2024' => ['head_cook' => 'eric', 'type' => 'brunch'],
-		'4/7/2024' => ['head_cook' => 'lauram', 'type' => 'brunch'],
-		'4/21/2024' => ['head_cook' => 'frank', 'type' => 'brunch'],
 	];
 }
 

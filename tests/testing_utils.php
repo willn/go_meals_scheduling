@@ -12,11 +12,18 @@ function remove_html_whitespace($input) {
 }
 
 /**
+ *
+ */
+function get_data_filename($method) {
+	return 'auto-data/' . str_replace('::', '__', $method) . '.json';
+}
+
+/**
  * Write out the data to a file.
  * #!# expected is pass by reference
  */
 function write_out_data($method, $data) {
-	$data_file = 'auto-data/' . str_replace('::', '__', $method) . '.json';
+	$data_file = get_data_filename($method);
 	if (file_exists($data_file)) {
 		return;
 	}

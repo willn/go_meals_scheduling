@@ -15,12 +15,24 @@ parameters:
 		- public/constants.php
 	ignoreErrors:
 		- message: "#^If condition is always false\\.$#"
+		  count: 2
+		  path: auto_assignments/assignments.php
+
+		- message: "#^If condition is always false\\.$#"
 		  count: 1
 		  path: auto_assignments/execute.php
 
 		- message: "#^If condition is always false\\.$#"
 		  count: 1
-		  path: auto_assignments/schedule.php
+		  path: public/classes/meal.php
+
+		- message: "#^Left side of && is always false\\.$#"
+		  count: 1
+		  path: public/classes/meal.php
+
+		#- message: "#^If condition is always false\\.$#"
+		#  count: 1
+		#  path: auto_assignments/schedule.php
 
 		- message: "#^Class Worker constructor invoked with 1 parameter, 0 required.$#"
 		  count: 1

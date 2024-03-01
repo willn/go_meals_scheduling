@@ -515,9 +515,10 @@ EOHTML;
 			return '';
 		}
 
-		$meal = new WeekendMeal(NULL, '');
+		$schedule = new Schedule();
+		$meal = new WeekendMeal($schedule, '');
 		if ($special_dates[$date_string]['type'] === 'dinner') {
-			$meal = new WeekdayMeal(NULL, '');
+			$meal = new WeekdayMeal($schedule, '');
 		}
 		$time = $meal->getTime();
 
