@@ -13,7 +13,7 @@ define('SEASON_NAME', SPRING_SUMMER);
 
 // If this is a whole season, then 1, half .5, etc.
 define('SUB_SEASON_FACTOR', 1);
-define('WEEKEND_OVER_SUNDAYS', TRUE);
+define('WEEKEND_OVER_SUNDAYS', FALSE);
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_CLEANER', 7338);
@@ -48,7 +48,7 @@ define('WEEKDAY_HEAD_COOK_NAME', 'Weekday head cook');
  * Whether we're hosting CSA farm meals this summer.
  */
 function doing_csa_farm_meals() {
-	return FALSE;
+	return TRUE;
 }
 
 /**

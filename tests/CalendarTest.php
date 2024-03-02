@@ -544,8 +544,8 @@ EOHTML;
 		$we_clean_n = WEEKEND_CLEANER_NAME;
 		$we_head_n = WEEKEND_HEAD_COOK_NAME;
 
-		$we_1 = [
-			WEEKEND_ASST_COOK => [
+		$sun_1 = [
+			SUNDAY_ASST_COOK => [
 				2 => [0 => 'fatima'],
 				1 => [
 					0 => 'keithg',
@@ -554,7 +554,7 @@ EOHTML;
 					3 => 'terrence',
 				],
 			],
-			WEEKEND_HEAD_COOK => [
+			SUNDAY_HEAD_COOK => [
 				2 => [0 => 'maryking'],
 				1 => [
 					0 => 'dan',
@@ -563,7 +563,7 @@ EOHTML;
 					3 => 'tevah',
 				],
 			],
-			WEEKEND_CLEANER => [
+			SUNDAY_CLEANER => [
 				1 => [
 					0 => 'amyh',
 					1 => 'annie',
@@ -576,7 +576,7 @@ EOHTML;
 		];
 
 		$sun_cell = <<<EOHTML
-<h3 class="jobname">{$we_asst_n}</h3>
+<h3 class="jobname">{$sun_asst_n}</h3>
 <div class="highlight">prefer:<ul><li>fatima</li></ul></div>
 <div class="OK">OK:<ul><li>keithg</li>
 <li>
@@ -585,7 +585,7 @@ megan</li>
 nancy</li>
 <li>
 terrence</li></ul></div>
-<h3 class="jobname">{$we_head_n}</h3>
+<h3 class="jobname">{$sun_head_n}</h3>
 <div class="highlight">prefer:<ul><li>maryking</li></ul></div>
 <div class="OK">OK:<ul><li>dan</li>
 <li>
@@ -594,7 +594,7 @@ drew</li>
 keithg</li>
 <li>
 tevah</li></ul></div>
-<h3 class="jobname">{$we_clean_n}</h3>
+<h3 class="jobname">{$sun_clean_n}</h3>
 <div class="OK">OK:<ul><li>amyh</li>
 <li>
 annie</li>
@@ -747,7 +747,7 @@ rod</li></ul></div>
 EOHTML;
 
 		return [
-			[$we_1, TRUE, $sun_cell],
+			[$sun_1, TRUE, $sun_cell],
 			[$mtg_1, FALSE, $mtg_cell],
 			[$wkd_1, FALSE, $weekend_cell],
 		];
@@ -960,12 +960,18 @@ EOHTML;
 			// UPDATE-EACH-SEASON
 			MEETING_NIGHT_CLEANER => 12,
 			MEETING_NIGHT_ORDERER => 12,
+
+			SUNDAY_ASST_COOK => 48,
+			SUNDAY_CLEANER => 72,
+			SUNDAY_HEAD_COOK => 24,
+
 			WEEKDAY_ASST_COOK => 130,
 			WEEKDAY_CLEANER => 195,
 			WEEKDAY_HEAD_COOK => 65,
-			WEEKEND_ASST_COOK => 100,
-			WEEKEND_CLEANER => 150,
-			WEEKEND_HEAD_COOK => 50,
+
+			WEEKEND_ASST_COOK => 52,
+			WEEKEND_CLEANER => 78,
+			WEEKEND_HEAD_COOK => 26,
 		];
 
 		$debug = [
@@ -993,9 +999,13 @@ EOHTML;
 			MEETING_NIGHT_CLEANER => 6,
 			MEETING_NIGHT_ORDERER => 6,
 
-			WEEKEND_ASST_COOK => 50,
-			WEEKEND_CLEANER => 25,
-			WEEKEND_HEAD_COOK => 25,
+			SUNDAY_ASST_COOK => 24,
+			SUNDAY_CLEANER => 12,
+			SUNDAY_HEAD_COOK => 12,
+
+			WEEKEND_ASST_COOK => 26,
+			WEEKEND_CLEANER => 13,
+			WEEKEND_HEAD_COOK => 13,
 
 			WEEKDAY_ASST_COOK => 65,
 			WEEKDAY_CLEANER => 33,
@@ -1050,9 +1060,9 @@ EOHTML;
 		// UPDATE-EACH-SEASON
 		$expected = [
 			'meeting' => 12,
-			'sunday' => 0,
+			'sunday' => 24,
 			'weekday' => 65,
-			'weekend' => 50,
+			'weekend' => 26,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
 			$carry += $item;
