@@ -50,7 +50,7 @@ function get_gather_id($username, $gather_ids) {
 
 	if (($username == '') || ($username === PLACEHOLDER)) {
 		// is blank or placeholder... skip
-		return '';
+		return $username;
 	}
 
 	// was unable to find username
