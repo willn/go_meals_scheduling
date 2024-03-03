@@ -517,11 +517,11 @@ EOHTML;
 	}
 
 	/**
-	 * @dataProvider provide_list_available_workers
+	 * @dataProvider provide_list_available_workers_for_date
 	 */
-	public function test_list_available_workers($cur_date_jobs, $is_weekend, $expected) {
+	public function test_list_available_workers_for_date($cur_date_jobs, $is_weekend, $expected) {
 		$this->calendar->disableWebDisplay();
-		$result = $this->calendar->list_available_workers($cur_date_jobs, $is_weekend);
+		$result = $this->calendar->list_available_workers_for_date($cur_date_jobs, $is_weekend);
 		$debug = [
 			'cur_date_jobs' => $cur_date_jobs,
 			'is_weekend' => $is_weekend,
@@ -531,7 +531,7 @@ EOHTML;
 		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function provide_list_available_workers() {
+	public function provide_list_available_workers_for_date() {
 		$mtg_clean_n = MEETING_NIGHT_CLEANER_NAME;
 		$mtg_order_n = MEETING_NIGHT_ORDERER_NAME;
 		$sun_asst_n = SUNDAY_ASST_COOK_NAME;

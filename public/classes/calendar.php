@@ -312,6 +312,7 @@ EOHTML;
 						break;
 
 					case NOT_A_MEAL:
+						$is_done = TRUE;
 						break;
 				}
 
@@ -397,25 +398,14 @@ EOHTML;
 	}
 
 	/**
-	 * Generate the date cell for a report
-	 *
-	 * @param string $date_string text representing a date, i.e. '12/6/2009'
-	 * @param array $availability a structured array of when people
-	 *     are available to work.
-	 * @param string $tally a count of each meal-type instance.
+	 * Create the short code for recording which type of meal this is, and the
+	 * count of how many we have observed.
 	 * @param string $type the type of meal this is servicing. Possible types
 	 *     are: 'sunday', 'meeting', 'weekday', 'weekend'
-	 * @return string the content to be rendered in the cell variable.
+	 * @return string of html to be rendered at the bottom of each calendar
+	 *     date which contains a meal. Example: '[W13]'
 	 */
-	function generateReportCell($date_string, $availability, &$tally, $type) {
-		if (empty($availability)) {
-			return '';
-		}
-
-		if (!array_key_exists($date_string, $availability)) {
-			return '';
-		}
-
+	function generateDateCount($type) {
 		$code = '';
 		switch($type) {
 			case 'sunday':
@@ -432,12 +422,35 @@ EOHTML;
 				break;
 		}
 
-		// report the available workers
-		$tally .= <<<EOHTML
+		return <<<EOHTML
 <span class="type_count">[{$code}{$this->num_shifts[$type]}]</span>
 EOHTML;
+	}
 
-		return $this->list_available_workers($availability[$date_string], ($type === 'sunday'));
+	/**
+	 * Generate the date cell for a report
+	 *
+	 * @param string $date_string text representing a date, i.e. '12/6/2009'
+	 * @param array $availability a structured array of when people
+	 *     are available to work.
+	 * @param string $tally a count of each meal-type instance.
+	 * @param string $type the type of meal this is servicing. Possible types
+	 *     are: 'sunday', 'meeting', 'weekday', 'weekend'
+	 * @return string the content to be rendered in the cell variable.
+	 */
+	function generateReportCell($date_string, $availability, &$tally, $type) {
+		if (empty($availability)) {
+			return '';
+		}
+
+		$tally .= $this->generateDateCount($type);
+
+		$date_availability = array_key_exists($date_string, $availability) ?
+			$availability[$date_string] : [];
+
+		// report the available workers
+		return $this->list_available_workers_for_date($date_availability,
+			($type === 'sunday'));
 	}
 
 
@@ -556,6 +569,7 @@ EOHTML;
 			return '';
 		}
 
+		// XXX
 		if (($day_of_week === TUESDAY) && (($month_num > MAY) && ($month_num < NOVEMBER)))  {
 			return self::FARM_MSG;
 		}
@@ -960,16 +974,14 @@ EOHTML;
 	 *     of usernames who left that preference in alphabetical order.
 	 * @param bool $is_weekend IF this date is a weekend or not.
 	 */
-	public function list_available_workers($cur_date_jobs, $is_weekend=FALSE) {
+	public function list_available_workers_for_date($cur_date_jobs, $is_weekend=FALSE) {
 		$cell = '';
 
 		if (is_null($cur_date_jobs)) {
-			error_log('no date supplied for ' . __FUNCTION__);
 			return;
 		}
 
 		$job_titles = [];
-		// XXX where is the handling for weekday meals?
 		if ($is_weekend) {
 			$job_titles = WEEKEND_OVER_SUNDAYS ? get_weekend_jobs() : get_sunday_jobs();
 		}
