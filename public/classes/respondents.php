@@ -1,21 +1,27 @@
 <?php
 
 class Respondents {
-	protected $ids_clause;
 	protected $mysql_api;
 
+	protected $job_filter_id;
 
-	public function __construct() {
+	/**
+	 * @param int the job ID to filter the database query from. IF empty, then
+	 *     do not filter the request.
+	 */
+	public function __construct($job_filter_id='') {
 		$this->mysql_api = get_mysql_api();
-
-		$this->ids_clause = get_job_ids_clause();
+		$this->job_filter_id = intval($job_filter_id);
 	}
 
 	/**
-	 * Return an array of all workers usernames in the system
+	 * Return an array of all workers usernames in the system.
 	 */
 	public function getWorkers() {
-		// all the workers who should respond:
+		$job_filter_clause = empty($this->job_filter_id) ?
+			' AND (' . get_job_ids_clause() . ')' :
+			" AND job_id='{$this->job_filter_id}'";
+
 		$sid = get_season_id();
 		$assn_table = ASSIGN_TABLE;
 		$auth_user_table = AUTH_USER_TABLE;
@@ -24,7 +30,7 @@ class Respondents {
 				FROM {$assn_table} as sa, {$auth_user_table} as a
 				WHERE sa.season_id={$sid}
 					AND a.id=sa.worker_id
-					AND ({$this->ids_clause})
+					{$job_filter_clause}
 				GROUP BY sa.worker_id
 EOSQL;
 		$all_workers = [];

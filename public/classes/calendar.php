@@ -182,10 +182,15 @@ EOHTML;
 	 *				1 => ['charlie', 'doug', 'edward', 'fred'],
 	 *		],
  	 * ]
+	 * @param array list of usernames who did not respond to the survey,
+	 *     filtered to only include the list of workers for the
+	 *     currently viewed job.
 	 * @return array the dates_and_shifts array or a single entry
 	 *     with the html to render all the calendar months of the season.
 	 */
-	public function evalDates($worker=NULL, $availability=NULL) {
+	public function evalDates($worker=NULL, $availability=NULL,
+		$non_respondents=[]) {
+
 		$sunday_jobs = get_sunday_jobs();
 		$weekend_jobs = get_weekend_jobs();
 		$mtg_nights = get_mtg_nights();
@@ -323,10 +328,12 @@ EOHTML;
 							$jobs, $dates_and_shifts, $date_string);
 					}
 					else if (is_null($worker)) {
-						$cell = $this->generateReportCell($date_string, $availability, $tally, $type);
+						$cell = $this->generateReportCell($date_string, $availability,
+							$tally, $type, $non_respondents);
 					}
 					else {
-						$cell = $this->generateReportCellForWorker($worker, $date_string, $type);
+						$cell = $this->generateReportCellForWorker($worker,
+							$date_string, $type);
 					}
 
 					$message = empty($cell) ? '' : 
@@ -436,9 +443,14 @@ EOHTML;
 	 * @param string $tally a count of each meal-type instance.
 	 * @param string $type the type of meal this is servicing. Possible types
 	 *     are: 'sunday', 'meeting', 'weekday', 'weekend'
+	 * @param array list of usernames who did not respond to the survey,
+	 *     filtered to only include the list of workers for the
+	 *     currently viewed job.
 	 * @return string the content to be rendered in the cell variable.
 	 */
-	function generateReportCell($date_string, $availability, &$tally, $type) {
+	function generateReportCell($date_string, $availability, &$tally, $type,
+		$non_respondents) {
+
 		if (empty($availability)) {
 			return '';
 		}
@@ -450,7 +462,7 @@ EOHTML;
 
 		// report the available workers
 		return $this->list_available_workers_for_date($date_availability,
-			($type === 'sunday'));
+			($type === 'sunday'), $non_respondents);
 	}
 
 
@@ -761,8 +773,7 @@ EOHTML;
 			SELECT s.date_shift_string, s.job_id, a.username, p.pref
 				FROM {$auth_user_table} as a, {$prefs_table} as p,
 					{$shifts_table} as s
-				WHERE p.pref>0
-					AND a.id=p.worker_id
+				WHERE a.id=p.worker_id
 					AND s.id = p.date_id
 				ORDER BY s.date_shift_string ASC,
 					p.pref DESC,
@@ -973,8 +984,13 @@ EOHTML;
 	 *     keys which are the positive preferences and (2 or 1) and the list
 	 *     of usernames who left that preference in alphabetical order.
 	 * @param bool $is_weekend IF this date is a weekend or not.
+	 * @param array list of usernames who did not respond to the survey,
+	 *     filtered to only include the list of workers for the
+	 *     currently viewed job.
 	 */
-	public function list_available_workers_for_date($cur_date_jobs, $is_weekend=FALSE) {
+	public function list_available_workers_for_date($cur_date_jobs,
+		$is_weekend=FALSE, $non_respondents) {
+
 		$cell = '';
 
 		if (is_null($cur_date_jobs)) {
@@ -1016,17 +1032,21 @@ EOHTML;
 
 			// list people who prefer the job first
 			if (array_key_exists(2, $info)) {
-				$cell .= '<div class="highlight">prefer:<ul><li>' . 
+				$cell .= '<div class="worker_avail_preference highlight">prefer:<ul><li>' . 
 					implode("</li>\n<li>\n", $info[2]) . 
 					"</li></ul></div>\n";
 			}
 
 			// next, list people who would be OK with it
 			if (array_key_exists(1, $info)) {
-				$cell .= '<div class="OK">OK:<ul><li>' . 
+				$cell .= '<div class="worker_avail_preference OK">OK:<ul><li>' . 
 					implode("</li>\n<li>\n", $info[1]) . 
 					"</li></ul></div>\n";
 			}
+
+			$cell .= '<div class="worker_avail_preference non_respond">non-respond:<ul><li>' . 
+				implode("</li>\n<li>\n", $non_respondents) . 
+				"</li></ul></div>\n";
 		}
 
 		return $cell;
@@ -1071,16 +1091,21 @@ EOHTML;
 	 *				1 => ['charlie', 'doug', 'edward', 'fred'],
 	 *		],
  	 * ]
+	 * @param array list of usernames who did not respond to the survey,
+	 *     filtered to only include the list of workers for the
+	 *     currently viewed job.
 	 * @return string html to display.
 	 */
-	public function toString($worker=NULL, $availability=NULL) {
+	public function toString($worker=NULL, $availability=NULL,
+			$non_respondents=[]) {
+
 		if (is_null($worker) && empty($availability)) {
 			return <<<EOHTML
 				<h2>No worker specified and no availability saved.</h2>
 EOHTML;
 		}
 
-		$out = $this->evalDates($worker, $availability);
+		$out = $this->evalDates($worker, $availability, $non_respondents);
 		return $out[0];
 	}
 

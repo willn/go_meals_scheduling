@@ -159,14 +159,15 @@ foreach($diffs as $key=>$diff) {
 EOHTML;
 }
 
-$r = new Respondents();
+$respondents = new Respondents($job_key);
 $responses = '';
 if ($_SESSION['access_type'] != 'guest') {
-	$responses = $r->getSummary((time() < DEADLINE));
+	$responses = $respondents->getSummary((time() < DEADLINE));
 }
 
 $worker_dates = $calendar->getWorkerDates();
-$cal_string = $calendar->toString(NULL, $worker_dates);
+$non_respondents = $respondents->getNonResponders();
+$cal_string = $calendar->toString(NULL, $worker_dates, $non_respondents);
 
 $comments = '';
 if ($_SESSION['access_type'] == 'admin') {
