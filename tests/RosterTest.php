@@ -44,20 +44,22 @@ class RosterTest extends TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					MEETING_NIGHT_CLEANER => 12,
-					MEETING_NIGHT_ORDERER => 12,
+					MEETING_NIGHT_CLEANER => 6,
+					MEETING_NIGHT_ORDERER => 6,
 
 					SUNDAY_ASST_COOK => 0,
 					SUNDAY_CLEANER => 0, 
 					SUNDAY_HEAD_COOK => 0,
 
-					WEEKDAY_ASST_COOK => 68,
-					WEEKDAY_CLEANER => 102,
-					WEEKDAY_HEAD_COOK => 34,
+					WEEKDAY_ASST_COOK => 34,
+					WEEKDAY_CLEANER => 51,
+					WEEKDAY_HEAD_COOK => 17,
+					WEEKDAY_LAUNDRY => 0,
 
-					WEEKEND_ASST_COOK => 24,
-					WEEKEND_CLEANER => 36,
-					WEEKEND_HEAD_COOK => 12,
+					WEEKEND_ASST_COOK => 12,
+					WEEKEND_CLEANER => 18, 
+					WEEKEND_HEAD_COOK => 6,
+					WEEKEND_LAUNDRY => 0,
 				]
 			]
 		];
@@ -97,10 +99,12 @@ class RosterTest extends TestCase {
 					WEEKDAY_ASST_COOK => 0,
 					WEEKDAY_CLEANER => 0,
 					WEEKDAY_HEAD_COOK => 0,
+					WEEKEND_LAUNDRY => 0,
 
 					WEEKEND_ASST_COOK => 0,
 					WEEKEND_CLEANER => 0,
 					WEEKEND_HEAD_COOK => 0,
+					WEEKDAY_LAUNDRY => 0,
 				]
 			]
 		];
@@ -163,20 +167,22 @@ class RosterTest extends TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					MEETING_NIGHT_CLEANER => 12,
-					MEETING_NIGHT_ORDERER => 12,
+					MEETING_NIGHT_CLEANER => 6,
+					MEETING_NIGHT_ORDERER => 6,
 
 					SUNDAY_ASST_COOK => 0,
 					SUNDAY_CLEANER => 0, 
 					SUNDAY_HEAD_COOK => 0,
 
-					WEEKDAY_ASST_COOK => 68,
-					WEEKDAY_CLEANER => 102,
-					WEEKDAY_HEAD_COOK => 34,
+					WEEKDAY_ASST_COOK => 34,
+					WEEKDAY_CLEANER => 51,
+					WEEKDAY_HEAD_COOK => 17,
+					WEEKDAY_LAUNDRY => 0,
 
-					WEEKEND_ASST_COOK => 24,
-					WEEKEND_CLEANER => 36, 
-					WEEKEND_HEAD_COOK => 12,
+					WEEKEND_ASST_COOK => 12,
+					WEEKEND_CLEANER => 18, 
+					WEEKEND_HEAD_COOK => 6,
+					WEEKEND_LAUNDRY => 0,
 				]
 			]
 		];

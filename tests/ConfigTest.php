@@ -29,13 +29,25 @@ class ConfigTest extends TestCase {
 		$this->assertArrayHasKey(SUNDAY_ASST_COOK, $jobs);
 		$this->assertArrayHasKey(SUNDAY_CLEANER, $jobs);
 
+		$jobs = get_weekend_jobs();
+		$this->assertEquals(TRUE, is_array($jobs));
+		$this->assertCount(4, $jobs);
+		$this->assertArrayHasKey(WEEKEND_HEAD_COOK, $jobs);
+		$this->assertArrayHasKey(WEEKEND_ASST_COOK, $jobs);
+		$this->assertArrayHasKey(WEEKEND_CLEANER, $jobs);
+		$this->assertArrayHasKey(WEEKEND_LAUNDRY, $jobs);
+
 		$jobs = get_weekday_jobs();
 		$this->assertEquals(TRUE, is_array($jobs));
-		$weekday_count = defined('WEEKDAY_TABLE_SETTER') ? 4 : 3;
+		$weekday_count = 4;
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$weekday_count++;
+		}
 		$this->assertCount($weekday_count, $jobs);
 		$this->assertArrayHasKey(WEEKDAY_HEAD_COOK, $jobs);
 		$this->assertArrayHasKey(WEEKDAY_ASST_COOK, $jobs);
 		$this->assertArrayHasKey(WEEKDAY_CLEANER, $jobs);
+		$this->assertArrayHasKey(WEEKDAY_LAUNDRY, $jobs);
 		if (defined('WEEKDAY_TABLE_SETTER')) {
 			$this->assertArrayHasKey(WEEKDAY_TABLE_SETTER, $jobs);
 		}
@@ -43,7 +55,10 @@ class ConfigTest extends TestCase {
 
 	public function test_get_all_jobs() {
 		$jobs = get_all_jobs();
-		$job_count = defined('WEEKDAY_TABLE_SETTER') ? 13 : 12;
+		$job_count = 14;
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$job_count++;
+		}
 		$this->assertEquals($job_count, count($jobs));
 
 		foreach($jobs as $id => $name) {
@@ -125,9 +140,11 @@ class ConfigTest extends TestCase {
 			[$season_3mos, WEEKDAY_ASST_COOK, .5, 1],
 			[$season_3mos, WEEKDAY_HEAD_COOK, .5, 1],
 			[$season_3mos, WEEKDAY_CLEANER, .5, 3],
+			[$season_3mos, WEEKDAY_LAUNDRY, .5, 3],
 			[$season_3mos, WEEKEND_ASST_COOK, .5, 1],
 			[$season_3mos, WEEKEND_HEAD_COOK, .5, 1],
 			[$season_3mos, WEEKEND_CLEANER, .5, 3],
+			[$season_3mos, WEEKEND_LAUNDRY, .5, 3],
 
 			[$season_2mos, MEETING_NIGHT_CLEANER, .33, 1],
 			[$season_2mos, MEETING_NIGHT_ORDERER, .33, 1],
@@ -175,10 +192,12 @@ class ConfigTest extends TestCase {
 			WEEKEND_HEAD_COOK => 1,
 			WEEKEND_ASST_COOK => 2,
 			WEEKEND_CLEANER => 3,
+			WEEKEND_LAUNDRY => 1,
 
 			WEEKDAY_HEAD_COOK => 1,
 			WEEKDAY_ASST_COOK => 2,
 			WEEKDAY_CLEANER => 3,
+			WEEKDAY_LAUNDRY => 1,
 		];
 		if (defined('WEEKDAY_TABLE_SETTER')) {
 			$all[WEEKDAY_TABLE_SETTER] = 1;

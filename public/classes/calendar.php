@@ -182,9 +182,9 @@ EOHTML;
 	 *				1 => ['charlie', 'doug', 'edward', 'fred'],
 	 *		],
  	 * ]
-	 * @param array list of usernames who did not respond to the survey,
-	 *     filtered to only include the list of workers for the
-	 *     currently viewed job.
+	 * @param array $non_respondents list of usernames who did not
+	 *     respond to the survey, filtered to only include the list of
+	 *     workers for the currently viewed job.
 	 * @return array the dates_and_shifts array or a single entry
 	 *     with the html to render all the calendar months of the season.
 	 */
@@ -443,9 +443,9 @@ EOHTML;
 	 * @param string $tally a count of each meal-type instance.
 	 * @param string $type the type of meal this is servicing. Possible types
 	 *     are: 'sunday', 'meeting', 'weekday', 'weekend'
-	 * @param array list of usernames who did not respond to the survey,
-	 *     filtered to only include the list of workers for the
-	 *     currently viewed job.
+	 * @param array $non_respondents list of usernames who did not
+	 *     respond to the survey, filtered to only include the list of
+	 *     workers for the currently viewed job.
 	 * @return string the content to be rendered in the cell variable.
 	 */
 	function generateReportCell($date_string, $availability, &$tally, $type,
@@ -984,12 +984,12 @@ EOHTML;
 	 *     keys which are the positive preferences and (2 or 1) and the list
 	 *     of usernames who left that preference in alphabetical order.
 	 * @param bool $is_weekend IF this date is a weekend or not.
-	 * @param array list of usernames who did not respond to the survey,
-	 *     filtered to only include the list of workers for the
-	 *     currently viewed job.
+	 * @param array $non_respondents list of usernames who did not
+	 *     respond to the survey, filtered to only include the list of
+	 *     workers for the currently viewed job.
 	 */
 	public function list_available_workers_for_date($cur_date_jobs,
-		$is_weekend=FALSE, $non_respondents) {
+		$is_weekend=FALSE, $non_respondents=[]) {
 
 		$cell = '';
 
@@ -1091,9 +1091,9 @@ EOHTML;
 	 *				1 => ['charlie', 'doug', 'edward', 'fred'],
 	 *		],
  	 * ]
-	 * @param array list of usernames who did not respond to the survey,
-	 *     filtered to only include the list of workers for the
-	 *     currently viewed job.
+	 * @param array $non_respondents list of usernames who did not
+	 *     respond to the survey, filtered to only include the list of
+	 *     workers for the currently viewed job.
 	 * @return string html to display.
 	 */
 	public function toString($worker=NULL, $availability=NULL,

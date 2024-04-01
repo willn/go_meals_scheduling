@@ -163,7 +163,7 @@ class Schedule {
 	 */
 	public function addNonResponderPrefs($slackers) {
 		$dates_by_shift = $this->getDatesByShift();
-		$count = 0;
+		$worker_count = [];
 
 		foreach($slackers as $username) {
 			$worker = $this->getWorker($username);
@@ -190,12 +190,15 @@ class Schedule {
 
 					$meal = $this->meals[$date];
 					$meal->addWorkerPref($username, $job_id, NON_RESPONSE_PREF);
-					$count++;
+					if (!isset($worker_count[$username])) {
+						$worker_count[$username] = 0;
+					}
+					$worker_count[$username]++;
 				}
 			}
 		}
 
-		return $count;
+		return count($worker_count);
 	}
 
 

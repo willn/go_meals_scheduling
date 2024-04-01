@@ -36,6 +36,7 @@ function get_weekend_jobs() {
 		WEEKEND_ASST_COOK => WEEKEND_ASST_COOK_NAME,
 		WEEKEND_CLEANER => WEEKEND_CLEANER_NAME,
 		WEEKEND_HEAD_COOK => WEEKEND_HEAD_COOK_NAME,
+		WEEKEND_LAUNDRY => WEEKEND_LAUNDRY_NAME,
 	];
 }
 
@@ -48,6 +49,7 @@ function get_weekday_jobs() {
 		WEEKDAY_ASST_COOK => WEEKDAY_ASST_COOK_NAME,
 		WEEKDAY_CLEANER => WEEKDAY_CLEANER_NAME,
 		WEEKDAY_HEAD_COOK => WEEKDAY_HEAD_COOK_NAME,
+		WEEKDAY_LAUNDRY => WEEKDAY_LAUNDRY_NAME,
 	];
 
 	if (defined('WEEKDAY_TABLE_SETTER')) {
@@ -138,17 +140,22 @@ function get_num_meals_per_assignment($season, $job_id=NULL,
 		WEEKEND_ASST_COOK => 2,
 		WEEKEND_CLEANER => $num_months,
 		WEEKEND_HEAD_COOK => 2,
+		WEEKEND_LAUNDRY => $num_months,
 
 		WEEKDAY_ASST_COOK => 2,
 		WEEKDAY_CLEANER => $num_months,
 		WEEKDAY_HEAD_COOK => 2,
+		WEEKDAY_LAUNDRY => $num_months,
 	];
 	if (defined('WEEKDAY_TABLE_SETTER')) {
 		$meals[WEEKDAY_TABLE_SETTER] = $num_months;
 	}
 
+	// if the season is being split (e.g. cut in half), then we need to figure
+	// out how many meals are being assigned for this half
 	if ($sub_season_factor < 1) {
-		// XXX - why only adjust a few jobs, and not all?
+		// this only applies to the hard-coded jobs, since the others are based
+		// on the number of months being considered
 		$adjust_jobs = [
 			MEETING_NIGHT_CLEANER,
 			MEETING_NIGHT_ORDERER,
@@ -194,10 +201,12 @@ function get_num_workers_per_job_per_meal($job_id=NULL) {
 		WEEKEND_HEAD_COOK => 1,
 		WEEKEND_ASST_COOK => 2,
 		WEEKEND_CLEANER => 3,
+		WEEKEND_LAUNDRY => 1,
 
 		WEEKDAY_HEAD_COOK => 1,
 		WEEKDAY_ASST_COOK => 2,
 		WEEKDAY_CLEANER => 3,
+		WEEKDAY_LAUNDRY => 1,
 	];
 	if (defined('WEEKDAY_TABLE_SETTER')) {
 		$instances[WEEKDAY_TABLE_SETTER] = 1;

@@ -9,11 +9,12 @@ define('DEADLINE', strtotime('April 20, 2024, 8:00pm'));
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', SPRING_SUMMER);
+define('SEASON_NAME', SPRING);
 
 // If this is a whole season, then 1, half .5, etc.
-define('SUB_SEASON_FACTOR', 1);
-define('WEEKEND_OVER_SUNDAYS', FALSE);
+define('SUB_SEASON_FACTOR', .5);
+// Weekend meals instead of Sunday meals
+define('WEEKEND_OVER_SUNDAYS', TRUE);
 
 /* ----------- job ids --------------- */
 define('MEETING_NIGHT_CLEANER', 7338);
@@ -21,9 +22,11 @@ define('MEETING_NIGHT_ORDERER', 7335);
 define('WEEKEND_ASST_COOK', 7334);
 define('WEEKEND_CLEANER', 7337);
 define('WEEKEND_HEAD_COOK', 7333);
+define('WEEKEND_LAUNDRY', 9999);
 define('WEEKDAY_ASST_COOK', 7332);
 define('WEEKDAY_CLEANER', 7336);
 define('WEEKDAY_HEAD_COOK', 7331);
+define('WEEKDAY_LAUNDRY', 8888);
 
 // previous season jobs, keep for unit tests & for the future
 define('SUNDAY_ASST_COOK', 7053);
@@ -39,9 +42,11 @@ define('SUNDAY_HEAD_COOK_NAME', 'Sunday head cook');
 define('WEEKEND_ASST_COOK_NAME', 'Weekend asst cook');
 define('WEEKEND_CLEANER_NAME', 'Weekend Meal cleaner');
 define('WEEKEND_HEAD_COOK_NAME', 'Weekend head cook');
+define('WEEKEND_LAUNDRY_NAME', 'Weekend Laundry');
 define('WEEKDAY_ASST_COOK_NAME', 'Weekday asst cook');
 define('WEEKDAY_CLEANER_NAME', 'Weekday Meal cleaner');
 define('WEEKDAY_HEAD_COOK_NAME', 'Weekday head cook');
+define('WEEKDAY_LAUNDRY_NAME', 'Weekday Laundry');
 
 
 /**

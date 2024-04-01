@@ -28,6 +28,7 @@ class MealTest extends TestCase {
 			WEEKDAY_ASST_COOK,
 			WEEKDAY_CLEANER,
 			# WEEKDAY_TABLE_SETTER,
+			WEEKEND_LAUNDRY,
 		],
 		'sunday' => [
 			SUNDAY_HEAD_COOK,
@@ -38,6 +39,7 @@ class MealTest extends TestCase {
 			WEEKEND_HEAD_COOK,
 			WEEKEND_ASST_COOK,
 			WEEKEND_CLEANER,
+			WEEKEND_LAUNDRY,
 		],
 	];
 

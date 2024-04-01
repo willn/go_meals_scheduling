@@ -53,29 +53,30 @@ class ScheduleTest extends TestCase {
 		$this->schedule->setRoster($roster);
 
 		// -------- 1st test ---------
-		$slackers = ['aaa', 'bbb', 'ccc', 'ddd', 'eee'];
-		foreach($slackers as $username) {
+		$workers = ['aaa', 'bbb', 'ccc', 'ddd', 'eee'];
+		$counted_workers = count($workers);
+		foreach($workers as $username) {
 			$worker = $roster->addWorker($username);
 			$worker->addNumShiftsAssigned(SUNDAY_HEAD_COOK, 1);
 			$worker->addNumShiftsAssigned(WEEKEND_HEAD_COOK, 1);
 			$worker->addNumShiftsAssigned(MEETING_NIGHT_ORDERER, 1);
 			$worker->addNumShiftsAssigned(WEEKDAY_HEAD_COOK, 1);
+			$worker->addNumShiftsAssigned(WEEKDAY_LAUNDRY, 1);
 		}
-		$result = $this->schedule->addNonResponderPrefs($slackers);
+		$counted_slackers = $this->schedule->addNonResponderPrefs($workers);
 
-		$num = count($slackers);
 		$debug = [
-			'result' => $result,
-			'num' => $num,
-			'slackers' => $slackers,
+			'counted_slackers' => $counted_slackers,
+			'counted_workers' => $counted_workers,
+			'workers' => $workers,
 		];
-		$this->assertEquals($result, $num, print_r($debug, TRUE));
+		$this->assertEquals($counted_slackers, $counted_workers, print_r($debug, TRUE));
 
 		// -------- 2nd test ---------
 		$assigned = $this->schedule->getAssigned();
 		$debug = [
 			'assigned' => $assigned,
-			'expected' => $expected
+			'expected' => $expected,
 		];
 		$this->assertEquals($assigned, $expected, print_r($debug, TRUE));
 	}
@@ -84,12 +85,13 @@ class ScheduleTest extends TestCase {
 
 		return [
 			[
-				['11/11/2023' => [WEEKEND_HEAD_COOK, WEEKEND_ASST_COOK, WEEKEND_CLEANER]], 
+				['11/11/2023' => [WEEKEND_HEAD_COOK, WEEKEND_ASST_COOK, WEEKEND_CLEANER, WEEKEND_LAUNDRY]], 
 				[
 					'11/11/2023' => [
 						WEEKEND_HEAD_COOK => [0 => NULL],
 						WEEKEND_ASST_COOK => [0 => NULL, 1 => NULL],
-						WEEKEND_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL]
+						WEEKEND_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL],
+						WEEKEND_LAUNDRY => [0 => NULL],
 					]
 				],
 			],
@@ -100,7 +102,7 @@ class ScheduleTest extends TestCase {
 					'7/10/2022' => [
 						SUNDAY_HEAD_COOK => [0 => NULL],
 						SUNDAY_ASST_COOK => [0 => NULL, 1 => NULL],
-						SUNDAY_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL]
+						SUNDAY_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL],
 					]
 				],
 			],
@@ -115,12 +117,13 @@ class ScheduleTest extends TestCase {
 			],
 
 			[
-				['10/26/2022' => [WEEKDAY_HEAD_COOK, WEEKDAY_ASST_COOK, WEEKDAY_CLEANER]],
+				['10/26/2022' => [WEEKDAY_HEAD_COOK, WEEKDAY_ASST_COOK, WEEKDAY_CLEANER, WEEKDAY_LAUNDRY]],
 				[
 					'10/26/2022' => [
 						WEEKDAY_HEAD_COOK => [0 => NULL],
 						WEEKDAY_ASST_COOK => [0 => NULL, 1 => NULL],
-						WEEKDAY_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL]
+						WEEKDAY_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL],
+						WEEKDAY_LAUNDRY => [0 => NULL],
 					]
 				],
 			],

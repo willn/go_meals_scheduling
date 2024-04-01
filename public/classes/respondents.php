@@ -6,10 +6,10 @@ class Respondents {
 	protected $job_filter_id;
 
 	/**
-	 * @param int the job ID to filter the database query from. IF empty, then
-	 *     do not filter the request.
+	 * @param int $job_filter_id the job ID to filter the database
+	 *     query from. IF empty, then do not filter the request.
 	 */
-	public function __construct($job_filter_id='') {
+	public function __construct($job_filter_id=NULL) {
 		$this->mysql_api = get_mysql_api();
 		$this->job_filter_id = intval($job_filter_id);
 	}
