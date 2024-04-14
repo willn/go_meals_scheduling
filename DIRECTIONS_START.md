@@ -169,3 +169,5 @@ git add *
 git commit
 ```
 
+Move on to [DIRECTIONS_START_COMPLETE](./DIRECTIONS_START_COMPLETE.md)
+
