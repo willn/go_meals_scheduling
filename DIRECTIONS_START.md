@@ -67,6 +67,9 @@ If this is mid-season, skip to the [MID-SEASON section](./DIRECTIONS_START_MID_S
   - The number of assignments needed is in tests/CalendarTest.php, in
   `provideGetAssignmentsNeededForCurrentSeason()`
 
+XXX meal laundry position & deal with weekend meals...
+--> ensure that this works in the survey, CRUD & assignments.
+
 ### update and clean up the database
 
 * grab the database from the work app and export / import to mysql:
@@ -74,47 +77,21 @@ If this is mid-season, skip to the [MID-SEASON section](./DIRECTIONS_START_MID_S
 cd sql/
 scp gocoho.tklapp.com:/home/django/work/db.sqlite3 .
 
-# XXX Note: there is a lot of opportunity for automation below
-
-# copy & paste the following lines:
-sqlite3 db.sqlite3 <<'END_OF_SQL'
-.output work.sql
-.dump auth_user work_app_assignment work_app_committee work_app_job work_app_season
-.exit
-END_OF_SQL
+# run the database prep script for cleaning
+cd sql/
+../utils/prep_database.sh
 
 # confirm that we got the needed tables
-grep 'CREATE TABLE' work.sql | sed 's/^CREATE TABLE IF NOT EXISTS //' | cut -d\" -f2
 	auth_user
 	work_app_committee
 	work_app_season
 	work_app_job
 	work_app_assignment
 
-# in work.sql, trim some lines from the top
-PRAGMA foreign_keys=OFF;
-BEGIN TRANSACTION;
-
-# trim from the bottom:
-COMMIT;
-
-# On the lines for CREATE TABLE, make some changes:
-% s/integer/MEDIUMINT/g
-% s/AUTOINCREMENT/AUTO_INCREMENT/gi
-
-# remove the quotes from the each of the CREATE TABLE lines
-. s/"//g
-
-# rename any column named "index" to something else
-/CREATE TABLE.*index
-Then rename index to indexCount
-
-# Grow the size of 'description' column in the work_app_job table from 40 to 80
-/CREATE TABLE IF NOT EXISTS work_app_job
-
 # reset the local database
 # get the list of current tables
 mysql -u gocoho_work_allocation -p gocoho_work_allocation
+
 SELECT CONCAT('DROP TABLE IF EXISTS `', table_name, '`;')
 	FROM information_schema.tables
 	WHERE table_schema = 'gocoho_work_allocation';
@@ -126,36 +103,11 @@ SELECT CONCAT('DROP TABLE IF EXISTS `', table_name, '`;')
 mysql> show tables;
 Empty set (0.00 sec)
 
-# import the wanted tables
-mysql -u gocoho_work_allocation -p gocoho_work_allocation < work.sql
-mysql -u gocoho_work_allocation -p gocoho_work_allocation -e "alter table auth_user drop column password;"
+# combine various SQL files into one, and import them all:
+cat work.sql add_gather_ids.sql scheduling_survey_schema.sql > imports.sql
+mysql -u gocoho_work_allocation -p gocoho_work_allocation < imports.sql
 
-# confirm - there should be 5 tables
-mysql> show tables;
-+----------------------------------+
-| Tables_in_gocoho_work_allocation |
-+----------------------------------+
-| auth_user                        |
-| work_app_assignment              |
-| work_app_committee               |
-| work_app_job                     |
-| work_app_season                  |
-+----------------------------------+
-5 rows in set (0.00 sec)
-
-# add the Gather IDs, and table creation scripts for scheduling survey-only stuff
-mysql -u gocoho_work_allocation -p gocoho_work_allocation < add_gather_ids.sql 
-mysql -u gocoho_work_allocation -p gocoho_work_allocation < scheduling_survey_schema.sql
-
-# confirm that the recently created users have a gather ID
-select id, username, date_joined from auth_user
-	WHERE date_joined > DATE_ADD(CURDATE(), INTERVAL -366 DAY) AND
-		gather_id is NULL order by date_joined;
-
-## if they don't, then look it up and manually update it in the `add_gather_ids.sql` file.
-
-
-# confirm those were added:
+# confirm - there should be 8 tables
 mysql> show tables;
 +----------------------------------+
 | Tables_in_gocoho_work_allocation |
@@ -170,7 +122,13 @@ mysql> show tables;
 | work_app_season                  |
 +----------------------------------+
 8 rows in set (0.00 sec)
-```
+
+# confirm that the recently created users have a gather ID
+select id, username, date_joined from auth_user
+	WHERE date_joined > DATE_ADD(CURDATE(), INTERVAL -366 DAY) AND
+		gather_id is NULL order by date_joined;
+
+## if missing, find in Gather & update in the `add_gather_ids.sql` file
 
 ### get new job IDs for the season, and update the defines for each job in config.php
 ```

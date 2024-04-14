@@ -17,16 +17,18 @@ define('SUB_SEASON_FACTOR', .5);
 define('WEEKEND_OVER_SUNDAYS', TRUE);
 
 /* ----------- job ids --------------- */
-define('MEETING_NIGHT_CLEANER', 7338);
-define('MEETING_NIGHT_ORDERER', 7335);
-define('WEEKEND_ASST_COOK', 7334);
-define('WEEKEND_CLEANER', 7337);
-define('WEEKEND_HEAD_COOK', 7333);
+define('MEETING_NIGHT_CLEANER', 7629);
+define('MEETING_NIGHT_ORDERER', 7626);
+define('WEEKEND_ASST_COOK', 7624);
+define('WEEKEND_CLEANER', 7628);
+define('WEEKEND_HEAD_COOK', 7623);
+define('WEEKDAY_ASST_COOK', 7622);
+define('WEEKDAY_CLEANER', 7627);
+define('WEEKDAY_HEAD_COOK', 7621);
+
+// placeholder for future jobs
+define('WEEKDAY_LAUNDRY', 9998);
 define('WEEKEND_LAUNDRY', 9999);
-define('WEEKDAY_ASST_COOK', 7332);
-define('WEEKDAY_CLEANER', 7336);
-define('WEEKDAY_HEAD_COOK', 7331);
-define('WEEKDAY_LAUNDRY', 8888);
 
 // previous season jobs, keep for unit tests & for the future
 define('SUNDAY_ASST_COOK', 7053);
