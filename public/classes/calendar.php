@@ -506,12 +506,6 @@ EOHTML;
 				continue;
 			}
 
-			// XXX special for this season - if this is a weekend head cook,
-			// these are already assigned, so skip displaying an input for it.
-			if ($job_id === WEEKEND_HEAD_COOK) {
-				continue;
-			}
-
 			// recall the value that was saved already - if any exists
 			$saved_pref_val =
 				isset($saved_prefs[$job_id][$date_string]) ?
