@@ -18,7 +18,7 @@ require_once 'public/utils.php';
  * Automated meals scheduling assignments
  */
 
-$options = getopt('cgijsuw');
+$options = getopt('cgijsuxw');
 if (empty($options)) {
 	echo <<<EOTXT
 Usage:
@@ -29,6 +29,7 @@ Usage:
 	-s	display schedule
 	-u	only unfulfilled workers
 	-w	display workers
+	-x  cancel-o-matic: ratio of shifts to labor and sorted by availability
 
 EOTXT;
 	exit;
@@ -38,12 +39,17 @@ EOTXT;
 unset($all_jobs['all']);
 
 $assignments = new Assignments();
-$assignments->run();
 
-if (DEBUG_FIND_CANCEL_MEALS) {
-	error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " Number of placeholders: " .
-		 print_r( $assignments->getNumPlaceholders(), true ));
+// #!# remove DEBUG_FIND_CANCEL_MEALS
+
+// cancel-o-matic
+if (array_key_exists('x', $options)) {
+	$assignments->findCancelDates();
+	exit;
 }
+
+$assignments->run();
+$assignments->makeAssignments();
 
 // output as CSV
 if (array_key_exists('c', $options)) {

@@ -141,6 +141,7 @@ class ConfigTest extends TestCase {
 			[$season_3mos, WEEKDAY_HEAD_COOK, .5, 1],
 			[$season_3mos, WEEKDAY_CLEANER, .5, 3],
 			[$season_3mos, WEEKDAY_LAUNDRY, .5, 3],
+			// #!#
 			[$season_3mos, WEEKEND_ASST_COOK, .5, 1],
 			[$season_3mos, WEEKEND_HEAD_COOK, .5, 1],
 			[$season_3mos, WEEKEND_CLEANER, .5, 3],

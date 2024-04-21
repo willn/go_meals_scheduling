@@ -54,8 +54,6 @@ class Assignments {
 		$this->roster->loadNumShiftsAssigned();
 		$this->roster->loadRequests();
 		$this->loadPrefs();
-
-		$this->makeAssignments();
 	}
 
 	/**
@@ -220,6 +218,87 @@ EOSQL;
 	 */
 	public function outputGatherImports() {
 		$this->schedule->printResults('gather_csv');
+	}
+
+	/**
+	 * Find the ratio of available labor to full number of shifts being sought,
+	 * and uncover the least available meal dates for cancellation.
+	 */
+	public function findCancelDates() {
+		# look up the full calendar of potential dates
+		$shifts_needed = $this->calendar->getAssignmentsNeededForCurrentSeason();
+
+		# look at the available labor
+		$this->roster->loadNumShiftsAssigned();
+		$labor_available = $this->roster->getTotalLaborAvailable();
+
+		$this->run();
+
+		$meal_overage = [];
+		$shifts_per_meal = [];
+		// figure out how much labor is available and needed for each job
+		foreach($shifts_needed as $job_id => $shifts_possible) {
+			if ($labor_available[$job_id] < 1) {
+				continue;
+			}
+			echo "job id:{$job_id} shifts poss:{$shifts_possible} labor:{$labor_available[$job_id]}\n";
+
+			$jobs = get_weekday_jobs();
+			$type = get_meal_type_by_job_id($job_id);
+			if (is_a_weekend_job($job_id)) {
+				$jobs = get_weekend_jobs();
+			}
+			else if (is_a_mtg_night_job($job_id)) {
+				$jobs = get_mtg_jobs();
+			}
+			$meal_overage[$type][$job_id] = ($shifts_possible -
+				$labor_available[$job_id]);
+			$shifts_per_meal[$type][$job_id] =
+				get_num_workers_per_job_per_meal($job_id);
+		}
+		echo "meal overage: " . print_r($meal_overage, TRUE);
+		# echo "shifts per meal: " . print_r($shifts_per_meal, TRUE);
+
+		/*
+		#!# Figure out how many meals to cancel here... based on
+		number of "unavailable" meals and the number of istances each shift
+		type can support.
+		*/
+
+		$date_points = [];
+		foreach($shifts_needed as $job_id => $shifts_possible) {
+			$type = get_meal_type_by_job_id($job_id);
+
+			$this->schedule->setJobId($job_id);
+			$this->schedule->initPlaceholderCount($job_id);
+			$this->schedule->sortPossibleRatios();
+			$least_poss = $this->schedule->getPossibleRatios();
+			if (empty($least_poss)) {
+				continue;
+			}
+
+			# echo "least possible {$job_id}: " . print_r( $least_poss, true );
+			foreach($least_poss as $date => $ratio) {
+				if (!isset($date_points[$type][$date])) {
+					// initialize
+					$date_points[$type][$date] = $ratio;
+				}
+				else {
+					// integrate the ratio
+					$date_points[$type][$date] *= $ratio;
+				}
+			}
+		}
+
+		// sort component arrays
+		$sorted_date_points = [];
+		foreach($date_points as $key => $sub) {
+			asort($sub);
+			$sorted_date_points[$key] = $sub;
+		}
+		echo "date points: " . print_r( $sorted_date_points, true );
+
+		return NULL;
 	}
 }
 ?>

@@ -260,6 +260,28 @@ function get_first_associative_key($dict) {
 }
 
 /**
+ * Get the meal type for a given job ID.
+ *
+ * @param int $job_id The ID number for a given job.
+ * @return int the number associated with a given constant for a type of meal night.
+ */
+function get_meal_type_by_job_id($job_id) {
+	$type = WEEKDAY_MEAL;
+
+	if (is_a_weekend_job($job_id)) {
+		$type = WEEKEND_MEAL;
+	}
+	if (is_a_sunday_job($job_id)) {
+		$type = SUNDAY_MEAL;
+	}
+	else if (is_a_mtg_night_job($job_id)) {
+		$type = MEETING_NIGHT_MEAL;
+	}
+
+	return $type;
+}
+
+/**
  * Get the type of meal for a given date.
  * Isolate the logic for determining which kind of meal to use for a given date.
  *

@@ -226,12 +226,12 @@ class Schedule {
 
 		$job_id = $this->job_id;
 
-		$prev = empty($this->least_possible) ? 
+		$list_of_dates = empty($this->least_possible) ? 
 			array_keys($this->meals) :
 			array_keys($this->least_possible);
 		$this->least_possible = [];
 
-		foreach($prev as $date) {
+		foreach($list_of_dates as $date) {
 			$meal = $this->meals[$date];
 
 			// skip dates which don't need workers

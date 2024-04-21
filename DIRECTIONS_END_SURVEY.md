@@ -22,26 +22,16 @@ php execute.php -u
 cd ..
 ```
 
-## If we know that we need to cancel 1 or more meals, edit
-```
-vi public/constants.php   # set DEBUG_FIND_CANCEL_MEALS to TRUE
-cd auto_assignments/
-# open another window to watch
-tail -f error_log
-
-# run the allocation
-php execute.php -s
-```
-
 ## Cancel extra meals
-Look at the "Number of placeholders" line to see where we're missing labor.
-if we need to cancel meals, then mark these as skip dates.
 ```
-# add dates to get_skip_dates
+cd auto_assignments/
+php execute.php -x
+
+# if meals need to be cancelled, mark these in get_skip_dates()
 vi public/season.php
 
-# continue running and adjusting skipped dates, until it no longer reports on "Placeholder count X"
-php execute.php -s
+# continue running and adjusting skipped dates, until zeroes appear
+php execute.php -x
 ```
 
 ## Borrowed labor

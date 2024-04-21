@@ -77,7 +77,7 @@ abstract class Meal {
 				continue;
 			}
 
-			// fill in the number of open shifts
+			// allocate empty slots for each job needed
 			$num = $job_instances[$job_id];
 			for($i=0; $i<$num; $i++) {
 				$this->assigned[$job_id][] = NULL;
@@ -158,7 +158,7 @@ EOTXT;
 	 */
 	public function getNumOpenSpacesForShift($job_id) {
 		if (empty($this->assigned[$job_id])) {
-			echo "no jobs assigned for this meal / job: D:{$this->date}, J:{$job_id} FATAL\n";
+			echo "no openings for this type of job for this meal D:{$this->date}, J:{$job_id} FATAL\n";
 			exit;
 		}
 
@@ -229,8 +229,15 @@ EOTXT;
 			return FALSE;
 		}
 
-		// if there are no shift slots for this job
-		// e.g. meeting nights are only on mon & wed, but not EVERY mon & wed
+		/**
+		 * Skip if the requested job id is not allocated for this meal type.
+		 * e.g. meeting nights are only on mon & wed, but not EVERY mon & wed
+		 */
+		if (!array_key_exists($job_id, $this->assigned)) {
+			return FALSE;
+		}
+
+		// will this be used?
 		if (empty($this->assigned[$job_id])) {
 			return FALSE;
 		}
@@ -242,6 +249,8 @@ EOTXT;
 				$count++;
 			}
 		}
+
+		// this instance is fully assigned
 		if ($count == $num_to_fill) {
 			return FALSE;
 		}
