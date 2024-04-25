@@ -15,7 +15,7 @@ abstract class Meal {
 	protected $schedule;
 	protected $date;
 	protected $day_of_week;
-	const BILLING_FORMULA = '780'; // GO Meals at Touchstone
+	const BILLING_FORMULA = '567'; // GO at GO
 
 	const HOBART = 'hobart';
 	const AVOID_WORKERS = 'avoid_workers';

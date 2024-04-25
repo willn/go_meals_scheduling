@@ -392,6 +392,7 @@ EOTXT;
 			'cleaner1',
 			'cleaner2',
 			'cleaner3',
+			'laundry',
 		];
 
 		if (defined('WEEKDAY_TABLE_SETTER')) {
