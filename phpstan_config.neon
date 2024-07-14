@@ -18,9 +18,9 @@ parameters:
 		  count: 2
 		  path: auto_assignments/assignments.php
 
-		- message: "#^If condition is always false\\.$#"
-		  count: 1
-		  path: auto_assignments/execute.php
+		#- message: "#^If condition is always false\\.$#"
+		#  count: 1
+		#  path: auto_assignments/execute.php
 
 		- message: "#^If condition is always false\\.$#"
 		  count: 1

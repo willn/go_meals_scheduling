@@ -15,10 +15,11 @@ committee needs to know how much meals labor will be needed.
 * Which meal formula should we use?
   - Update instances of `Meal::BILLING_FORMULA`
 * Where will these meals be hosted?
-  - Update `utils/translate_to_gather_imports.php`
+  - Update `LOCATIONS_TO_RESERVE`
 
 ### Ask Process committee
 * Are there any meeting nights that will be rescheduled?
+   - Update `function get_weekday_overrides`
 
 ### Full `SUB_SEASON_FACTOR`
 
@@ -35,7 +36,7 @@ the count needed for the full season.
 * remove any previous season's data:
   - `get_num_shift_overrides()`
   - `get_skip_dates()`
-  - `get_regular_day_overrides()`
+  - `get_weekday_overrides()`
   - `get_meeting_night_overrides()`
 
 ### Ensure the number of meals per assignment is correct:
@@ -79,7 +80,7 @@ scp gocoho.tklapp.com:/home/django/work/db.sqlite3 .
 
 # run the database prep script for cleaning
 cd sql/
-../utils/prep_database.sh
+../utils/translate_sqlite_to_mysql.sh
 
 # confirm that we got the needed tables
 	auth_user

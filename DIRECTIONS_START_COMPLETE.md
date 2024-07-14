@@ -36,7 +36,7 @@ mysql -u gocoho_work_allocation -p gocoho_work_allocation < transfer.sql
 
 ### test to make sure everything works, view in web browser
 * resync code to clean up
-* confirm that the calendar dates are correct
+* in the web browser, confirm that the calendar dates are correct
 * confirm the holidays and meeting nights are correct
 * fill in some entries and save them
 * load listing page again to make sure that the database is writeable

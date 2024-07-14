@@ -3,13 +3,13 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('April 20, 2024, 8:00pm'));
+define('DEADLINE', strtotime('July 25, 2024, 8:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', SPRING);
+define('SEASON_NAME', SUMMER);
 
 // If this is a whole season, then 1, half .5, etc.
 define('SUB_SEASON_FACTOR', .5);
@@ -75,9 +75,6 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		5 => [1, 4, 5, 7, 8, 11, 12, 15, 18, 21, 25, 28, 29],
-		6 => [1, 4, 9, 12, 15, 16, 17, 22, 23, 25],
-		7 => [2, 3, 6, 13, 14, 20, 23, 27, 30],
 	];
 }
 
@@ -97,6 +94,7 @@ function get_special_weekend_days() {
  */
 function get_weekday_overrides() {
 	return [
+		10 => [21],
 	];
 }
 

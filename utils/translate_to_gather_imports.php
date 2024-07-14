@@ -86,8 +86,7 @@ foreach($data as $entry) {
 	$translated = [
 		'date_time' => date('c', $time_and_date_str),
 		'locations' => LOCATIONS_TO_RESERVE,
-		'formula' => ($meal_type === MEETING_NIGHT_MEAL) ? 
-			MeetingNightMeal::BILLING_FORMULA : Meal::BILLING_FORMULA,
+		'formula' => Meal::BILLING_FORMULA,
 		'communities' => str_replace(', ', ';', $keyed['communities']),
 		'head_cook' => $head_cook,
 		'asst_cook' => implode(';', $assts),
