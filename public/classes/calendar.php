@@ -256,6 +256,7 @@ EOHTML;
 			// for each day in the current month
 			for ($day_num=1; $day_num<=$days_in_month; $day_num++) {
 				$tally = '';
+				$weekend_label = '';
 
 				// if this is sunday... add the row start
 				if (($day_of_week == 0) && ($day_num != 1)) {
@@ -296,6 +297,8 @@ EOHTML;
 						$type = 'weekend';
 						$this->num_shifts[$type]++;
 						$jobs = get_weekend_jobs();
+						$day_of_week = date('w', strtotime($date_string));
+						$weekend_label = ($day_of_week == 6) ? 'Saturday Brunch' : 'Sunday Dinner';
 						break;
 
 					case SUNDAY_MEAL:
@@ -359,7 +362,7 @@ EOHTML;
 				// render an individual calendar day table cell
 				$table .= <<<EOHTML
 				<td class="dow_{$day_of_week}">
-					<div class="date_number">{$day_num}{$tally}</div>{$cell}{$message}
+					<div class="date_number">{$day_num}{$tally}</div>{$weekend_label}{$cell}{$message}
 				</td>
 
 EOHTML;
