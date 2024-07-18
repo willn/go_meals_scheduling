@@ -152,7 +152,10 @@ class RosterTest extends TestCase {
 				 * List override-only users who don't
 				 * have a formal work assignment.
 				 */
-				[1 => 'lissa']
+				[
+					1 => 'lissa',
+					6 => 'dales',
+				]
 			]
 		];
 	}

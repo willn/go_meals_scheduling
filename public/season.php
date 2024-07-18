@@ -72,11 +72,19 @@ function get_num_shift_overrides() {
 		'pat' => [WEEKDAY_CLEANER => 1],
 		'sallie' => [WEEKDAY_CLEANER => 1],
 		'trisha' => [WEEKDAY_CLEANER => 1],
+		'dales' => [
+			WEEKDAY_CLEANER => 4,
+			WEEKEND_CLEANER => 2,
+			WEEKDAY_ASST_COOK => 2,
+		],
 
 		'alexc' => [WEEKDAY_CLEANER => -2],
-		'andrew' => [WEEKDAY_CLEANER => -2],
+		'andrew' => [WEEKDAY_CLEANER => -3],
 		'jeff' => [WEEKDAY_CLEANER => -3],
-		'keithg' => [WEEKDAY_CLEANER => -1],
+		'keithg' => [WEEKDAY_CLEANER => -3],
+		'kelly' => [WEEKDAY_CLEANER => -1],
+		'mac' => [WEEKEND_CLEANER => -2],
+		'suzette' => [WEEKDAY_ASST_COOK => -2],
 	];
 }
 
