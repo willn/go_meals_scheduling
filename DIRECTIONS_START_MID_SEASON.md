@@ -6,6 +6,15 @@
 ### clear out prior data from tables
 `./connect_to_mysql.sh < sql/reset_mid_season.sql`
 
+### Resolve issues with moved-out workers
+
+For anyone who has moved out since the work assignments were made for the
+current season, then keep an eye out for them, and work with the meals and work
+committee to figure out if we're going to re-assign or even cancel.
+
+Sometimes holes can be filled by newer members who have not been integrated
+into the work system yet.
+
 ### Add any new users
 
 If someone new has moved in, or started working in the system, their usernames
@@ -44,6 +53,13 @@ mysql> select max(id) from work_app_season;
 	"season_id",
 	"worker_id"
 mysql> INSERT INTO work_app_assignment VALUES(13623, '', 1, 4594, 0, 33, 164);
+```
+
+If new workers were added, then the database will need to be initialized again.
+
+```
+$ cd utils/
+$ php initialize_database.php
 ```
 
 Continue on to [FINISH-START-OF-SEASON](./DIRECTIONS_START_COMPLETE.md)

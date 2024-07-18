@@ -65,6 +65,18 @@ function doing_csa_farm_meals() {
  */
 function get_num_shift_overrides() {
 	return [
+
+		'amyh' => [WEEKDAY_CLEANER => 1],
+		'lissa' => [WEEKDAY_CLEANER => 2],
+		'marta' => [WEEKDAY_CLEANER => 2],
+		'pat' => [WEEKDAY_CLEANER => 1],
+		'sallie' => [WEEKDAY_CLEANER => 1],
+		'trisha' => [WEEKDAY_CLEANER => 1],
+
+		'alexc' => [WEEKDAY_CLEANER => -2],
+		'andrew' => [WEEKDAY_CLEANER => -2],
+		'jeff' => [WEEKDAY_CLEANER => -3],
+		'keithg' => [WEEKDAY_CLEANER => -1],
 	];
 }
 

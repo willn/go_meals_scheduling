@@ -161,7 +161,6 @@ EOHTML;
 		$result = $this->survey->updatePreferences($shift_id, $worker_id, $pref,
 			$task, $date);
 		$this->assertEquals($result, $pref);
-error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " R:{$result}, P:{$pref}");
 	}
 
 	

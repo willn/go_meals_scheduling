@@ -127,13 +127,18 @@ class RosterTest extends TestCase {
 	 * likely to happen at the beginning of a new sub-season in the middle
 	 * of the work season, when new people move in and volunteer for jobs
 	 * before they have been given a new work system account.
+	 *
+	 * Fix this by adding an entry in the provider.
 	 */
 	public function testOverrideUsersExist($list) {
 		$num_shift_overrides = array_keys(get_num_shift_overrides());
 
 		$this->roster = new Roster();
 		$this->roster->initLaborCount();
+		# load the workers formally assigned labor in the work system
 		$this->roster->loadNumMealsFromDatabase();
+
+		# get the list of all workers registered
 		$workers = array_keys($this->roster->getWorkers());
 
 		$diff = array_diff($num_shift_overrides, $workers);
@@ -143,12 +148,14 @@ class RosterTest extends TestCase {
 	public function provideTestOverrideUsersExist() {
 		return [
 			[
-				// Only users who don't exist in the DB
-				[]
+				/**
+				 * List override-only users who don't
+				 * have a formal work assignment.
+				 */
+				[1 => 'lissa']
 			]
 		];
 	}
-
 
 	/**
 	 * @dataProvider provideGetTotalLaborAvailable

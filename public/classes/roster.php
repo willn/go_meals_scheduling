@@ -218,8 +218,6 @@ EOSQL;
 		foreach($results as $row) {
 			$username = $row['username'];
 			$job_id = $row['job_id'];
-
-			// XXX ought to add a unit test for when the username doesn't appear in db
 			$worker = $this->getWorker($username);
 
 			// determine the number of shifts across the season
