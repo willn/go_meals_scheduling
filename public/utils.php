@@ -436,4 +436,36 @@ function is_valid_season_name($season) {
 	return FALSE;
 }
 
+/**
+ * Figure out if this meal is a Saturday
+ */
+function is_saturday($date_str) {
+    // Convert the date string into a DateTime object
+    $date = DateTime::createFromFormat('m/d/Y', $date_str);
+    if (!$date) {
+        return FALSE;
+    }
+
+    // Get the day of the week (0 = Sunday, 6 = Saturday)
+    $dayOfWeek = $date->format('w');
+    return ($dayOfWeek == 6);
+}
+
+/**
+ * Figure out if this date is the first saturday of the month.
+ */
+function is_first_saturday($date_str) {
+	if (!is_saturday($date_str)) {
+		return FALSE;
+	}
+
+    $date = DateTime::createFromFormat('m/d/Y', $date_str);
+
+    // Get the day of the month
+    $dayOfMonth = $date->format('j');
+
+    // Check if it's the first Saturday (1st to 7th of the month)
+    return ($dayOfMonth <= 7);
+}
+
 ?>

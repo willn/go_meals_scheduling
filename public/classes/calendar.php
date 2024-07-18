@@ -294,11 +294,17 @@ EOHTML;
 						break;
 
 					case WEEKEND_MEAL:
-						$type = 'weekend';
-						$this->num_shifts[$type]++;
-						$jobs = get_weekend_jobs();
-						$day_of_week = date('w', strtotime($date_string));
-						$weekend_label = ($day_of_week == 6) ? 'Saturday Brunch' : 'Sunday Dinner';
+						if (is_saturday($date_string) && 
+							!is_first_saturday($date_string)) {
+							$is_done = TRUE;
+						}
+						else {
+							$type = 'weekend';
+							$this->num_shifts[$type]++;
+							$jobs = get_weekend_jobs();
+							$day_of_week = date('w', strtotime($date_string));
+							$weekend_label = ($day_of_week == 6) ? 'Saturday Brunch' : 'Sunday Dinner';
+						}
 						break;
 
 					case SUNDAY_MEAL:
