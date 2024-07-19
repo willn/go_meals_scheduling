@@ -67,7 +67,10 @@ function get_num_shift_overrides() {
 	return [
 
 		'amyh' => [WEEKDAY_CLEANER => 1],
-		'lissa' => [WEEKDAY_CLEANER => 2],
+		'lissa' => [
+			WEEKDAY_CLEANER => 5,
+			WEEKDAY_ASST_COOK => 3,
+		],
 		'marta' => [WEEKDAY_CLEANER => 2],
 		'pat' => [WEEKDAY_CLEANER => 1],
 		'sallie' => [WEEKDAY_CLEANER => 1],
@@ -78,13 +81,17 @@ function get_num_shift_overrides() {
 			WEEKDAY_ASST_COOK => 2,
 		],
 
-		'alexc' => [WEEKDAY_CLEANER => -2],
+		'alexc' => [
+			WEEKDAY_CLEANER => -4,
+			WEEKDAY_ASST_COOK => -2,
+		],
 		'andrew' => [WEEKDAY_CLEANER => -3],
 		'jeff' => [WEEKDAY_CLEANER => -3],
 		'keithg' => [WEEKDAY_CLEANER => -3],
-		'kelly' => [WEEKDAY_CLEANER => -1],
+		'kelly' => [WEEKDAY_CLEANER => -2],
 		'mac' => [WEEKEND_CLEANER => -2],
 		'suzette' => [WEEKDAY_ASST_COOK => -2],
+		'rossella' => [WEEKDAY_ASST_COOK => -1],
 	];
 }
 

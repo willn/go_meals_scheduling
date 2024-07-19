@@ -1091,11 +1091,11 @@ EOHTML;
 			WEEKDAY_ASST_COOK => 66,
 			WEEKDAY_CLEANER => 99,
 			WEEKDAY_HEAD_COOK => 33,
-			WEEKEND_LAUNDRY => 25,
+			WEEKEND_LAUNDRY => 15,
 
-			WEEKEND_ASST_COOK => 50,
-			WEEKEND_CLEANER => 75,
-			WEEKEND_HEAD_COOK => 25,
+			WEEKEND_ASST_COOK => 30,
+			WEEKEND_CLEANER => 45,
+			WEEKEND_HEAD_COOK => 15,
 			WEEKDAY_LAUNDRY => 33,
 		];
 
@@ -1156,10 +1156,10 @@ EOHTML;
 			WEEKDAY_HEAD_COOK => 33,
 			WEEKDAY_LAUNDRY => 11,
 
-			WEEKEND_ASST_COOK => 50,
-			WEEKEND_CLEANER => 25,
-			WEEKEND_HEAD_COOK => 25,
-			WEEKEND_LAUNDRY => 9,
+			WEEKEND_ASST_COOK => 30,
+			WEEKEND_CLEANER => 15,
+			WEEKEND_HEAD_COOK => 15,
+			WEEKEND_LAUNDRY => 5,
 		];
 
 		if (SUB_SEASON_FACTOR === .5) {
@@ -1194,7 +1194,7 @@ EOHTML;
 			'meeting' => 5,
 			'sunday' => 0,
 			'weekday' => 33,
-			'weekend' => 25,
+			'weekend' => 15,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
 			$carry += $item;

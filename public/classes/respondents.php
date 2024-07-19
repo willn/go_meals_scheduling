@@ -69,6 +69,10 @@ EOSQL;
 	}
 
 
+	/**
+	 * Get the html for rendering the amount of time remaining until the
+	 * deadline.
+	 */
 	public function getTimeRemaining() {
 		$seconds = DEADLINE - time();
 		$deadline = date('g:ia l, F j', DEADLINE);
