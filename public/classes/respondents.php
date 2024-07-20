@@ -164,13 +164,13 @@ EOHTML;
 			$emails = [];
 			foreach($slackers as $id=>$name) {
 				if (strstr($name, '@')) {
-					$emails[] = "<b>{$name}</b>";
+					$emails["<b>{$name}</b>"] = 1;;
 					continue;
 				}
-				$emails[] = $name . DOMAIN;
+				$emails[$name] = 1;
 			}
 
-			$list = implode(', ', $emails);
+			$list = implode(', ', array_keys($emails));
 			$missing_emails = <<<EOHTML
 				<h4>Non-responders:</h4>
 				<div class="subtle_text">{$list}</div>
