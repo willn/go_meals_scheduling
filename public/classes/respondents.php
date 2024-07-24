@@ -42,6 +42,7 @@ EOSQL;
 		$all_workers += array_keys($num_shift_overrides);
 
 		sort($all_workers);
+		$all_workers = array_unique($all_workers);
 		return $all_workers;
 	}
 
