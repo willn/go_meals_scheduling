@@ -1079,8 +1079,8 @@ EOHTML;
         $result = $this->calendar->getNumShiftsNeeded();
 		$expected = [
 			// UPDATE-EACH-SEASON
-			MEETING_NIGHT_CLEANER => 5,
-			MEETING_NIGHT_ORDERER => 5,
+			MEETING_NIGHT_CLEANER => 4,
+			MEETING_NIGHT_ORDERER => 4,
 
 /*
 			SUNDAY_ASST_COOK => 48,
@@ -1088,15 +1088,15 @@ EOHTML;
 			SUNDAY_HEAD_COOK => 24,
 */
 
-			WEEKDAY_ASST_COOK => 66,
-			WEEKDAY_CLEANER => 99,
-			WEEKDAY_HEAD_COOK => 33,
-			WEEKEND_LAUNDRY => 15,
+			WEEKDAY_ASST_COOK => 42,
+			WEEKDAY_CLEANER => 63,
+			WEEKDAY_HEAD_COOK => 21,
+			WEEKEND_LAUNDRY => 8,
 
-			WEEKEND_ASST_COOK => 30,
-			WEEKEND_CLEANER => 45,
-			WEEKEND_HEAD_COOK => 15,
-			WEEKDAY_LAUNDRY => 33,
+			WEEKEND_ASST_COOK => 16,
+			WEEKEND_CLEANER => 24,
+			WEEKEND_HEAD_COOK => 8,
+			WEEKDAY_LAUNDRY => 21,
 		];
 
 		ksort($expected);
@@ -1148,18 +1148,18 @@ EOHTML;
 
 		// UPDATE-EACH-SEASON
 		$three_month_season = [
-			MEETING_NIGHT_CLEANER => 5,
-			MEETING_NIGHT_ORDERER => 5,
+			MEETING_NIGHT_CLEANER => 4,
+			MEETING_NIGHT_ORDERER => 4,
 
-			WEEKDAY_ASST_COOK => 66,
-			WEEKDAY_CLEANER => 33,
-			WEEKDAY_HEAD_COOK => 33,
-			WEEKDAY_LAUNDRY => 11,
+			WEEKDAY_ASST_COOK => 42,
+			WEEKDAY_CLEANER => 21,
+			WEEKDAY_HEAD_COOK => 21,
+			WEEKDAY_LAUNDRY => 7,
 
-			WEEKEND_ASST_COOK => 30,
-			WEEKEND_CLEANER => 15,
-			WEEKEND_HEAD_COOK => 15,
-			WEEKEND_LAUNDRY => 5,
+			WEEKEND_ASST_COOK => 16,
+			WEEKEND_CLEANER => 8,
+			WEEKEND_HEAD_COOK => 8,
+			WEEKEND_LAUNDRY => 3,
 		];
 
 		if (SUB_SEASON_FACTOR === .5) {
@@ -1191,10 +1191,10 @@ EOHTML;
 
 		// UPDATE-EACH-SEASON
 		$expected = [
-			'meeting' => 5,
+			'meeting' => 4,
 			'sunday' => 0,
-			'weekday' => 33,
-			'weekend' => 15,
+			'weekday' => 21,
+			'weekend' => 8,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
 			$carry += $item;
