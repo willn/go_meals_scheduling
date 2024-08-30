@@ -51,14 +51,17 @@ git commit
 ```
 
 ## make a run, and analyze the results
-`./analyze_results.sh`
+```
+cd auto_assignments/
+./analyze_results.sh
+```
 
 ## if there are no meeting night cleaners...
 * then delete the placeholders for those shifts, just leave it blank
 
 ## upload a copy of the `schedule.txt` to google drive & import into a spreadsheet
-* refer to workers.txt and try to move the under-assigned workers to
-  fill the 'XXX' spots, making trades
+* refer to `non_filled_workers.txt` and try to move the under-assigned
+  workers to fill the 'XXX' spots, making trades
 * do any swapping needed
 
 ## confirm preferences
@@ -102,6 +105,8 @@ mv ~/Downloads/<file name>.csv utils/final_schedule.csv
 cd meals_scheduling/utils/
 php translate_to_gather_imports.php > imports.csv
 ```
+### Dealing with problems
+
 If the above translation has 1 or more missing ID names, it will output a list
 of names.
 
