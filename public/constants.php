@@ -37,7 +37,7 @@ define('SKIP_NIGHT', 2);
 define('SUNDAY_MEAL', 3);
 define('WEEKDAY_MEAL', 4);
 define('MEETING_NIGHT_MEAL', 5);
-define('WEEKEND_MEAL', 6);
+define('BRUNCH_MEAL', 6);
 
 define('ALL_ID', 'all');
 

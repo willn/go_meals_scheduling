@@ -268,8 +268,8 @@ function get_first_associative_key($dict) {
 function get_meal_type_by_job_id($job_id) {
 	$type = WEEKDAY_MEAL;
 
-	if (is_a_weekend_job($job_id)) {
-		$type = WEEKEND_MEAL;
+	if (is_a_brunch_job($job_id)) {
+		$type = BRUNCH_MEAL;
 	}
 	if (is_a_sunday_job($job_id)) {
 		$type = SUNDAY_MEAL;
@@ -301,17 +301,19 @@ function get_meal_type_by_date($date) {
 		return NOT_A_MEAL;
 	}
 
-	# skip un-supported days of the week
-	if ($day_of_week == THURSDAY) {
-		return NOT_A_MEAL;
-	}
-
 	$month_num = date('n', $date_ts);
 	$day_num = date('j', $date_ts);
 
 	# if either the month or day of month turned out to be invalid
 	if (($month_num == FALSE) || ($day_num == FALSE)) {
 		return NOT_A_MEAL;
+	}
+
+	# skip un-supported days of the week
+	switch($day_of_week) {
+		case THURSDAY:
+		case FRIDAY:
+			return NOT_A_MEAL;
 	}
 
 	// check to see if this is a holiday
@@ -330,11 +332,12 @@ function get_meal_type_by_date($date) {
 
 	switch($day_of_week) {
 		case SATURDAY:
-			return WEEKEND_MEAL;
-	}
-
-	if ($day_of_week == SUNDAY) {
-		return WEEKEND_OVER_SUNDAYS ? WEEKEND_MEAL : SUNDAY_MEAL;
+			if (!is_first_saturday($date)) {
+				return NOT_A_MEAL;
+			}
+			return BRUNCH_MEAL;
+		case SUNDAY:
+			return SUNDAY_MEAL;
 	}
 
 	// this is a weekday
@@ -345,7 +348,9 @@ function get_meal_type_by_date($date) {
 			return WEEKDAY_MEAL;
 		}
 		if (is_meeting_override($month_num, $day_num)) {
-			return MEETING_NIGHT_MEAL;
+			# return MEETING_NIGHT_MEAL;
+			# skip meeting night meals for now
+			return NOT_A_MEAL;
 		}
 
 		# is this a meeting night?
@@ -353,7 +358,9 @@ function get_meal_type_by_date($date) {
 		$ordinal_int = intval(($day_num - 1) / 7) + 1;
 		if (array_key_exists($day_of_week, $mtg_nights) &&
 			($mtg_nights[$day_of_week] == $ordinal_int)) {
-			return MEETING_NIGHT_MEAL;
+			# return MEETING_NIGHT_MEAL;
+			# skip meeting night meals for now
+			return NOT_A_MEAL;
 		}
 
 		return WEEKDAY_MEAL;
@@ -404,8 +411,8 @@ function is_meeting_override($month_num, $day_num) {
 function get_a_meal_object($schedule, $date) {
 	$type = get_meal_type_by_date($date);
 	switch($type) {
-		case WEEKEND_MEAL:
-			return new WeekendMeal($schedule, $date);
+		case BRUNCH_MEAL:
+			return new BrunchMeal($schedule, $date);
 		case SUNDAY_MEAL:
 			return new SundayMeal($schedule, $date);
 		case WEEKDAY_MEAL:
@@ -438,6 +445,8 @@ function is_valid_season_name($season) {
 
 /**
  * Figure out if this meal is a Saturday
+ *
+ * @param string $date_str a parseable, human readable date.
  */
 function is_saturday($date_str) {
     // Convert the date string into a DateTime object
@@ -448,11 +457,13 @@ function is_saturday($date_str) {
 
     // Get the day of the week (0 = Sunday, 6 = Saturday)
     $dayOfWeek = $date->format('w');
-    return ($dayOfWeek == 6);
+    return ($dayOfWeek == SATURDAY);
 }
 
 /**
  * Figure out if this date is the first saturday of the month.
+ *
+ * @param string $date_str a parseable, human readable date.
  */
 function is_first_saturday($date_str) {
 	if (!is_saturday($date_str)) {

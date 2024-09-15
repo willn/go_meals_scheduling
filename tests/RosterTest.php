@@ -44,22 +44,22 @@ class RosterTest extends TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					MEETING_NIGHT_CLEANER => 3,
-					MEETING_NIGHT_ORDERER => 3,
+					MEETING_NIGHT_CLEANER => 6,
+					MEETING_NIGHT_ORDERER => 6,
 
 					SUNDAY_ASST_COOK => 0,
 					SUNDAY_CLEANER => 0, 
 					SUNDAY_HEAD_COOK => 0,
 
-					WEEKDAY_ASST_COOK => 42,
-					WEEKDAY_CLEANER => 66,
-					WEEKDAY_HEAD_COOK => 22,
-					WEEKDAY_LAUNDRY => 0,
+					WEEKDAY_ASST_COOK => 84,
+					WEEKDAY_CLEANER => 132,
+					WEEKDAY_HEAD_COOK => 44,
+					# WEEKDAY_LAUNDRY => 0,
 
-					WEEKEND_ASST_COOK => 16,
-					WEEKEND_CLEANER => 24, 
-					WEEKEND_HEAD_COOK => 8,
-					WEEKEND_LAUNDRY => 0,
+					BRUNCH_ASST_COOK => 32,
+					BRUNCH_CLEANER => 48, 
+					BRUNCH_HEAD_COOK => 16,
+					# BRUNCH_LAUNDRY => 0,
 				]
 			]
 		];
@@ -99,12 +99,12 @@ class RosterTest extends TestCase {
 					WEEKDAY_ASST_COOK => 0,
 					WEEKDAY_CLEANER => 0,
 					WEEKDAY_HEAD_COOK => 0,
-					WEEKEND_LAUNDRY => 0,
+					# BRUNCH_LAUNDRY => 0,
 
-					WEEKEND_ASST_COOK => 0,
-					WEEKEND_CLEANER => 0,
-					WEEKEND_HEAD_COOK => 0,
-					WEEKDAY_LAUNDRY => 0,
+					BRUNCH_ASST_COOK => 0,
+					BRUNCH_CLEANER => 0,
+					BRUNCH_HEAD_COOK => 0,
+					# WEEKDAY_LAUNDRY => 0,
 				]
 			]
 		];
@@ -153,8 +153,6 @@ class RosterTest extends TestCase {
 				 * have a formal work assignment.
 				 */
 				[
-					1 => 'lissa',
-					6 => 'dales',
 				]
 			]
 		];
@@ -167,7 +165,7 @@ class RosterTest extends TestCase {
 	public function testGetTotalLaborAvailable($expected) {
 		$this->loadLabor();
 		$result = $this->total_labor_available;
-		write_out_data(__METHOD__, $result);
+		# write_out_data(__METHOD__, $result);
 		$this->assertEquals($expected, $result);
 	}
 
@@ -177,22 +175,22 @@ class RosterTest extends TestCase {
 				[
 					// UPDATE-EACH-SEASON
 					'all' => 0,
-					MEETING_NIGHT_CLEANER => 3,
-					MEETING_NIGHT_ORDERER => 3,
+					MEETING_NIGHT_CLEANER => 6,
+					MEETING_NIGHT_ORDERER => 6,
 
 					SUNDAY_ASST_COOK => 0,
 					SUNDAY_CLEANER => 0, 
 					SUNDAY_HEAD_COOK => 0,
 
-					WEEKDAY_ASST_COOK => 42,
-					WEEKDAY_CLEANER => 66,
-					WEEKDAY_HEAD_COOK => 22,
-					WEEKDAY_LAUNDRY => 0,
+					WEEKDAY_ASST_COOK => 84,
+					WEEKDAY_CLEANER => 132,
+					WEEKDAY_HEAD_COOK => 44,
+					# WEEKDAY_LAUNDRY => 0,
 
-					WEEKEND_ASST_COOK => 16,
-					WEEKEND_CLEANER => 24, 
-					WEEKEND_HEAD_COOK => 8,
-					WEEKEND_LAUNDRY => 0,
+					BRUNCH_ASST_COOK => 32,
+					BRUNCH_CLEANER => 48, 
+					BRUNCH_HEAD_COOK => 16,
+					# BRUNCH_LAUNDRY => 0,
 				]
 			]
 		];

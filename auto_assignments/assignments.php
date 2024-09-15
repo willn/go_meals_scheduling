@@ -245,8 +245,8 @@ EOSQL;
 
 			$jobs = get_weekday_jobs();
 			$type = get_meal_type_by_job_id($job_id);
-			if (is_a_weekend_job($job_id)) {
-				$jobs = get_weekend_jobs();
+			if (is_a_brunch_job($job_id)) {
+				$jobs = get_brunch_jobs();
 			}
 			else if (is_a_mtg_night_job($job_id)) {
 				$jobs = get_mtg_jobs();

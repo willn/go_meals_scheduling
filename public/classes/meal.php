@@ -781,37 +781,10 @@ class SundayMeal extends Meal {
 	protected $communities = 'GO, SW, TS';
 }
 
-class WeekendMeal extends Meal {
-	protected $time_of_meal = '5:30';
-	protected $iso_time_of_meal = '17:30:00';
+class BrunchMeal extends Meal {
+	protected $time_of_meal = '10:30';
+	protected $iso_time_of_meal = '10:30:00';
 	protected $communities = 'GO, SW, TS';
-
-	/**
-	 * Get the time of this meal instance in 24-hour format.
-	 *
-	 * @return string the time of the meal.
-	 */
-	public function getTime() {
-		// Saturday brunch is early
-		if ($this->getDayOfWeek() == 5) {
-			return '10:30';
-		}
-		return $this->time_of_meal;
-	}
-
-	/**
-	 * Get the time of this meal instance.
-	 *
-	 * @return string the time of the meal.
-	 */
-	public function getIsoTime() {
-		#!# if sunday or saturday
-		if ($this->getDayOfWeek() == 5) {
-			return '10:30:00';
-		}
-
-		return $this->iso_time_of_meal;
-	}
 }
 
 class WeekdayMeal extends Meal {

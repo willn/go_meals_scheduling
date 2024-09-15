@@ -29,14 +29,14 @@ function get_sunday_jobs() {
 }
 
 /*
- * Get the list of weekend jobs
+ * Get the list of brunch jobs
  */
-function get_weekend_jobs() {
+function get_brunch_jobs() {
 	return [
-		WEEKEND_ASST_COOK => WEEKEND_ASST_COOK_NAME,
-		WEEKEND_CLEANER => WEEKEND_CLEANER_NAME,
-		WEEKEND_HEAD_COOK => WEEKEND_HEAD_COOK_NAME,
-		WEEKEND_LAUNDRY => WEEKEND_LAUNDRY_NAME,
+		BRUNCH_ASST_COOK => BRUNCH_ASST_COOK_NAME,
+		BRUNCH_CLEANER => BRUNCH_CLEANER_NAME,
+		BRUNCH_HEAD_COOK => BRUNCH_HEAD_COOK_NAME,
+		# BRUNCH_LAUNDRY => BRUNCH_LAUNDRY_NAME,
 	];
 }
 
@@ -49,7 +49,7 @@ function get_weekday_jobs() {
 		WEEKDAY_ASST_COOK => WEEKDAY_ASST_COOK_NAME,
 		WEEKDAY_CLEANER => WEEKDAY_CLEANER_NAME,
 		WEEKDAY_HEAD_COOK => WEEKDAY_HEAD_COOK_NAME,
-		WEEKDAY_LAUNDRY => WEEKDAY_LAUNDRY_NAME,
+		# WEEKDAY_LAUNDRY => WEEKDAY_LAUNDRY_NAME,
 	];
 
 	if (defined('WEEKDAY_TABLE_SETTER')) {
@@ -63,7 +63,7 @@ function get_weekday_jobs() {
  */
 function get_all_jobs() {
 	$all_jobs = ['all' => 'all'] + get_weekday_jobs() + get_sunday_jobs() +
-		get_weekend_jobs() + get_mtg_jobs();
+		get_brunch_jobs() + get_mtg_jobs();
 	return $all_jobs;
 }
 
@@ -137,15 +137,15 @@ function get_num_meals_per_assignment($season, $job_id=NULL,
 		SUNDAY_CLEANER => $num_months,
 		SUNDAY_HEAD_COOK => 2,
 
-		WEEKEND_ASST_COOK => 2,
-		WEEKEND_CLEANER => $num_months,
-		WEEKEND_HEAD_COOK => 2,
-		WEEKEND_LAUNDRY => $num_months,
+		BRUNCH_ASST_COOK => 2,
+		BRUNCH_CLEANER => $num_months,
+		BRUNCH_HEAD_COOK => 2,
+		# BRUNCH_LAUNDRY => $num_months,
 
 		WEEKDAY_ASST_COOK => 2,
 		WEEKDAY_CLEANER => $num_months,
 		WEEKDAY_HEAD_COOK => 2,
-		WEEKDAY_LAUNDRY => $num_months,
+		# WEEKDAY_LAUNDRY => $num_months,
 	];
 	if (defined('WEEKDAY_TABLE_SETTER')) {
 		$meals[WEEKDAY_TABLE_SETTER] = $num_months;
@@ -161,8 +161,8 @@ function get_num_meals_per_assignment($season, $job_id=NULL,
 			MEETING_NIGHT_ORDERER,
 			SUNDAY_ASST_COOK,
 			SUNDAY_HEAD_COOK,
-			WEEKEND_ASST_COOK,
-			WEEKEND_HEAD_COOK,
+			BRUNCH_ASST_COOK,
+			BRUNCH_HEAD_COOK,
 			WEEKDAY_ASST_COOK,
 			WEEKDAY_HEAD_COOK,
 		];
@@ -198,15 +198,15 @@ function get_num_workers_per_job_per_meal($job_id=NULL) {
 		SUNDAY_ASST_COOK => 2,
 		SUNDAY_CLEANER => 3,
 
-		WEEKEND_HEAD_COOK => 1,
-		WEEKEND_ASST_COOK => 2,
-		WEEKEND_CLEANER => 3,
-		WEEKEND_LAUNDRY => 1,
+		BRUNCH_HEAD_COOK => 1,
+		BRUNCH_ASST_COOK => 2,
+		BRUNCH_CLEANER => 3,
+		# BRUNCH_LAUNDRY => 1,
 
 		WEEKDAY_HEAD_COOK => 1,
 		WEEKDAY_ASST_COOK => 2,
 		WEEKDAY_CLEANER => 3,
-		WEEKDAY_LAUNDRY => 1,
+		# WEEKDAY_LAUNDRY => 1,
 	];
 	if (defined('WEEKDAY_TABLE_SETTER')) {
 		$instances[WEEKDAY_TABLE_SETTER] = 1;

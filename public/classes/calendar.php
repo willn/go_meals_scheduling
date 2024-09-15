@@ -20,7 +20,7 @@ class Calendar {
 		'meeting' => 0,
 		'sunday' => 0,
 		'weekday' => 0,
-		'weekend' => 0,
+		'brunch' => 0,
 	];
 
 	protected $special_prefs = [
@@ -192,7 +192,7 @@ EOHTML;
 		$non_respondents=[]) {
 
 		$sunday_jobs = get_sunday_jobs();
-		$weekend_jobs = get_weekend_jobs();
+		$brunch_jobs = get_brunch_jobs();
 		$mtg_nights = get_mtg_nights();
 
 		$mtg_day_count = [];
@@ -256,7 +256,6 @@ EOHTML;
 			// for each day in the current month
 			for ($day_num=1; $day_num<=$days_in_month; $day_num++) {
 				$tally = '';
-				$weekend_label = '';
 
 				// if this is sunday... add the row start
 				if (($day_of_week == 0) && ($day_num != 1)) {
@@ -293,17 +292,16 @@ EOHTML;
 						$is_done = TRUE;
 						break;
 
-					case WEEKEND_MEAL:
-						if (is_saturday($date_string) && 
-							!is_first_saturday($date_string)) {
+					case BRUNCH_MEAL:
+						// skip if not first saturday
+						if (!is_first_saturday($date_string)) {
 							$is_done = TRUE;
 						}
 						else {
-							$type = 'weekend';
+							$type = 'brunch';
 							$this->num_shifts[$type]++;
-							$jobs = get_weekend_jobs();
+							$jobs = get_brunch_jobs();
 							$day_of_week = date('w', strtotime($date_string));
-							$weekend_label = ($day_of_week == 6) ? 'Saturday Brunch' : 'Sunday Dinner';
 						}
 						break;
 
@@ -368,7 +366,7 @@ EOHTML;
 				// render an individual calendar day table cell
 				$table .= <<<EOHTML
 				<td class="dow_{$day_of_week}">
-					<div class="date_number">{$day_num}{$tally}</div>{$weekend_label}{$cell}{$message}
+					<div class="date_number">{$day_num}{$tally}</div>{$cell}{$message}
 				</td>
 
 EOHTML;
@@ -417,7 +415,7 @@ EOHTML;
 	 * Create the short code for recording which type of meal this is, and the
 	 * count of how many we have observed.
 	 * @param string $type the type of meal this is servicing. Possible types
-	 *     are: 'sunday', 'meeting', 'weekday', 'weekend'
+	 *     are: 'sunday', 'meeting', 'weekday', 'brunch'
 	 * @return string of html to be rendered at the bottom of each calendar
 	 *     date which contains a meal. Example: '[W13]'
 	 */
@@ -427,8 +425,8 @@ EOHTML;
 			case 'sunday':
 				$code = 'S';
 				break;
-			case 'weekend':
-				$code = 'WE';
+			case 'brunch':
+				$code = 'B';
 				break;
 			case 'meeting':
 				$code = 'M';
@@ -451,7 +449,7 @@ EOHTML;
 	 *     are available to work.
 	 * @param string $tally a count of each meal-type instance.
 	 * @param string $type the type of meal this is servicing. Possible types
-	 *     are: 'sunday', 'meeting', 'weekday', 'weekend'
+	 *     are: 'sunday', 'meeting', 'weekday', 'brunch'
 	 * @param array $non_respondents list of usernames who did not
 	 *     respond to the survey, filtered to only include the list of
 	 *     workers for the currently viewed job.
@@ -471,7 +469,7 @@ EOHTML;
 
 		// report the available workers
 		return $this->list_available_workers_for_date($date_availability,
-			($type === 'sunday'), $non_respondents);
+			($type === 'brunch'), $non_respondents);
 	}
 
 
@@ -491,8 +489,8 @@ EOHTML;
 			case 'sunday':
 				$jobs = get_sunday_jobs();
 				break;
-			case 'weekend':
-				$jobs = get_weekend_jobs();
+			case 'brunch':
+				$jobs = get_brunch_jobs();
 				break;
 			case 'meeting':
 				$jobs = get_mtg_jobs();
@@ -524,36 +522,7 @@ EOHTML;
 				$saved_pref_val);
 		}
 
-		$job_message = $this->getSpecialMessage($date_string, $type);
-		return $job_message . $cell;
-	}
-
-	/**
-	 * Display a special message for this meal.
-	 * @param string $date_string text representing a date, i.e. '12/6/2009'
-	 * @param string $type The type of meal ('weekday', 'meeting', 'sunday')
-	 */
-	public function getSpecialMessage($date_string, $type) {
-		if ($type !== 'weekend') {
-			return '';
-		}
-
-		$special_dates = get_special_weekend_days();
-		if (!isset($special_dates[$date_string])) {
-			return '';
-		}
-
-		$schedule = new Schedule();
-		$meal = new WeekendMeal($schedule, '');
-		if ($special_dates[$date_string]['type'] === 'dinner') {
-			$meal = new WeekdayMeal($schedule, '');
-		}
-		$time = $meal->getTime();
-
-		return '<div class="special_survey_msg">' .
-			$special_dates[$date_string]['head_cook'] . ' ' .
-			$special_dates[$date_string]['type'] . ' ' . $time .
-			'</div>';
+		return $cell;
 	}
 
 	/**
@@ -986,28 +955,21 @@ EOHTML;
 	 *     the value is an associative array. That array consists of
 	 *     keys which are the positive preferences and (2 or 1) and the list
 	 *     of usernames who left that preference in alphabetical order.
-	 * @param bool $is_weekend IF this date is a weekend or not.
+	 * @param bool $is_brunch IF this date is a brunch or not.
 	 * @param array $non_respondents list of usernames who did not
 	 *     respond to the survey, filtered to only include the list of
 	 *     workers for the currently viewed job.
 	 */
 	public function list_available_workers_for_date($cur_date_jobs,
-		$is_weekend=FALSE, $non_respondents=[]) {
-
-		$cell = '';
+		$is_brunch=FALSE, $non_respondents=[]) {
 
 		if (is_null($cur_date_jobs)) {
 			return;
 		}
 
-		$job_titles = [];
-		if ($is_weekend) {
-			$job_titles = WEEKEND_OVER_SUNDAYS ? get_weekend_jobs() : get_sunday_jobs();
-		}
-		else {
-			$mtg_jobs = get_mtg_jobs();
-			$job_titles = get_weekday_jobs() + $mtg_jobs;
-		}
+		$cell = '';
+		$job_titles = get_brunch_jobs() + get_mtg_jobs() +
+			get_weekday_jobs() + get_sunday_jobs();
 
 		if ($this->key_filter != 'all') {
 			// don't figure out a listing for a non-supported day of week
@@ -1053,10 +1015,6 @@ EOHTML;
 		}
 
 		return $cell;
-	}
-
-	public function getDayTypeCounts() {
-		return $this->num_shifts;
 	}
 
 	/**

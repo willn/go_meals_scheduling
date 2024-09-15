@@ -20,12 +20,14 @@ class CalendarTest extends TestCase {
 				1 => ['charlie', 'doug', 'edward', 'fred'],
 			]
 		],
+/*
 		'10/17/2022' => [
 			MEETING_NIGHT_ORDERER => [
 				2 => ['doug', 'edward', 'fred'],
 				1 => ['bob'],
 			]
 		],
+*/
 		'10/26/2022' => [
 			WEEKDAY_HEAD_COOK => [
 				2 => ['charlie', 'doug', 'edward', 'fred'],
@@ -208,11 +210,11 @@ EOHTML;
 		$week_asst = WEEKDAY_ASST_COOK;
 		$week_clean = WEEKDAY_CLEANER;
 		$week_head = WEEKDAY_HEAD_COOK;
-		$week_laund = WEEKDAY_LAUNDRY;
-		$we_asst = WEEKEND_ASST_COOK;
-		$we_clean = WEEKEND_CLEANER;
-		$we_head = WEEKEND_HEAD_COOK;
-		$we_laund = WEEKEND_LAUNDRY;
+		# $week_laund = WEEKDAY_LAUNDRY;
+		$brunch_asst = BRUNCH_ASST_COOK;
+		$brunch_clean = BRUNCH_CLEANER;
+		$brunch_head = BRUNCH_HEAD_COOK;
+		# $brunch_laund = BRUNCH_LAUNDRY;
 
 		$mtg_clean_n = MEETING_NIGHT_CLEANER_NAME;
 		$mtg_order_n = MEETING_NIGHT_ORDERER_NAME;
@@ -222,11 +224,11 @@ EOHTML;
 		$week_asst_n = WEEKDAY_ASST_COOK_NAME;
 		$week_clean_n = WEEKDAY_CLEANER_NAME;
 		$week_head_n = WEEKDAY_HEAD_COOK_NAME;
-		$week_laund_n = WEEKDAY_LAUNDRY_NAME;
-		$we_asst_n = WEEKEND_ASST_COOK_NAME;
-		$we_clean_n = WEEKEND_CLEANER_NAME;
-		$we_head_n = WEEKEND_HEAD_COOK_NAME;
-		$we_laund_n = WEEKEND_LAUNDRY_NAME;
+		# $week_laund_n = WEEKDAY_LAUNDRY_NAME;
+		$brunch_asst_n = BRUNCH_ASST_COOK_NAME;
+		$brunch_clean_n = BRUNCH_CLEANER_NAME;
+		$brunch_head_n = BRUNCH_HEAD_COOK_NAME;
+		# $brunch_laund_n = BRUNCH_LAUNDRY_NAME;
 
 		$out = <<<EOHTML
 <ul id="filter_overlay">
@@ -234,14 +236,12 @@ EOHTML;
 <li><a href="/meals_scheduling/report.php?key={$week_asst}">{$week_asst_n}</a></li>
 <li><a href="/meals_scheduling/report.php?key={$week_clean}">{$week_clean_n}</a></li>
 <li><a href="/meals_scheduling/report.php?key={$week_head}">{$week_head_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$week_laund}">{$week_laund_n}</a></li>
 <li><a href="/meals_scheduling/report.php?key={$sun_asst}">{$sun_asst_n}</a></li>
 <li><a href="/meals_scheduling/report.php?key={$sun_clean}">{$sun_clean_n}</a></li>
 <li><a href="/meals_scheduling/report.php?key={$sun_head}">{$sun_head_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$we_asst}">{$we_asst_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$we_clean}">{$we_clean_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$we_head}">{$we_head_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$we_laund}">{$we_laund_n}</a></li>
+<li><a href="/meals_scheduling/report.php?key={$brunch_asst}">{$brunch_asst_n}</a></li>
+<li><a href="/meals_scheduling/report.php?key={$brunch_clean}">{$brunch_clean_n}</a></li>
+<li><a href="/meals_scheduling/report.php?key={$brunch_head}">{$brunch_head_n}</a></li>
 <li><a href="/meals_scheduling/report.php?key={$mtg_order}">{$mtg_order_n}</a></li>
 <li><a href="/meals_scheduling/report.php?key={$mtg_clean}">{$mtg_clean_n}</a></li></ul>
 
@@ -264,40 +264,47 @@ EOHTML;
 
 	public function provideShiftsPerDate() {
 		$example1 = [
-			'10/1/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_LAUNDRY],
-			'10/2/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_LAUNDRY],
-			'10/3/2018' => [0 => MEETING_NIGHT_ORDERER, 1 => MEETING_NIGHT_CLEANER],
-			'10/7/2018' => [0 => WEEKEND_HEAD_COOK, 1 => WEEKEND_ASST_COOK, 2 => WEEKEND_CLEANER, 3 => WEEKEND_LAUNDRY], // sunday
-			'10/8/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_LAUNDRY],
-			'10/9/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_LAUNDRY],
-			'10/10/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_LAUNDRY],
-			'10/14/2018' => [0 => WEEKEND_HEAD_COOK, 1 => WEEKEND_ASST_COOK, 2 => WEEKEND_CLEANER, 3 => WEEKEND_LAUNDRY], // sunday
-			'10/15/2018' => [0 => MEETING_NIGHT_ORDERER, 1 => MEETING_NIGHT_CLEANER],
-			'10/16/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_LAUNDRY],
-			'10/17/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_LAUNDRY],
-			'10/21/2018' => [0 => WEEKEND_HEAD_COOK, 1 => WEEKEND_ASST_COOK, 2 => WEEKEND_CLEANER, 3 => WEEKEND_LAUNDRY], // sunday
-			'10/22/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_LAUNDRY],
-			'10/23/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_LAUNDRY],
-			'10/24/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_LAUNDRY],
-			'10/28/2018' => [0 => WEEKEND_HEAD_COOK, 1 => WEEKEND_ASST_COOK, 2 => WEEKEND_CLEANER, 3 => WEEKEND_LAUNDRY], // sunday
-			'10/29/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_LAUNDRY],
-			'10/30/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_LAUNDRY],
+			'10/1/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/2/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			# '10/3/2018' => [0 => MEETING_NIGHT_ORDERER, 1 => MEETING_NIGHT_CLEANER],
+			'10/6/2018' => [0 => BRUNCH_HEAD_COOK, 1 => BRUNCH_ASST_COOK, 2 => BRUNCH_CLEANER], // sunday
+			'10/7/2018' => [0 => SUNDAY_HEAD_COOK, 1 => SUNDAY_ASST_COOK, 2 => SUNDAY_CLEANER], // sunday
+			'10/8/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/9/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/10/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/13/2018' => [0 => BRUNCH_HEAD_COOK, 1 => BRUNCH_ASST_COOK, 2 => BRUNCH_CLEANER], // sunday
+			'10/14/2018' => [0 => SUNDAY_HEAD_COOK, 1 => SUNDAY_ASST_COOK, 2 => SUNDAY_CLEANER], // sunday
+			# '10/15/2018' => [0 => MEETING_NIGHT_ORDERER, 1 => MEETING_NIGHT_CLEANER],
+			'10/16/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/17/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/20/2018' => [0 => BRUNCH_HEAD_COOK, 1 => BRUNCH_ASST_COOK, 2 => BRUNCH_CLEANER], // sunday
+			'10/21/2018' => [0 => SUNDAY_HEAD_COOK, 1 => SUNDAY_ASST_COOK, 2 => SUNDAY_CLEANER], // sunday
+			'10/22/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/23/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/24/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/27/2018' => [0 => BRUNCH_HEAD_COOK, 1 => BRUNCH_ASST_COOK, 2 => BRUNCH_CLEANER], // sunday
+			'10/28/2018' => [0 => SUNDAY_HEAD_COOK, 1 => SUNDAY_ASST_COOK, 2 => SUNDAY_CLEANER], // sunday
+			'10/29/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+			'10/30/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
 		];
 
 		$result1 = [
 			WEEKDAY_HEAD_COOK => 12,
 			WEEKDAY_ASST_COOK => 12,
 			WEEKDAY_CLEANER => 12,
-			WEEKDAY_LAUNDRY => 12,
-			MEETING_NIGHT_ORDERER => 2,
-			MEETING_NIGHT_CLEANER => 2,
-			# SUNDAY_HEAD_COOK => 4,
-			# SUNDAY_ASST_COOK => 4,
-			# SUNDAY_CLEANER => 4,
-			WEEKEND_HEAD_COOK => 4,
-			WEEKEND_ASST_COOK => 4,
-			WEEKEND_CLEANER => 4,
-			WEEKEND_LAUNDRY => 4,
+			# WEEKDAY_LAUNDRY => 12,
+
+			# MEETING_NIGHT_ORDERER => 2,
+			# MEETING_NIGHT_CLEANER => 2,
+
+			SUNDAY_HEAD_COOK => 4,
+			SUNDAY_ASST_COOK => 4,
+			SUNDAY_CLEANER => 4,
+
+			BRUNCH_HEAD_COOK => 4,
+			BRUNCH_ASST_COOK => 4,
+			BRUNCH_CLEANER => 4,
+			# BRUNCH_LAUNDRY => 4,
 		];
 		if (defined('WEEKDAY_TABLE_SETTER')) {
 			$result1[WEEKDAY_TABLE_SETTER] = 12;
@@ -307,10 +314,10 @@ EOHTML;
 			[[], []],
 			[
 				[
-					'10/1/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_LAUNDRY],
-					'10/2/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER, 3 => WEEKDAY_LAUNDRY],
+					'10/1/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
+					'10/2/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
 				],
-				[WEEKDAY_HEAD_COOK => 2, WEEKDAY_ASST_COOK => 2, WEEKDAY_CLEANER => 2, WEEKDAY_LAUNDRY => 2],
+				[WEEKDAY_HEAD_COOK => 2, WEEKDAY_ASST_COOK => 2, WEEKDAY_CLEANER => 2],
 			],
 			[$example1, $result1],
 		];
@@ -336,28 +343,28 @@ EOHTML;
 	public function provideGetNumberAssignmentsPerJobId() {
 		// 6-month seasons use a special allocation
 		$input_6mo = [
-			MEETING_NIGHT_CLEANER => 90,
-			MEETING_NIGHT_ORDERER => 90,
+			# MEETING_NIGHT_CLEANER => 90,
+			# MEETING_NIGHT_ORDERER => 90,
 			SUNDAY_ASST_COOK => 90,
 			SUNDAY_CLEANER => 90,
 			SUNDAY_HEAD_COOK => 90,
-			WEEKEND_LAUNDRY => 1,
+			# BRUNCH_LAUNDRY => 1,
 			WEEKDAY_ASST_COOK => 90,
 			WEEKDAY_CLEANER => 90,
 			WEEKDAY_HEAD_COOK => 90,
-			WEEKDAY_LAUNDRY => 1,
+			# WEEKDAY_LAUNDRY => 1,
 		];
 		$expected_6mo = [
-			MEETING_NIGHT_CLEANER => 45.0,
-			MEETING_NIGHT_ORDERER => 45.0,
+			# MEETING_NIGHT_CLEANER => 45.0,
+			# MEETING_NIGHT_ORDERER => 45.0,
 			SUNDAY_ASST_COOK => 90.0,
 			SUNDAY_CLEANER => 45.0,
 			SUNDAY_HEAD_COOK => 45.0,
-			WEEKEND_LAUNDRY => 1,
+			# BRUNCH_LAUNDRY => 1,
 			WEEKDAY_ASST_COOK => 90.0,
 			WEEKDAY_CLEANER => 45.0,
 			WEEKDAY_HEAD_COOK => 45.0,
-			WEEKDAY_LAUNDRY => 1,
+			# WEEKDAY_LAUNDRY => 1,
 		];
 		$season_6mo = [
 			5 => 'May',
@@ -370,28 +377,28 @@ EOHTML;
 
 		// 3-month seasons is half of a special 6mo allocation
 		$input_3mo = [
-			MEETING_NIGHT_CLEANER => 80,
-			MEETING_NIGHT_ORDERER => 80,
+			# MEETING_NIGHT_CLEANER => 80,
+			# MEETING_NIGHT_ORDERER => 80,
 			SUNDAY_ASST_COOK => 80,
 			SUNDAY_CLEANER => 80,
 			SUNDAY_HEAD_COOK => 80,
-			WEEKEND_LAUNDRY => 1,
+			# BRUNCH_LAUNDRY => 1,
 			WEEKDAY_ASST_COOK => 80,
 			WEEKDAY_CLEANER => 80,
 			WEEKDAY_HEAD_COOK => 80,
-			WEEKDAY_LAUNDRY => 1,
+			# WEEKDAY_LAUNDRY => 1,
 		];
 		$expected_3mo = [
-			MEETING_NIGHT_CLEANER => 80.0,
-			MEETING_NIGHT_ORDERER => 80.0,
+			# MEETING_NIGHT_CLEANER => 80.0,
+			# MEETING_NIGHT_ORDERER => 80.0,
 			SUNDAY_ASST_COOK => 160.0,
 			SUNDAY_CLEANER => 80.0,
 			SUNDAY_HEAD_COOK => 80.0,
-			WEEKEND_LAUNDRY => 1,
+			# BRUNCH_LAUNDRY => 1,
 			WEEKDAY_ASST_COOK => 160.0,
 			WEEKDAY_CLEANER => 80.0,
 			WEEKDAY_HEAD_COOK => 80.0,
-			WEEKDAY_LAUNDRY => 1,
+			# WEEKDAY_LAUNDRY => 1,
 		];
 		$season_3mo = [
 			5 => 'May',
@@ -404,25 +411,25 @@ EOHTML;
 			WEEKDAY_HEAD_COOK => 32,
 			WEEKDAY_ASST_COOK => 32,
 			WEEKDAY_CLEANER => 32,
-			WEEKDAY_LAUNDRY => 1,
-			MEETING_NIGHT_ORDERER => 6,
-			MEETING_NIGHT_CLEANER => 6,
+			# WEEKDAY_LAUNDRY => 1,
+			# MEETING_NIGHT_ORDERER => 6,
+			# MEETING_NIGHT_CLEANER => 6,
 			SUNDAY_HEAD_COOK => 12,
 			SUNDAY_ASST_COOK => 12,
 			SUNDAY_CLEANER => 12,
-			WEEKEND_LAUNDRY => 1,
+			# BRUNCH_LAUNDRY => 1,
 		];
 		$expected_3mo_s19 = [
 			WEEKDAY_HEAD_COOK => 32,
 			WEEKDAY_ASST_COOK => 64,
 			WEEKDAY_CLEANER => 32,
-			WEEKDAY_LAUNDRY => 1,
-			MEETING_NIGHT_ORDERER => 6,
-			MEETING_NIGHT_CLEANER => 6,
+			# WEEKDAY_LAUNDRY => 1,
+			# MEETING_NIGHT_ORDERER => 6,
+			# MEETING_NIGHT_CLEANER => 6,
 			SUNDAY_HEAD_COOK => 12,
 			SUNDAY_ASST_COOK => 24,
 			SUNDAY_CLEANER => 12,
-			WEEKEND_LAUNDRY => 1,
+			# BRUNCH_LAUNDRY => 1,
 		];
 		$season_3mo_s19 = [
 			8 => 'August',
@@ -431,28 +438,28 @@ EOHTML;
 		];
 
 		$input_4mo = [
-			MEETING_NIGHT_CLEANER => 100,
-			MEETING_NIGHT_ORDERER => 100,
+			# MEETING_NIGHT_CLEANER => 100,
+			# MEETING_NIGHT_ORDERER => 100,
 			SUNDAY_ASST_COOK => 100,
 			SUNDAY_CLEANER => 100,
 			SUNDAY_HEAD_COOK => 100,
-			WEEKEND_LAUNDRY => 1,
+			# BRUNCH_LAUNDRY => 1,
 			WEEKDAY_ASST_COOK => 100,
 			WEEKDAY_CLEANER => 100,
 			WEEKDAY_HEAD_COOK => 100,
-			WEEKDAY_LAUNDRY => 1,
+			# WEEKDAY_LAUNDRY => 1,
 		];
 		$expected_4mo = [
-			MEETING_NIGHT_CLEANER => 50.0,
-			MEETING_NIGHT_ORDERER => 50.0,
+			# MEETING_NIGHT_CLEANER => 50.0,
+			# MEETING_NIGHT_ORDERER => 50.0,
 			SUNDAY_ASST_COOK => 100.0,
 			SUNDAY_CLEANER => 75.0,
 			SUNDAY_HEAD_COOK => 50.0,
-			WEEKEND_LAUNDRY => 1,
+			# BRUNCH_LAUNDRY => 1,
 			WEEKDAY_ASST_COOK => 100.0,
 			WEEKDAY_CLEANER => 75.0,
 			WEEKDAY_HEAD_COOK => 50.0,
-			WEEKDAY_LAUNDRY => 1,
+			# WEEKDAY_LAUNDRY => 1,
 		];
 		$season_4mo = [
 			6 => 'June',
@@ -499,19 +506,21 @@ EOHTML;
 
 	public function provideRenderNumberAssignments() {
 		$input1 = [
-			MEETING_NIGHT_ORDERER => 2.0,
-			MEETING_NIGHT_CLEANER => 2.0,
+			# MEETING_NIGHT_ORDERER => 2.0,
+			# MEETING_NIGHT_CLEANER => 2.0,
 			WEEKDAY_HEAD_COOK => 12.0,
 			WEEKDAY_ASST_COOK => 6.0,
 			WEEKDAY_CLEANER => 4.0,
-			WEEKDAY_LAUNDRY => 39,
+			# WEEKDAY_LAUNDRY => 39,
+
 			SUNDAY_HEAD_COOK => 4.0,
 			SUNDAY_ASST_COOK => 2.0,
 			SUNDAY_CLEANER => 2.0,
-			WEEKEND_HEAD_COOK => 22.0,
-			WEEKEND_ASST_COOK => 33.0,
-			WEEKEND_CLEANER => 44.0,
-			WEEKEND_LAUNDRY => 39,
+
+			BRUNCH_HEAD_COOK => 22.0,
+			BRUNCH_ASST_COOK => 33.0,
+			BRUNCH_CLEANER => 44.0,
+			# BRUNCH_LAUNDRY => 39,
 		];
 
 		$mtg_clean_n = MEETING_NIGHT_CLEANER_NAME;
@@ -522,11 +531,11 @@ EOHTML;
 		$week_asst_n = WEEKDAY_ASST_COOK_NAME;
 		$week_clean_n = WEEKDAY_CLEANER_NAME;
 		$week_head_n = WEEKDAY_HEAD_COOK_NAME;
-		$week_laund_n = WEEKDAY_LAUNDRY_NAME;
-		$we_asst_n = WEEKEND_ASST_COOK_NAME;
-		$we_clean_n = WEEKEND_CLEANER_NAME;
-		$we_head_n = WEEKEND_HEAD_COOK_NAME;
-		$we_laund_n = WEEKEND_LAUNDRY_NAME;
+		# $week_laund_n = WEEKDAY_LAUNDRY_NAME;
+		$brunch_asst_n = BRUNCH_ASST_COOK_NAME;
+		$brunch_clean_n = BRUNCH_CLEANER_NAME;
+		$brunch_head_n = BRUNCH_HEAD_COOK_NAME;
+		# $brunch_laund_n = BRUNCH_LAUNDRY_NAME;
 
 		$tsetter = '';
 		if (defined('WEEKDAY_TABLE_SETTER')) {
@@ -534,19 +543,15 @@ EOHTML;
 			$tsetter = "\n<br>Weekday Table Setter 12";
 		}
 		$expected1 = <<<EOHTML
-<p>{$mtg_clean_n} 2
-<br>{$mtg_order_n} 2
+<p>{$brunch_clean_n} 44
+<br>{$brunch_asst_n} 33
+<br>{$brunch_head_n} 22
 <br>{$sun_clean_n} 2
 <br>{$sun_asst_n} 2
 <br>{$sun_head_n} 4
-<br>{$week_laund_n} 39
 <br>{$week_clean_n} 4
 <br>{$week_asst_n} 6{$tsetter}
 <br>{$week_head_n} 12
-<br>{$we_laund_n} 39
-<br>{$we_clean_n} 44
-<br>{$we_asst_n} 33
-<br>{$we_head_n} 22
 </p>
 EOHTML;
 
@@ -559,14 +564,14 @@ EOHTML;
 	 * @dataProvider provide_list_available_workers_for_date
 	 */
 	public function test_list_available_workers_for_date($cur_date_jobs,
-		$is_weekend, $expected) {
+		$is_brunch, $expected) {
 
 		$this->calendar->disableWebDisplay();
 		$result = $this->calendar->list_available_workers_for_date(
-			$cur_date_jobs, $is_weekend);
+			$cur_date_jobs, $is_brunch);
 		$debug = [
 			'cur_date_jobs' => $cur_date_jobs,
-			'is_weekend' => $is_weekend,
+			'is_brunch' => $is_brunch,
 			'result' => $result,
 			'expected' => $expected,
 		];
@@ -582,14 +587,14 @@ EOHTML;
 		$week_asst_n = WEEKDAY_ASST_COOK_NAME;
 		$week_clean_n = WEEKDAY_CLEANER_NAME;
 		$week_head_n = WEEKDAY_HEAD_COOK_NAME;
-		$week_laund_n = WEEKDAY_LAUNDRY_NAME;
-		$we_asst_n = WEEKEND_ASST_COOK_NAME;
-		$we_clean_n = WEEKEND_CLEANER_NAME;
-		$we_head_n = WEEKEND_HEAD_COOK_NAME;
-		$we_laund_n = WEEKEND_LAUNDRY_NAME;
+		# $week_laund_n = WEEKDAY_LAUNDRY_NAME;
+		$brunch_asst_n = BRUNCH_ASST_COOK_NAME;
+		$brunch_clean_n = BRUNCH_CLEANER_NAME;
+		$brunch_head_n = BRUNCH_HEAD_COOK_NAME;
+		# $brunch_laund_n = BRUNCH_LAUNDRY_NAME;
 
 		$wkend_1 = [
-			WEEKEND_ASST_COOK => [
+			BRUNCH_ASST_COOK => [
 				2 => [0 => 'fatima'],
 				1 => [
 					0 => 'keithx',
@@ -598,7 +603,7 @@ EOHTML;
 					3 => 'terrence',
 				],
 			],
-			WEEKEND_HEAD_COOK => [
+			BRUNCH_HEAD_COOK => [
 				2 => [0 => 'maryking'],
 				1 => [
 					0 => 'dan',
@@ -607,7 +612,7 @@ EOHTML;
 					3 => 'tevah',
 				],
 			],
-			WEEKEND_CLEANER => [
+			BRUNCH_CLEANER => [
 				1 => [
 					0 => 'amyh',
 					1 => 'annie',
@@ -620,7 +625,7 @@ EOHTML;
 		];
 
 		$wkend_cell = <<<EOHTML
-<h3 class="jobname">{$we_asst_n}</h3>
+<h3 class="jobname">{$brunch_asst_n}</h3>
 <div class="worker_avail_preference highlight">prefer:<ul><li>fatima</li></ul></div>
 <div class="worker_avail_preference OK">OK:<ul><li>keithx</li>
 <li>
@@ -630,7 +635,7 @@ nancy</li>
 <li>
 terrence</li></ul></div>
 <div class="worker_avail_preference non_respond">non-respond:<ul><li></li></ul></div>
-<h3 class="jobname">{$we_head_n}</h3>
+<h3 class="jobname">{$brunch_head_n}</h3>
 <div class="worker_avail_preference highlight">prefer:<ul><li>maryking</li></ul></div>
 <div class="worker_avail_preference OK">OK:<ul><li>dan</li>
 <li>
@@ -640,7 +645,7 @@ keithx</li>
 <li>
 tevah</li></ul></div>
 <div class="worker_avail_preference non_respond">non-respond:<ul><li></li></ul></div>
-<h3 class="jobname">{$we_clean_n}</h3>
+<h3 class="jobname">{$brunch_clean_n}</h3>
 <div class="worker_avail_preference OK">OK:<ul><li>amyh</li>
 <li>
 annie</li>
@@ -1070,7 +1075,7 @@ EOHTML;
 	public function provideGenerateReportCellForWorker() {
 		return [
 			['1/25/24', 'weekday', 'xxx'],
-			#['1/25/24', 'weekend', 'zzz'],
+			['1/25/24', 'brunch', 'zzz'],
 		];
 	}
 	 */
@@ -1079,27 +1084,26 @@ EOHTML;
         $result = $this->calendar->getNumShiftsNeeded();
 		$expected = [
 			// UPDATE-EACH-SEASON
-			MEETING_NIGHT_CLEANER => 4,
-			MEETING_NIGHT_ORDERER => 4,
+			# MEETING_NIGHT_CLEANER => 4,
+			# MEETING_NIGHT_ORDERER => 4,
 
-/*
-			SUNDAY_ASST_COOK => 48,
-			SUNDAY_CLEANER => 72,
-			SUNDAY_HEAD_COOK => 24,
-*/
+			SUNDAY_ASST_COOK => 50,
+			SUNDAY_CLEANER => 75,
+			SUNDAY_HEAD_COOK => 25,
 
-			WEEKDAY_ASST_COOK => 42,
-			WEEKDAY_CLEANER => 63,
-			WEEKDAY_HEAD_COOK => 21,
-			WEEKEND_LAUNDRY => 8,
+			WEEKDAY_ASST_COOK => 126,
+			WEEKDAY_CLEANER => 189,
+			WEEKDAY_HEAD_COOK => 63,
+			# WEEKDAY_LAUNDRY => 21,
 
-			WEEKEND_ASST_COOK => 16,
-			WEEKEND_CLEANER => 24,
-			WEEKEND_HEAD_COOK => 8,
-			WEEKDAY_LAUNDRY => 21,
+			BRUNCH_ASST_COOK => 12,
+			BRUNCH_CLEANER => 18,
+			BRUNCH_HEAD_COOK => 6,
+			# BRUNCH_LAUNDRY => 8,
 		];
 
 		ksort($expected);
+		ksort($result);
 		$debug = [
 			'expected' => $expected,
 			'result' => $result,
@@ -1112,7 +1116,7 @@ EOHTML;
      */
 	public function testGetAssignmentsNeededForCurrentSeason($expected) {
 		$result = $this->calendar->getAssignmentsNeededForCurrentSeason();
-		write_out_data(__METHOD__, $result);
+		# write_out_data(__METHOD__, $result);
 		ksort($expected);
 		ksort($result);
 		$this->assertEquals($expected, $result);
@@ -1124,22 +1128,22 @@ EOHTML;
     public function provideGetAssignmentsNeededForCurrentSeason() {
 		// UPDATE-EACH-SEASON
 		$six_month_season = [
-			MEETING_NIGHT_CLEANER => 5,
-			MEETING_NIGHT_ORDERER => 5,
+			#MEETING_NIGHT_CLEANER => 5,
+			#MEETING_NIGHT_ORDERER => 5,
 
-			SUNDAY_ASST_COOK => 24,
-			SUNDAY_CLEANER => 12,
-			SUNDAY_HEAD_COOK => 12,
+			SUNDAY_ASST_COOK => 25,
+			SUNDAY_CLEANER => 13,
+			SUNDAY_HEAD_COOK => 13,
 
-			WEEKEND_ASST_COOK => 26,
-			WEEKEND_CLEANER => 13,
-			WEEKEND_HEAD_COOK => 13,
-			WEEKEND_LAUNDRY => 1,
+			BRUNCH_ASST_COOK => 6,
+			BRUNCH_CLEANER => 3,
+			BRUNCH_HEAD_COOK => 3,
+			# BRUNCH_LAUNDRY => 1,
 
-			WEEKDAY_ASST_COOK => 65,
-			WEEKDAY_CLEANER => 33,
-			WEEKDAY_HEAD_COOK => 33,
-			WEEKDAY_LAUNDRY => 1,
+			WEEKDAY_ASST_COOK => 63,
+			WEEKDAY_CLEANER => 32,
+			WEEKDAY_HEAD_COOK => 32,
+			# WEEKDAY_LAUNDRY => 1,
 		];
 		$counts = $six_month_season;
 		if (defined('WEEKDAY_TABLE_SETTER')) {
@@ -1148,18 +1152,18 @@ EOHTML;
 
 		// UPDATE-EACH-SEASON
 		$three_month_season = [
-			MEETING_NIGHT_CLEANER => 4,
-			MEETING_NIGHT_ORDERER => 4,
+			#MEETING_NIGHT_CLEANER => 4,
+			#MEETING_NIGHT_ORDERER => 4,
 
 			WEEKDAY_ASST_COOK => 42,
 			WEEKDAY_CLEANER => 21,
 			WEEKDAY_HEAD_COOK => 21,
-			WEEKDAY_LAUNDRY => 7,
+			# WEEKDAY_LAUNDRY => 7,
 
-			WEEKEND_ASST_COOK => 16,
-			WEEKEND_CLEANER => 8,
-			WEEKEND_HEAD_COOK => 8,
-			WEEKEND_LAUNDRY => 3,
+			BRUNCH_ASST_COOK => 16,
+			BRUNCH_CLEANER => 8,
+			BRUNCH_HEAD_COOK => 8,
+			# BRUNCH_LAUNDRY => 3,
 		];
 
 		if (SUB_SEASON_FACTOR === .5) {
@@ -1191,10 +1195,10 @@ EOHTML;
 
 		// UPDATE-EACH-SEASON
 		$expected = [
-			'meeting' => 4,
-			'sunday' => 0,
-			'weekday' => 21,
-			'weekend' => 8,
+			'meeting' => 0,
+			'sunday' => 25,
+			'weekday' => 63,
+			'brunch' => 6,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
 			$carry += $item;

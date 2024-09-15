@@ -22,6 +22,10 @@ parameters:
 		#  count: 1
 		#  path: auto_assignments/execute.php
 
+		#- message: "#^Ternary operator condition is always true\\.$#"
+		#  count: 1
+		#  path: public/classes/calendar.php
+
 		- message: "#^If condition is always false\\.$#"
 		  count: 1
 		  path: public/classes/meal.php
@@ -46,10 +50,6 @@ parameters:
 		  count: 1
 		  path: public/mysql_api.php
 
-		- message: "#^Ternary operator condition is always true\\.$#"
-		  count: 1
-		  path: public/utils.php
-
-		- message: "#^Ternary operator condition is always true\\.$#"
-		  count: 1
-		  path: public/classes/calendar.php
+		#- message: "#^Ternary operator condition is always true\\.$#"
+		#  count: 1
+		#  path: public/utils.php

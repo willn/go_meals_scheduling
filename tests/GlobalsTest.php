@@ -44,7 +44,7 @@ class GlobalsTest extends TestCase {
 	public function test_get_job_ids_clause() {
 		$result = get_job_ids_clause();
 		// UPDATE-EACH-SEASON
-		$expected = 'job_id=7622 OR job_id=7627 OR job_id=7621 OR job_id=9998 OR job_id=7053 OR job_id=7056 OR job_id=7052 OR job_id=7624 OR job_id=7628 OR job_id=7623 OR job_id=9999 OR job_id=7626 OR job_id=7629';
+		$expected = 'job_id=7622 OR job_id=7627 OR job_id=7621 OR job_id=7053 OR job_id=7056 OR job_id=7052 OR job_id=7624 OR job_id=7628 OR job_id=7623 OR job_id=7626 OR job_id=7629';
 		$this->assertEquals($expected, $result);
 	}
 

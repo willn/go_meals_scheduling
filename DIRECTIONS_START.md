@@ -16,6 +16,9 @@ committee needs to know how much meals labor will be needed.
   - Update instances of `Meal::BILLING_FORMULA`
 * Where will these meals be hosted?
   - Update `LOCATIONS_TO_RESERVE`
+* Which jobs will we be using this season?
+  - Disable any un-needed meals in `public/utils.php` in the
+  `get_meal_type_by_date()` functin.
 
 ### Ask Process committee
 * Are there any meeting nights that will be rescheduled?
@@ -68,7 +71,6 @@ If this is mid-season, skip to the [MID-SEASON section](./DIRECTIONS_START_MID_S
   - The number of assignments needed is in tests/CalendarTest.php, in
   `provideGetAssignmentsNeededForCurrentSeason()`
 
-XXX meal laundry position & deal with weekend meals...
 --> ensure that this works in the survey, CRUD & assignments.
 
 ### update and clean up the database

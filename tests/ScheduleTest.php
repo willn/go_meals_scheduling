@@ -58,10 +58,10 @@ class ScheduleTest extends TestCase {
 		foreach($workers as $username) {
 			$worker = $roster->addWorker($username);
 			$worker->addNumShiftsAssigned(SUNDAY_HEAD_COOK, 1);
-			$worker->addNumShiftsAssigned(WEEKEND_HEAD_COOK, 1);
+			$worker->addNumShiftsAssigned(BRUNCH_HEAD_COOK, 1);
 			$worker->addNumShiftsAssigned(MEETING_NIGHT_ORDERER, 1);
 			$worker->addNumShiftsAssigned(WEEKDAY_HEAD_COOK, 1);
-			$worker->addNumShiftsAssigned(WEEKDAY_LAUNDRY, 1);
+			# $worker->addNumShiftsAssigned(WEEKDAY_LAUNDRY, 1);
 		}
 		$counted_slackers = $this->schedule->addNonResponderPrefs($workers);
 
@@ -85,13 +85,13 @@ class ScheduleTest extends TestCase {
 
 		return [
 			[
-				['11/11/2023' => [WEEKEND_HEAD_COOK, WEEKEND_ASST_COOK, WEEKEND_CLEANER, WEEKEND_LAUNDRY]], 
+				['11/11/2023' => [BRUNCH_HEAD_COOK, BRUNCH_ASST_COOK, BRUNCH_CLEANER]], 
 				[
 					'11/11/2023' => [
-						WEEKEND_HEAD_COOK => [0 => NULL],
-						WEEKEND_ASST_COOK => [0 => NULL, 1 => NULL],
-						WEEKEND_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL],
-						WEEKEND_LAUNDRY => [0 => NULL],
+						BRUNCH_HEAD_COOK => [0 => NULL],
+						BRUNCH_ASST_COOK => [0 => NULL, 1 => NULL],
+						BRUNCH_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL],
+						# BRUNCH_LAUNDRY => [0 => NULL],
 					]
 				],
 			],
@@ -117,13 +117,13 @@ class ScheduleTest extends TestCase {
 			],
 
 			[
-				['10/26/2022' => [WEEKDAY_HEAD_COOK, WEEKDAY_ASST_COOK, WEEKDAY_CLEANER, WEEKDAY_LAUNDRY]],
+				['10/26/2022' => [WEEKDAY_HEAD_COOK, WEEKDAY_ASST_COOK, WEEKDAY_CLEANER]],
 				[
 					'10/26/2022' => [
 						WEEKDAY_HEAD_COOK => [0 => NULL],
 						WEEKDAY_ASST_COOK => [0 => NULL, 1 => NULL],
 						WEEKDAY_CLEANER => [0 => NULL, 1 => NULL, 2 => NULL],
-						WEEKDAY_LAUNDRY => [0 => NULL],
+						# WEEKDAY_LAUNDRY => [0 => NULL],
 					]
 				],
 			],

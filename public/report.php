@@ -176,7 +176,7 @@ if ($_SESSION['access_type'] == 'admin') {
 
 $job_name = ($job_key != 0) ? '' : '<th>Job</th>';
 
-$meals_summary = $calendar->getDayTypeCounts();
+$meals_summary = $calendar->getShiftCounts();
 
 ksort($per_shift);
 foreach($per_shift as $job_name=>$num_assn_shifts) {
@@ -187,9 +187,9 @@ foreach($per_shift as $job_name=>$num_assn_shifts) {
 	// default number of workers per shift
 	$num_workers_per_shift = 1;
 	switch($meal_type) {
-		#!# divide by number of shifts per assignment
+		// divide by number of shifts per assignment
 		case 'weekday':
-		case 'weekend':
+		case 'brunch':
 		case 'sunday':
 			if (stristr($shift_type, 'asst cook')) {
 				$num_workers_per_shift = 2;
@@ -230,7 +230,7 @@ print <<<EOHTML
 
 <p>
 Sundays: {$meals_summary['sunday']}
-<br>Weekends: {$meals_summary['weekend']}
+<br>Brunches: {$meals_summary['brunch']}
 <br>Weekdays: {$meals_summary['weekday']}
 <br> Meetings: {$meals_summary['meeting']}
 </p>

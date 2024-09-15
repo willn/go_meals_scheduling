@@ -129,7 +129,7 @@ Look up their ID in Gather, then:
     - Sundays: 3:15 - 7:45
     - Weekdays: 4:00 - 8:30
     - Meeting Night: 3:30 - 8:00
-    - Weekend Brunches: 8:15 - 12:45
+    - Saturday Brunches: 8:15 - 12:45
 * If Gather complains about row 2, that is actually the second row in the file.
   The header is the 1st.
 

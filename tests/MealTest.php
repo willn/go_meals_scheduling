@@ -28,18 +28,18 @@ class MealTest extends TestCase {
 			WEEKDAY_ASST_COOK,
 			WEEKDAY_CLEANER,
 			# WEEKDAY_TABLE_SETTER,
-			WEEKEND_LAUNDRY,
+			# BRUNCH_LAUNDRY,
 		],
 		'sunday' => [
 			SUNDAY_HEAD_COOK,
 			SUNDAY_ASST_COOK,
 			SUNDAY_CLEANER,
 		],
-		'weekend' => [
-			WEEKEND_HEAD_COOK,
-			WEEKEND_ASST_COOK,
-			WEEKEND_CLEANER,
-			WEEKEND_LAUNDRY,
+		'brunch' => [
+			BRUNCH_HEAD_COOK,
+			BRUNCH_ASST_COOK,
+			BRUNCH_CLEANER,
+			# BRUNCH_LAUNDRY,
 		],
 	];
 
@@ -48,7 +48,7 @@ class MealTest extends TestCase {
 		$this->schedule = new Schedule();
 		$this->schedule->setRoster($this->roster);
 		#$this->meal = new SundayMeal($this->schedule, '04/25/2018', 10);
-		$this->meal = new WeekendMeal($this->schedule, '01/07/2024', 10);
+		$this->meal = new BrunchMeal($this->schedule, '01/07/2024', 10);
 	}
 
 	public function testConstructors() {
@@ -201,9 +201,9 @@ class MealTest extends TestCase {
 		$this->assertEquals($meeting->getTime(), '5:45');
 		$this->assertEquals($meeting->getCommunities(), 'GO');
 
-		$weekend = new WeekendMeal($this->schedule, '11/11/2023', 126);
-		$this->assertEquals($weekend->getTime(), '10:30');
-		$this->assertEquals($weekend->getCommunities(), 'GO, SW, TS');
+		$brunch = new BrunchMeal($this->schedule, '11/11/2023', 126);
+		$this->assertEquals($brunch->getTime(), '10:30');
+		$this->assertEquals($brunch->getCommunities(), 'GO, SW, TS');
 	}
 
 	/**
@@ -221,7 +221,7 @@ class MealTest extends TestCase {
 			['aaa', 'sunday', SUNDAY_HEAD_COOK, 1, [SUNDAY_HEAD_COOK => ['aaa' => 1]]],
 			['bbb', 'weekday', WEEKDAY_HEAD_COOK, 0, [WEEKDAY_HEAD_COOK => ['bbb' => 0]]],
 			['ccc', 'meeting', MEETING_NIGHT_ORDERER, 0, [MEETING_NIGHT_ORDERER => ['ccc' => 0]]],
-			['ddd', 'weekend', WEEKEND_CLEANER, 0, [WEEKEND_CLEANER => ['ddd' => 0]]],
+			['ddd', 'brunch', BRUNCH_CLEANER, 0, [BRUNCH_CLEANER => ['ddd' => 0]]],
 		];
 	}
 

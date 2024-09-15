@@ -18,7 +18,6 @@ define('LABOR_DAY', 2);
  * This is simple example to ensure the testing framework functions properly.
  */
 class UtilsTest extends TestCase {
-
 	/**
 	 * @dataProvider provide_array_get
 	 */
@@ -245,15 +244,23 @@ class UtilsTest extends TestCase {
 	 */
 	public function test_get_meal_type_by_date($input, $expected) {
 		$result = get_meal_type_by_date($input);
-		$this->assertEquals($expected, $result);
+		$debug = [
+			'result' => $result,
+			'expected' => $expected,
+			'input' => $input,
+		];
+		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
 	public function provide_get_meal_type_by_date() {
 		return [
 			['', NOT_A_MEAL],
 			['07/04/2018', HOLIDAY_NIGHT],
-			['04/15/2018', WEEKEND_OVER_SUNDAYS ? WEEKEND_MEAL : SUNDAY_MEAL],
-			['04/16/2018', MEETING_NIGHT_MEAL],
+			['04/7/2018', BRUNCH_MEAL],
+			['04/14/2018', NOT_A_MEAL],
+			['04/15/2018', SUNDAY_MEAL],
+			# ['04/16/2018', MEETING_NIGHT_MEAL], # disable for now
+			['04/16/2018', NOT_A_MEAL],
 			['04/18/2018', WEEKDAY_MEAL],
 
 			['2018/04/18', WEEKDAY_MEAL],
@@ -312,8 +319,10 @@ class UtilsTest extends TestCase {
 
 	public function provide_get_a_meal_object() {
 		return [
-			['04/15/2018', WEEKEND_OVER_SUNDAYS ? 'WeekendMeal' : 'SundayMeal'],
-			['04/16/2018', 'MeetingNightMeal'],
+			['04/7/2018', 'BrunchMeal'],
+			['04/15/2018', 'SundayMeal'],
+			# ['04/16/2018', 'MeetingNightMeal'], # disable for now
+			['04/16/2018', 'Error'],
 			['04/18/2018', 'WeekdayMeal'],
 			['01/01/2018', 'Error'],
 		];
@@ -343,5 +352,52 @@ class UtilsTest extends TestCase {
 			[[], FALSE],
 		];
 	}
+
+	/**
+	 * @dataProvider provide_is_saturday
+	 */
+	public function test_is_saturday($date, $expected) {
+		$result = is_saturday($date);
+		$debug = [
+			'result' => $result,
+			'expected' => $expected,
+			'date' => $date,
+		];
+		$this->assertEquals($result, $expected, print_r($debug, TRUE));
+	}
+
+	public function provide_is_saturday() {
+		return [
+			['9/14/2024', TRUE],
+			['9/15/2024', FALSE],
+		];
+	}
+
+	/**
+	 * @dataProvider provide_is_first_saturday
+	 */
+	public function test_is_first_saturday($date, $expected) {
+		$result = is_first_saturday($date);
+		$debug = [
+			'result' => $result,
+			'expected' => $expected,
+			'date' => $date,
+		];
+		$this->assertEquals($result, $expected, print_r($debug, TRUE));
+	}
+
+	public function provide_is_first_saturday() {
+		return [
+			['9/7/2024', TRUE],
+
+			['9/1/2024', FALSE],
+			['9/14/2024', FALSE],
+			['9/15/2024', FALSE],
+			['9/21/2024', FALSE],
+			['9/28/2024', FALSE],
+			['9/30/2024', FALSE],
+		];
+	}
+
 }
 ?>
