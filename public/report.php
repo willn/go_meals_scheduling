@@ -206,11 +206,11 @@ foreach($per_shift as $job_name=>$num_assn_shifts) {
 		$all = print_r($all_jobs, TRUE);
 	}
 
-	// figure out how many assignments are needed for the season, rounding up
+	// figure out how many assignments are needed for the season, rounding down
 	$num_meals_in_season = $meals_summary[$meal_type];
 	$num_meals_per_assn = get_num_meals_per_assignment($current_season, $job_id);
 	$num_assns_needed = ($num_meals_per_assn == 0) ? 0 :
-		ceil(($num_meals_in_season * $num_workers_per_shift) /
+		floor(($num_meals_in_season * $num_workers_per_shift) /
 			$num_meals_per_assn);
 }
 

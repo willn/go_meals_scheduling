@@ -200,7 +200,7 @@ class UtilsTest extends TestCase {
 		$september_dates = [(LABOR_DAY - 1), LABOR_DAY];
 
 		$days = [
-			1 => [1],
+			1 => [1, 20],
 			// easter changes
 			EASTER_MONTH => [EASTER_DAY],
 			// Memorial Day changes
@@ -208,7 +208,7 @@ class UtilsTest extends TestCase {
 			7 => [4],
 			9 => $this->get_september_dates(),
 			10 => [31],
-			11 => [28],
+			11 => [11, 28],
 			12 => [24, 25, 31],
 		];
 

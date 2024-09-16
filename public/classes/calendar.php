@@ -1118,7 +1118,7 @@ EOHTML;
 			$shifts = get_num_meals_per_assignment($this->season_months,
 				$job_id, $sub_season_factor);
 			if ($shifts != 0) {
-				$num_days[$job_id] = intval(ceil((($meals * $workers) / $shifts)));
+				$num_days[$job_id] = intval(floor((($meals * $workers) / $shifts)));
 			}
 		}
 

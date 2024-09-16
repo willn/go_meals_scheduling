@@ -76,6 +76,32 @@ function does_season_wrap($season_months) {
 }
 
 /**
+ * Add MLK date to the holidates array.
+ * This is the 3rd Monday of January.
+ *
+ * @param array $holidays associative array for each months, each entry is
+ *     an array of dates within that month which are recognized as a holiday,
+ *     meaning - skip assigning that day.
+ * Example: [
+ *   10 => [31],
+ *   12 => [24, 25, 31]
+ * ]
+ * @return array - the same as the holidays passed in.
+ */
+function add_mlk_day($holidays) {
+	$this_month = date('n');
+	$year = ($this_month == JANUARY) ? SEASON_YEAR : SEASON_YEAR + 1;
+
+	// add MLK day
+	$mlk_day = date('j', strtotime('third monday of January ' . $year));
+	$holidays[JANUARY][] = $mlk_day;
+
+	return $holidays;
+}
+
+
+
+/**
  * Add the easter date to the holidates array.
  *
  * By ecclesiastical rules, which fixes the date of the equinox to March 21,
@@ -100,7 +126,7 @@ function add_easter($holidays, $season=[]) {
 
 	// is the next April in the current year or next?
 	$this_month = date('n');
-	$year = ($this_month > 4 ) ? (SEASON_YEAR + 1) : SEASON_YEAR;
+	$year = ($this_month > APRIL) ? (SEASON_YEAR + 1) : SEASON_YEAR;
 
 	// get unix timestamp of easter at noon
 	$easter_ts = easter_date($year) + (12 * 60 * 60);
@@ -132,13 +158,13 @@ function add_easter($holidays, $season=[]) {
  */
 function add_memorial_day($holidays) {
 	$this_month = date('n');
-	$may_year = ($this_month > 5 ) ? SEASON_YEAR + 1 : SEASON_YEAR;
+	$may_year = ($this_month > MAY) ? SEASON_YEAR + 1 : SEASON_YEAR;
 
 	$mem_day = date('j', strtotime('last monday of May ' . $may_year));
 	// sunday, day before
-	$holidays[5][] = ($mem_day - 1);
+	$holidays[MAY][] = ($mem_day - 1);
 	// monday, memorial day
-	$holidays[5][] = $mem_day;
+	$holidays[MAY][] = $mem_day;
 
 	return $holidays;
 }
@@ -166,7 +192,7 @@ function add_labor_day($holidays) {
 	$this_month = date('n');
 
 	// is the next September in the current year or next?
-	$sept_year = ($this_month > 9 ) ? (SEASON_YEAR + 1) : SEASON_YEAR;
+	$sept_year = ($this_month > SEPTEMBER) ? (SEASON_YEAR + 1) : SEASON_YEAR;
 
 	// labor day
 	$labor_day = intval(date('j',
@@ -175,12 +201,12 @@ function add_labor_day($holidays) {
 	// add Sunday before labor day...
 	// If preceding Sunday is in August
 	if ($labor_day === 1) {
-		$holidays[8][] = 31;
+		$holidays[AUGUST][] = 31;
 	}
 	else {
-		$holidays[9][] = ($labor_day - 1);
+		$holidays[SEPTEMBER][] = ($labor_day - 1);
 	}
-	$holidays[9][] = $labor_day;
+	$holidays[SEPTEMBER][] = $labor_day;
 
 	return $holidays;
 }
@@ -206,11 +232,11 @@ function add_labor_day($holidays) {
  */
 function add_thanksgiving_day($holidays) {
 	$this_month = date('n');
-	$nov_year = ($this_month > 11) ? SEASON_YEAR + 1 : SEASON_YEAR;
+	$nov_year = ($this_month > NOVEMBER) ? SEASON_YEAR + 1 : SEASON_YEAR;
 
 	// add Thanksgiving
 	$thx_day = date('j', strtotime('fourth thursday of November ' . $nov_year));
-	$holidays[11][] = $thx_day;
+	$holidays[NOVEMBER][] = $thx_day;
 
 	// also add the following Sunday
 	$last_sunday = date('j', strtotime('last sunday of November ' . SEASON_YEAR));
@@ -229,14 +255,16 @@ function add_thanksgiving_day($holidays) {
 function get_holidays() {
 	// start with static holidays
 	$holidays = [
-		1 => [1],
-		7 => [4],
-		10 => [31],
-		12 => [24,25,31],
+		JANUARY => [1],
+		JULY => [4],
+		OCTOBER => [31],
+		NOVEMBER => [11],
+		DECEMBER => [24,25,31],
 	];
 
 	// get dynamic dates
 	$season = get_current_season_months();
+	$holidays = add_mlk_day($holidays);
 	$holidays = add_easter($holidays, $season);
 	$holidays = add_memorial_day($holidays);
 	$holidays = add_labor_day($holidays);

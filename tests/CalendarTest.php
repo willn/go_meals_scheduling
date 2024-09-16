@@ -593,7 +593,7 @@ EOHTML;
 		$brunch_head_n = BRUNCH_HEAD_COOK_NAME;
 		# $brunch_laund_n = BRUNCH_LAUNDRY_NAME;
 
-		$wkend_1 = [
+		$brunch_1 = [
 			BRUNCH_ASST_COOK => [
 				2 => [0 => 'fatima'],
 				1 => [
@@ -624,7 +624,7 @@ EOHTML;
 			],
 		];
 
-		$wkend_cell = <<<EOHTML
+		$brunch_cell = <<<EOHTML
 <h3 class="jobname">{$brunch_asst_n}</h3>
 <div class="worker_avail_preference highlight">prefer:<ul><li>fatima</li></ul></div>
 <div class="worker_avail_preference OK">OK:<ul><li>keithx</li>
@@ -872,9 +872,10 @@ EOHTML;
 
 		return [
 			# [$sun_1, TRUE, $sun_cell],
-			[$wkend_1, TRUE, $wkend_cell],
-			[$mtg_1, FALSE, $mtg_cell],
-			[$wkd_1, FALSE, $weekday_cell],
+
+			[$brunch_1, TRUE, $brunch_cell],
+			# [$mtg_1, FALSE, $mtg_cell],
+			# [$wkd_1, FALSE, $weekday_cell],
 		];
 	}
 
@@ -1091,9 +1092,9 @@ EOHTML;
 			SUNDAY_CLEANER => 75,
 			SUNDAY_HEAD_COOK => 25,
 
-			WEEKDAY_ASST_COOK => 126,
-			WEEKDAY_CLEANER => 189,
-			WEEKDAY_HEAD_COOK => 63,
+			WEEKDAY_ASST_COOK => 122,
+			WEEKDAY_CLEANER => 183,
+			WEEKDAY_HEAD_COOK => 61,
 			# WEEKDAY_LAUNDRY => 21,
 
 			BRUNCH_ASST_COOK => 12,
@@ -1132,17 +1133,17 @@ EOHTML;
 			#MEETING_NIGHT_ORDERER => 5,
 
 			SUNDAY_ASST_COOK => 25,
-			SUNDAY_CLEANER => 13,
-			SUNDAY_HEAD_COOK => 13,
+			SUNDAY_CLEANER => 12,
+			SUNDAY_HEAD_COOK => 12,
 
 			BRUNCH_ASST_COOK => 6,
 			BRUNCH_CLEANER => 3,
 			BRUNCH_HEAD_COOK => 3,
 			# BRUNCH_LAUNDRY => 1,
 
-			WEEKDAY_ASST_COOK => 63,
-			WEEKDAY_CLEANER => 32,
-			WEEKDAY_HEAD_COOK => 32,
+			WEEKDAY_ASST_COOK => 61,
+			WEEKDAY_CLEANER => 30,
+			WEEKDAY_HEAD_COOK => 30,
 			# WEEKDAY_LAUNDRY => 1,
 		];
 		$counts = $six_month_season;
@@ -1175,13 +1176,13 @@ EOHTML;
 		}
 
 		$wk_cleaners = isset($counts[WEEKDAY_CLEANER]) ?
-			ceil($counts[WEEKDAY_CLEANER] / 3) : 0;
+			floor($counts[WEEKDAY_CLEANER] / 3) : 0;
 		$setters_string = '';
 		if (defined('WEEKDAY_TABLE_SETTER')) {
-			$setter_string = "\n" . ceil($counts[WEEKDAY_TABLE_SETTER] / 3);
+			$setter_string = "\n" . floor($counts[WEEKDAY_TABLE_SETTER] / 3);
 		}
 		$sun_cleaners = isset($counts[SUNDAY_CLEANER]) ?
-			ceil($counts[SUNDAY_CLEANER] / 3) : 0;
+			floor($counts[SUNDAY_CLEANER] / 3) : 0;
 
         return [
             [$counts],
@@ -1197,7 +1198,7 @@ EOHTML;
 		$expected = [
 			'meeting' => 0,
 			'sunday' => 25,
-			'weekday' => 63,
+			'weekday' => 61,
 			'brunch' => 6,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
