@@ -981,10 +981,10 @@ EOHTML;
 				$cur_date_jobs[$this->key_filter]];
 		}
 
-		foreach($cur_date_jobs as $job=>$info) {
+		foreach($cur_date_jobs as $job_id=>$info) {
 			// don't report anything for an empty day
 			if (empty($info)) {
-				if (isset($job_titles[$job])) {
+				if (isset($job_titles[$job_id])) {
 					$cell .= '<div class="warning">empty!<div>';
 				}
 				continue;
@@ -992,7 +992,7 @@ EOHTML;
 
 			// include a title if not filtered
 			if ($this->key_filter == 'all') {
-				$cell .= "<h3 class=\"jobname\">{$job_titles[$job]}</h3>\n";
+				$cell .= "<h3 class=\"jobname\">{$job_titles[$job_id]}</h3>\n";
 			}
 
 			// list people who prefer the job first
@@ -1026,8 +1026,10 @@ EOHTML;
 		$jobs['total'] = 0;
 
 		// compute the total row
-		foreach($this->num_shifts as $job=>$count) {
-			$jobs['total'] += $count;
+		foreach($this->num_shifts as $job_name=>$count) {
+			// shift down to an even count
+			$jobs[$job_name] = get_nearest_even($count);
+			$jobs['total'] += $jobs[$job_name];
 		}
 
 		return $jobs;
@@ -1109,20 +1111,25 @@ EOHTML;
 	 *     across an entire season, but we're only scheduling part of it,
 	 *     then this would be a fractional number (<1). Split the number of
 	 *     jobs according to the factor.
+	 * return array int the number of assignments needed.
 	 */
 	function getNumberAssignmentsPerJobId($summary, $sub_season_factor) {
-		$num_days = [];
+		$num_assns = [];
 
-		foreach($summary as $job_id => $meals) {
-			$workers = get_num_workers_per_job_per_meal($job_id);
+		foreach($summary as $job_id => $dates) {
+			// force all meal counts to be even
+			$date_count = get_nearest_even($dates);
+
+			$num_workers = get_num_workers_per_job_per_meal($job_id);
 			$shifts = get_num_meals_per_assignment($this->season_months,
 				$job_id, $sub_season_factor);
 			if ($shifts != 0) {
-				$num_days[$job_id] = intval(floor((($meals * $workers) / $shifts)));
+				$num_assns[$job_id] = 
+					intval(floor((($date_count * $num_workers) / $shifts)));
 			}
 		}
 
-		return $num_days;
+		return $num_assns;
 	}
 
 	/**

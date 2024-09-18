@@ -186,8 +186,7 @@ function get_num_meals_per_assignment($season, $job_id=NULL,
  * @param int $job_id (optional, default NULL) If NULL, then return the entire
  *     list. If not null, and a real job id is passed in, then return the number
  *     of shifts needed for that job id.
- * @return array associative key-value pairs of job id to number of instances
- *     this job is needed to staff a given meal.
+ * @return int number of instances this job is needed to staff a given meal.
  */
 function get_num_workers_per_job_per_meal($job_id=NULL) {
 	static $instances = [

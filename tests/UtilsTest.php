@@ -399,5 +399,33 @@ class UtilsTest extends TestCase {
 		];
 	}
 
+	/**
+	 * @dataProvider provide_get_nearest_even
+	 */
+	public function test_get_nearest_even($number, $expected) {
+		$result = get_nearest_even($number);
+		$debug = [
+			'result' => $result,
+			'expected' => $expected,
+			'number' => $number,
+		];
+		$this->assertEquals($result, $expected, print_r($debug, TRUE));
+	}
+
+	public function provide_get_nearest_even() {
+		return [
+			[0, 0],
+			[1, 0],
+			[2, 2],
+			[3, 2],
+			[4, 4],
+			[5, 4],
+			[6, 6],
+			[7, 6],
+			[8, 8],
+			[9, 8],
+			[10, 10],
+		];
+	}
 }
 ?>

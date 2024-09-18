@@ -475,6 +475,7 @@ function is_valid_season_name($season) {
  * Figure out if this meal is a Saturday
  *
  * @param string $date_str a parseable, human readable date.
+ * @return boolean if this date is a saturday
  */
 function is_saturday($date_str) {
     // Convert the date string into a DateTime object
@@ -492,6 +493,7 @@ function is_saturday($date_str) {
  * Figure out if this date is the first saturday of the month.
  *
  * @param string $date_str a parseable, human readable date.
+ * @return boolean if this is the first saturday.
  */
 function is_first_saturday($date_str) {
 	if (!is_saturday($date_str)) {
@@ -505,6 +507,19 @@ function is_first_saturday($date_str) {
 
     // Check if it's the first Saturday (1st to 7th of the month)
     return ($dayOfMonth <= 7);
+}
+
+/**
+ * Get an even number. If this is odd, then subtract one.
+ *
+ * @param int $number the amount to evaluate.
+ * @return int the nearest even value.
+ */
+function get_nearest_even($number) {
+	if ($number % 2 == 0) {
+		return $number;
+	}
+	return $number - 1;
 }
 
 ?>
