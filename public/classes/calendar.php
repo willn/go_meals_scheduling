@@ -1028,7 +1028,8 @@ EOHTML;
 		// compute the total row
 		foreach($this->num_shifts as $job_name=>$count) {
 			// shift down to an even count
-			$jobs[$job_name] = get_nearest_even($count);
+			$jobs[$job_name] = (SUB_SEASON_FACTOR == 1.0) ? 
+				get_nearest_even($count) : $count;
 			$jobs['total'] += $jobs[$job_name];
 		}
 
@@ -1118,7 +1119,8 @@ EOHTML;
 
 		foreach($summary as $job_id => $dates) {
 			// force all meal counts to be even
-			$date_count = get_nearest_even($dates);
+			$date_count = (SUB_SEASON_FACTOR == 1.0) ? 
+				get_nearest_even($dates) : $dates;
 
 			$num_workers = get_num_workers_per_job_per_meal($job_id);
 			$shifts = get_num_meals_per_assignment($this->season_months,
