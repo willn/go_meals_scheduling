@@ -15,7 +15,7 @@ abstract class Meal {
 	protected $schedule;
 	protected $date;
 	protected $day_of_week;
-	const BILLING_FORMULA = '567'; // GO at GO
+	const BILLING_FORMULA = '827'; // 15% with portion sizes
 
 	const HOBART = 'hobart';
 	const AVOID_WORKERS = 'avoid_workers';
