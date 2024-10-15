@@ -3,27 +3,27 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('July 25, 2024, 8:00pm'));
+define('DEADLINE', strtotime('October 25, 2024, 8:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', FALL_WINTER);
+define('SEASON_NAME', FALL);
 
 // If this is a whole season, then 1, half .5, etc.
-define('SUB_SEASON_FACTOR', 1.0);
+define('SUB_SEASON_FACTOR', .5);
 
 /* ----------- job ids --------------- */
-define('SUNDAY_ASST_COOK', 7053);
-define('SUNDAY_CLEANER', 7056);
-define('SUNDAY_HEAD_COOK', 7052);
-define('BRUNCH_ASST_COOK', 7624);
-define('BRUNCH_CLEANER', 7628);
-define('BRUNCH_HEAD_COOK', 7623);
-define('WEEKDAY_ASST_COOK', 7622);
-define('WEEKDAY_CLEANER', 7627);
-define('WEEKDAY_HEAD_COOK', 7621);
+define('SUNDAY_ASST_COOK', 7919);
+define('SUNDAY_CLEANER', 7923);
+define('SUNDAY_HEAD_COOK', 7918);
+define('BRUNCH_ASST_COOK', 8042);
+define('BRUNCH_CLEANER', 8043);
+define('BRUNCH_HEAD_COOK', 8041);
+define('WEEKDAY_ASST_COOK', 7917);
+define('WEEKDAY_CLEANER', 7922);
+define('WEEKDAY_HEAD_COOK', 7916);
 
 // placeholder for future jobs
 # define('WEEKDAY_LAUNDRY', 9998);
@@ -36,13 +36,13 @@ define('MEETING_NIGHT_ORDERER', 7626);
 /* ----------- job titles --------------- */
 define('MEETING_NIGHT_CLEANER_NAME', 'Meeting night cleaner');
 define('MEETING_NIGHT_ORDERER_NAME', 'Mtg takeout orderer (2 meals)');
-define('SUNDAY_ASST_COOK_NAME', 'Sunday asst cook');
-define('SUNDAY_CLEANER_NAME', 'Sunday Meal cleaner');
-define('SUNDAY_HEAD_COOK_NAME', 'Sunday head cook');
-define('BRUNCH_ASST_COOK_NAME', 'Brunch asst cook');
-define('BRUNCH_CLEANER_NAME', 'Brunch Meal cleaner');
-define('BRUNCH_HEAD_COOK_NAME', 'Brunch head cook');
-# define('BRUNCH_LAUNDRY_NAME', 'Brunch Laundry');
+define('SUNDAY_ASST_COOK_NAME', 'Sunday evening asst cook');
+define('SUNDAY_CLEANER_NAME', 'Sunday Evening Meal cleaner');
+define('SUNDAY_HEAD_COOK_NAME', 'Sunday Evening head cook');
+define('BRUNCH_ASST_COOK_NAME', 'Saturday Brunch asst cook');
+define('BRUNCH_CLEANER_NAME', 'Saturday Brunch Meal cleaner');
+define('BRUNCH_HEAD_COOK_NAME', 'Saturday Brunch head cook');
+# define('BRUNCH_LAUNDRY_NAME', 'Saturday Brunch Laundry');
 define('WEEKDAY_ASST_COOK_NAME', 'Weekday asst cook');
 define('WEEKDAY_CLEANER_NAME', 'Weekday Meal cleaner');
 define('WEEKDAY_HEAD_COOK_NAME', 'Weekday head cook');
@@ -73,6 +73,11 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
+		/* 
+		 * XXX need to cancel:
+		 * 8 weekdays
+		 * 4 sundays
+		 */
 	];
 }
 
@@ -103,8 +108,7 @@ function get_weekday_overrides() {
  */
 function get_meeting_night_overrides() {
 	return [
-		1 => [22],
-		3 => [3],
+		# No meeting night meals this season
 	];
 }
 

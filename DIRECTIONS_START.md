@@ -18,7 +18,7 @@ committee needs to know how much meals labor will be needed.
   - Update `LOCATIONS_TO_RESERVE`
 * Which jobs will we be using this season?
   - Disable any un-needed meals in `public/utils.php` in the
-  `get_meal_type_by_date()` functin.
+  `get_meal_type_by_date()` function.
 
 ### Ask Process committee
 * Are there any meeting nights that will be rescheduled?
@@ -79,9 +79,7 @@ If this is mid-season, skip to the [MID-SEASON section](./DIRECTIONS_START_MID_S
 ```
 cd sql/
 scp gocoho.tklapp.com:/home/django/work/db.sqlite3 .
-
 # run the database prep script for cleaning
-cd sql/
 ../utils/translate_sqlite_to_mysql.sh
 
 # confirm that we got the needed tables
@@ -111,6 +109,7 @@ cat work.sql add_gather_ids.sql scheduling_survey_schema.sql > imports.sql
 mysql -u gocoho_work_allocation -p gocoho_work_allocation < imports.sql
 
 # confirm - there should be 8 tables
+mysql -u gocoho_work_allocation -p gocoho_work_allocation
 mysql> show tables;
 +----------------------------------+
 | Tables_in_gocoho_work_allocation |
@@ -125,21 +124,28 @@ mysql> show tables;
 | work_app_season                  |
 +----------------------------------+
 8 rows in set (0.00 sec)
+```
 
-# confirm that the recently created users have a gather ID
-select id, username, date_joined from auth_user
+* Look for any recently added users who are missing a Gather ID
+```
+select username from auth_user
 	WHERE date_joined > DATE_ADD(CURDATE(), INTERVAL -366 DAY) AND
 		gather_id is NULL order by date_joined;
+```
+If there is anyone listed here, find their ID in Gather & update the
+list in the `add_gather_ids.sql` file
 
-## if missing, find in Gather & update in the `add_gather_ids.sql` file
-
-### get new job IDs for the season, and update the defines for each job in config.php
+* get new job IDs for the season, and update the defines for each job in config.php
 ```
 cd utils/
 php find_current_season_jobs.php
-# copy that block and replace the previous season's entries in this file:
-vi ../public/season.php
 ```
+
+If there are problems, compare the names of the jobs in the system with
+entries like `WEEKDAY_HEAD_COOK_NAME`.
+
+Copy the results block and replace the previous season's entries in this file:
+`vi ../public/season.php`
 
 ### update the unit tests which are going to fail based on changed info
 

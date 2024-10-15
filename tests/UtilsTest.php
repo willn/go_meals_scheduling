@@ -160,12 +160,8 @@ class UtilsTest extends TestCase {
 		return [
 			[
 				[7 => [4], 12 => [25]],
-				[7 => [4], 9 => $this->get_september_dates(), 12 => [25]]],
+				[7 => [4], 8 => [31], 9 => [1], 12 => [25]]],
 		];
-	}
-
-	public function get_september_dates() {
-		return [(LABOR_DAY - 1), LABOR_DAY];
 	}
 
 	/**
@@ -197,8 +193,6 @@ class UtilsTest extends TestCase {
 	}
 
 	public function provide_get_holidays() {
-		$september_dates = [(LABOR_DAY - 1), LABOR_DAY];
-
 		$days = [
 			1 => [1, 20],
 			// easter changes
@@ -206,7 +200,8 @@ class UtilsTest extends TestCase {
 			// Memorial Day changes
 			5 => [25, 26],
 			7 => [4],
-			9 => $this->get_september_dates(),
+			8 => [31],
+			9 => [1],
 			10 => [31],
 			11 => [11, 28],
 			12 => [24, 25, 31],

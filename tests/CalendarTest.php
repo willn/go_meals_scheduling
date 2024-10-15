@@ -178,10 +178,6 @@ EOHTML;
 			['x', 'x'],
 			[MEETING_NIGHT_CLEANER_NAME, 'Meeting night cleaner'],
 			[MEETING_NIGHT_ORDERER_NAME, MEETING_NIGHT_ORDERER_NAME],
-			[SUNDAY_HEAD_COOK_NAME, 'head cook'],
-			[SUNDAY_ASST_COOK_NAME, 'asst cook'],
-			[SUNDAY_CLEANER_NAME, 'cleaner'],
-			[SUNDAY_HEAD_COOK_NAME, 'head cook'],
 			[WEEKDAY_ASST_COOK_NAME, 'asst cook'],
 			[WEEKDAY_CLEANER_NAME, 'cleaner'],
 		];
@@ -547,8 +543,8 @@ EOHTML;
 <br>{$brunch_asst_n} 33
 <br>{$brunch_head_n} 22
 <br>{$sun_clean_n} 2
-<br>{$sun_asst_n} 2
 <br>{$sun_head_n} 4
+<br>{$sun_asst_n} 2
 <br>{$week_clean_n} 4
 <br>{$week_asst_n} 6{$tsetter}
 <br>{$week_head_n} 12
@@ -1088,18 +1084,18 @@ EOHTML;
 			# MEETING_NIGHT_CLEANER => 4,
 			# MEETING_NIGHT_ORDERER => 4,
 
-			SUNDAY_ASST_COOK => 50,
-			SUNDAY_CLEANER => 75,
-			SUNDAY_HEAD_COOK => 25,
+			SUNDAY_ASST_COOK => 26,
+			SUNDAY_CLEANER => 39,
+			SUNDAY_HEAD_COOK => 13,
 
-			WEEKDAY_ASST_COOK => 122,
-			WEEKDAY_CLEANER => 183,
-			WEEKDAY_HEAD_COOK => 61,
+			WEEKDAY_ASST_COOK => 58,
+			WEEKDAY_CLEANER => 87,
+			WEEKDAY_HEAD_COOK => 29,
 			# WEEKDAY_LAUNDRY => 21,
 
-			BRUNCH_ASST_COOK => 12,
-			BRUNCH_CLEANER => 18,
-			BRUNCH_HEAD_COOK => 6,
+			BRUNCH_ASST_COOK => 6,
+			BRUNCH_CLEANER => 9,
+			BRUNCH_HEAD_COOK => 3,
 			# BRUNCH_LAUNDRY => 8,
 		];
 
@@ -1156,14 +1152,18 @@ EOHTML;
 			#MEETING_NIGHT_CLEANER => 4,
 			#MEETING_NIGHT_ORDERER => 4,
 
-			WEEKDAY_ASST_COOK => 42,
-			WEEKDAY_CLEANER => 21,
-			WEEKDAY_HEAD_COOK => 21,
+			SUNDAY_ASST_COOK => 26,
+			SUNDAY_CLEANER => 13,
+			SUNDAY_HEAD_COOK => 13,
+
+			WEEKDAY_ASST_COOK => 58,
+			WEEKDAY_CLEANER => 29,
+			WEEKDAY_HEAD_COOK => 29,
 			# WEEKDAY_LAUNDRY => 7,
 
-			BRUNCH_ASST_COOK => 16,
-			BRUNCH_CLEANER => 8,
-			BRUNCH_HEAD_COOK => 8,
+			BRUNCH_ASST_COOK => 6,
+			BRUNCH_CLEANER => 3,
+			BRUNCH_HEAD_COOK => 3,
 			# BRUNCH_LAUNDRY => 3,
 		];
 
@@ -1197,9 +1197,9 @@ EOHTML;
 		// UPDATE-EACH-SEASON
 		$expected = [
 			'meeting' => 0,
-			'sunday' => 24,
-			'weekday' => 60,
-			'brunch' => 6,
+			'sunday' => 13,
+			'weekday' => 29,
+			'brunch' => 3,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
 			$carry += $item;

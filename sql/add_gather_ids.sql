@@ -95,5 +95,12 @@ UPDATE auth_user SET gather_id='8772' where username='danieloc';
 UPDATE auth_user SET gather_id='8960' where username='dales';
 UPDATE auth_user SET gather_id='8961' where username='lissa';
 UPDATE auth_user SET gather_id='8623' where username='trisha';
+UPDATE auth_user SET gather_id='9272' where username='adam';
+UPDATE auth_user SET gather_id='9273' where username='danielle';
+UPDATE auth_user SET gather_id='8082' where username='missy';
+UPDATE auth_user SET gather_id='8083' where username='jeremy';
+UPDATE auth_user SET gather_id='9348' where username='janice';
+UPDATE auth_user SET gather_id='9349' where username='jim';
+UPDATE auth_user SET gather_id='3147' where username='bonnie';
 
 

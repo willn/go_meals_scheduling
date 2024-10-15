@@ -26,7 +26,6 @@ class CurrentSeasonIds {
 		// don't use all_jobs here, because these string definitions are used
 		// to ultimately create the all_jobs array.  :)
 		$jobs = array(
-			#!!# Disable meal types here
 			# 'MEETING_NIGHT_CLEANER' => MEETING_NIGHT_CLEANER_NAME,
 			# 'MEETING_NIGHT_ORDERER' => MEETING_NIGHT_ORDERER_NAME,
 
@@ -58,6 +57,7 @@ EOSQL;
 				echo "define('{$define}', {$row['id']});\n";
 				$count++;
 			}
+
 			if ($prev === $count) {
 				echo "missed SQL: $sql\n";
 				exit;
