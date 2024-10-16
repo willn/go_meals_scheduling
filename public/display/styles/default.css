@@ -186,6 +186,7 @@ a.pill {
 }
 .radio_buttons label, .radio_buttons label span {
 	display: inline;
+	cursor: pointer;
 }
 label {
 	margin: 10px 10px 10px 0;
