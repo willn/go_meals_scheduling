@@ -174,8 +174,13 @@ class Survey {
 
 		$out = '';
 		foreach($shifts as $id=>$info) {
+			if ($info['instances'] < 1) {
+				continue;
+			}
+
 			$short_name = preg_replace("/ ?\(.*/", '', $info['name']);
-			$out .= "<div>{$info['instances']} meal(s) of {$short_name}</div>";
+			$plural = ($info['instances'] == 1) ? '' : 's';
+			$out .= "<div>{$info['instances']} meal{$plural} of {$short_name}</div>";
 		}
 		return <<<EOHTML
 			<div class="shift_instances">
