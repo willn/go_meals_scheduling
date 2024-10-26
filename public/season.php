@@ -3,7 +3,7 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('October 25, 2024, 8:00pm'));
+define('DEADLINE', strtotime('October 26, 2024, 9:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
@@ -63,8 +63,31 @@ function doing_csa_farm_meals() {
  */
 function get_num_shift_overrides() {
 	return [
+		# cancel these both sub-seasons
+		'dan' => [
+			BRUNCH_ASST_COOK => -1,
+			BRUNCH_CLEANER => -3,
+		],
+		'adam' => [BRUNCH_CLEANER => 1],
+		'alexc' => [
+			BRUNCH_CLEANER => 1,
+			WEEKDAY_CLEANER => -1,
+		],
+		'eric' => [BRUNCH_CLEANER => 1],
+		'danielle' => [BRUNCH_CLEANER => 1],
+		'missy' => [
+			BRUNCH_CLEANER => -3,
+			WEEKDAY_CLEANER => 1,
+		],
 	];
 }
+
+/*
+Brunch assignments:
+Nov 2nd: Lissa, Adam, Danielle (for her meal)
+Dec 7th: Lissa, Alex and Eric (for his meal)
+*/
+
 
 /**
  * Get the list of dates to skip or cancel, don't schedule a meal on this date.
@@ -78,6 +101,9 @@ function get_skip_dates() {
 		 * 8 weekdays
 		 * 4 sundays
 		 */
+
+		11 => [5], # election day already has a meal
+		1 => [4], # short staff on brunches
 	];
 }
 
@@ -95,7 +121,6 @@ function get_weekday_overrides() {
 		 * that would have been on March 5 meeting would be
 		 * Monday, March 3.
 		 */
-		1 => [20],
 		3 => [5],
 	];
 }
@@ -109,6 +134,7 @@ function get_weekday_overrides() {
 function get_meeting_night_overrides() {
 	return [
 		# No meeting night meals this season
+		1 => [6, 22],
 	];
 }
 
