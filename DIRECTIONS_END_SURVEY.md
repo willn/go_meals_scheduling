@@ -9,7 +9,7 @@ mysqldump -u gocoho_work_allocation -p gocoho_work_allocation > end_of_survey.sq
 
 # on localhost:
 cd meals_scheduling/sql/
-rsync -e 'ssh -p 1022' -avz gocoho@gocoho.org:/home/gocoho/end_of_survey.sql .
+rsync -e 'ssh' -avz gocoho@gocoho.org:/home/gocoho/end_of_survey.sql .
 
 # load it up locally
 mysql -u gocoho_work_allocation -p gocoho_work_allocation < end_of_survey.sql
@@ -18,13 +18,13 @@ mysql -u gocoho_work_allocation -p gocoho_work_allocation < end_of_survey.sql
 ## check for any un-assigned workers
 ```
 cd ../auto_assignments/
+# get list of un-fulfilled workers
 php execute.php -u
-cd ..
 ```
 
 ## Cancel extra meals
 ```
-cd auto_assignments/
+# cancel-o-matic mode
 php execute.php -x
 
 # if meals need to be cancelled, mark these in get_skip_dates()

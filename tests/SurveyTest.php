@@ -56,15 +56,15 @@ class SurveyTest extends TestCase {
 	public function provideRenderShiftsSummaryHtml() {
 		$ex1 = [
 			4597 => [
-				"name" => "Sunday Meal Cleaner (6 meals\/instance)",
+				"name" => SUNDAY_CLEANER_NAME . " (6 meals\/instance)",
 				"instances" => 9,
 			],
 			4596 => [
-				"name" => "Weekday Meal cleaner (6 meals\/instance)",
+				"name" => WEEKDAY_CLEANER_NAME . " (6 meals\/instance)",
 				"instances" => 8,
 			],
 			4592 => [
-				"name" => "Weekday asst cook (3 meals\/instance)",
+				"name" => WEEKDAY_ASST_COOK_NAME . " (3 meals\/instance)",
 				"instances" => 7,
 			],
 			4584 => [
@@ -72,13 +72,17 @@ class SurveyTest extends TestCase {
 				"instances" => 6,
 			],
 		];
+
+		$sunday_clean = SUNDAY_CLEANER_NAME;
+		$wk_clean = WEEKDAY_CLEANER_NAME;
+		$wk_asst_cook = WEEKDAY_ASST_COOK_NAME;
 		$out1 = <<<EOHTML
 <div class="shift_instances">
 	<h4>Assigned Meals:</h4>
-	<div>9 meal(s) of Sunday Meal Cleaner</div>
-	<div>8 meal(s) of Weekday Meal cleaner</div>
-	<div>7 meal(s) of Weekday asst cook</div>
-	<div>6 meal(s) of Weekday table setter</div>
+	<div>9 meals of {$sunday_clean}</div>
+	<div>8 meals of {$wk_clean}</div>
+	<div>7 meals of {$wk_asst_cook}</div>
+	<div>6 meals of Weekday table setter</div>
 </div>
 EOHTML;
 
@@ -91,7 +95,7 @@ EOHTML;
 		$out2 = <<<EOHTML
 <div class="shift_instances">
 	<h4>Assigned Meals:</h4>
-	<div>1 meal(s) of Mtg takeout/potluck orderer</div>
+	<div>1 meal of Mtg takeout/potluck orderer</div>
 </div>
 EOHTML;
 

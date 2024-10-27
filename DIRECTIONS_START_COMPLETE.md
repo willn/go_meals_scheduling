@@ -27,7 +27,7 @@ mv -f transfer_clean.sql transfer.sql
 Remove the various ' SET ' lines from the top and bottom of the file.
 
 # transfer the file to production
-scp -i ~/.ssh/id_dsa -P 1022 transfer.sql gocoho@gocoho.org:
+scp -i ~/.ssh/id_dsa transfer.sql gocoho@gocoho.org:
 
 # on gocoho:
 cd ~

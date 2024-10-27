@@ -78,7 +78,9 @@ class SeasonTest extends TestCase {
 		$overrides = get_meeting_night_overrides();
 		$this->assertIsArray($overrides);
 		#$this->assertEmpty($overrides);
-		$expected = [];
+		$expected = [
+			1 => [6, 22]
+		];
 		$debug = [
 			'overrides' => $overrides,
 			'expected' => $expected,

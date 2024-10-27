@@ -31,13 +31,13 @@ define('SCHEDULE_COMMENTS_TABLE', 'schedule_comments');
 define('SCHEDULE_PREFS_TABLE', 'schedule_prefs');
 define('SCHEDULE_SHIFTS_TABLE', 'schedule_shifts');
 
-define('NOT_A_MEAL', 0);
-define('HOLIDAY_NIGHT', 1);
-define('SKIP_NIGHT', 2);
-define('SUNDAY_MEAL', 3);
-define('WEEKDAY_MEAL', 4);
-define('MEETING_NIGHT_MEAL', 5);
-define('BRUNCH_MEAL', 6);
+define('NOT_A_MEAL', 'not-meal');
+define('HOLIDAY_NIGHT', 'holiday');
+define('SKIP_NIGHT', 'skip');
+define('SUNDAY_MEAL', 'sunday');
+define('WEEKDAY_MEAL', 'weekday');
+define('MEETING_NIGHT_MEAL', 'meeting');
+define('BRUNCH_MEAL', 'brunch');
 
 define('ALL_ID', 'all');
 
