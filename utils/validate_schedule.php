@@ -51,18 +51,18 @@ foreach($schedule as $meal_line) {
 	// look for schedule 'avoid' conflicts
 	foreach($avoids as $worker=>$names) {
 		if (isset($cooks[$worker])) {
-			foreach($names as $n) {
-				if (isset($cooks[$n])) {
-					print "CONFLICT: cooks $date $worker -> $n\n";
+			foreach($names as $other) {
+				if (isset($cooks[$other])) {
+					print "CONFLICT: {$date} cook {$worker} wants to avoid {$other}\n";
 					$found_conflict = TRUE;
 				}
 			}
 		}
 
 		if (isset($cleaners[$worker])) {
-			foreach($names as $n) {
-				if (isset($cleaners[$n])) {
-					print "CONFLICT: cleaners $date $worker -> $n\n";
+			foreach($names as $other) {
+				if (isset($cleaners[$other])) {
+					print "CONFLICT: {$date} cleaner {$worker} wants to avoid {$other}\n";
 					$found_conflict = TRUE;
 				}
 			}

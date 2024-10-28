@@ -64,17 +64,22 @@ function doing_csa_farm_meals() {
 function get_num_shift_overrides() {
 	return [
 		# cancel these both sub-seasons
-		'dan' => [
-			BRUNCH_ASST_COOK => -1,
-			BRUNCH_CLEANER => -3,
-		],
 		'adam' => [BRUNCH_CLEANER => 1],
 		'alexc' => [
 			BRUNCH_CLEANER => 1,
 			WEEKDAY_CLEANER => -1,
 		],
+		'dan' => [
+			BRUNCH_ASST_COOK => -1,
+			BRUNCH_CLEANER => -3,
+		],
+		'danielle' => [
+			BRUNCH_CLEANER => 1
+			BRUNCH_HEAD_COOK => -2, # shift to second half of season
+		],
 		'eric' => [BRUNCH_CLEANER => 1],
-		'danielle' => [BRUNCH_CLEANER => 1],
+		# eric could have another brunch head cook in 2nd half of season
+		'lauram' => [BRUNCH_HEAD_COOK => 1], #borrow 1 from 2nd half of season
 		'missy' => [
 			BRUNCH_CLEANER => -3,
 			WEEKDAY_CLEANER => 1,
@@ -96,14 +101,9 @@ Dec 7th: Lissa, Alex and Eric (for his meal)
  */
 function get_skip_dates() {
 	return [
-		/* 
-		 * XXX need to cancel:
-		 * 8 weekdays
-		 * 4 sundays
-		 */
-
-		11 => [5], # election day already has a meal
-		1 => [4], # short staff on brunches
+		11 => [3, 5, 27], # election day already has a meal
+		12 => [23, 29],
+		1 => [4, 5], # short staff on brunches
 	];
 }
 

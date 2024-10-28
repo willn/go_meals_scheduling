@@ -25,7 +25,7 @@ $header_cols = [
 	'head_cook' => 'Head Cook',
 	'asst_cook' => 'Assistant Cook',
 	'cleaner' => 'Cleaner',
-	'table_setter' => 'Table Setter',
+	# 'table_setter' => 'Table Setter',
 	'action' => 'Action',
 ];
 $translated_lines = [
@@ -91,12 +91,12 @@ foreach($data as $entry) {
 		'head_cook' => $head_cook,
 		'asst_cook' => implode(';', $assts),
 		'cleaner' => implode(';', $cleaners),
-		'table_setter' => $table_setter,
+		# 'table_setter' => $table_setter,
 		'action' => CREATE,
 	];	
 	$translated_lines[] = implode(',', array_values($translated)) . "\n";
 
-	$list = array_merge([$head_cook], $assts, $cleaners, [$table_setter]);
+	$list = array_merge([$head_cook], $assts, $cleaners); #, [$table_setter]);
 	foreach($list as $gather_id) {
 		if (strpos($gather_id, MISSING) === 0) {
 			$missing_users[$gather_id] = 1;
