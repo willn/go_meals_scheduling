@@ -74,7 +74,7 @@ function get_num_shift_overrides() {
 			BRUNCH_CLEANER => -3,
 		],
 		'danielle' => [
-			BRUNCH_CLEANER => 1
+			BRUNCH_CLEANER => 1,
 			BRUNCH_HEAD_COOK => -2, # shift to second half of season
 		],
 		'eric' => [BRUNCH_CLEANER => 1],
