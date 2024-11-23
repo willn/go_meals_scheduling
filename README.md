@@ -4,6 +4,11 @@ Used by Great Oak Cohousing Association to schedule common meals over a several
 month season. This comprises both a survey for workers to fill out, as well as
 an auto-allocation algorithm looking for the best fit.
 
+## Screenshots
+
+![Survey](./screenshots/survey.png)
+![Survey Results](./screenshots/survey_results.png)
+
 [Structural Diagram in diagrams.net](https://app.diagrams.net/#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fwilln%2Fgo_meals_scheduling%2Fmaster%2Fdraw_io.xml)
 
 ## Terms:
