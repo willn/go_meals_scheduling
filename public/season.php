@@ -3,13 +3,13 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('October 26, 2024, 9:00pm'));
+define('DEADLINE', strtotime('January 25, 2025, 8:00pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', FALL);
+define('SEASON_NAME', WINTER);
 
 // If this is a whole season, then 1, half .5, etc.
 define('SUB_SEASON_FACTOR', .5);
@@ -63,36 +63,48 @@ function doing_csa_farm_meals() {
  */
 function get_num_shift_overrides() {
 	return [
-		# cancel these both sub-seasons
-		'adam' => [BRUNCH_CLEANER => 1],
-		'alexc' => [
-			BRUNCH_CLEANER => 1,
-			WEEKDAY_CLEANER => -1,
-		],
 		'dan' => [
+			# cancel these both sub-seasons
 			BRUNCH_ASST_COOK => -1,
 			BRUNCH_CLEANER => -3,
 		],
-		'danielle' => [
-			BRUNCH_CLEANER => 1,
-			BRUNCH_HEAD_COOK => -2, # shift to second half of season
+
+		'alexc' => [
+			BRUNCH_ASST_COOK => 1, # missed in 1st half
+			WEEKDAY_CLEANER => -1,
 		],
-		'eric' => [BRUNCH_CLEANER => 1],
-		# eric could have another brunch head cook in 2nd half of season
-		'lauram' => [BRUNCH_HEAD_COOK => 1], #borrow 1 from 2nd half of season
+		'annaharrison' => [
+			#!# need to add as a new worker
+			BRUNCH_CLEANER => 2 # volunteer
+		],
+		'danielle' => [
+			BRUNCH_ASST_COOK => 1, # missed in 1st half
+			BRUNCH_HEAD_COOK => 1, # missed in 1st half
+		],
+		'eric' => [
+			BRUNCH_ASST_COOK => 1, # missed in 1st half
+			BRUNCH_HEAD_COOK => 1, # missed in 1st half
+		],
+		'lissa' => [
+			BRUNCH_CLEANER => 2, # missed in 1st half
+		],
 		'missy' => [
-			BRUNCH_CLEANER => -3,
+			BRUNCH_CLEANER => 2, # missed in 1st half
 			WEEKDAY_CLEANER => 1,
+		],
+		'marta' => [
+			BRUNCH_ASST_COOK => 1, # volunteer
+		],
+		'marycaplon' => [
+			// #!# need to add Mary as a new worker
+			BRUNCH_CLEANER => 3,
+			BRUNCH_ASST_COOK => 2,
+		],
+		'sallie' => [
+			SUNDAY_CLEANER => 3 # volunteer
 		],
 	];
 }
-
-/*
-Brunch assignments:
-Nov 2nd: Lissa, Adam, Danielle (for her meal)
-Dec 7th: Lissa, Alex and Eric (for his meal)
-*/
-
 
 /**
  * Get the list of dates to skip or cancel, don't schedule a meal on this date.
@@ -101,9 +113,6 @@ Dec 7th: Lissa, Alex and Eric (for his meal)
  */
 function get_skip_dates() {
 	return [
-		11 => [3, 5, 27], # election day already has a meal
-		12 => [23, 29],
-		1 => [4, 5], # short staff on brunches
 	];
 }
 
@@ -116,10 +125,9 @@ function get_skip_dates() {
 function get_weekday_overrides() {
 	return [
 		/*
-		 * the MLK day community meeting will be Wed., Jan 22
-		 * instead of Jan. 20. Due to Ash Wednesday, the meeting
-		 * that would have been on March 5 meeting would be
-		 * Monday, March 3.
+		 * Due to Ash Wednesday, the meeting that would have
+		 * been on March 5, will instead be on Monday, March 3.
+		 * This leaves Ash Wednesday to be a regular weekday meal.
 		 */
 		3 => [5],
 	];
@@ -133,8 +141,11 @@ function get_weekday_overrides() {
  */
 function get_meeting_night_overrides() {
 	return [
-		# No meeting night meals this season
-		1 => [6, 22],
+		/*
+		 * Due to Ash Wednesday, the meeting that would have
+		 * been on March 5, will instead be on Monday, March 3.
+		 */
+		3 => [3],
 	];
 }
 
@@ -150,24 +161,24 @@ function get_current_season_months($season_name=NULL) {
 	}
 
 	$winter = [
-		2=>'February',
-		3=>'March',
-		4=>'April',
+		2 => 'February',
+		3 => 'March',
+		4 => 'April',
 	];
 	$spring = [
-		5=>'May',
-		6=>'June',
-		7=>'July',
+		5 => 'May',
+		6 => 'June',
+		7 => 'July',
 	];
 	$summer = [
-		8=>'August',
-		9=>'September',
-		10=>'October',
+		8 => 'August',
+		9 => 'September',
+		10 => 'October',
 	];
 	$fall = [
-		11=>'November',
-		12=>'December',
-		1=>'January',
+		11 => 'November',
+		12 => 'December',
+		1 => 'January',
 	];
 
 	switch($season_name) {

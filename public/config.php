@@ -225,15 +225,19 @@ function get_num_workers_per_job_per_meal($job_id=NULL) {
  */
 function get_hobarters() {
 	return [
+		'alex',
 		'amyh',
 		'dan',
 		'erik',
 		'hope',
 		'jillian',
+		'keith',
 		'kathyboblitt',
 		'mac',
 		'maryking',
+		'michael',
 		'nikki',
+		'sallie',
 		'ted',
 		'willie',
 	];

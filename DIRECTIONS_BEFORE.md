@@ -56,3 +56,5 @@ Push the code to the webserver:
 Open the scheduling system in a web browser, and check the summary report. At
 the bottom, it should have a report listing the amount of labor needed.
 
+## Continue
+Continue on to the next step of [START](./DIRECTIONS_START.md)

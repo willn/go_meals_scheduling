@@ -20,6 +20,10 @@ into the work system yet.
 If someone new has moved in, or started working in the system, their usernames
 will need to be added.
 
+If this user has been mentioned in `get_num_shift_overrides()`, then ensure
+that this username matches what is entered into the database in the next few
+lines.
+
 ```
 # Confirm who the most recently added workers are:
 SELECT id, first_name, last_name FROM auth_user ORDER BY id DESC LIMIT 5;
@@ -28,6 +32,8 @@ SELECT id, first_name, last_name FROM auth_user ORDER BY id DESC LIMIT 5;
 INSERT INTO auth_user VALUES(NULL, NULL, 0, 'FIRST-NAME', 'LAST-NAME',
 	'example@asdf.com', 0, 1, '2023-07-15', 'username', 12349999);
 ```
+
+## Add a full work assignment for a new worker
 
 If that new person will be taking on an entire assigned job, then insert that
 into the database. Otherwise, use overrides in the `season.php` file to account
@@ -54,6 +60,8 @@ mysql> select max(id) from work_app_season;
 	"worker_id"
 mysql> INSERT INTO work_app_assignment VALUES(13623, '', 1, 4594, 0, 33, 164);
 ```
+
+## Initialize Database Again
 
 If new workers were added, then the database will need to be initialized again.
 
