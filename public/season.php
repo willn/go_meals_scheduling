@@ -63,12 +63,10 @@ function doing_csa_farm_meals() {
  */
 function get_num_shift_overrides() {
 	return [
-		'dan' => [
-			# cancel these both sub-seasons
-			BRUNCH_ASST_COOK => -1,
-			BRUNCH_CLEANER => -3,
-		],
 
+		'amyh' => [
+			WEEKDAY_HEAD_COOK => 1, # from Hope
+		],
 		'alexc' => [
 			BRUNCH_ASST_COOK => 1, # missed in 1st half
 			WEEKDAY_CLEANER => -1,
@@ -77,6 +75,11 @@ function get_num_shift_overrides() {
 			#!# need to add as a new worker
 			BRUNCH_CLEANER => 2 # volunteer
 		],
+		'dan' => [
+			# cancel these both sub-seasons
+			BRUNCH_ASST_COOK => -1,
+			BRUNCH_CLEANER => -3,
+		],
 		'danielle' => [
 			BRUNCH_ASST_COOK => 1, # missed in 1st half
 			BRUNCH_HEAD_COOK => 1, # missed in 1st half
@@ -84,6 +87,11 @@ function get_num_shift_overrides() {
 		'eric' => [
 			BRUNCH_ASST_COOK => 1, # missed in 1st half
 			BRUNCH_HEAD_COOK => 1, # missed in 1st half
+		],
+		'hope' => [
+			SUNDAY_CLEANER => -3, # 1 taken, by Pat
+			WEEKDAY_HEAD_COOK => -1, # taken
+			SUNDAY_HEAD_COOK => -1,
 		],
 		'lissa' => [
 			BRUNCH_CLEANER => 2, # missed in 1st half
@@ -99,6 +107,9 @@ function get_num_shift_overrides() {
 			// #!# need to add Mary as a new worker
 			BRUNCH_CLEANER => 3,
 			BRUNCH_ASST_COOK => 2,
+		],
+		'pat' => [
+			SUNDAY_CLEANER => 1, # from Hope
 		],
 		'sallie' => [
 			SUNDAY_CLEANER => 3 # volunteer
