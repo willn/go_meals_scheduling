@@ -75,6 +75,9 @@ function get_num_shift_overrides() {
 			#!# need to add as a new worker
 			BRUNCH_CLEANER => 2 # volunteer
 		],
+		'dales' => [
+			SUNDAY_CLEANER => 1, # volunteer for Hope
+		],
 		'dan' => [
 			# cancel these both sub-seasons
 			BRUNCH_ASST_COOK => -1,
@@ -89,7 +92,7 @@ function get_num_shift_overrides() {
 			BRUNCH_HEAD_COOK => 1, # missed in 1st half
 		],
 		'hope' => [
-			SUNDAY_CLEANER => -3, # 1 taken, by Pat
+			SUNDAY_CLEANER => -3, # 2 taken, by Pat & Dale J
 			WEEKDAY_HEAD_COOK => -1, # taken
 			SUNDAY_HEAD_COOK => -1,
 		],
