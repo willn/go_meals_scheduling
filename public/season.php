@@ -96,11 +96,7 @@ function get_num_shift_overrides() {
 			WEEKDAY_HEAD_COOK => -1, # taken
 			SUNDAY_HEAD_COOK => -1,
 		],
-		'lissa' => [
-			BRUNCH_CLEANER => 2, # missed in 1st half
-		],
 		'missy' => [
-			BRUNCH_CLEANER => 2, # missed in 1st half
 			WEEKDAY_CLEANER => 1,
 		],
 		'marta' => [
