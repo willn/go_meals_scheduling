@@ -73,7 +73,8 @@ function get_num_shift_overrides() {
 		],
 		'annaharrison' => [
 			#!# need to add as a new worker
-			BRUNCH_CLEANER => 2 # volunteer
+			BRUNCH_CLEANER => 2, # volunteer
+			SUNDAY_CLEANER => 2, # volunteer
 		],
 		'dales' => [
 			SUNDAY_CLEANER => 1, # volunteer for Hope
@@ -90,11 +91,16 @@ function get_num_shift_overrides() {
 		'eric' => [
 			BRUNCH_ASST_COOK => 1, # missed in 1st half
 			BRUNCH_HEAD_COOK => 1, # missed in 1st half
+			SUNDAY_HEAD_COOK => 1, # volunteer to bundle for Hope
+			SUNDAY_ASST_COOK => 2, # volunteer to bundle
+		],
+		'fatima' => [
+			SUNDAY_ASST_COOK => -3,
 		],
 		'hope' => [
-			SUNDAY_CLEANER => -3, # 2 taken, by Pat & Dale J
+			SUNDAY_CLEANER => -3, # 3 taken, by Pat & Dale J & Anna
 			WEEKDAY_HEAD_COOK => -1, # taken
-			SUNDAY_HEAD_COOK => -1,
+			SUNDAY_HEAD_COOK => -1, # taken by Eric
 		],
 		'missy' => [
 			WEEKDAY_CLEANER => 1,
@@ -111,8 +117,11 @@ function get_num_shift_overrides() {
 			SUNDAY_CLEANER => 1, # from Hope
 		],
 		'sallie' => [
-			SUNDAY_CLEANER => 3 # volunteer
+			SUNDAY_CLEANER => 3, # volunteer
 		],
+		'suzette' => [
+			SUNDAY_ASST_COOK => 1, # volunteer
+		]
 	];
 }
 
