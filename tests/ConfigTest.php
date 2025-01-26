@@ -219,7 +219,7 @@ class ConfigTest extends TestCase {
 	public function test_get_hobarters(){
 		$workers = get_hobarters();
 		$this->assertEquals(TRUE, is_array($workers));
-		$this->assertCount(11, $workers);
+		$this->assertCount(15, $workers);
 		$this->assertContains('willie', $workers);
 	}
 }

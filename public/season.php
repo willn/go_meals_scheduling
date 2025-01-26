@@ -3,7 +3,7 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('January 25, 2025, 8:00pm'));
+define('DEADLINE', strtotime('January 25, 2025, 8:30pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
@@ -132,6 +132,9 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
+		2 => [2, 4, 12, 18, 24],
+		3 => [10, 24, 31],
+		4 => [6, 7],
 	];
 }
 

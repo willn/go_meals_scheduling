@@ -135,7 +135,7 @@ EOSQL;
 			$this->schedule->initPlaceholderCount($job_id);
 			$this->roster->setJobId($job_id);
 			$this->schedule->sortPossibleRatios();
-			$least_poss = $this->schedule->getPossibleRatios();
+			$work_avail_ratio = $this->schedule->getPossibleRatios();
 
 			// keep assigning until all the meals have been assigned
 			$success = TRUE;
@@ -148,10 +148,10 @@ EOSQL;
 				$count = $this->schedule->getPlaceholderCount($job_id);
 				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
 					" Placeholder count {$count} for {$job_name}");
-				if (($count != 0) && !empty($least_poss)) {
+				if (($count != 0) && !empty($work_avail_ratio)) {
 					error_log(__FILE__ . ' ' . __LINE__ .
 						" ratios for {$job_name} (<1 is bad): " .
-						var_export($least_poss, TRUE));
+						var_export($work_avail_ratio, TRUE));
 				}
 			}
 		}
@@ -234,7 +234,7 @@ EOSQL;
 
 		$this->run();
 
-		$meal_overage = [];
+		$labor_shortfall = [];
 		$shifts_per_meal = [];
 		// figure out how much labor is available and needed for each job
 		foreach($shifts_needed as $job_id => $shifts_possible) {
@@ -251,12 +251,21 @@ EOSQL;
 			else if (is_a_mtg_night_job($job_id)) {
 				$jobs = get_mtg_jobs();
 			}
-			$meal_overage[$type][$job_id] = ($shifts_possible -
+			$labor_shortfall[$type][$job_id] = ($shifts_possible -
 				$labor_available[$job_id]);
 			$shifts_per_meal[$type][$job_id] =
 				get_num_workers_per_job_per_meal($job_id);
 		}
-		echo "meal overage: " . print_r($meal_overage, TRUE);
+		echo <<<EOM
+
+Labor Shortfall:
+* A positive number shows a deficit of labor, counting the number of shifts
+  that do not have enough labor to fill.
+* A negative number means that there is a surplus of labor
+------------------------------------------------------------
+
+EOM;
+		echo print_r($labor_shortfall, TRUE);
 		# echo "shifts per meal: " . print_r($shifts_per_meal, TRUE);
 
 		/*
@@ -272,20 +281,21 @@ EOSQL;
 			$this->schedule->setJobId($job_id);
 			$this->schedule->initPlaceholderCount($job_id);
 			$this->schedule->sortPossibleRatios();
-			$least_poss = $this->schedule->getPossibleRatios();
-			if (empty($least_poss)) {
+			$work_avail_ratio = $this->schedule->getPossibleRatios();
+			if (empty($work_avail_ratio)) {
 				continue;
 			}
 
-			# echo "least possible {$job_id}: " . print_r( $least_poss, true );
-			foreach($least_poss as $date => $ratio) {
+			# echo "least possible {$job_id}: " . print_r( $work_avail_ratio, true );
+			foreach($work_avail_ratio as $date => $ratio) {
 				if (!isset($date_points[$type][$date])) {
 					// initialize
 					$date_points[$type][$date] = $ratio;
 				}
 				else {
-					// integrate the ratio
-					$date_points[$type][$date] *= $ratio;
+					// use the smallest ratio
+					$date_points[$type][$date] =
+						min($date_points[$type][$date], $ratio);
 				}
 			}
 		}
@@ -296,7 +306,18 @@ EOSQL;
 			asort($sub);
 			$sorted_date_points[$key] = $sub;
 		}
-		echo "date points: " . print_r( $sorted_date_points, true );
+		echo <<<EOM
+
+Labor & calendar availability per date:
+For each date, display the ratio of the amount of available labor for that meal
+for the number of shifts which need to be filled for it. This combines the
+ratio for each of the shift types into one sortable number. If we need to
+cancel 1 or more meals, this can help pick which ones. Anything which is <1.0
+does not have enough labor.
+-------------------------------------------------------------
+
+EOM;
+		echo print_r( $sorted_date_points, true );
 
 		return NULL;
 	}

@@ -176,7 +176,7 @@ class UtilsTest extends TestCase {
 		return [
 			[
 				[7 => [4], 12 => [25]],
-				[7 => [4], 11 => [28], 12 => [25]]],
+				[7 => [4], 11 => [27, 30], 12 => [25]]],
 		];
 	}
 
@@ -203,7 +203,7 @@ class UtilsTest extends TestCase {
 			8 => [31],
 			9 => [1],
 			10 => [31],
-			11 => [11, 28],
+			11 => [11, 27, 30],
 			12 => [24, 25, 31],
 		];
 
@@ -251,7 +251,7 @@ class UtilsTest extends TestCase {
 		return [
 			['', NOT_A_MEAL],
 			['07/04/2018', HOLIDAY_NIGHT],
-			['04/7/2018', BRUNCH_MEAL],
+			['02/01/2025', BRUNCH_MEAL],
 			['04/14/2018', NOT_A_MEAL],
 			['04/15/2018', SUNDAY_MEAL],
 			# ['04/16/2018', MEETING_NIGHT_MEAL], # disable for now
@@ -314,7 +314,7 @@ class UtilsTest extends TestCase {
 
 	public function provide_get_a_meal_object() {
 		return [
-			['04/7/2018', 'BrunchMeal'],
+			['02/01/2025', 'BrunchMeal'],
 			['04/15/2018', 'SundayMeal'],
 			# ['04/16/2018', 'MeetingNightMeal'], # disable for now
 			['04/16/2018', 'Error'],

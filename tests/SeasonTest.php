@@ -79,7 +79,7 @@ class SeasonTest extends TestCase {
 		$this->assertIsArray($overrides);
 		#$this->assertEmpty($overrides);
 		$expected = [
-			1 => [6, 22]
+			3 => [3]
 		];
 		$debug = [
 			'overrides' => $overrides,
