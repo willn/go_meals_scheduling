@@ -30,7 +30,8 @@ php execute.php -x
 # if meals need to be cancelled, mark these in get_skip_dates()
 vi public/season.php
 
-# continue running and adjusting skipped dates, until zeroes appear
+# continue running and adjusting skipped dates, until there are no longer any
+# positive numbers
 php execute.php -x
 ```
 
@@ -60,7 +61,7 @@ cd auto_assignments/
 * then delete the placeholders for those shifts, just leave it blank
 
 ## upload a copy of the `schedule.txt` to google drive & import into a spreadsheet
-* refer to `non_filled_workers.txt` and try to move the under-assigned
+* refer to `not_filled_workers.txt` and try to move the under-assigned
   workers to fill the 'XXX' spots, making trades
 * do any swapping needed
 
@@ -78,6 +79,8 @@ chmod +x checks.sh
 ```
 
 Read the comments for special requests at the bottom of the full report as well.
+
+#!!# Eric wants to bundle sunday cook and do a "simple cook" meal
 
 ## Teen workers
 

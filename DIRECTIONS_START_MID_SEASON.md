@@ -30,7 +30,7 @@ SELECT id, first_name, last_name FROM auth_user ORDER BY id DESC LIMIT 5;
 
 # Create entries for these people in the `auth_user` table - last is gather ID
 INSERT INTO auth_user VALUES(NULL, NULL, 0, 'FIRST-NAME', 'LAST-NAME',
-	'example@asdf.com', 0, 1, '2023-07-15', 'username', 12349999);
+	'example@asdf.com', 0, 1, '2023-07-15', 'username', GATHER-ID);
 ```
 
 ## Add a full work assignment for a new worker
