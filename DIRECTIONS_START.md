@@ -76,7 +76,8 @@ select username from auth_user
 		gather_id is NULL order by date_joined;
 ```
 If there is anyone listed here, find their ID in Gather & update the
-list in the `add_gather_ids.sql` file
+list in the `add_gather_ids.sql` file. Next, run those statements in mysql to
+get the numbers assigned to the workers.
 
 * get new job IDs for the season, and update the defines for each job in config.php
 ```

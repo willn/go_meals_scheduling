@@ -102,5 +102,8 @@ UPDATE auth_user SET gather_id='8083' where username='jeremy';
 UPDATE auth_user SET gather_id='9348' where username='janice';
 UPDATE auth_user SET gather_id='9349' where username='jim';
 UPDATE auth_user SET gather_id='3147' where username='bonnie';
-
-
+UPDATE auth_user SET gather_id='9699' where username='huronlex';
+UPDATE auth_user SET gather_id='8939' where username='maryc';
+UPDATE auth_user SET gather_id='9697' where username='anna';
+UPDATE auth_user SET gather_id='9698' where username='josh';
+UPDATE auth_user SET gather_id='3021' where username='vera';

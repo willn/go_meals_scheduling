@@ -540,8 +540,8 @@ EOHTML;
 		}
 		$expected1 = <<<EOHTML
 <p>{$brunch_clean_n} 44
-<br>{$brunch_asst_n} 33
 <br>{$brunch_head_n} 22
+<br>{$brunch_asst_n} 33
 <br>{$sun_clean_n} 2
 <br>{$sun_head_n} 4
 <br>{$sun_asst_n} 2

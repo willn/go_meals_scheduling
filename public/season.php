@@ -15,19 +15,15 @@ define('SEASON_NAME', SPRING);
 define('SUB_SEASON_FACTOR', .5);
 
 /* ----------- job ids --------------- */
-define('SUNDAY_ASST_COOK', 7919);
-define('SUNDAY_CLEANER', 7923);
-define('SUNDAY_HEAD_COOK', 7918);
-define('BRUNCH_ASST_COOK', 8042);
-define('BRUNCH_CLEANER', 8043);
-define('BRUNCH_HEAD_COOK', 8041);
-define('WEEKDAY_ASST_COOK', 7917);
-define('WEEKDAY_CLEANER', 7922);
-define('WEEKDAY_HEAD_COOK', 7916);
-
-// placeholder for future jobs
-# define('WEEKDAY_LAUNDRY', 9998);
-# define('BRUNCH_LAUNDRY', 9999);
+define('SUNDAY_ASST_COOK', 8218);
+define('SUNDAY_CLEANER', 8208);
+define('SUNDAY_HEAD_COOK', 8212);
+define('BRUNCH_ASST_COOK', 8222);
+define('BRUNCH_CLEANER', 8227);
+define('BRUNCH_HEAD_COOK', 8221);
+define('WEEKDAY_ASST_COOK', 8210);
+define('WEEKDAY_CLEANER', 8209);
+define('WEEKDAY_HEAD_COOK', 8211);
 
 // previous season jobs, keep for unit tests & for the future
 define('MEETING_NIGHT_CLEANER', 7629);
@@ -36,12 +32,12 @@ define('MEETING_NIGHT_ORDERER', 7626);
 /* ----------- job titles --------------- */
 define('MEETING_NIGHT_CLEANER_NAME', 'Meeting night cleaner');
 define('MEETING_NIGHT_ORDERER_NAME', 'Mtg takeout orderer (2 meals)');
-define('SUNDAY_ASST_COOK_NAME', 'Sunday evening asst cook');
-define('SUNDAY_CLEANER_NAME', 'Sunday Evening Meal cleaner');
-define('SUNDAY_HEAD_COOK_NAME', 'Sunday Evening head cook');
+define('SUNDAY_ASST_COOK_NAME', 'Sunday evening asst cook (2 meals)');
+define('SUNDAY_CLEANER_NAME', 'Sunday Evening Meal cleaner (6 meals)');
+define('SUNDAY_HEAD_COOK_NAME', 'Sunday Evening head cook (2 meals)');
 define('BRUNCH_ASST_COOK_NAME', 'Saturday Brunch asst cook');
-define('BRUNCH_CLEANER_NAME', 'Saturday Brunch Meal cleaner');
-define('BRUNCH_HEAD_COOK_NAME', 'Saturday Brunch head cook');
+define('BRUNCH_CLEANER_NAME', 'Saturday Brunch Cleaner (2 instances)');
+define('BRUNCH_HEAD_COOK_NAME', 'Saturday Brunch Head Cook');
 # define('BRUNCH_LAUNDRY_NAME', 'Saturday Brunch Laundry');
 define('WEEKDAY_ASST_COOK_NAME', 'Weekday asst cook');
 define('WEEKDAY_CLEANER_NAME', 'Weekday Meal cleaner');

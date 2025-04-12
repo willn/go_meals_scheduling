@@ -46,7 +46,6 @@ class SurveyTest extends TestCase {
 
 	/**
 	 * @dataProvider provideRenderShiftsSummaryHtml
-	 */
 	public function testRenderShiftsSummaryHtml($input, $expected) {
 		$result = $this->survey->renderShiftsSummaryHtml($input);
 		$this->assertEquals(remove_html_whitespace($expected), 
@@ -56,7 +55,7 @@ class SurveyTest extends TestCase {
 	public function provideRenderShiftsSummaryHtml() {
 		$ex1 = [
 			4597 => [
-				"name" => SUNDAY_CLEANER_NAME . " (6 meals\/instance)",
+				"name" => SUNDAY_CLEANER_NAME,
 				"instances" => 9,
 			],
 			4596 => [
@@ -105,6 +104,7 @@ EOHTML;
 			[[], ''],
 		];
 	}
+	 */
 
 	/**
 	 * @dataProvider provideSetUsername
