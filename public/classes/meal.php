@@ -15,7 +15,7 @@ abstract class Meal {
 	protected $schedule;
 	protected $date;
 	protected $day_of_week;
-	const BILLING_FORMULA = '829'; // 15% with portion sizes
+	const BILLING_FORMULA = '846'; // May 2025 Formula
 
 	const HOBART = 'hobart';
 	const AVOID_WORKERS = 'avoid_workers';
@@ -70,16 +70,15 @@ abstract class Meal {
 	 *     type. Example: [SUNDAY_ASST_COOK, SUNDAY_CLEANER, SUNDAY_HEAD_COOK]
 	 */
 	public function initShifts($job_id_list) {
-		$job_instances = get_num_workers_per_job_per_meal();
 
 		foreach($job_id_list as $job_id) {
-			if (empty($job_instances[$job_id])) {
+			$job_instances = get_num_workers_per_job_per_meal($job_id);
+			if (empty($job_instances)) {
 				continue;
 			}
 
 			// allocate empty slots for each job needed
-			$num = $job_instances[$job_id];
-			for($i=0; $i<$num; $i++) {
+			for($i=0; $i<$job_instances; $i++) {
 				$this->assigned[$job_id][] = NULL;
 			}
 		}
@@ -186,11 +185,10 @@ EOTXT;
 	 * @return float the popularity / open spot ratio
 	 */
 	public function getNumPossibleWorkerRatio($job_id) {
-		$job_instances = get_num_workers_per_job_per_meal();
+		$job_instances = get_num_workers_per_job_per_meal($job_id);
 
 		// check to see if this is the wrong date for this job
-		if (!isset($job_instances[$job_id]) || 
-			($job_instances[$job_id] == 0)) {
+		if ($job_instances == 0) {
 			return 0;
 		}
 
@@ -215,16 +213,16 @@ EOTXT;
 	 * (Meal)
 	 */
 	public function hasOpenShifts($job_id) {
-		$job_instances = get_num_workers_per_job_per_meal();
+		$job_instances = get_num_workers_per_job_per_meal($job_id);
 
 		// if this day of week isn't defined. For example, a sunday shift on a
 		// weekday...
-		if (!isset($job_instances[$job_id])) {
+		if ($job_instances == 0) {
 			return FALSE;
 		}
 
 		// if this day of week has no shifts to fill
-		$num_to_fill = $job_instances[$job_id];
+		$num_to_fill = $job_instances;
 		if ($num_to_fill == 0) {
 			return FALSE;
 		}

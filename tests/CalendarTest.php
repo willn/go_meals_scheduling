@@ -1084,13 +1084,13 @@ EOHTML;
 			# MEETING_NIGHT_CLEANER => 4,
 			# MEETING_NIGHT_ORDERER => 4,
 
-			SUNDAY_ASST_COOK => 20,
-			SUNDAY_CLEANER => 30,
-			SUNDAY_HEAD_COOK => 10,
+			SUNDAY_ASST_COOK => 24,
+			SUNDAY_CLEANER => 36,
+			SUNDAY_HEAD_COOK => 12,
 
-			WEEKDAY_ASST_COOK => 50,
-			WEEKDAY_CLEANER => 75,
-			WEEKDAY_HEAD_COOK => 25,
+			WEEKDAY_ASST_COOK => 64,
+			WEEKDAY_CLEANER => 96,
+			WEEKDAY_HEAD_COOK => 32,
 			# WEEKDAY_LAUNDRY => 21,
 
 			BRUNCH_ASST_COOK => 6,
@@ -1109,7 +1109,7 @@ EOHTML;
     }
 
     /**
-     * @dataProvider providegetAssignmentsNeededForCurrentSeason
+     * @dataProvider provideGetAssignmentsNeededForCurrentSeason
      */
 	public function testGetAssignmentsNeededForCurrentSeason($expected) {
 		$result = $this->calendar->getAssignmentsNeededForCurrentSeason();
@@ -1152,17 +1152,17 @@ EOHTML;
 			#MEETING_NIGHT_CLEANER => 4,
 			#MEETING_NIGHT_ORDERER => 4,
 
-			SUNDAY_ASST_COOK => 20,
-			SUNDAY_CLEANER => 10,
-			SUNDAY_HEAD_COOK => 10,
+			SUNDAY_ASST_COOK => 24,
+			SUNDAY_CLEANER => 12,
+			SUNDAY_HEAD_COOK => 12,
 
-			WEEKDAY_ASST_COOK => 50,
-			WEEKDAY_CLEANER => 25,
-			WEEKDAY_HEAD_COOK => 25,
+			WEEKDAY_ASST_COOK => 64,
+			WEEKDAY_CLEANER => 32,
+			WEEKDAY_HEAD_COOK => 32,
 			# WEEKDAY_LAUNDRY => 7,
 
 			BRUNCH_ASST_COOK => 6,
-			BRUNCH_CLEANER => 3,
+			BRUNCH_CLEANER => 4,
 			BRUNCH_HEAD_COOK => 3,
 			# BRUNCH_LAUNDRY => 3,
 		];
@@ -1197,8 +1197,8 @@ EOHTML;
 		// UPDATE-EACH-SEASON
 		$expected = [
 			'meeting' => 0,
-			'sunday' => 10,
-			'weekday' => 25,
+			'sunday' => 12,
+			'weekday' => 32,
 			'brunch' => 3,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {

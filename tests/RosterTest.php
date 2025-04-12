@@ -57,7 +57,7 @@ class RosterTest extends TestCase {
 					# WEEKDAY_LAUNDRY => 0,
 
 					BRUNCH_ASST_COOK => 6,
-					BRUNCH_CLEANER => 9, 
+					BRUNCH_CLEANER => 6, 
 					BRUNCH_HEAD_COOK => 3,
 					# BRUNCH_LAUNDRY => 0,
 				]
@@ -93,7 +93,7 @@ class RosterTest extends TestCase {
 					MEETING_NIGHT_ORDERER => 0,
 
 					SUNDAY_ASST_COOK => 0,
-					SUNDAY_CLEANER => 4, 
+					SUNDAY_CLEANER => 0, 
 					SUNDAY_HEAD_COOK => 0,
 
 					WEEKDAY_ASST_COOK => 0,
@@ -101,9 +101,9 @@ class RosterTest extends TestCase {
 					WEEKDAY_HEAD_COOK => 0,
 					# BRUNCH_LAUNDRY => 0,
 
-					BRUNCH_ASST_COOK => 5,
-					BRUNCH_CLEANER => 2,
-					BRUNCH_HEAD_COOK => 2,
+					BRUNCH_ASST_COOK => 0,
+					BRUNCH_CLEANER => 0,
+					BRUNCH_HEAD_COOK => 0,
 					# WEEKDAY_LAUNDRY => 0,
 				]
 			]
@@ -153,10 +153,6 @@ class RosterTest extends TestCase {
 				 * have a formal work assignment.
 				 */
 				[
-					0 => 'amyh',
-					2 => 'annaharrison',
-					11 => 'marycaplon',
-					13 => 'sallie'
 				]
 			]
 		];
@@ -183,7 +179,7 @@ class RosterTest extends TestCase {
 					MEETING_NIGHT_ORDERER => 0,
 
 					SUNDAY_ASST_COOK => 20,
-					SUNDAY_CLEANER => 34, 
+					SUNDAY_CLEANER => 30, 
 					SUNDAY_HEAD_COOK => 10,
 
 					WEEKDAY_ASST_COOK => 50,
@@ -191,9 +187,9 @@ class RosterTest extends TestCase {
 					WEEKDAY_HEAD_COOK => 25,
 					# WEEKDAY_LAUNDRY => 0,
 
-					BRUNCH_ASST_COOK => 11,
-					BRUNCH_CLEANER => 11, 
-					BRUNCH_HEAD_COOK => 5,
+					BRUNCH_ASST_COOK => 6,
+					BRUNCH_CLEANER => 6, 
+					BRUNCH_HEAD_COOK => 3,
 					# BRUNCH_LAUNDRY => 0,
 				]
 			]

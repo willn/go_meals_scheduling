@@ -138,7 +138,7 @@ function get_num_meals_per_assignment($season, $job_id=NULL,
 		SUNDAY_HEAD_COOK => 2,
 
 		BRUNCH_ASST_COOK => 2,
-		BRUNCH_CLEANER => $num_months,
+		BRUNCH_CLEANER => 2,
 		BRUNCH_HEAD_COOK => 2,
 		# BRUNCH_LAUNDRY => $num_months,
 
@@ -227,6 +227,7 @@ function get_hobarters() {
 	return [
 		'alex',
 		'amyh',
+		'dales',
 		'dan',
 		'erik',
 		'hope',

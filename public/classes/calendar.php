@@ -293,8 +293,8 @@ EOHTML;
 						break;
 
 					case BRUNCH_MEAL:
-						// skip if not first saturday
-						if (!is_first_saturday($date_string)) {
+						// skip if not third saturday
+						if (!is_third_saturday($date_string)) {
 							$is_done = TRUE;
 						}
 						else {
@@ -554,7 +554,7 @@ EOHTML;
 		}
 
 		// XXX
-		if (($day_of_week === TUESDAY) && (($month_num > MAY) && ($month_num < NOVEMBER)))  {
+		if (($day_of_week === TUESDAY) && (($month_num > MAY) && ($month_num < NOVEMBER))) {
 			return self::FARM_MSG;
 		}
 		return '';
@@ -968,8 +968,7 @@ EOHTML;
 		}
 
 		$cell = '';
-		$job_titles = get_brunch_jobs() + get_mtg_jobs() +
-			get_weekday_jobs() + get_sunday_jobs();
+		$job_titles = get_all_jobs();
 
 		if ($this->key_filter != 'all') {
 			// don't figure out a listing for a non-supported day of week
@@ -1164,11 +1163,10 @@ EOHTML;
 		$dates_and_shifts = $this->evalDates();
 		$shifts_per_date = $this->getShiftsPerDate($dates_and_shifts);
 
-		$workers = get_num_workers_per_job_per_meal();
 
 		$out = [];
 		foreach($shifts_per_date as $job_id => $count) {
-			$num_workers = $workers[$job_id];
+			$num_workers = get_num_workers_per_job_per_meal($job_id);
 			$out[$job_id] = ($num_workers * $count);
 		}
 		return $out;

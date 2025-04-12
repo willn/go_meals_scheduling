@@ -141,10 +141,9 @@ class ConfigTest extends TestCase {
 			[$season_3mos, WEEKDAY_HEAD_COOK, .5, 1],
 			[$season_3mos, WEEKDAY_CLEANER, .5, 3],
 			# [$season_3mos, WEEKDAY_LAUNDRY, .5, 3],
-			// #!#
 			[$season_3mos, BRUNCH_ASST_COOK, .5, 1],
 			[$season_3mos, BRUNCH_HEAD_COOK, .5, 1],
-			[$season_3mos, BRUNCH_CLEANER, .5, 3],
+			[$season_3mos, BRUNCH_CLEANER, .5, 2],
 			# [$season_3mos, BRUNCH_LAUNDRY, .5, 3],
 
 			[$season_2mos, MEETING_NIGHT_CLEANER, .33, 1],
@@ -219,7 +218,7 @@ class ConfigTest extends TestCase {
 	public function test_get_hobarters(){
 		$workers = get_hobarters();
 		$this->assertEquals(TRUE, is_array($workers));
-		$this->assertCount(15, $workers);
+		$this->assertCount(16, $workers);
 		$this->assertContains('willie', $workers);
 	}
 }

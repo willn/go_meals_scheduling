@@ -194,7 +194,7 @@ class UtilsTest extends TestCase {
 
 	public function provide_get_holidays() {
 		$days = [
-			1 => [1, 20],
+			1 => [1, 19],
 			// easter changes
 			EASTER_MONTH => [EASTER_DAY],
 			// Memorial Day changes
@@ -251,7 +251,7 @@ class UtilsTest extends TestCase {
 		return [
 			['', NOT_A_MEAL],
 			['07/04/2018', HOLIDAY_NIGHT],
-			['02/01/2025', BRUNCH_MEAL],
+			['07/19/2025', BRUNCH_MEAL],
 			['04/14/2018', NOT_A_MEAL],
 			['04/15/2018', SUNDAY_MEAL],
 			# ['04/16/2018', MEETING_NIGHT_MEAL], # disable for now
@@ -314,7 +314,8 @@ class UtilsTest extends TestCase {
 
 	public function provide_get_a_meal_object() {
 		return [
-			['02/01/2025', 'BrunchMeal'],
+			['04/19/2025', 'BrunchMeal'],
+			['07/19/2025', 'BrunchMeal'],
 			['04/15/2018', 'SundayMeal'],
 			# ['04/16/2018', 'MeetingNightMeal'], # disable for now
 			['04/16/2018', 'Error'],
@@ -391,6 +392,36 @@ class UtilsTest extends TestCase {
 			['9/21/2024', FALSE],
 			['9/28/2024', FALSE],
 			['9/30/2024', FALSE],
+		];
+	}
+
+	/**
+	 * @dataProvider provide_is_third_saturday
+	 */
+	public function test_is_third_saturday($date, $expected) {
+		$result = is_third_saturday($date);
+		$debug = [
+			'result' => $result,
+			'expected' => $expected,
+			'date' => $date,
+		];
+		$this->assertEquals($result, $expected, print_r($debug, TRUE));
+	}
+
+	public function provide_is_third_saturday() {
+		return [
+			['2/15/2025', TRUE],
+			['3/15/2025', TRUE],
+			['4/19/2025', TRUE],
+			['6/21/2025', TRUE],
+
+			['4/1/2025', FALSE],
+			['4/5/2025', FALSE],
+			['4/12/2025', FALSE],
+			['4/15/2025', FALSE],
+			['4/21/2025', FALSE],
+			['4/26/2025', FALSE],
+			['4/30/2025', FALSE],
 		];
 	}
 

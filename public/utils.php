@@ -291,7 +291,7 @@ function get_first_associative_key($dict) {
  * Get the meal type for a given job ID.
  *
  * @param int $job_id The ID number for a given job.
- * @return int the number associated with a given constant for a type of meal night.
+ * @return string the constant associated with a given constant for a type of meal night.
  */
 function get_meal_type_by_job_id($job_id) {
 	$type = WEEKDAY_MEAL;
@@ -314,7 +314,7 @@ function get_meal_type_by_job_id($job_id) {
  * Isolate the logic for determining which kind of meal to use for a given date.
  *
  * @param string $date string of the date for the given meal.
- * @return int the number associated with a given constant for a type of meal night.
+ * @return string the constant associated with a given constant for a type of meal night.
  */
 function get_meal_type_by_date($date) {
 	# skip invalid dates
@@ -360,7 +360,7 @@ function get_meal_type_by_date($date) {
 
 	switch($day_of_week) {
 		case SATURDAY:
-			if (!is_first_saturday($date)) {
+			if (!is_third_saturday($date)) {
 				return NOT_A_MEAL;
 			}
 			return BRUNCH_MEAL;
@@ -508,6 +508,28 @@ function is_first_saturday($date_str) {
     // Check if it's the first Saturday (1st to 7th of the month)
     return ($dayOfMonth <= 7);
 }
+
+/**
+ * Figure out if this date is the third saturday of the month.
+ *
+ * @param string $date_str a parseable, human readable date.
+ * @return boolean if this is the third saturday.
+ */
+function is_third_saturday($date_str) {
+	if (!is_saturday($date_str)) {
+		return FALSE;
+	}
+
+    $date = DateTime::createFromFormat('m/d/Y', $date_str);
+
+    // Get the day of the month
+    $dayOfMonth = $date->format('j');
+
+    // Check if it's the third Saturday
+    return (($dayOfMonth > 14) && ($dayOfMonth < 22));
+}
+
+
 
 /**
  * Get an even number. If this is odd, then subtract one.

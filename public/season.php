@@ -3,13 +3,13 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('January 25, 2025, 8:30pm'));
+define('DEADLINE', strtotime('April 19, 2025, 8:30pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', WINTER);
+define('SEASON_NAME', SPRING);
 
 // If this is a whole season, then 1, half .5, etc.
 define('SUB_SEASON_FACTOR', .5);
@@ -48,12 +48,11 @@ define('WEEKDAY_CLEANER_NAME', 'Weekday Meal cleaner');
 define('WEEKDAY_HEAD_COOK_NAME', 'Weekday head cook');
 # define('WEEKDAY_LAUNDRY_NAME', 'Weekday Laundry');
 
-
 /**
  * Whether we're hosting CSA farm meals this summer.
  */
 function doing_csa_farm_meals() {
-	return FALSE;
+	return TRUE;
 }
 
 /**
@@ -63,65 +62,6 @@ function doing_csa_farm_meals() {
  */
 function get_num_shift_overrides() {
 	return [
-
-		'amyh' => [
-			WEEKDAY_HEAD_COOK => 1, # from Hope
-		],
-		'alexc' => [
-			BRUNCH_ASST_COOK => 1, # missed in 1st half
-			WEEKDAY_CLEANER => -1,
-		],
-		'annaharrison' => [
-			#!# need to add as a new worker
-			BRUNCH_CLEANER => 2, # volunteer
-			SUNDAY_CLEANER => 2, # volunteer
-		],
-		'dales' => [
-			SUNDAY_CLEANER => 1, # volunteer for Hope
-		],
-		'dan' => [
-			# cancel these both sub-seasons
-			BRUNCH_ASST_COOK => -1,
-			BRUNCH_CLEANER => -3,
-		],
-		'danielle' => [
-			BRUNCH_ASST_COOK => 1, # missed in 1st half
-			BRUNCH_HEAD_COOK => 1, # missed in 1st half
-		],
-		'eric' => [
-			BRUNCH_ASST_COOK => 1, # missed in 1st half
-			BRUNCH_HEAD_COOK => 1, # missed in 1st half
-			SUNDAY_HEAD_COOK => 1, # volunteer to bundle for Hope
-			SUNDAY_ASST_COOK => 2, # volunteer to bundle
-		],
-		'fatima' => [
-			SUNDAY_ASST_COOK => -3,
-		],
-		'hope' => [
-			SUNDAY_CLEANER => -3, # 3 taken, by Pat & Dale J & Anna
-			WEEKDAY_HEAD_COOK => -1, # taken
-			SUNDAY_HEAD_COOK => -1, # taken by Eric
-		],
-		'missy' => [
-			WEEKDAY_CLEANER => 1,
-		],
-		'marta' => [
-			BRUNCH_ASST_COOK => 1, # volunteer
-		],
-		'marycaplon' => [
-			// #!# need to add Mary as a new worker
-			BRUNCH_CLEANER => 3,
-			BRUNCH_ASST_COOK => 2,
-		],
-		'pat' => [
-			SUNDAY_CLEANER => 1, # from Hope
-		],
-		'sallie' => [
-			SUNDAY_CLEANER => 3, # volunteer
-		],
-		'suzette' => [
-			SUNDAY_ASST_COOK => 1, # volunteer
-		]
 	];
 }
 
@@ -132,9 +72,19 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		2 => [2, 4, 12, 18, 24],
-		3 => [10, 24, 31],
-		4 => [6, 7],
+
+	/*
+	Shift some skipped meals to the second half of the season...
+
+	Weekday HC: 31 (-1)
+	Weekday AC: 62 (-2)
+	Weekday CL: 31 (-1)
+
+	Sunday HC: 11 (-1)
+	Sunday AC: 22 (-2)
+	Sunday CL: 11 (-1)
+	*/
+
 	];
 }
 
@@ -146,12 +96,7 @@ function get_skip_dates() {
  */
 function get_weekday_overrides() {
 	return [
-		/*
-		 * Due to Ash Wednesday, the meeting that would have
-		 * been on March 5, will instead be on Monday, March 3.
-		 * This leaves Ash Wednesday to be a regular weekday meal.
-		 */
-		3 => [5],
+		10 => [1],
 	];
 }
 
@@ -163,11 +108,7 @@ function get_weekday_overrides() {
  */
 function get_meeting_night_overrides() {
 	return [
-		/*
-		 * Due to Ash Wednesday, the meeting that would have
-		 * been on March 5, will instead be on Monday, March 3.
-		 */
-		3 => [3],
+		10 => [6],
 	];
 }
 
