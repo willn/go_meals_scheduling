@@ -14,19 +14,10 @@ cd sql/
 # This needs to be the local mysql **root** user
 mysqldump -u root -p gocoho_work_allocation > transfer.sql
 
-# Remove bits from the SQL file which we don't want or need:
-cat transfer.sql | sed 's/^.*SET character_set_client =.*//' \
-	| sed 's/^.*SET @saved_cs_client     = @@character_set_client.*//' \
-	| sed 's/^.*SET character_set_client = @saved_cs_client.*//' \
-	| sed 's/^) \(.*\)$/) \1;/' \
-	| sed 's/ CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci//' \
-	| sed 's/ DEFAULT;//' \
-	> transfer_clean.sql
-mv -f transfer_clean.sql transfer.sql
+# Clean up the transfer SQL
+./clean_transfer_sql.sh
 
-Remove the various ' SET ' lines from the top and bottom of the file.
-
-# transfer the file to production
+# transfer the SQL file to production
 scp -i ~/.ssh/id_dsa transfer.sql gocoho@gocoho.org:
 
 # on gocoho:
