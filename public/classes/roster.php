@@ -192,7 +192,7 @@ EOSQL;
 	 *     of the worker to filter by. If not set, then get all.
 	 */
 	public function loadNumMealsFromDatabase($username=NULL) {
-		$meals_per_job = get_num_meals_per_assignment(
+		$shifts_per_assignment = get_num_meals_per_assignment(
 			get_current_season_months(), NULL, SUB_SEASON_FACTOR);
 
 		$job_ids_clause = get_job_ids_clause();
@@ -221,15 +221,15 @@ EOSQL;
 			$worker = $this->getWorker($username);
 
 			// determine the number of shifts across the season
-			if (!isset($meals_per_job[$job_id])) {
-				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " unable to find job id :{$job_id} in meals_per_job:" . var_export($meals_per_job, TRUE));
+			if (!isset($shifts_per_assignment[$job_id])) {
+				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " unable to find job id :{$job_id} in shifts_per_assignment:" . var_export($shifts_per_assignment, TRUE));
 				exit;
 			}
-			$num_instances = isset($meals_per_job[$job_id]) ?
-				($row['instances'] * $meals_per_job[$job_id]) :
+			$num_shifts_assigned = isset($shifts_per_assignment[$job_id]) ?
+				($row['instances'] * $shifts_per_assignment[$job_id]) :
 				($row['instances'] * $this->num_shifts_per_season);
-			$worker->addNumShiftsAssigned($job_id, $num_instances);
-			$this->total_labor_avail[$job_id] += intval($num_instances);
+			$worker->addNumShiftsAssigned($job_id, $num_shifts_assigned);
+			$this->total_labor_avail[$job_id] += intval($num_shifts_assigned);
 		}
 	}
 
