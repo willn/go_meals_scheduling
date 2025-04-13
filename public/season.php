@@ -58,6 +58,9 @@ function doing_csa_farm_meals() {
  */
 function get_num_shift_overrides() {
 	return [
+		'adam' => [BRUNCH_ASST_COOK => 1],
+		'eric' => [BRUNCH_ASST_COOK => -1],
+		// remember to swap these in the next sub-season
 	];
 }
 
