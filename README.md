@@ -12,14 +12,19 @@ an auto-allocation algorithm looking for the best fit.
 [Structural Diagram in diagrams.net](https://app.diagrams.net/#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fwilln%2Fgo_meals_scheduling%2Fmaster%2Fdraw_io.xml)
 
 ## Terms:
-* assignment - a collection of meals assigned to a person as a block
-  * example: head cook - 2 meals per season
+* assignment - a collection, a bundle of meals shifts of the same job
+  type assigned to a person as a block. This is used by the work system
+  to assign labor.
+  * For example: head cook - 2 meals per season
+* instances - a term from the work system which refers to how many assignments
+  of a job have been assigned to a worker.
 * meal - an event where someone works to cook or clean for a single date
   * example: Wednesday, July 1st, 2016 at 6:15pm
 * shift - an instance of a type of worker at a given meal
-  * this one has some ambiguous meaning, so I try not to use it
-  * there were 416 shifts assigned for the summer 2017 season
-  * example: John, assistant cook, Wednesday, July 1st, 2016 at 6:15pm
+  * This can have some ambiguous meaning, so I try to be explicit with how I use it.
+  * There were 416 shifts assigned for the summer 2017 season.
+  * For example, each meal needs at least 6 shifts of labor between cooks and
+    cleaners.
 
 ## Types of meal-days and number of shifts per job:
 * weekday meals (Mondays, Tuesdays, and Wednesdays)

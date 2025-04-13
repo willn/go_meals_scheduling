@@ -163,6 +163,7 @@ function get_num_meals_per_assignment($season, $job_id=NULL,
 			SUNDAY_HEAD_COOK,
 			BRUNCH_ASST_COOK,
 			BRUNCH_HEAD_COOK,
+			BRUNCH_CLEANER,
 			WEEKDAY_ASST_COOK,
 			WEEKDAY_HEAD_COOK,
 		];
