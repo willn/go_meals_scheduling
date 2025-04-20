@@ -17,7 +17,7 @@ class Schedule {
 	protected $least_possible = [];
 
 	// which shifts happen on which dates
-	protected $dates_and_shifts = [];
+	protected $dates_and_job_ids = [];
 	protected $dates_by_shift_cache = [];
 
 	public function getPossibleRatios() {
@@ -82,14 +82,14 @@ class Schedule {
 	 * Figure out which days have meals, and which shifts are needed
 	 * for those days. Create each of those meals instances with those shifts.
 	 *
-	 * @param array $dates_and_shifts dates are the key, value is a list of job
+	 * @param array $dates_and_job_ids dates are the key, value is a list of job
 	 *     IDs needed for that meal type.
 	 *     Example: [SUNDAY_ASST_COOK, SUNDAY_CLEANER, SUNDAY_HEAD_COOK]
 	 */
-	public function initializeShifts($dates_and_shifts=[]) {
-		$this->dates_and_shifts = $dates_and_shifts;
+	public function initializeShifts($dates_and_job_ids=[]) {
+		$this->dates_and_job_ids = $dates_and_job_ids;
 
-		foreach($dates_and_shifts as $date=>$job_list) {
+		foreach($dates_and_job_ids as $date=>$job_list) {
 			$this->meals[$date] = get_a_meal_object($this, $date);
 
 			if (get_class($this->meals[$date]) == 'Error') {
@@ -99,9 +99,11 @@ class Schedule {
 			}
 
 			// don't initialize skipped meals
-			if (!is_null($this->meals[$date])) {
-				$this->meals[$date]->initShifts($job_list);
+			if (is_null($this->meals[$date])) {
+				continue;
 			}
+
+			$this->meals[$date]->initShifts($job_list);
 		}
 	}
 
@@ -123,8 +125,8 @@ class Schedule {
 	 * Load the dates by shift into the cache variable.
 	 */
 	public function loadDatesByShiftCache() {
-		foreach($this->dates_and_shifts as $date=>$shifts) {
-			foreach($shifts as $job_id) {
+		foreach($this->dates_and_job_ids as $date=>$job_ids) {
+			foreach($job_ids as $job_id) {
 				$this->dates_by_shift_cache[$job_id][] = $date;
 			}
 		}

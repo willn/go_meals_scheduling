@@ -602,6 +602,8 @@ EOTXT;
 			$order++;
 			$out_data[$order] = $this->getCommunities();
 
+			// XXX Re-write this to extend each Meal class with a print method
+
 			// head cook
 			if (is_a_head_cook_job($job_id)) {
 				$head_cook = $assignments;

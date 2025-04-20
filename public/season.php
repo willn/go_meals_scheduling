@@ -71,19 +71,8 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-
-	/*
-	Shift some skipped meals to the second half of the season...
-
-	Weekday HC: 31 (-1)
-	Weekday AC: 62 (-2)
-	Weekday CL: 31 (-1)
-
-	Sunday HC: 11 (-1)
-	Sunday AC: 22 (-2)
-	Sunday CL: 11 (-1)
-	*/
-
+		5 => [4],
+		7 => [28],
 	];
 }
 

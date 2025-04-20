@@ -105,19 +105,19 @@ function is_a_head_cook_job($job_id) {
 
 	$sunday_jobs = get_sunday_jobs();
 	if (isset($sunday_jobs[$job_id]) &&
-		strstr($sunday_jobs[$job_id], 'head cook')) {
+		stristr($sunday_jobs[$job_id], 'head cook')) {
 		return TRUE;
 	}
 
 	$brunch_jobs = get_brunch_jobs();
 	if (isset($brunch_jobs[$job_id]) &&
-		strstr($brunch_jobs[$job_id], 'head cook')) {
+		stristr($brunch_jobs[$job_id], 'head cook')) {
 		return TRUE;
 	}
 
 	$mtg_jobs = get_mtg_jobs();
 	if (isset($mtg_jobs[$job_id]) &&
-		strstr($mtg_jobs[$job_id], 'takeout orderer')) {
+		stristr($mtg_jobs[$job_id], 'takeout orderer')) {
 		return TRUE;
 	}
 
