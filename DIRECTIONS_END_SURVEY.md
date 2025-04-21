@@ -65,7 +65,15 @@ cd auto_assignments/
   workers to fill the 'XXX' spots, making trades
 * do any swapping needed
 
-## confirm preferences
+## Teen workers
+
+Ensure that teen workers are paired with a parent.
+
+## Confirm preferences
+
+Read the comments for special requests at the bottom of the full report, to
+look for additional conflicts.
+
 ```
 # Download from google spreadsheet, save as tab separated values (TSV)
 cd ~/Downloads
@@ -77,14 +85,6 @@ vi checks.sh
 chmod +x checks.sh
 ./checks.sh | more
 ```
-
-Read the comments for special requests at the bottom of the full report as well.
-
-#!!# Eric wants to bundle sunday cook and do a "simple cook" meal
-
-## Teen workers
-
-Ensure that teen workers are paired with a parent.
 
 ## Auto-check for conflicts
 * Download from google spreadsheet, as tab-delimited
