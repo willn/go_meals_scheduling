@@ -360,7 +360,7 @@ function get_meal_type_by_date($date) {
 
 	switch($day_of_week) {
 		case SATURDAY:
-			if (!is_third_saturday($date)) {
+			if (!is_ordinal_day_of_week($date, 3, 6)) {
 				return NOT_A_MEAL;
 			}
 			return BRUNCH_MEAL;
@@ -490,45 +490,33 @@ function is_saturday($date_str) {
 }
 
 /**
- * Figure out if this date is the first saturday of the month.
+ * Figure out if this date is the ordinal day of week of the month.
  *
  * @param string $date_str a parseable, human readable date.
  * @return boolean if this is the first saturday.
  */
-function is_first_saturday($date_str) {
-	if (!is_saturday($date_str)) {
+function is_ordinal_day_of_week($date_str, int $ordinal, int $day_of_week) {
+	if ($day_of_week < 1 || $day_of_week > 7) {
+		return FALSE;
+	}
+	if ($ordinal < 1 || $ordinal > 4) {
 		return FALSE;
 	}
 
     $date = DateTime::createFromFormat('m/d/Y', $date_str);
 
-    // Get the day of the month
-    $dayOfMonth = $date->format('j');
+	// Check if the date is the desired day of the week
+	if (intval($date->format('N')) !== $day_of_week) {
+		return FALSE;
+	}
+
+    // Get the day of the month for this date
+    $day_of_month = intval($date->format('j'));
+	$occurrence = intval(($day_of_month - 1) / 7) + 1;
 
     // Check if it's the first Saturday (1st to 7th of the month)
-    return ($dayOfMonth <= 7);
+	return $occurrence === $ordinal;
 }
-
-/**
- * Figure out if this date is the third saturday of the month.
- *
- * @param string $date_str a parseable, human readable date.
- * @return boolean if this is the third saturday.
- */
-function is_third_saturday($date_str) {
-	if (!is_saturday($date_str)) {
-		return FALSE;
-	}
-
-    $date = DateTime::createFromFormat('m/d/Y', $date_str);
-
-    // Get the day of the month
-    $dayOfMonth = $date->format('j');
-
-    // Check if it's the third Saturday
-    return (($dayOfMonth > 14) && ($dayOfMonth < 22));
-}
-
 
 
 /**

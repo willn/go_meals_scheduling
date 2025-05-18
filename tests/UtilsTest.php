@@ -9,7 +9,7 @@ require_once '../auto_assignments/schedule.php';
 
 // UPDATE-EACH-SEASON
 define('EASTER_MONTH', 4);
-define('EASTER_DAY', 20);
+define('EASTER_DAY', 5);
 
 // XXX this ought to get automated
 define('LABOR_DAY', 2);
@@ -370,10 +370,10 @@ class UtilsTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider provide_is_first_saturday
+	 * @dataProvider provide_is_ordinal_day_of_week
 	 */
-	public function test_is_first_saturday($date, $expected) {
-		$result = is_first_saturday($date);
+	public function test_is_ordinal_day_of_week($date, $ordinal, $dow, $expected) {
+		$result = is_ordinal_day_of_week($date, $ordinal, $dow);
 		$debug = [
 			'result' => $result,
 			'expected' => $expected,
@@ -382,46 +382,52 @@ class UtilsTest extends TestCase {
 		$this->assertEquals($result, $expected, print_r($debug, TRUE));
 	}
 
-	public function provide_is_first_saturday() {
+	public function provide_is_ordinal_day_of_week() {
 		return [
-			['9/7/2024', TRUE],
+			# first saturdays
+			['9/7/2024', 1, 6, TRUE],
 
-			['9/1/2024', FALSE],
-			['9/14/2024', FALSE],
-			['9/15/2024', FALSE],
-			['9/21/2024', FALSE],
-			['9/28/2024', FALSE],
-			['9/30/2024', FALSE],
-		];
-	}
+			['9/1/2024', 1, 6, FALSE],
+			['9/14/2024', 1, 6, FALSE],
+			['9/15/2024', 1, 6, FALSE],
+			['9/21/2024', 1, 6, FALSE],
+			['9/28/2024', 1, 6, FALSE],
+			['9/30/2024', 1, 6, FALSE],
 
-	/**
-	 * @dataProvider provide_is_third_saturday
-	 */
-	public function test_is_third_saturday($date, $expected) {
-		$result = is_third_saturday($date);
-		$debug = [
-			'result' => $result,
-			'expected' => $expected,
-			'date' => $date,
-		];
-		$this->assertEquals($result, $expected, print_r($debug, TRUE));
-	}
+			# 3rd saturdays
+			['2/15/2025', 3, 6, TRUE],
+			['3/15/2025', 3, 6, TRUE],
+			['4/19/2025', 3, 6, TRUE],
+			['6/21/2025', 3, 6, TRUE],
 
-	public function provide_is_third_saturday() {
-		return [
-			['2/15/2025', TRUE],
-			['3/15/2025', TRUE],
-			['4/19/2025', TRUE],
-			['6/21/2025', TRUE],
+			['4/1/2025', 3, 6, FALSE],
+			['4/5/2025', 3, 6, FALSE],
+			['4/12/2025', 3, 6, FALSE],
+			['4/15/2025', 3, 6, FALSE],
+			['4/21/2025', 3, 6, FALSE],
+			['4/26/2025', 3, 6, FALSE],
+			['4/30/2025', 3, 6, FALSE],
 
-			['4/1/2025', FALSE],
-			['4/5/2025', FALSE],
-			['4/12/2025', FALSE],
-			['4/15/2025', FALSE],
-			['4/21/2025', FALSE],
-			['4/26/2025', FALSE],
-			['4/30/2025', FALSE],
+			# 4th saturdays
+			['2/22/2025', 4, 6, TRUE],
+			['3/22/2025', 4, 6, TRUE],
+			['4/26/2025', 4, 6, TRUE],
+			['6/28/2025', 4, 6, TRUE],
+
+			['3/29/2025', 4, 6, FALSE],
+			['4/1/2025', 4, 6, FALSE],
+			['4/5/2025', 4, 6, FALSE],
+			['4/12/2025', 4, 6, FALSE],
+			['4/15/2025', 4, 6, FALSE],
+			['4/21/2025', 4, 6, FALSE],
+			['4/30/2025', 4, 6, FALSE],
+
+			# 1st Monday
+			['5/5/2025', 1, 1, TRUE],
+			# 1st Thursday
+			['5/1/2025', 1, 4, TRUE],
+			# 3rd sunday
+			['5/18/2025', 3, 7, TRUE],		
 		];
 	}
 

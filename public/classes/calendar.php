@@ -294,7 +294,7 @@ EOHTML;
 
 					case BRUNCH_MEAL:
 						// skip if not third saturday
-						if (!is_third_saturday($date_string)) {
+						if (!is_ordinal_day_of_week($date_string, 3, 6)) {
 							$is_done = TRUE;
 						}
 						else {
