@@ -15,7 +15,7 @@ committee to figure out if we're going to re-assign or even cancel.
 Sometimes holes can be filled by newer members who have not been integrated
 into the work system yet.
 
-### Add any new users
+## Add any new users
 
 If someone new has moved in, or started working in the system, their usernames
 will need to be added.
@@ -33,7 +33,7 @@ INSERT INTO auth_user VALUES(NULL, NULL, 0, 'FIRST-NAME', 'LAST-NAME',
 	'example@asdf.com', 0, 1, '2023-07-15', 'username', GATHER-ID);
 ```
 
-## Add a full work assignment for a new worker
+### Add a full work assignment for a new worker
 
 If that new person will be taking on an entire assigned job, then insert that
 into the database. Otherwise, use overrides in the `season.php` file to account

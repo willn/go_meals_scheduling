@@ -3,13 +3,13 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('April 19, 2025, 8:30pm'));
+define('DEADLINE', strtotime('July 19, 2025, 8:30pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', SPRING);
+define('SEASON_NAME', SUMMER);
 
 // If this is a whole season, then 1, half .5, etc.
 define('SUB_SEASON_FACTOR', .5);
@@ -58,9 +58,21 @@ function doing_csa_farm_meals() {
  */
 function get_num_shift_overrides() {
 	return [
-		'adam' => [BRUNCH_ASST_COOK => 1],
-		'eric' => [BRUNCH_ASST_COOK => -1],
-		// remember to swap these in the next sub-season
+		// swapped from spring season
+		'adam' => [BRUNCH_ASST_COOK => -1],
+		'eric' => [BRUNCH_ASST_COOK => 1],
+
+		'jeffh' => [
+			BRUNCH_HEAD_COOK => -1,
+			SUNDAY_HEAD_COOK => -1,
+			WEEKDAY_ASST_COOK => -1,
+			WEEKDAY_CLEANER => -1,
+			WEEKDAY_HEAD_COOK => -3,
+		],
+		'rossella' => [
+			BRUNCH_ASST_COOK => -1,
+			WEEKDAY_ASST_COOK => -1,
+		],
 	];
 }
 
@@ -71,8 +83,6 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		5 => [4],
-		7 => [28],
 	];
 }
 

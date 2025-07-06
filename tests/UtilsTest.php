@@ -144,7 +144,7 @@ class UtilsTest extends TestCase {
 		return [
 			[
 				[7 => [4], 12 => [25]],
-				[5 => [25, 26], 7 => [4], 12 => [25]]],
+				[5 => [24, 25], 7 => [4], 12 => [25]]],
 		];
 	}
 
@@ -198,7 +198,7 @@ class UtilsTest extends TestCase {
 			// easter changes
 			EASTER_MONTH => [EASTER_DAY],
 			// Memorial Day changes
-			5 => [25, 26],
+			5 => [24, 25],
 			7 => [4],
 			8 => [31],
 			9 => [1],
