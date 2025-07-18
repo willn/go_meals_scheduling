@@ -58,20 +58,55 @@ function doing_csa_farm_meals() {
  */
 function get_num_shift_overrides() {
 	return [
-		// swapped from spring season
-		'adam' => [BRUNCH_ASST_COOK => -1],
-		'eric' => [BRUNCH_ASST_COOK => 1],
-
+		'eric' => [BRUNCH_ASST_COOK => 1], // swapped for spring season
 		'jeffh' => [
 			BRUNCH_HEAD_COOK => -1,
 			SUNDAY_HEAD_COOK => -1,
-			WEEKDAY_ASST_COOK => -1,
-			WEEKDAY_CLEANER => -1,
+			WEEKDAY_ASST_COOK => -2,
+			WEEKDAY_CLEANER => -3,
 			WEEKDAY_HEAD_COOK => -3,
 		],
 		'rossella' => [
 			BRUNCH_ASST_COOK => -1,
 			WEEKDAY_ASST_COOK => -1,
+		],
+
+		'anna' => [
+			SUNDAY_ASST_COOK => -3,
+			BRUNCH_CLEANER => -2,
+		],
+		'jeremy' => [
+			WEEKDAY_ASST_COOK => -2,
+		],
+
+		# 'UNCLAIMED' => [SUNDAY_HEAD_COOK => 1],
+		# 'UNCLAIMED' => [WEEKDAY_HEAD_COOK => 1],
+
+		// last-minute volunteers
+		'adam' => [
+			SUNDAY_ASST_COOK => 1,
+			WEEKDAY_ASST_COOK => 1,
+			WEEKDAY_CLEANER => 1,
+		],
+		'amyh' => [WEEKDAY_ASST_COOK => 2],
+		'jennifer' => [
+			BRUNCH_HEAD_COOK => 1,
+			WEEKDAY_HEAD_COOK => 1
+		],
+		'joeld' => [
+			SUNDAY_ASST_COOK => 1,
+			WEEKDAY_ASST_COOK => 1
+		],
+		'maryking' => [WEEKDAY_HEAD_COOK => 1],
+		'melissafalb' => [WEEKDAY_ASST_COOK => 1],
+		'missy' => [WEEKDAY_CLEANER => 1],
+		'sallie' => [
+			BRUNCH_CLEANER => 1,
+			WEEKDAY_CLEANER => 1
+		],
+		'trisha' => [
+			BRUNCH_CLEANER => 1,
+			SUNDAY_ASST_COOK => 1
 		],
 	];
 }
