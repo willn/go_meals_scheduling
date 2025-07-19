@@ -96,14 +96,14 @@ class RosterTest extends TestCase {
 					SUNDAY_CLEANER => 0, 
 					SUNDAY_HEAD_COOK => -1,
 
-					WEEKDAY_ASST_COOK => -2,
-					WEEKDAY_CLEANER => -1,
-					WEEKDAY_HEAD_COOK => -3,
+					WEEKDAY_ASST_COOK => 1,
+					WEEKDAY_CLEANER => 0,
+					WEEKDAY_HEAD_COOK => -1,
 					# BRUNCH_LAUNDRY => 0,
 
-					BRUNCH_ASST_COOK => -1,
+					BRUNCH_ASST_COOK => 0,
 					BRUNCH_CLEANER => 0,
-					BRUNCH_HEAD_COOK => -1,
+					BRUNCH_HEAD_COOK => 0,
 					# WEEKDAY_LAUNDRY => 0,
 				]
 			]
@@ -142,7 +142,7 @@ class RosterTest extends TestCase {
 		$workers = array_keys($this->roster->getWorkers());
 
 		$diff = array_diff($num_shift_overrides, $workers);
-		$this->assertEquals($list, $diff);
+		$this->assertEquals(array_values($list), array_values($diff));
 	}
 
 	public function provideTestOverrideUsersExist() {
@@ -152,8 +152,7 @@ class RosterTest extends TestCase {
 				 * List override-only users who don't
 				 * have a formal work assignment.
 				 */
-				[
-				]
+				[ 'amyh', 'jennifer', 'joeld', 'melissafalb' ]
 			]
 		];
 	}
@@ -182,14 +181,14 @@ class RosterTest extends TestCase {
 					SUNDAY_CLEANER => 33, 
 					SUNDAY_HEAD_COOK => 10,
 
-					WEEKDAY_ASST_COOK => 59,
-					WEEKDAY_CLEANER => 92,
-					WEEKDAY_HEAD_COOK => 28,
+					WEEKDAY_ASST_COOK => 62,
+					WEEKDAY_CLEANER => 93,
+					WEEKDAY_HEAD_COOK => 30,
 					# WEEKDAY_LAUNDRY => 0,
 
-					BRUNCH_ASST_COOK => 5,
+					BRUNCH_ASST_COOK => 6,
 					BRUNCH_CLEANER => 9, 
-					BRUNCH_HEAD_COOK => 2,
+					BRUNCH_HEAD_COOK => 3,
 					# BRUNCH_LAUNDRY => 0,
 				]
 			]

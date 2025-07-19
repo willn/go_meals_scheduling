@@ -62,7 +62,7 @@ function get_num_shift_overrides() {
 		'jeffh' => [
 			BRUNCH_HEAD_COOK => -1,
 			SUNDAY_HEAD_COOK => -1,
-			WEEKDAY_ASST_COOK => -2,
+			WEEKDAY_ASST_COOK => -1,
 			WEEKDAY_CLEANER => -3,
 			WEEKDAY_HEAD_COOK => -3,
 		],
