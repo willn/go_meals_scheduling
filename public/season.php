@@ -118,6 +118,9 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
+		8 => [11],
+		9 => [7],
+		10 => [15, 26],
 	];
 }
 
