@@ -74,8 +74,8 @@ Ensure that teen workers are paired with a parent.
 Read the comments for special requests at the bottom of the full report, to
 look for additional conflicts.
 
+### Download from google spreadsheet, save as tab separated values (TSV)
 ```
-# Download from google spreadsheet, save as tab separated values (TSV)
 cd ~/Downloads
 mv <downloaded filename> schedule.txt
 

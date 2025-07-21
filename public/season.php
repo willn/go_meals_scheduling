@@ -109,7 +109,7 @@ function get_num_shift_overrides() {
 		'melissafalb' => [WEEKDAY_ASST_COOK => 1],
 		'missy' => [WEEKDAY_CLEANER => 1],
 		'sallie' => [
-			BRUNCH_CLEANER => 1,
+			BRUNCH_ASST_COOK=> 1,
 			WEEKDAY_CLEANER => 1
 		],
 		'trisha' => [
