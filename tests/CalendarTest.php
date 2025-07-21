@@ -1093,9 +1093,9 @@ EOHTML;
 			WEEKDAY_HEAD_COOK => 30,
 			# WEEKDAY_LAUNDRY => 21,
 
-			BRUNCH_ASST_COOK => 6,
-			BRUNCH_CLEANER => 9,
-			BRUNCH_HEAD_COOK => 3,
+			BRUNCH_ASST_COOK => 4,
+			BRUNCH_CLEANER => 6,
+			BRUNCH_HEAD_COOK => 2,
 			# BRUNCH_LAUNDRY => 8,
 		];
 
@@ -1161,9 +1161,9 @@ EOHTML;
 			WEEKDAY_HEAD_COOK => 30,
 			# WEEKDAY_LAUNDRY => 7,
 
-			BRUNCH_ASST_COOK => 6,
-			BRUNCH_CLEANER => 9,
-			BRUNCH_HEAD_COOK => 3,
+			BRUNCH_ASST_COOK => 4,
+			BRUNCH_CLEANER => 6,
+			BRUNCH_HEAD_COOK => 2,
 			# BRUNCH_LAUNDRY => 3,
 		];
 
@@ -1199,7 +1199,7 @@ EOHTML;
 			'meeting' => 0,
 			'sunday' => 10,
 			'weekday' => 30,
-			'brunch' => 3,
+			'brunch' => 2,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
 			$carry += $item;
