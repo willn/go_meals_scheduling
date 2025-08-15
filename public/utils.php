@@ -493,7 +493,9 @@ function is_saturday($date_str) {
  * Figure out if this date is the ordinal day of week of the month.
  *
  * @param string $date_str a parseable, human readable date.
- * @return boolean if this is the first saturday.
+ * @param int $ordinal, the Nth week of a month
+ * @param int $day_of_week, the day of the week (e.g. 6 is Saturday)
+ * @return boolean if this is the Nth day of week (e.g. 3rd Saturday)
  */
 function is_ordinal_day_of_week($date_str, int $ordinal, int $day_of_week) {
 	if ($day_of_week < 1 || $day_of_week > 7) {
@@ -514,7 +516,6 @@ function is_ordinal_day_of_week($date_str, int $ordinal, int $day_of_week) {
     $day_of_month = intval($date->format('j'));
 	$occurrence = intval(($day_of_month - 1) / 7) + 1;
 
-    // Check if it's the first Saturday (1st to 7th of the month)
 	return $occurrence === $ordinal;
 }
 
