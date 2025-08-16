@@ -21,6 +21,8 @@ abstract class Meal {
 	const AVOID_WORKERS = 'avoid_workers';
 	const PREFERS = 'prefers';
 
+	const WEEK_OF_MONTH = 0; // used by a child object
+
 	// set default point factors
 	protected $point_factors = [
 		self::HOBART => DEFAULT_HOBART_SCORE,
@@ -773,16 +775,14 @@ EOTXT;
 	public function getCommunities() {
 		return $this->communities;
 	}
-
-	public function getWeekOfMonth() {
-		return NULL;
-	}
 }
 
 class SundayMeal extends Meal {
 	protected $time_of_meal = '5:30';
 	protected $iso_time_of_meal = '17:30:00';
 	protected $communities = 'GO, SW, TS';
+
+	const WEEK_OF_MONTH = 4;
 }
 
 class BrunchMeal extends Meal {

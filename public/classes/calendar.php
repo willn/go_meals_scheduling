@@ -295,7 +295,7 @@ EOHTML;
 					case BRUNCH_MEAL:
 						// skip if not the right ordinal of the month
 						if (!is_ordinal_day_of_week($date_string,
-							BrunchMeal::getWeekofMonth(), 6)) {
+							BrunchMeal::WEEK_OF_MONTH, 6)) {
 							$is_done = TRUE;
 						}
 						else {
