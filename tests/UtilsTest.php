@@ -251,6 +251,7 @@ class UtilsTest extends TestCase {
 		return [
 			['', NOT_A_MEAL],
 			['07/04/2018', HOLIDAY_NIGHT],
+			['08/16/2025', NOT_A_MEAL],
 			['08/23/2025', BRUNCH_MEAL],
 			['04/14/2018', NOT_A_MEAL],
 			['04/15/2018', SUNDAY_MEAL],

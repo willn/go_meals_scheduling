@@ -22,9 +22,9 @@ function get_mtg_jobs() {
  */
 function get_sunday_jobs() {
 	return [
+		SUNDAY_HEAD_COOK => SUNDAY_HEAD_COOK_NAME,
 		SUNDAY_ASST_COOK => SUNDAY_ASST_COOK_NAME,
 		SUNDAY_CLEANER => SUNDAY_CLEANER_NAME,
-		SUNDAY_HEAD_COOK => SUNDAY_HEAD_COOK_NAME,
 	];
 }
 
@@ -33,9 +33,9 @@ function get_sunday_jobs() {
  */
 function get_brunch_jobs() {
 	return [
+		BRUNCH_HEAD_COOK => BRUNCH_HEAD_COOK_NAME,
 		BRUNCH_ASST_COOK => BRUNCH_ASST_COOK_NAME,
 		BRUNCH_CLEANER => BRUNCH_CLEANER_NAME,
-		BRUNCH_HEAD_COOK => BRUNCH_HEAD_COOK_NAME,
 		# BRUNCH_LAUNDRY => BRUNCH_LAUNDRY_NAME,
 	];
 }
@@ -46,9 +46,9 @@ function get_brunch_jobs() {
  */
 function get_weekday_jobs() {
 	$out = [
+		WEEKDAY_HEAD_COOK => WEEKDAY_HEAD_COOK_NAME,
 		WEEKDAY_ASST_COOK => WEEKDAY_ASST_COOK_NAME,
 		WEEKDAY_CLEANER => WEEKDAY_CLEANER_NAME,
-		WEEKDAY_HEAD_COOK => WEEKDAY_HEAD_COOK_NAME,
 		# WEEKDAY_LAUNDRY => WEEKDAY_LAUNDRY_NAME,
 	];
 
@@ -59,11 +59,15 @@ function get_weekday_jobs() {
 }
 
 /**
- * Get a list of all of the jobs
+ * Get a list of all of the jobs.
+ * Ordered by hardest to easiest to fill jobs.
  */
 function get_all_jobs() {
-	$all_jobs = ['all' => 'all'] + get_weekday_jobs() + get_sunday_jobs() +
-		get_brunch_jobs() + get_mtg_jobs();
+	$all_jobs = ['all' => 'all'] +
+		get_mtg_jobs() +
+		get_brunch_jobs() +
+		get_sunday_jobs() +
+		get_weekday_jobs();
 	return $all_jobs;
 }
 

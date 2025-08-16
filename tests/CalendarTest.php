@@ -229,17 +229,18 @@ EOHTML;
 		$out = <<<EOHTML
 <ul id="filter_overlay">
 <li><a href="/meals_scheduling/report.php?key=all">all</a></li>
-<li><a href="/meals_scheduling/report.php?key={$week_asst}">{$week_asst_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$week_clean}">{$week_clean_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$week_head}">{$week_head_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$sun_asst}">{$sun_asst_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$sun_clean}">{$sun_clean_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$sun_head}">{$sun_head_n}</a></li>
+<li><a href="/meals_scheduling/report.php?key={$mtg_order}">{$mtg_order_n}</a></li>
+<li><a href="/meals_scheduling/report.php?key={$mtg_clean}">{$mtg_clean_n}</a></li>
+<li><a href="/meals_scheduling/report.php?key={$brunch_head}">{$brunch_head_n}</a></li>
 <li><a href="/meals_scheduling/report.php?key={$brunch_asst}">{$brunch_asst_n}</a></li>
 <li><a href="/meals_scheduling/report.php?key={$brunch_clean}">{$brunch_clean_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$brunch_head}">{$brunch_head_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$mtg_order}">{$mtg_order_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$mtg_clean}">{$mtg_clean_n}</a></li></ul>
+<li><a href="/meals_scheduling/report.php?key={$sun_head}">{$sun_head_n}</a></li>
+<li><a href="/meals_scheduling/report.php?key={$sun_asst}">{$sun_asst_n}</a></li>
+<li><a href="/meals_scheduling/report.php?key={$sun_clean}">{$sun_clean_n}</a></li>
+<li><a href="/meals_scheduling/report.php?key={$week_head}">{$week_head_n}</a></li>
+<li><a href="/meals_scheduling/report.php?key={$week_asst}">{$week_asst_n}</a></li>
+<li><a href="/meals_scheduling/report.php?key={$week_clean}">{$week_clean_n}</a></li>
+</ul>
 
 EOHTML;
 		$this->assertEquals($result, remove_html_whitespace($out));

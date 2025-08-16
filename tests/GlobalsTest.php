@@ -44,9 +44,10 @@ class GlobalsTest extends TestCase {
 	public function test_get_job_ids_clause() {
 		$result = get_job_ids_clause();
 		// UPDATE-EACH-SEASON
-		$expected = 'job_id=8210 OR job_id=8209 OR job_id=8211 OR job_id=8218 OR job_id=8208 OR job_id=8212 OR job_id=8222 OR job_id=8227 OR job_id=8221 OR job_id=7626 OR job_id=7629';
+		$expected = 'job_id=7626 OR job_id=7629 OR job_id=8221 OR job_id=8222 OR job_id=8227 OR job_id=8212 OR job_id=8218 OR job_id=8208 OR job_id=8211 OR job_id=8210 OR job_id=8209';
 		$this->assertEquals($expected, $result);
 	}
+
 
 	/**
 	 * @dataProvider provide_get_is_a_mtg_night_job
