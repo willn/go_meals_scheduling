@@ -790,9 +790,7 @@ class BrunchMeal extends Meal {
 	protected $iso_time_of_meal = '10:30:00';
 	protected $communities = 'GO, SW, TS';
 
-	public function getWeekOfMonth() {
-		return 4;
-	}
+	const WEEK_OF_MONTH = 4;
 }
 
 class WeekdayMeal extends Meal {
