@@ -773,6 +773,10 @@ EOTXT;
 	public function getCommunities() {
 		return $this->communities;
 	}
+
+	public function getWeekOfMonth() {
+		return NULL;
+	}
 }
 
 class SundayMeal extends Meal {
@@ -785,6 +789,10 @@ class BrunchMeal extends Meal {
 	protected $time_of_meal = '10:30';
 	protected $iso_time_of_meal = '10:30:00';
 	protected $communities = 'GO, SW, TS';
+
+	public function getWeekOfMonth() {
+		return 4;
+	}
 }
 
 class WeekdayMeal extends Meal {

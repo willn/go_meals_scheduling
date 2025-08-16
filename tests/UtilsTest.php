@@ -5,7 +5,7 @@ require_once '../public/constants.php';
 require_once '../public/utils.php';
 require_once '../public/config.php';
 require_once '../public/globals.php';
-require_once '../auto_assignments/schedule.php';
+require_once '../auto_assignments/scheduling.php';
 
 // UPDATE-EACH-SEASON
 define('EASTER_MONTH', 4);
@@ -251,7 +251,7 @@ class UtilsTest extends TestCase {
 		return [
 			['', NOT_A_MEAL],
 			['07/04/2018', HOLIDAY_NIGHT],
-			['07/19/2025', BRUNCH_MEAL],
+			['08/23/2025', BRUNCH_MEAL],
 			['04/14/2018', NOT_A_MEAL],
 			['04/15/2018', SUNDAY_MEAL],
 			# ['04/16/2018', MEETING_NIGHT_MEAL], # disable for now
@@ -314,8 +314,10 @@ class UtilsTest extends TestCase {
 
 	public function provide_get_a_meal_object() {
 		return [
-			['04/19/2025', 'BrunchMeal'],
-			['07/19/2025', 'BrunchMeal'],
+			['04/19/2025', 'Error'],
+			['04/26/2025', 'BrunchMeal'],
+			['07/19/2025', 'Error'],
+			['07/26/2025', 'BrunchMeal'],
 			['04/15/2018', 'SundayMeal'],
 			# ['04/16/2018', 'MeetingNightMeal'], # disable for now
 			['04/16/2018', 'Error'],

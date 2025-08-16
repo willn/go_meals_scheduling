@@ -36,7 +36,7 @@ parameters:
 
 		#- message: "#^If condition is always false\\.$#"
 		#  count: 1
-		#  path: auto_assignments/schedule.php
+		#  path: auto_assignments/scheduling.php
 
 		- message: "#^Class Worker constructor invoked with 1 parameter, 0 required.$#"
 		  count: 1

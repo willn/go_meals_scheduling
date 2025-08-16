@@ -7,7 +7,7 @@ $relative_dir = '../public/';
 require_once '../public/season.php';
 require_once '../public/classes/roster.php';
 require_once '../public/classes/calendar.php';
-require_once '../auto_assignments/schedule.php';
+require_once '../auto_assignments/scheduling.php';
 require_once 'testing_utils.php';
 
 class RosterTest extends TestCase {

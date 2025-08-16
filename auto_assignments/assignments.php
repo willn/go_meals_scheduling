@@ -7,7 +7,7 @@ require_once $relative_dir . 'classes/calendar.php';
 require_once $relative_dir . 'classes/worker.php';
 require_once $relative_dir . 'classes/roster.php';
 require_once $relative_dir . 'classes/meal.php';
-require_once 'schedule.php';
+require_once 'scheduling.php';
 
 global $job_key_clause;
 
@@ -135,7 +135,6 @@ EOSQL;
 			$this->schedule->initPlaceholderCount($job_id);
 			$this->roster->setJobId($job_id);
 			$this->schedule->sortPossibleRatios();
-			$work_avail_ratio = $this->schedule->getPossibleRatios();
 
 			// keep assigning until all the meals have been assigned
 			$success = TRUE;
@@ -145,6 +144,8 @@ EOSQL;
 			}
 
 			if (DEBUG_FIND_CANCEL_MEALS) {
+				$work_avail_ratio = $this->schedule->getPossibleRatios();
+
 				$count = $this->schedule->getPlaceholderCount($job_id);
 				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
 					" Placeholder count {$count} for {$job_name}");

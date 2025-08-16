@@ -360,7 +360,7 @@ function get_meal_type_by_date($date) {
 
 	switch($day_of_week) {
 		case SATURDAY:
-			if (!is_ordinal_day_of_week($date, 3, 6)) {
+			if (!is_ordinal_day_of_week($date, BrunchMeal::getWeekofMonth(), 6)) {
 				return NOT_A_MEAL;
 			}
 			return BRUNCH_MEAL;

@@ -1199,7 +1199,7 @@ EOHTML;
 			'meeting' => 0,
 			'sunday' => 10,
 			'weekday' => 30,
-			'brunch' => 2,
+			'brunch' => 3,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
 			$carry += $item;

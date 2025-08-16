@@ -7,7 +7,7 @@ $relative_dir = '../public/';
 require_once '../public/config.php';
 require_once '../public/classes/meal.php';
 require_once '../public/classes/roster.php';
-require_once '../auto_assignments/schedule.php';
+require_once '../auto_assignments/scheduling.php';
 
 /**
  * This is simple example to ensure the testing framework functions properly.
