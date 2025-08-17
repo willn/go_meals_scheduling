@@ -3,13 +3,13 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('July 20, 2025, 7:30pm'));
+define('DEADLINE', strtotime('Oct 20, 2025, 7:30pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', SUMMER);
+define('SEASON_NAME', FALL);
 
 // If this is a whole season, then 1, half .5, etc.
 define('SUB_SEASON_FACTOR', .5);
@@ -48,7 +48,7 @@ define('WEEKDAY_HEAD_COOK_NAME', 'Weekday head cook');
  * Whether we're hosting CSA farm meals this summer.
  */
 function doing_csa_farm_meals() {
-	return TRUE;
+	return FALSE;
 }
 
 /**
@@ -58,64 +58,6 @@ function doing_csa_farm_meals() {
  */
 function get_num_shift_overrides() {
 	return [
-		'eric' => [
-			BRUNCH_ASST_COOK => 1, // swapped for spring season
-			SUNDAY_HEAD_COOK => 1,
-		],
-		'jeffh' => [
-			BRUNCH_HEAD_COOK => -1,
-			SUNDAY_HEAD_COOK => -1,
-			WEEKDAY_ASST_COOK => -1,
-			WEEKDAY_CLEANER => -3,
-			WEEKDAY_HEAD_COOK => -3,
-		],
-		'rossella' => [
-			BRUNCH_ASST_COOK => -1,
-			WEEKDAY_ASST_COOK => -1,
-		],
-
-		'josh' => [
-			SUNDAY_CLEANER => -6,
-			WEEKDAY_ASST_COOK => -2,
-			SUNDAY_ASST_COOK => -2,
-		],
-		'anna' => [
-			SUNDAY_ASST_COOK => -3,
-			BRUNCH_CLEANER => -2,
-			BRUNCH_ASST_COOK => -1,
-		],
-		'jeremy' => [
-			WEEKDAY_ASST_COOK => -2,
-		],
-
-		# 'UNCLAIMED' => [WEEKDAY_HEAD_COOK => 1],
-
-		// last-minute volunteers
-		'adam' => [
-			SUNDAY_ASST_COOK => 1,
-			WEEKDAY_ASST_COOK => 1,
-			WEEKDAY_CLEANER => 1,
-		],
-		'amyh' => [WEEKDAY_ASST_COOK => 2],
-		'jennifer' => [
-			BRUNCH_HEAD_COOK => 1,
-			WEEKDAY_HEAD_COOK => 1
-		],
-		'joeld' => [
-			SUNDAY_ASST_COOK => 1,
-			WEEKDAY_ASST_COOK => 1
-		],
-		'maryking' => [WEEKDAY_HEAD_COOK => 1],
-		'melissafalb' => [WEEKDAY_ASST_COOK => 1],
-		'missy' => [WEEKDAY_CLEANER => 1],
-		'sallie' => [
-			BRUNCH_ASST_COOK=> 1,
-			WEEKDAY_CLEANER => 1
-		],
-		'trisha' => [
-			BRUNCH_CLEANER => 1,
-			SUNDAY_ASST_COOK => 1
-		],
 	];
 }
 
@@ -137,7 +79,6 @@ function get_skip_dates() {
  */
 function get_weekday_overrides() {
 	return [
-		10 => [1],
 	];
 }
 
@@ -149,7 +90,6 @@ function get_weekday_overrides() {
  */
 function get_meeting_night_overrides() {
 	return [
-		10 => [6],
 	];
 }
 
