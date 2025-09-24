@@ -79,6 +79,8 @@ function get_skip_dates() {
  */
 function get_weekday_overrides() {
 	return [
+		1 => [19],
+		4 => [1],
 	];
 }
 
@@ -90,6 +92,8 @@ function get_weekday_overrides() {
  */
 function get_meeting_night_overrides() {
 	return [
+		1 => [21],
+		4 => [6],
 	];
 }
 
