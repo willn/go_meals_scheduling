@@ -178,8 +178,8 @@ EOHTML;
 			['x', 'x'],
 			[MEETING_NIGHT_CLEANER_NAME, 'Meeting night cleaner'],
 			[MEETING_NIGHT_ORDERER_NAME, MEETING_NIGHT_ORDERER_NAME],
-			[WEEKDAY_ASST_COOK_NAME, 'asst cook'],
-			[WEEKDAY_CLEANER_NAME, 'cleaner'],
+			[WEEKDAY_ASST_COOK_NAME, 'Assistant Cook (2 meals)'],
+			[WEEKDAY_CLEANER_NAME, 'Cleaner (6 meals)'],
 		];
 
 		if (defined('WEEKDAY_TABLE_SETTER')) {
@@ -540,15 +540,15 @@ EOHTML;
 			$tsetter = "\n<br>Weekday Table Setter 12";
 		}
 		$expected1 = <<<EOHTML
-<p>{$brunch_clean_n} 44
+<p>{$brunch_asst_n} 33
+<br>{$brunch_clean_n} 44
 <br>{$brunch_head_n} 22
-<br>{$brunch_asst_n} 33
-<br>{$sun_clean_n} 2
-<br>{$sun_head_n} 4
 <br>{$sun_asst_n} 2
-<br>{$week_clean_n} 4
+<br>{$sun_head_n} 4
+<br>{$sun_clean_n} 2
 <br>{$week_asst_n} 6{$tsetter}
 <br>{$week_head_n} 12
+<br>{$week_clean_n} 4
 </p>
 EOHTML;
 
@@ -1089,9 +1089,9 @@ EOHTML;
 			SUNDAY_CLEANER => 36,
 			SUNDAY_HEAD_COOK => 12,
 
-			WEEKDAY_ASST_COOK => 60,
-			WEEKDAY_CLEANER => 90,
-			WEEKDAY_HEAD_COOK => 30,
+			WEEKDAY_ASST_COOK => 58,
+			WEEKDAY_CLEANER => 87,
+			WEEKDAY_HEAD_COOK => 29,
 			# WEEKDAY_LAUNDRY => 21,
 
 			BRUNCH_ASST_COOK => 6,
@@ -1157,9 +1157,9 @@ EOHTML;
 			SUNDAY_CLEANER => 12,
 			SUNDAY_HEAD_COOK => 12,
 
-			WEEKDAY_ASST_COOK => 60,
-			WEEKDAY_CLEANER => 30,
-			WEEKDAY_HEAD_COOK => 30,
+			WEEKDAY_ASST_COOK => 58,
+			WEEKDAY_CLEANER => 29,
+			WEEKDAY_HEAD_COOK => 29,
 			# WEEKDAY_LAUNDRY => 7,
 
 			BRUNCH_ASST_COOK => 6,
@@ -1199,7 +1199,7 @@ EOHTML;
 		$expected = [
 			'meeting' => 0,
 			'sunday' => 12,
-			'weekday' => 30,
+			'weekday' => 29,
 			'brunch' => 3,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {

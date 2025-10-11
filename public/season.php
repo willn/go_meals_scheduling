@@ -15,15 +15,15 @@ define('SEASON_NAME', FALL);
 define('SUB_SEASON_FACTOR', .5);
 
 /* ----------- job ids --------------- */
-define('SUNDAY_ASST_COOK', 8218);
-define('SUNDAY_CLEANER', 8208);
-define('SUNDAY_HEAD_COOK', 8212);
-define('BRUNCH_ASST_COOK', 8222);
-define('BRUNCH_CLEANER', 8227);
-define('BRUNCH_HEAD_COOK', 8221);
-define('WEEKDAY_ASST_COOK', 8210);
-define('WEEKDAY_CLEANER', 8209);
-define('WEEKDAY_HEAD_COOK', 8211);
+define('SUNDAY_ASST_COOK', 8523);
+define('SUNDAY_CLEANER', 8513);
+define('SUNDAY_HEAD_COOK', 8517);
+define('BRUNCH_ASST_COOK', 8527);
+define('BRUNCH_CLEANER', 8532);
+define('BRUNCH_HEAD_COOK', 8526);
+define('WEEKDAY_ASST_COOK', 8515);
+define('WEEKDAY_CLEANER', 8514);
+define('WEEKDAY_HEAD_COOK', 8516);
 
 // previous season jobs, keep for unit tests & for the future
 define('MEETING_NIGHT_CLEANER', 7629);
@@ -32,16 +32,16 @@ define('MEETING_NIGHT_ORDERER', 7626);
 /* ----------- job titles --------------- */
 define('MEETING_NIGHT_CLEANER_NAME', 'Meeting night cleaner');
 define('MEETING_NIGHT_ORDERER_NAME', 'Mtg takeout orderer (2 meals)');
-define('SUNDAY_ASST_COOK_NAME', 'Sunday evening asst cook (2 meals)');
-define('SUNDAY_CLEANER_NAME', 'Sunday Evening Meal cleaner (6 meals)');
-define('SUNDAY_HEAD_COOK_NAME', 'Sunday Evening head cook (2 meals)');
-define('BRUNCH_ASST_COOK_NAME', 'Saturday Brunch asst cook');
-define('BRUNCH_CLEANER_NAME', 'Saturday Brunch Cleaner (2 instances)');
-define('BRUNCH_HEAD_COOK_NAME', 'Saturday Brunch Head Cook');
+define('SUNDAY_ASST_COOK_NAME', 'Sunday Assistant Cook (2 meals)');
+define('SUNDAY_CLEANER_NAME', 'Sunday Meal Cleaner (6 meals)');
+define('SUNDAY_HEAD_COOK_NAME', 'Sunday Head Cook (2 meals)');
+define('BRUNCH_ASST_COOK_NAME', '4th Saturday Brunch Asst Cook (2 meals)');
+define('BRUNCH_CLEANER_NAME', '4th Saturday Brunch Cleaner (2 meals)');
+define('BRUNCH_HEAD_COOK_NAME', '4th Saturday Brunch Head Cook (2 meals)');
 # define('BRUNCH_LAUNDRY_NAME', 'Saturday Brunch Laundry');
-define('WEEKDAY_ASST_COOK_NAME', 'Weekday asst cook');
-define('WEEKDAY_CLEANER_NAME', 'Weekday Meal cleaner');
-define('WEEKDAY_HEAD_COOK_NAME', 'Weekday head cook');
+define('WEEKDAY_ASST_COOK_NAME', 'Weekday Assistant Cook (2 meals)');
+define('WEEKDAY_CLEANER_NAME', 'Weekday Meal Cleaner (6 meals)');
+define('WEEKDAY_HEAD_COOK_NAME', 'Weekday Head Cook (2 meals)');
 # define('WEEKDAY_LAUNDRY_NAME', 'Weekday Laundry');
 
 /**
@@ -58,6 +58,8 @@ function doing_csa_farm_meals() {
  */
 function get_num_shift_overrides() {
 	return [
+		'marta' => [WEEKDAY_ASST_COOK => 1], // swap with Melanie
+		'melanie' => [WEEKDAY_ASST_COOK => -1], // swap with Marta
 	];
 }
 
