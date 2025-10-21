@@ -110,6 +110,8 @@ if (!empty($missing_users)) {
 Missing the following users. Fix them and try again.
 SELECT * from auth_user where gather_id is NULL order by id DESC limit 10;
 
+Update sql/add_gather_ids.sql
+
 EOTXT;
 	print implode("\n", array_keys($missing_users)) . "\n";
 }

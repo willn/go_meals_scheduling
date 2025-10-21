@@ -119,8 +119,8 @@ of names.
 
 Look up their ID in Gather, then:
 
-1. for this season, update database table `auth_users` to include their IDs
-2. for the future, copy and paste these entries to `sql/add_gather_ids.sql`
+1. Add these entries to `sql/add_gather_ids.sql`
+2. Run only these update statements in the database.
 3. Run the translate script again.
 
 ### make any tweaks

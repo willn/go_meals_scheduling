@@ -59,7 +59,17 @@ function doing_csa_farm_meals() {
 function get_num_shift_overrides() {
 	return [
 		'marta' => [WEEKDAY_ASST_COOK => 1], // swap with Melanie
-		'melanie' => [WEEKDAY_ASST_COOK => -1], // swap with Marta
+		'melanie' => [
+			WEEKDAY_ASST_COOK => -2, // swap with Marta and MelF
+			BRUNCH_ASST_COOK => 1,
+		], 
+		'melissaf' => [
+			WEEKDAY_ASST_COOK => 1,
+			BRUNCH_ASST_COOK => -1
+		],
+
+		// XXX - for 2nd half of season, renew the melanie to melissaf swap of
+		// weekday asst cook & brunch asst cook
 
 		// swap
 		'lauras' => [
@@ -82,9 +92,9 @@ function get_skip_dates() {
 	return [
 		// we need to have 31 total: 8 Sun, 1 brunch, 22 weekday
 		// cancel: 4 Sun, 2 brunch, 7 weekday
-		11 => [2, 16, 26],
-		12 => [16, 21, 27, 28, 29, 30], # Danielle wants the 16th for celebration
-		1 => [5, 14, 24, 26],
+		11 => [9, 16, 26],
+		12 => [16, 27, 28, 29, 30], # Danielle wants the 16th for celebration
+		1 => [5, 14, 18, 24, 26],
 	];
 }
 
