@@ -60,6 +60,16 @@ function get_num_shift_overrides() {
 	return [
 		'marta' => [WEEKDAY_ASST_COOK => 1], // swap with Melanie
 		'melanie' => [WEEKDAY_ASST_COOK => -1], // swap with Marta
+
+		// swap
+		'lauras' => [
+			SUNDAY_HEAD_COOK => -1,
+			SUNDAY_CLEANER => 3,
+		],
+		'dan' => [
+			SUNDAY_HEAD_COOK => 1,
+			SUNDAY_CLEANER => -3,
+		],
 	];
 }
 
@@ -70,6 +80,11 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
+		// we need to have 31 total: 8 Sun, 1 brunch, 22 weekday
+		// cancel: 4 Sun, 2 brunch, 7 weekday
+		11 => [2, 16, 26],
+		12 => [16, 21, 27, 28, 29, 30], # Danielle wants the 16th for celebration
+		1 => [5, 14, 24, 26],
 	];
 }
 

@@ -4,12 +4,16 @@
 
 ## copy closed database locally:
 ```
+# consider taking a backup file
+
 # on gocoho:
 mysqldump -u gocoho_work_allocation -p gocoho_work_allocation > end_of_survey.sql
 
 # on localhost:
 cd meals_scheduling/sql/
 rsync -e 'ssh' -avz gocoho@gocoho.org:/home/gocoho/end_of_survey.sql .
+
+# after grabbing a copy, delete all but the latest backup file on production
 
 # load it up locally
 mysql -u gocoho_work_allocation -p gocoho_work_allocation < end_of_survey.sql
