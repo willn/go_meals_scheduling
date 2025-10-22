@@ -65,6 +65,7 @@ cd auto_assignments/
 * then delete the placeholders for those shifts, just leave it blank
 
 ## upload a copy of the `schedule.txt` to google drive & import into a spreadsheet
+* are there any super-cleans? Address these trades manually
 * refer to `not_filled_workers.txt` and try to move the under-assigned
   workers to fill the 'XXX' spots, making trades
 * do any swapping needed
@@ -91,10 +92,11 @@ chmod +x checks.sh
 ```
 
 ## Auto-check for conflicts
-* Download from google spreadsheet, as tab-delimited
-* mv file to auto-assignments/schedule.txt
-* cd tests/
-* phpunit CheckForConflictsTest.php
+ Download from google spreadsheet, as tab-delimited
+* `mv file to auto-assignments/schedule.txt`
+* `cd tests/`
+* `vi CheckForConflictsTest.php # un-comment the test_check_for_conflicts test`
+* `phpunit CheckForConflictsTest.php`
 
 ## run conflicts validation:
 ```
@@ -130,6 +132,7 @@ Look up their ID in Gather, then:
 
 ### Upload to Gather
 * open gather site, and upload the entries
+* If Gather complains about row 2, that is actually the second row in the file.
 * resolve any scheduling conflicts
   - check the Kitchen and Dining Room availability
   - meals currently add 2h 15m before and after the announced meal serving time.
@@ -137,7 +140,6 @@ Look up their ID in Gather, then:
     - Weekdays: 4:00 - 8:30
     - Meeting Night: 3:30 - 8:00
     - Saturday Brunches: 8:15 - 12:45
-* If Gather complains about row 2, that is actually the second row in the file.
   The header is the 1st.
 
 
