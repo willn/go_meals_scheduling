@@ -3,13 +3,13 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('Oct 20, 2025, 7:30pm'));
+define('DEADLINE', strtotime('Jan 24, 2026, 7:30pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', FALL);
+define('SEASON_NAME', WINTER);
 
 // If this is a whole season, then 1, half .5, etc.
 define('SUB_SEASON_FACTOR', .5);
@@ -58,9 +58,8 @@ function doing_csa_farm_meals() {
  */
 function get_num_shift_overrides() {
 	return [
-		'marta' => [WEEKDAY_ASST_COOK => 1], // swap with Melanie
 		'melanie' => [
-			WEEKDAY_ASST_COOK => -2, // swap with Marta and MelF
+			WEEKDAY_ASST_COOK => -1,
 			BRUNCH_ASST_COOK => 1,
 		], 
 		'melissaf' => [
@@ -70,16 +69,6 @@ function get_num_shift_overrides() {
 
 		// XXX - for 2nd half of season, renew the melanie to melissaf swap of
 		// weekday asst cook & brunch asst cook
-
-		// swap
-		'lauras' => [
-			SUNDAY_HEAD_COOK => -1,
-			SUNDAY_CLEANER => 3,
-		],
-		'dan' => [
-			SUNDAY_HEAD_COOK => 1,
-			SUNDAY_CLEANER => -3,
-		],
 	];
 }
 
@@ -90,11 +79,6 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		// we need to have 31 total: 8 Sun, 1 brunch, 22 weekday
-		// cancel: 4 Sun, 2 brunch, 7 weekday
-		11 => [9, 16, 26],
-		12 => [16, 27, 28, 29, 30], # Danielle wants the 16th for celebration
-		1 => [5, 14, 18, 24, 26],
 	];
 }
 
