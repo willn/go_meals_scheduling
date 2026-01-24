@@ -67,6 +67,21 @@ function get_num_shift_overrides() {
 			BRUNCH_ASST_COOK => -1
 		],
 
+		// shift from MaryK to Polly
+		'maryking' => [
+			WEEKDAY_HEAD_COOK => -1
+		],
+		'polly' => [
+			WEEKDAY_HEAD_COOK => 1
+		],
+
+		// Kelly taking on enough labor to add a meal
+		'kelly' => [
+			WEEKDAY_CLEANER => 3,
+			WEEKDAY_ASST_COOK => 2,
+			WEEKDAY_HEAD_COOK => 1,
+		],
+
 		// XXX - for 2nd half of season, renew the melanie to melissaf swap of
 		// weekday asst cook & brunch asst cook
 	];
