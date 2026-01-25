@@ -54,8 +54,17 @@ class ConfigTest extends TestCase {
 	}
 
 	public function test_get_all_jobs() {
+		// include 'all' entry
 		$jobs = get_all_jobs();
 		$job_count = 12;
+		if (defined('WEEKDAY_TABLE_SETTER')) {
+			$job_count++;
+		}
+		$this->assertEquals($job_count, count($jobs));
+
+		// skip 'all' entry
+		$jobs = get_all_jobs(FALSE);
+		$job_count = 11;
 		if (defined('WEEKDAY_TABLE_SETTER')) {
 			$job_count++;
 		}

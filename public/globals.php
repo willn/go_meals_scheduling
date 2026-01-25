@@ -56,6 +56,7 @@ function get_mtg_nights() {
 function get_job_ids_clause($prefix='') {
 	$all_jobs = get_all_jobs();
 
+	// if the prefix doesn't end with a dot, then add one
 	if ($prefix != '') {
 		$len = strlen($prefix);
 		if (strrpos($prefix, '.') != ($len - 1)) {
@@ -63,7 +64,7 @@ function get_job_ids_clause($prefix='') {
 		}
 	}
 
-	$job_ids = array();
+	$job_ids = [];
 	foreach(array_keys($all_jobs) as $id) {
 		if ($id == 'all') {
 			continue;

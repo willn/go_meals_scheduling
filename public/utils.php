@@ -533,4 +533,100 @@ function get_nearest_even($number) {
 	return $number - 1;
 }
 
+/**
+ * Get the worker results data.
+ */
+function get_per_worker_results($job_key) {
+	$season_id = get_season_id();
+
+	$all_job_ids = get_all_jobs(FALSE);
+	$job_id_clause = ($job_key != 'all') ? $job_key :
+		implode(',', array_keys($all_job_ids));
+
+	$sql = <<<EOSQL
+	SELECT u.username, a.job_id, j.description, a.instances,
+		COALESCE(avail.num_avail, 0) AS num_avail
+	FROM work_app_assignment AS a
+	JOIN auth_user AS u
+		ON a.worker_id = u.id
+	JOIN work_app_job AS j
+		ON a.job_id = j.id
+	LEFT JOIN (
+		SELECT p.worker_id, s.job_id, COUNT(*) AS num_avail
+		FROM schedule_prefs AS p
+		JOIN schedule_shifts AS s
+			ON p.date_id = s.id
+		WHERE p.pref > 0
+		GROUP BY p.worker_id, s.job_id
+	) AS avail
+		ON avail.worker_id = a.worker_id
+	   AND avail.job_id = a.job_id
+	WHERE a.season_id = {$season_id}
+	  AND a.type = 'a'
+	  AND a.job_id IN ({$job_id_clause})
+	ORDER BY u.username;
+EOSQL;
+
+	$mysql_api = get_mysql_api();
+	$per_worker_rows = '';
+	$assignments = [];
+	foreach($mysql_api->get($sql) as $row) {
+		$row['num_shifts'] = $row['instances'] *
+			get_num_meals_per_assignment($season_id, $row['job_id'], SUB_SEASON_FACTOR);
+
+		$row['ratio'] = ($row['num_shifts'] > 0) ?
+			round($row['num_avail'] / $row['num_shifts'], 2) : 0;
+
+		$assignments[] = $row;
+	}
+
+	return $assignments;
+}
+
+/**
+ * Render a table of the worker results
+ */
+function render_per_worker_results($job_key) {
+	$assignments = get_per_worker_results($job_key);
+
+	// sort the 2-d array by 'ratio'
+	usort($assignments, function ($a, $b) {
+		return $a['ratio'] <=> $b['ratio'];
+	});
+
+	foreach($assignments as $row) {
+		if ($row['ratio'] < 1) {
+			$row['ratio'] = "<span class=\"highlight\">{$row['ratio']}</span>";
+		}
+
+		$per_worker_rows .= <<<EOHTML
+	<tr>
+		<td>{$row['username']}</td>
+		<td class="nowrap">{$row['description']}</td>
+		<td align="right">{$row['num_shifts']}</td>
+		<td align="right">{$row['num_avail']}</td>
+		<td align="right">{$row['ratio']}</td>
+	</tr>
+EOHTML;
+	}
+
+	return <<<EOHTML
+<h2>Per-worker</h2>
+<table cellpadding="3" cellspacing="0" border="0" id="per_worker">
+<thead>
+	<tr>
+		<th>Name</th>
+		<th>Job Name</th>
+		<th style="text-align: right;">shifts</th>
+		<th style="text-align: right;">num prefs</th>
+		<th style="text-align: right;">ratio</th>
+	</tr>
+</thead>
+<tbody>
+	{$per_worker_rows}
+</tbody>
+</table>
+EOHTML;
+}
+
 ?>
