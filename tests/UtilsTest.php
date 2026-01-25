@@ -253,7 +253,7 @@ class UtilsTest extends TestCase {
 			['08/16/2025', NOT_A_MEAL],
 			['08/23/2025', BRUNCH_MEAL],
 			['04/14/2018', NOT_A_MEAL],
-			['04/15/2018', SUNDAY_MEAL],
+			['12/28/2025', SUNDAY_MEAL],
 			# ['04/16/2018', MEETING_NIGHT_MEAL], # disable for now
 			['04/16/2018', NOT_A_MEAL],
 			['04/18/2018', WEEKDAY_MEAL],
@@ -318,7 +318,7 @@ class UtilsTest extends TestCase {
 			['04/26/2025', 'BrunchMeal'],
 			['07/19/2025', 'Error'],
 			['07/26/2025', 'BrunchMeal'],
-			['04/15/2018', 'SundayMeal'],
+			['12/28/2025', 'SundayMeal'],
 			# ['04/16/2018', 'MeetingNightMeal'], # disable for now
 			['04/16/2018', 'Error'],
 			['04/18/2018', 'WeekdayMeal'],

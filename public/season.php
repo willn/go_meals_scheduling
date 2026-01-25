@@ -59,12 +59,14 @@ function doing_csa_farm_meals() {
 function get_num_shift_overrides() {
 	return [
 		'melanie' => [
-			WEEKDAY_ASST_COOK => -1,
 			BRUNCH_ASST_COOK => 1,
 		], 
 		'melissaf' => [
 			WEEKDAY_ASST_COOK => 1,
 			BRUNCH_ASST_COOK => -1
+		],
+		'trisha' => [
+			WEEKDAY_ASST_COOK => 1,
 		],
 
 		// shift from MaryK to Polly
