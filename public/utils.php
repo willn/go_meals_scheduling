@@ -567,12 +567,24 @@ function get_per_worker_results($job_key) {
 	ORDER BY u.username;
 EOSQL;
 
+	$shift_overrides = get_num_shift_overrides();
+
 	$mysql_api = get_mysql_api();
 	$per_worker_rows = '';
 	$assignments = [];
 	foreach($mysql_api->get($sql) as $row) {
-		$row['num_shifts'] = $row['instances'] *
-			get_num_meals_per_assignment($season_id, $row['job_id'], SUB_SEASON_FACTOR);
+		$override = (isset($shift_overrides[$row['username']]) &&
+			isset($shift_overrides[$row['username']][$row['job_id']])) ?
+			$shift_overrides[$row['username']][$row['job_id']] : 0;
+
+		$row['num_shifts'] = ($row['instances'] *
+			get_num_meals_per_assignment($season_id, $row['job_id'], SUB_SEASON_FACTOR)) +
+			$override;
+
+		// if this is overridden out of existence, then skip the row
+		if ($row['num_shifts'] < 1) {
+			continue;
+		}
 
 		$row['ratio'] = ($row['num_shifts'] > 0) ?
 			round($row['num_avail'] / $row['num_shifts'], 2) : 0;
