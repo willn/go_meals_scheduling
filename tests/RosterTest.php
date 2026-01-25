@@ -96,9 +96,9 @@ class RosterTest extends TestCase {
 					SUNDAY_CLEANER => 0, 
 					SUNDAY_HEAD_COOK => 0,
 
-					WEEKDAY_ASST_COOK => 0,
-					WEEKDAY_CLEANER => 0,
-					WEEKDAY_HEAD_COOK => 0,
+					WEEKDAY_ASST_COOK => 2,
+					WEEKDAY_CLEANER => 3,
+					WEEKDAY_HEAD_COOK => 1,
 					# BRUNCH_LAUNDRY => 0,
 
 					BRUNCH_ASST_COOK => 0,
@@ -181,9 +181,9 @@ class RosterTest extends TestCase {
 					SUNDAY_CLEANER => 24, 
 					SUNDAY_HEAD_COOK => 8,
 
-					WEEKDAY_ASST_COOK => 44,
-					WEEKDAY_CLEANER => 66,
-					WEEKDAY_HEAD_COOK => 22,
+					WEEKDAY_ASST_COOK => 46,
+					WEEKDAY_CLEANER => 69,
+					WEEKDAY_HEAD_COOK => 23,
 					# WEEKDAY_LAUNDRY => 0,
 
 					BRUNCH_ASST_COOK => 2,
