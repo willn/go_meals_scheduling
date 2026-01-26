@@ -6,7 +6,7 @@ define('LOCATIONS_TO_RESERVE', GO_KITCHEN_AND_DINING_ROOM);
 define('CREATE', 'create');
 define('MISSING', 'XXX-');
 
-define('FILENAME', 'final_schedule.csv');
+define('FILENAME', 'schedule.csv');
 
 global $relative_dir;
 $relative_dir = '../public/';

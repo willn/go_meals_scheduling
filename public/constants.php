@@ -5,7 +5,7 @@
 define('BASE_DIR', '/meals_scheduling');
 
 define('SKIP_EMAIL', FALSE); // set to true for debugging
-define('RESULTS_FILE', 'schedule.txt');
+define('RESULTS_FILE', 'schedule.csv');
 
 # ---------- date stuff -------------
 define('WINTER', 'winter');

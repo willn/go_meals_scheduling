@@ -4,14 +4,9 @@
 
 ## copy closed database locally:
 ```
-# consider taking a backup file
-
-# on gocoho:
-mysqldump -u gocoho_work_allocation -p gocoho_work_allocation > end_of_survey.sql
-
-# on localhost:
+# copy a backup file:
 cd meals_scheduling/sql/
-rsync -e 'ssh' -avz gocoho@gocoho.org:/home/gocoho/end_of_survey.sql .
+rsync -e 'ssh' -avz gocoho@gocoho.org:/home/gocoho/backups/meals_scheduling/meals_scheduling_2026_01_24_20h.sql .
 
 # after grabbing a copy, delete all but the latest backup file on production
 
@@ -30,6 +25,8 @@ php execute.php -u
 ```
 # cancel-o-matic mode
 php execute.php -x
+
+# look at the community calendar to see if there are going to be conflicts
 
 # if meals need to be cancelled, mark these in get_skip_dates()
 vi public/season.php
@@ -79,7 +76,7 @@ Ensure that teen workers are paired with a parent.
 Read the comments for special requests at the bottom of the full report, to
 look for additional conflicts.
 
-### Download from google spreadsheet, save as tab separated values (TSV)
+### Download from google spreadsheet, save as CSV
 ```
 cd ~/Downloads
 mv <downloaded filename> schedule.txt
@@ -92,7 +89,7 @@ chmod +x checks.sh
 ```
 
 ## Auto-check for conflicts
- Download from google spreadsheet, as tab-delimited
+If changes were made, then re-download from google spreadsheet:
 * `mv file to auto-assignments/schedule.txt`
 * `cd tests/`
 * `vi CheckForConflictsTest.php # un-comment the test_check_for_conflicts test`
@@ -100,18 +97,11 @@ chmod +x checks.sh
 
 ## run conflicts validation:
 ```
-# is this needed with the new unit tests?
 cd ../utils/
 php validate_schedule.php -f ../auto_assignments/schedule.txt
-```
 
-## Translate from Google sheet to Gather imports
-
-Download sheet again, this time in *CSV* form.
-
-```
-mv ~/Downloads/<file name>.csv utils/final_schedule.csv
-cd meals_scheduling/utils/
+mv auto_assignments/schedule.csv utils/
+cd utils/
 php translate_to_gather_imports.php > imports.csv
 ```
 ### Dealing with problems
