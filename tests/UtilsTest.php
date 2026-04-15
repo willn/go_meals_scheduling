@@ -133,6 +133,24 @@ class UtilsTest extends TestCase {
 	}
 
 	/**
+	 * @ dataProvider provide_add_passover
+	public function test_add_passover($input, $expected) {
+		$result = add_passover($input);
+		$this->assertEquals($expected, $result);
+	}
+
+	public function provide_add_passover() {
+		return [
+			[
+				[7 => [4], 12 => [25]],
+				[4 => [1], 7 => [4], 12 => [25]]
+			],
+		];
+	}
+*/
+
+
+	/**
 	 * @dataProvider provide_add_memorial_day
 	 */
 	public function test_add_memorial_day($input, $expected) {
@@ -144,7 +162,8 @@ class UtilsTest extends TestCase {
 		return [
 			[
 				[7 => [4], 12 => [25]],
-				[5 => [24, 25], 7 => [4], 12 => [25]]],
+				[5 => [24, 25], 7 => [4], 12 => [25]]
+			],
 		];
 	}
 
@@ -194,9 +213,9 @@ class UtilsTest extends TestCase {
 
 	public function provide_get_holidays() {
 		$days = [
-			1 => [1, 19],
+			1 => [1, 18],
 			// easter changes
-			EASTER_MONTH => [EASTER_DAY],
+			EASTER_MONTH => [2, EASTER_DAY],
 			// Memorial Day changes
 			5 => [24, 25],
 			7 => [4],

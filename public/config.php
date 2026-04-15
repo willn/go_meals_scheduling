@@ -64,7 +64,7 @@ function get_weekday_jobs() {
  */
 function get_all_jobs($include_all_entry=TRUE) {
 	$all_jobs = ($include_all_entry) ? ['all' => 'all'] : [];
-	$all_jobs +=
+	$all_jobs = $all_jobs +
 		get_mtg_jobs() +
 		get_brunch_jobs() +
 		get_sunday_jobs() +

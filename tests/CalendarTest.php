@@ -901,6 +901,7 @@ EOHTML;
 		$small_data_file = file_get_contents('data/worker_comments.json');
 		$small_data = json_decode($small_data_file, TRUE);
 
+		$results_file = RESULTS_FILE;
 		$small_output = <<<EOHTML
 <h2 id="worker_comments">Comments</h2>
 		<fieldset>
@@ -930,25 +931,25 @@ clean_after_self: no<br>
 		</fieldset><h2 id="confirm_checks">Confirm results check</h2>
 <div class="confirm_results">echo "-----------";
 echo 'bananas' avoid workers 'cherries'
-grep 'bananas' schedule.txt | grep 'cherries'
+grep 'bananas' {$results_file} | grep 'cherries'
 echo "-----------";
 echo 'bananas' prefers 'apples'
-grep 'bananas' schedule.txt | grep 'apples'
+grep 'bananas' {$results_file} | grep 'apples'
 echo "-----------";
 echo 'bananas' prefers 'donuts'
-grep 'bananas' schedule.txt | grep 'donuts'
+grep 'bananas' {$results_file} | grep 'donuts'
 echo "-----------";
 echo 'bananas' prefers 'eggplant'
-grep 'bananas' schedule.txt | grep 'eggplant'
+grep 'bananas' {$results_file} | grep 'eggplant'
 echo "-----------";
 echo 'cherries' prefers 'apples'
-grep 'cherries' schedule.txt | grep 'apples'
+grep 'cherries' {$results_file} | grep 'apples'
 echo "-----------";
 echo 'donuts' avoid workers 'apples'
-grep 'donuts' schedule.txt | grep 'apples'
+grep 'donuts' {$results_file} | grep 'apples'
 echo "-----------";
 echo 'donuts' clean after self: 'no'
-grep 'donuts.*donuts' schedule.txt</div>
+grep 'donuts.*donuts' {$results_file}</div>
 EOHTML;
 
 		return [
@@ -1085,18 +1086,18 @@ EOHTML;
 			# MEETING_NIGHT_CLEANER => 4,
 			# MEETING_NIGHT_ORDERER => 4,
 
-			SUNDAY_ASST_COOK => 16,
-			SUNDAY_CLEANER => 24,
-			SUNDAY_HEAD_COOK => 8,
+			SUNDAY_ASST_COOK => 24,
+			SUNDAY_CLEANER => 36,
+			SUNDAY_HEAD_COOK => 12,
 
-			WEEKDAY_ASST_COOK => 46,
-			WEEKDAY_CLEANER => 69,
-			WEEKDAY_HEAD_COOK => 23,
+			WEEKDAY_ASST_COOK => 64,
+			WEEKDAY_CLEANER => 96,
+			WEEKDAY_HEAD_COOK => 32,
 			# WEEKDAY_LAUNDRY => 21,
 
-			BRUNCH_ASST_COOK => 2,
-			BRUNCH_CLEANER => 3,
-			BRUNCH_HEAD_COOK => 1,
+			BRUNCH_ASST_COOK => 6,
+			BRUNCH_CLEANER => 9,
+			BRUNCH_HEAD_COOK => 3,
 			# BRUNCH_LAUNDRY => 8,
 		];
 
@@ -1153,18 +1154,18 @@ EOHTML;
 			#MEETING_NIGHT_CLEANER => 4,
 			#MEETING_NIGHT_ORDERER => 4,
 
-			SUNDAY_ASST_COOK => 16,
-			SUNDAY_CLEANER => 8,
-			SUNDAY_HEAD_COOK => 8,
+			SUNDAY_ASST_COOK => 24,
+			SUNDAY_CLEANER => 12,
+			SUNDAY_HEAD_COOK => 12,
 
-			WEEKDAY_ASST_COOK => 46,
-			WEEKDAY_CLEANER => 23,
-			WEEKDAY_HEAD_COOK => 23,
+			WEEKDAY_ASST_COOK => 64,
+			WEEKDAY_CLEANER => 32,
+			WEEKDAY_HEAD_COOK => 32,
 			# WEEKDAY_LAUNDRY => 7,
 
-			BRUNCH_ASST_COOK => 2,
-			BRUNCH_CLEANER => 3,
-			BRUNCH_HEAD_COOK => 1,
+			BRUNCH_ASST_COOK => 6,
+			BRUNCH_CLEANER => 9,
+			BRUNCH_HEAD_COOK => 3,
 			# BRUNCH_LAUNDRY => 3,
 		];
 
@@ -1198,9 +1199,9 @@ EOHTML;
 		// UPDATE-EACH-SEASON
 		$expected = [
 			'meeting' => 0,
-			'sunday' => 8,
-			'weekday' => 23,
-			'brunch' => 1,
+			'sunday' => 12,
+			'weekday' => 32,
+			'brunch' => 3,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
 			$carry += $item;

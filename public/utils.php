@@ -137,6 +137,36 @@ function add_easter($holidays, $season=[]) {
 	return $holidays;
 }
 
+function add_passover($holidays, $season = []) {
+    $cur_year = date('Y');
+
+    // For Passover, Hebrew year aligns with Gregorian year + 3760
+    $hebrew_year = $cur_year + 3760;
+
+    // Nisan = 8, Passover = 15th
+    $julian_day_count = jewishtojd(8, 15, $hebrew_year);
+
+	/*
+	 * Passover typically falls within the rang of March 13 to April 10, so the
+	 * midpoint of that date range would be March 27th. Sunset on that date is
+	 * about 8pm / 20h. So if the current time is before 8pm, then decrease
+	 * the count.
+	 */
+	$current_hour = date('G');
+	if ($current_hour < 20) {
+		$julian_day_count--;
+	}
+
+    // Convert JD to Gregorian date safely
+    $greg = cal_from_jd($julian_day_count, CAL_GREGORIAN);
+
+    $passover_month = $greg['month'];
+    $passover_day = $greg['day'];
+    $holidays[$passover_month][] = $passover_day;
+
+    return $holidays;
+}
+
 
 /**
  * Add Memorial Day date to the holidates array.
@@ -265,6 +295,7 @@ function get_holidays() {
 	// get dynamic dates
 	$season = get_current_season_months();
 	$holidays = add_mlk_day($holidays);
+	$holidays = add_passover($holidays, $season);
 	$holidays = add_easter($holidays, $season);
 	$holidays = add_memorial_day($holidays);
 	$holidays = add_labor_day($holidays);
@@ -586,7 +617,7 @@ EOSQL;
 			continue;
 		}
 
-		$row['ratio'] = ($row['num_shifts'] > 0) ?
+		$row['ratio'] = ($row['num_shifts'] != 0) ?
 			round($row['num_avail'] / $row['num_shifts'], 2) : 0;
 
 		$assignments[] = $row;
@@ -606,6 +637,7 @@ function render_per_worker_results($job_key) {
 		return $a['ratio'] <=> $b['ratio'];
 	});
 
+	$per_worker_rows = '';
 	foreach($assignments as $row) {
 		if ($row['ratio'] < 1) {
 			$row['ratio'] = "<span class=\"highlight\">{$row['ratio']}</span>";

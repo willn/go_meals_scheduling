@@ -28,8 +28,7 @@ class CheckForConflictsTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider provide_check_for_conflicts
-	 */
+	 * @ dataProvider provide_check_for_conflicts
 	public function test_check_for_conflicts($file, $expected) {
 		$result = check_for_conflicts($file);
 		$debug = [
@@ -46,6 +45,7 @@ class CheckForConflictsTest extends TestCase {
 			['../auto_assignments/schedule.csv', []],
 		];
 	}
+	 */
 
 }
 

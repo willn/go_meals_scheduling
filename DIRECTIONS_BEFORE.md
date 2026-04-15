@@ -17,7 +17,7 @@ committee needs to know how much meals labor will be needed.
 * Where will these meals be hosted?
   - Update `LOCATIONS_TO_RESERVE`
 * Which jobs will we be using this season?
-  - Disable any un-needed meals in `public/utils.php` in the
+  - Disable any un-needed meal type in `public/utils.php` in the
   `get_meal_type_by_date()` function.
 
 ### Ask Process committee

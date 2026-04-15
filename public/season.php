@@ -3,13 +3,13 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('Jan 24, 2026, 7:30pm'));
+define('DEADLINE', strtotime('April 24, 2026, 7:30pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', WINTER);
+define('SEASON_NAME', SPRING);
 
 // If this is a whole season, then 1, half .5, etc.
 define('SUB_SEASON_FACTOR', .5);
@@ -48,7 +48,7 @@ define('WEEKDAY_HEAD_COOK_NAME', 'Weekday Head Cook (2 meals)');
  * Whether we're hosting CSA farm meals this summer.
  */
 function doing_csa_farm_meals() {
-	return FALSE;
+	return TRUE;
 }
 
 /**
@@ -58,34 +58,7 @@ function doing_csa_farm_meals() {
  */
 function get_num_shift_overrides() {
 	return [
-		'melanie' => [
-			BRUNCH_ASST_COOK => 1,
-		], 
-		'melissaf' => [
-			WEEKDAY_ASST_COOK => 1,
-			BRUNCH_ASST_COOK => -1
-		],
-		'trisha' => [
-			WEEKDAY_ASST_COOK => 1,
-		],
-
-		// shift from MaryK to Polly
-		'maryking' => [
-			WEEKDAY_HEAD_COOK => -1
-		],
-		'polly' => [
-			WEEKDAY_HEAD_COOK => 1
-		],
-
-		// Kelly taking on enough labor to add a meal
-		'kelly' => [
-			WEEKDAY_CLEANER => 3,
-			WEEKDAY_ASST_COOK => 2,
-			WEEKDAY_HEAD_COOK => 1,
-		],
-
-		// XXX - for 2nd half of season, renew the melanie to melissaf swap of
-		// weekday asst cook & brunch asst cook
+		'melanie' => [SUNDAY_ASST_COOK => 2],
 	];
 }
 
@@ -96,9 +69,6 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		2 => [1, 2, 9, 11, 18, 23],
-		3 => [1, 11, 18, 25, 28, 29],
-		4 => [8, 12, 15, 25],
 	];
 }
 
@@ -110,8 +80,6 @@ function get_skip_dates() {
  */
 function get_weekday_overrides() {
 	return [
-		1 => [19],
-		4 => [1],
 	];
 }
 
@@ -123,8 +91,6 @@ function get_weekday_overrides() {
  */
 function get_meeting_night_overrides() {
 	return [
-		1 => [21],
-		4 => [6],
 	];
 }
 
