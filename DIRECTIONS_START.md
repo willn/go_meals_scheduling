@@ -101,20 +101,6 @@ Copy the results block and replace the previous season's entries in this file:
 
 * Update the unit tests which are going to fail based on changed info
 * look for the UPDATE-EACH-SEASON
-* make sure that unit tests work:
-```
-cd tests
-./run.sh
-```
-
-### when tests pass, then commit
-```
-git status
-git add
-git commit
-git push
-```
-
 * initialize the database
 ```
 cd ../../utils/

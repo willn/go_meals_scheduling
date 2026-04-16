@@ -47,9 +47,9 @@ class RosterTest extends TestCase {
 					MEETING_NIGHT_CLEANER => 0,
 					MEETING_NIGHT_ORDERER => 0,
 
-					SUNDAY_ASST_COOK => 28,
-					SUNDAY_CLEANER => 42, 
-					SUNDAY_HEAD_COOK => 14,
+					SUNDAY_ASST_COOK => 22,
+					SUNDAY_CLEANER => 39, 
+					SUNDAY_HEAD_COOK => 11,
 
 					WEEKDAY_ASST_COOK => 56,
 					WEEKDAY_CLEANER => 84,
@@ -177,9 +177,9 @@ class RosterTest extends TestCase {
 					MEETING_NIGHT_CLEANER => 0,
 					MEETING_NIGHT_ORDERER => 0,
 
-					SUNDAY_ASST_COOK => 30,
-					SUNDAY_CLEANER => 43, 
-					SUNDAY_HEAD_COOK => 14,
+					SUNDAY_ASST_COOK => 24,
+					SUNDAY_CLEANER => 40, 
+					SUNDAY_HEAD_COOK => 11,
 
 					WEEKDAY_ASST_COOK => 56,
 					WEEKDAY_CLEANER => 84,
