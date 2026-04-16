@@ -16,39 +16,45 @@ If this is mid-season, skip to the [MID-SEASON section](./DIRECTIONS_START_MID_S
 
 --> ensure that this works in the survey, CRUD & assignments.
 
-### update and clean up the database
+### reset the local database
 
-* grab the database from the work app and export / import to mysql:
+get the list of current tables:
 ```
-cd sql/
-scp gocoho.tklapp.com:/home/django/work/db.sqlite3 .
-# run the database prep script for cleaning
-../utils/translate_sqlite_to_mysql.sh
-
-# confirm that we got the needed tables
-	auth_user
-	work_app_committee
-	work_app_season
-	work_app_job
-	work_app_assignment
-
-# reset the local database
-# get the list of current tables
 mysql -u gocoho_work_allocation -p gocoho_work_allocation
 
 SELECT CONCAT('DROP TABLE IF EXISTS `', table_name, '`;')
 	FROM information_schema.tables
 	WHERE table_schema = 'gocoho_work_allocation';
+```
 
-# paste these statements somewhere, remove the pipes, then run them manually to
-# drop the tables. Don't drop the entire database, since then we have to reset
-# permissions, etc.
+Paste these statements somewhere, remove the pipes, then run them manually to
+drop the tables. Don't drop the entire database, since then we have to reset
+permissions, etc.
 
+```
 mysql> show tables;
 Empty set (0.00 sec)
+```
 
-# combine various SQL files into one, and import them all:
-cat work.sql add_gather_ids.sql scheduling_survey_schema.sql > imports.sql
+### update and clean up the database
+
+* grab the database from the work app and export / import to mysql:
+`cd sql/`
+
+Follow steps for exporting and importing from Heroku
+
+confirm that we got the needed tables
+```
+	auth_user
+	work_app_assignment
+	work_app_committee
+	work_app_job
+	work_app_season
+```
+
+### combine various SQL files into one, and import them all:
+```
+cat add_gather_ids.sql scheduling_survey_schema.sql > imports.sql
 mysql -u gocoho_work_allocation -p gocoho_work_allocation < imports.sql
 
 # confirm - there should be 8 tables
@@ -69,17 +75,19 @@ mysql> show tables;
 8 rows in set (0.00 sec)
 ```
 
-* Look for any recently added users who are missing a Gather ID
+### Look for any recently added users who are missing a Gather ID
 ```
 select username from auth_user
 	WHERE date_joined > DATE_ADD(CURDATE(), INTERVAL -366 DAY) AND
 		gather_id is NULL order by date_joined;
 ```
 If there is anyone listed here, find their ID in Gather & update the
-list in the `add_gather_ids.sql` file. Next, run those statements in mysql to
-get the numbers assigned to the workers.
+list in the `add_gather_ids.sql` file.
 
-* get new job IDs for the season, and update the defines for each job in config.php
+Then run those statements manuall in mysql to get the numbers assigned to the workers.
+
+
+### get new job IDs for the season, and update the defines for each job in config.php
 ```
 cd utils/
 php find_current_season_jobs.php

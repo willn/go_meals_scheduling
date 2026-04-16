@@ -15,15 +15,15 @@ define('SEASON_NAME', SPRING);
 define('SUB_SEASON_FACTOR', .5);
 
 /* ----------- job ids --------------- */
-define('SUNDAY_ASST_COOK', 8523);
-define('SUNDAY_CLEANER', 8513);
-define('SUNDAY_HEAD_COOK', 8517);
-define('BRUNCH_ASST_COOK', 8527);
-define('BRUNCH_CLEANER', 8532);
-define('BRUNCH_HEAD_COOK', 8526);
-define('WEEKDAY_ASST_COOK', 8515);
-define('WEEKDAY_CLEANER', 8514);
-define('WEEKDAY_HEAD_COOK', 8516);
+define('SUNDAY_ASST_COOK', 11028);
+define('SUNDAY_CLEANER', 11018);
+define('SUNDAY_HEAD_COOK', 11022);
+define('BRUNCH_ASST_COOK', 11032);
+define('BRUNCH_CLEANER', 11037);
+define('BRUNCH_HEAD_COOK', 11031);
+define('WEEKDAY_ASST_COOK', 11020);
+define('WEEKDAY_CLEANER', 11019);
+define('WEEKDAY_HEAD_COOK', 11021);
 
 // previous season jobs, keep for unit tests & for the future
 define('MEETING_NIGHT_CLEANER', 7629);
@@ -59,6 +59,10 @@ function doing_csa_farm_meals() {
 function get_num_shift_overrides() {
 	return [
 		'melanie' => [SUNDAY_ASST_COOK => 2],
+		'andrewb' => [
+			SUNDAY_CLEANER => 1,
+			BRUNCH_CLEANER => 1,
+		],
 	];
 }
 
