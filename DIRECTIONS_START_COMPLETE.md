@@ -6,33 +6,37 @@
 gocoho
 cd public_html/meals_scheduling/
 rm -rf *
+```
 
-# on localhost:
+### on localhost:
+```
 ./push_all_to_production.sh
-
 cd sql/
-# This needs to be the local mysql **root** user
-mysqldump -u root -p gocoho_work_allocation > transfer.sql
+```
 
-# Clean up the transfer SQL
-./clean_transfer_sql.sh
+This needs to be the local mysql **root** user
+`mysqldump -u root -p gocoho_work_allocation --set-gtid-purged=OFF > transfer.sql`
 
-# transfer the SQL file to production
-scp -i ~/.ssh/id_dsa transfer.sql gocoho@gocoho.org:
+ Clean up the transfer SQL
+`./clean_transfer_sql.sh`
 
-# on gocoho:
+transfer the SQL file to production
+`scp -i ~/.ssh/id_dsa transfer.sql gocoho@gocoho.org:`
+
+### on remote host:
+```
 cd ~
 mysql -u gocoho_work_allocation -p gocoho_work_allocation < transfer.sql
 rm transfer.sql
 ```
 
 ### test to make sure everything works, view in web browser
-* resync code to clean up
-   - `./push_all_to_production.sh`
-* in the web browser, confirm that the calendar dates are correct
-   - confirm the holidays and meeting nights are correct
-   - fill in some entries and save them
-   - load listing page again to make sure that the database is writeable
+
+In the web browser, confirm that the calendar dates are correct
+
+* confirm the holidays and meeting nights are correct
+* fill in some entries and save them
+* load listing page again to make sure that the database is writeable
 
 ### notify participants that the survey is ready
 
