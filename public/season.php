@@ -63,6 +63,11 @@ function get_num_shift_overrides() {
 			SUNDAY_CLEANER => 1,
 			BRUNCH_CLEANER => 1,
 		],
+		'melissaf' => [
+			BRUNCH_HEAD_COOK => 1,
+		],
+
+		// Rossella asst cook week of Aug 2
 	];
 }
 

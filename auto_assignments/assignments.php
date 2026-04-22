@@ -267,13 +267,6 @@ Labor Shortfall:
 
 EOM;
 		echo print_r($labor_shortfall, TRUE);
-		# echo "shifts per meal: " . print_r($shifts_per_meal, TRUE);
-
-		/*
-		#!# Figure out how many meals to cancel here... based on
-		number of "unavailable" meals and the number of istances each shift
-		type can support.
-		*/
 
 		$date_points = [];
 		foreach($shifts_needed as $job_id => $shifts_possible) {
@@ -320,7 +313,62 @@ does not have enough labor.
 EOM;
 		echo print_r( $sorted_date_points, true );
 
+		$to_cancel = $this->findCancelCounts($shifts_needed, $labor_available);
+		echo 'to cancel: ' . print_r( $to_cancel, TRUE );
+
 		return NULL;
+	}
+
+	/**
+	 * Find the number of meals that we need to cancel due to lack of labor.
+	 */
+	public function findCancelCounts($shifts_needed, $labor_available) {
+		$meals_capacity = [];
+		$meals_requested = [];
+		$meals_to_cancel = [];
+
+		foreach ($shifts_needed as $job_id => $shifts_possible) {
+			if (!isset($labor_available[$job_id])) {
+				continue;
+			}
+
+			$workers_per_meal = get_num_workers_per_job_per_meal($job_id);
+			if ($workers_per_meal <= 0) {
+				continue; // guard against bad config
+			}
+
+			// how many meals this job can support
+			$meals_supported = floor($labor_available[$job_id] / $workers_per_meal);
+
+			// initialize
+			$type = get_meal_type_by_job_id($job_id);
+			if (!isset($meals_capacity[$type])) {
+				$meals_capacity[$type] = $meals_supported;
+			}
+			else {
+				// limiting factor across roles
+				$meals_capacity[$type] = min($meals_capacity[$type], $meals_supported);
+			}
+
+			// track requested meals (convert shifts -> meals)
+			$meals_requested_for_job = floor($shifts_possible / $workers_per_meal);
+
+			if (!isset($meals_requested[$type])) {
+				$meals_requested[$type] = $meals_requested_for_job;
+			}
+			else {
+				// should be same across roles, but take max defensively
+				$meals_requested[$type] = max($meals_requested[$type], $meals_requested_for_job);
+			}
+		}
+
+		// final cancellation calculation
+		foreach ($meals_requested as $type => $requested) {
+			$capacity = $meals_capacity[$type] ?? 0;
+			$meals_to_cancel[$type] = max(0, $requested - $capacity);
+		}
+
+		return $meals_to_cancel;
 	}
 }
 ?>

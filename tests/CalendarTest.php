@@ -1177,14 +1177,19 @@ EOHTML;
 			}
 		}
 
+		$num_workers = get_num_workers_per_job_per_meal(WEEKDAY_CLEANER);
 		$wk_cleaners = isset($counts[WEEKDAY_CLEANER]) ?
-			floor($counts[WEEKDAY_CLEANER] / 3) : 0;
+			floor($counts[WEEKDAY_CLEANER] / $num_workers) : 0;
+
 		$setters_string = '';
 		if (defined('WEEKDAY_TABLE_SETTER')) {
-			$setter_string = "\n" . floor($counts[WEEKDAY_TABLE_SETTER] / 3);
+			$num_workers = get_num_workers_per_job_per_meal(WEEKDAY_TABLE_SETTER);
+			$setter_string = "\n" . floor($counts[WEEKDAY_TABLE_SETTER] / $num_workers);
 		}
+
+		$num_workers = get_num_workers_per_job_per_meal(SUNDAY_CLEANER);
 		$sun_cleaners = isset($counts[SUNDAY_CLEANER]) ?
-			floor($counts[SUNDAY_CLEANER] / 3) : 0;
+			floor($counts[SUNDAY_CLEANER] / $num_workers) : 0;
 
         return [
             [$counts],
