@@ -1,17 +1,28 @@
 # END-OF-SURVEY
 
-## disable cronjobs
+## disable cronjobs on webserver
 
-## copy closed database locally:
+## grab the name of the last backup file
+
 ```
-# copy a backup file:
-cd meals_scheduling/sql/
-rsync -e 'ssh' -avz gocoho@gocoho.org:/home/gocoho/backups/meals_scheduling/meals_scheduling_2026_01_24_20h.sql .
+# find the most recent file
+ls -tr ~/backups/meals_scheduling/ | tail -n1
 
-# after grabbing a copy, delete all but the latest backup file on production
+# rename to latest
+mv meals_scheduling_2026_04_24_21h.sql latest.sql
+
+# cleanup the rest
+rm meals_scheduling_*
+```
+
+## copy database locally:
+```
+# copy the most recent backup file:
+cd meals_scheduling/sql/
+rsync -e 'ssh' -avz gocoho@gocoho.org:/home/gocoho/backups/meals_scheduling/latest.sql .
 
 # load it up locally
-mysql -u gocoho_work_allocation -p gocoho_work_allocation < end_of_survey.sql
+mysql -u gocoho_work_allocation -p gocoho_work_allocation < latest.sql
 ```
 
 ## check for any un-assigned workers

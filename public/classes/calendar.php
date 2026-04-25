@@ -1175,8 +1175,8 @@ EOHTML;
 
 
 	/**
-	 * Get the current number of assignments for each job id for the current
-	 * season.
+	 * Get the current number of bundled assignments needed for each
+	 * job id for the current season.
 	 *
 	 * @return array associative where they keys are job IDs and the values are
 	 *     the number of work bundle / assignments needed.
@@ -1187,6 +1187,25 @@ EOHTML;
 		$num_meals = $this->getShiftsPerDate($dates_and_shifts);
 		return $this->getNumberAssignmentsPerJobId(
 			$num_meals, SUB_SEASON_FACTOR);
+	}
+
+	/**
+	 * Get the current number of labor (dinner shifts) for each job id for the current
+	 * season.
+	 *
+	 * @return array associative where they keys are job IDs and the values are
+	 *     the number of dinner-shifts needed.
+	 */
+	public function getLaborNeededForCurrentSeason() {
+		$workers_per_meal = get_num_workers_per_job_per_meal();
+		$assignments = $this->getAssignmentsNeededForCurrentSeason();
+
+		$shifts = [];
+		foreach ($assignments as $job_id => $num_assignments) {
+			$num_per_meal = array_get($workers_per_meal, $job_id, 0);
+			$shifts[$job_id] = ($num_per_meal * $num_assignments);
+		}
+		return $shifts;
 	}
 
 

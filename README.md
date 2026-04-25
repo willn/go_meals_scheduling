@@ -44,6 +44,7 @@ an auto-allocation algorithm looking for the best fit.
 ## Exceptions
 We don't schedule meals on holidays, and sometimes the day before / after, consider these dates each season. Currently skipped dates:
 * Jan 1st
+* Passover
 * Easter Sunday
 * 4th of July
 * Memorial Day (Sunday & Monday)

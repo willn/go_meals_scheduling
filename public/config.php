@@ -119,7 +119,7 @@ function get_clean_jobs() {
  *     jobs according to the factor.
  * @return int the number of meals needed for this job. XXX or maybe an array?
  */
-function get_num_meals_per_assignment($season, $job_id=NULL,
+function get_num_meals_per_assignment($season=[], $job_id=NULL,
 	$sub_season_factor=1) {
 
 	if (empty($season) || !is_array($season)) {
