@@ -11,6 +11,8 @@ if (!strlen($relative_dir)) {
 require_once "{$relative_dir}/utils.php";
 require_once "{$relative_dir}/constants.php";
 require_once "{$relative_dir}/config.php";
+require_once('classes/calendar.php');
+require_once('classes/worker_comments.php');
 
 session_start();
 
@@ -43,8 +45,6 @@ EOHTML;
 	}
 }
 
-require_once('classes/calendar.php');
-
 $calendar = new Calendar();
 $job_key = (isset($_GET['key']) && is_numeric($_GET['key'])) ?
 	intval($_GET['key']) : 'all';
@@ -68,7 +68,8 @@ $cal_string = $calendar->toString(NULL, $worker_dates, $non_respondents);
 
 $comments = '';
 if ($_SESSION['access_type'] == 'admin') {
-	$comments = $calendar->getWorkerComments($job_key_clause);
+	$worker_comments = new WorkerComments();
+	$comments = $worker_comments->getWorkerComments($job_key_clause);
 }
 
 $job_name = ($job_key != 0) ? '' : '<th>Job</th>';

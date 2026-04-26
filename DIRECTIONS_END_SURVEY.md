@@ -37,6 +37,8 @@ php execute.php -u
 # cancel-o-matic mode
 php execute.php -x
 
+# Are there any Sundays which conflict with a work day?
+
 # look at the community calendar to see if there are going to be conflicts
 
 # if meals need to be cancelled, mark these in get_skip_dates()
@@ -90,7 +92,7 @@ look for additional conflicts.
 ### Download from google spreadsheet, save as CSV
 ```
 cd ~/Downloads
-mv <downloaded filename> schedule.txt
+mv <downloaded filename> schedule.csv
 
 # On the scheduling system, report page, filter to "all" jobs. Copy the "confirm checks" section & paste:
 vi checks.sh
@@ -101,18 +103,18 @@ chmod +x checks.sh
 
 ## Auto-check for conflicts
 If changes were made, then re-download from google spreadsheet:
-* `mv file to auto-assignments/schedule.txt`
-* `cd tests/`
-* `vi CheckForConflictsTest.php # un-comment the test_check_for_conflicts test`
-* `phpunit CheckForConflictsTest.php`
+```
+mv file to auto-assignments/schedule.txt
+cd tests/
+vi CheckForConflictsTest.php # un-comment the test_check_for_conflicts test
+phpunit CheckForConflictsTest.php
+```
 
 ## run conflicts validation:
 ```
-cd ../utils/
-php validate_schedule.php -f ../auto_assignments/schedule.txt
-
 mv auto_assignments/schedule.csv utils/
 cd utils/
+php validate_schedule.php -f schedule.txt
 php translate_to_gather_imports.php > imports.csv
 ```
 ### Dealing with problems

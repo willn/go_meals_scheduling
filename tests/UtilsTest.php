@@ -215,7 +215,7 @@ class UtilsTest extends TestCase {
 		$days = [
 			1 => [1, 18],
 			// easter changes
-			EASTER_MONTH => [1, EASTER_DAY],
+			EASTER_MONTH => [2, EASTER_DAY],
 			// Memorial Day changes
 			5 => [24, 25],
 			7 => [4],
