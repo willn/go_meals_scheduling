@@ -31,7 +31,7 @@ class MysqlApiTest extends TestCase {
 
     public function testQuery(): void {
         $result = $this->mysqlApi->query('SELECT COUNT(*) FROM auth_user');
-        $this->assertInstanceOf(mysqli_result::class, $result);
+        $this->assertTrue($result);
     }
 
     public function testGet(): void {

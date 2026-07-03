@@ -1,6 +1,6 @@
 <?php
 set_include_path('../' . PATH_SEPARATOR . '../public/');
-require_once 'mysql_api.php';
+require_once dirname(__DIR__) . '/mysql_api.php';
 
 class Worker {
 	# this is an arbitrary amount
@@ -462,7 +462,7 @@ class Worker {
 
 	/**
 	 * Find if this worker has responded to the survey.
-	 * @return boolean, If TRUE then the worker has some available shifts.
+	 * @return boolean If TRUE then the worker has some available shifts.
 	 */
 	public function hasResponded() {
 		return !empty($this->avail_shifts);

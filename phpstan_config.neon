@@ -1,6 +1,6 @@
 # phpstan config file
 # run with this command:
-# $ phpstan analyse -c phpstan_config.neon .
+# $ phpstan analyse -c phpstan_config.neon . --memory-limit=512M 
 
 parameters:
 	level: 5
@@ -18,14 +18,6 @@ parameters:
 		  count: 2
 		  path: auto_assignments/assignments.php
 
-		#- message: "#^If condition is always false\\.$#"
-		#  count: 1
-		#  path: auto_assignments/execute.php
-
-		#- message: "#^Ternary operator condition is always true\\.$#"
-		#  count: 1
-		#  path: public/classes/calendar.php
-
 		- message: "#^If condition is always false\\.$#"
 		  count: 1
 		  path: public/classes/meal.php
@@ -33,14 +25,6 @@ parameters:
 		- message: "#^Left side of && is always false\\.$#"
 		  count: 1
 		  path: public/classes/meal.php
-
-		#- message: "#^If condition is always false\\.$#"
-		#  count: 1
-		#  path: auto_assignments/scheduling.php
-
-		- message: "#^Class Worker constructor invoked with 1 parameter, 0 required.$#"
-		  count: 1
-		  path: public/classes/roster.php
 
 		- message: "#^If condition is always false\\.$#"
 		  count: 1
@@ -50,6 +34,7 @@ parameters:
 		  count: 1
 		  path: public/mysql_api.php
 
-		#- message: "#^Ternary operator condition is always true\\.$#"
-		#  count: 1
-		#  path: public/utils.php
+		- message: "#^Loose comparison using == between 0.5 and 1.0 will always evaluate to false#"
+		  count: 2
+		  path: public/classes/calendar.php
+

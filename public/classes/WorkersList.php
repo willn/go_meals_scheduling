@@ -1,6 +1,6 @@
 <?php
 require_once 'respondents.php';
-require_once 'mysql_api.php';
+require_once dirname(__DIR__) . '/mysql_api.php';
 
 /**
  * Track the list of workers.

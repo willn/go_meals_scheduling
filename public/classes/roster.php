@@ -1,9 +1,9 @@
 <?php
 set_include_path('../' . PATH_SEPARATOR . '../public/');
 
-require_once 'utils.php';
-require_once 'classes/worker.php';
-require_once 'mysql_api.php';
+require_once dirname(__DIR__) . '/utils.php';
+require_once __DIR__ . '/worker.php';
+require_once dirname(__DIR__) . '/mysql_api.php';
 
 // -----------------------------------
 class Roster {

@@ -1,8 +1,8 @@
 <?php
-require_once 'globals.php';
-require_once 'WorkersList.php';
-require_once 'mysql_api.php';
-require_once 'utils.php';
+require_once dirname(__DIR__) . '/globals.php';
+require_once __DIR__ . '/WorkersList.php';
+require_once dirname(__DIR__) . '/mysql_api.php';
+require_once dirname(__DIR__) . '/utils.php';
 
 class Calendar {
 	const BLANK_DAY_HTML = '<td class="blank"></td>';
@@ -133,9 +133,6 @@ EOHTML;
 	 * @return string the rendered html.
 	 */
 	public function getWeekdaySelectorHtml($day_num, $day_of_week) {
-		if (!is_numeric($day_num)) {
-			return '';
-		}
 		if (empty($day_of_week)) {
 			return '';
 		}
@@ -492,12 +489,6 @@ EOHTML;
 			case 'weekday':
 				$jobs = get_weekday_jobs();
 				break;
-		}
-
-		// for report
-		if (!is_object($worker)) {
-			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " null worker sent");
-			return '';
 		}
 
 		$saved_prefs = get_saved_prefs($worker->getId());

@@ -12,6 +12,7 @@ class MysqlApi {
 	private $password;
 
 	private $link;
+	private $mysqli_result;
 
 	/**
 	 * Construct a new connection object.
@@ -42,7 +43,7 @@ class MysqlApi {
 	/**
 	 * Establish a connection to a mysql database
 	 *
-	 * @return boolean. If TRUE, then the connection either previously existed,
+	 * @return boolean If TRUE, then the connection either previously existed,
 	 *     or was established properly.
 	 */
 	public function connect() {
@@ -74,23 +75,24 @@ class MysqlApi {
 	 * Query the database.
 	 *
 	 * @param string $query A SQL command to be executed.
-	 * @return mysqli_result
+	 * @return boolean whether the query was successful or not
 	 */
 	public function query($query) {
 		if (is_null($this->link)) {
 			$this->connect();
 		}
 		if (is_null($this->link)) {
-			# return NULL; wrong return type
+			error_log("null mysqli link");
+			return FALSE;
 		}
 
-		$mysqli_result = mysqli_query($this->link, $query);
-		if (!$mysqli_result) {
+		$this->mysqli_result = mysqli_query($this->link, $query);
+		if (!$this->mysqli_result) {
 			$err = mysqli_error($this->link);
 			error_log("Could not get a result from the query, err: {$err}");
-			# return NULL; wrong return type
+			return FALSE;
 		}
-		return $mysqli_result;
+		return TRUE;
 	}
 
 	/**
@@ -109,12 +111,12 @@ class MysqlApi {
 			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " sql:$query ");
 		}
 
-		$mysqli_result = $this->query($query);
-		if ($mysqli_result == FALSE) {
+		$success = $this->query($query);
+		if (!$success) {
 			return FALSE;
 		}
 
-		while($info = mysqli_fetch_array($mysqli_result, MYSQLI_ASSOC)) {
+		while($info = mysqli_fetch_array($this->mysqli_result, MYSQLI_ASSOC)) {
 			if ($do_stripslashes) {
 				$info = array_map('stripslashes', $info);
 			}

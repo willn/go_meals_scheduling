@@ -3,11 +3,11 @@ global $relative_dir;
 if (!isset($relative_dir)) {
 	$relative_dir = './';
 }
-require_once 'globals.php';
-require_once 'classes/calendar.php';
-require_once 'classes/roster.php';
-require_once 'classes/worker.php';
-require_once 'classes/WorkersList.php';
+require_once dirname(__DIR__) . '/globals.php';
+require_once __DIR__ . '/calendar.php';
+require_once __DIR__ . '/roster.php';
+require_once __DIR__ . '/worker.php';
+require_once __DIR__ . '/WorkersList.php';
 
 class Survey {
 	protected $worker_obj;

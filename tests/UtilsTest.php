@@ -8,8 +8,8 @@ require_once '../public/globals.php';
 require_once '../auto_assignments/scheduling.php';
 
 // UPDATE-EACH-SEASON
-define('EASTER_MONTH', 4);
-define('EASTER_DAY', 5);
+define('EASTER_MONTH', 3);
+define('EASTER_DAY', 28);
 
 // XXX this ought to get automated
 define('LABOR_DAY', 2);
@@ -133,7 +133,8 @@ class UtilsTest extends TestCase {
 	}
 
 	/**
-	 * @ dataProvider provide_add_passover
+	 * @dataProvider provide_add_passover
+	 */
 	public function test_add_passover($input, $expected) {
 		$result = add_passover($input);
 		$this->assertEquals($expected, $result);
@@ -142,12 +143,15 @@ class UtilsTest extends TestCase {
 	public function provide_add_passover() {
 		return [
 			[
-				[7 => [4], 12 => [25]],
-				[4 => [1], 7 => [4], 12 => [25]]
+				'input' => [],
+				'expected' => [4 => [21]]
+			],
+			[
+				'input' => [7 => [4], 12 => [25]],
+				'expected' => [4 => [21], 7 => [4], 12 => [25]]
 			],
 		];
 	}
-*/
 
 
 	/**
@@ -162,7 +166,7 @@ class UtilsTest extends TestCase {
 		return [
 			[
 				[7 => [4], 12 => [25]],
-				[5 => [24, 25], 7 => [4], 12 => [25]]
+				[5 => [30, 31], 7 => [4], 12 => [25]]
 			],
 		];
 	}
@@ -214,10 +218,9 @@ class UtilsTest extends TestCase {
 	public function provide_get_holidays() {
 		$days = [
 			1 => [1, 18],
-			// easter changes
-			EASTER_MONTH => [2, EASTER_DAY],
-			// Memorial Day changes
-			5 => [24, 25],
+			4 => [21], // passover
+			EASTER_MONTH => [EASTER_DAY], // easter changes
+			5 => [30, 31], // Memorial Day changes
 			7 => [4],
 			9 => [6, 7],
 			10 => [31],

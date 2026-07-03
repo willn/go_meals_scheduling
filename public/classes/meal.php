@@ -215,16 +215,12 @@ EOTXT;
 	 * (Meal)
 	 */
 	public function hasOpenShifts($job_id) {
-		$job_instances = get_num_workers_per_job_per_meal($job_id);
+		$num_to_fill = get_num_workers_per_job_per_meal($job_id);
 
-		// if this day of week isn't defined. For example, a sunday shift on a
-		// weekday...
-		if ($job_instances == 0) {
-			return FALSE;
-		}
-
-		// if this day of week has no shifts to fill
-		$num_to_fill = $job_instances;
+		/*
+		 * If this day of week isn't defined, (e.g. sunday shift on a weekday),
+		 * or this day of week has no shifts to fill
+		 */
 		if ($num_to_fill == 0) {
 			return FALSE;
 		}
@@ -548,7 +544,7 @@ EOTXT;
 	 *     gather_csv, or csv). How the output should be displayed.
 	 * @param array $gather_ids associative array mapping work system
 	 *     usernames to Gather IDs.
-	 * @return boolean, if false then a hobart shift was needed and not filled
+	 * @return boolean if false then a hobart shift was needed and not filled
 	 *     with a hobarter. TRUE either means it was filled or not needed.
 	 * #!# this should be a get... but need to figure out a way to deal with the return
 	 */

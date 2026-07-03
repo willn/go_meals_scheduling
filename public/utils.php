@@ -100,7 +100,6 @@ function add_mlk_day($holidays) {
 }
 
 
-
 /**
  * Add the easter date to the holidates array.
  *
@@ -121,8 +120,6 @@ function add_mlk_day($holidays) {
  */
 function add_easter($holidays, $season=[]) {
 	// NOTE: Easter floats between March & April, so it's weird...
-	# $does_wrap = does_season_wrap($season);
-	# $year = ($does_wrap) ? (SEASON_YEAR + 1) : SEASON_YEAR;
 
 	// is the next April in the current year or next?
 	$this_month = date('n');
@@ -138,16 +135,19 @@ function add_easter($holidays, $season=[]) {
 }
 
 function add_passover($holidays, $season = []) {
-    $cur_year = date('Y');
+	// is the next April in the current year or next?
+	$this_month = date('n');
+	$year = ($this_month > APRIL) ? (SEASON_YEAR + 1) : SEASON_YEAR;
 
     // For Passover, Hebrew year aligns with Gregorian year + 3760
-    $hebrew_year = $cur_year + 3760;
+    $hebrew_year = $year + 3760;
 
-    // Nisan = 8, Passover = 15th
-    $julian_day_count = jewishtojd(8, 15, $hebrew_year);
+    // Nisan = 8, Passover = 14th
+    $julian_day_count = jewishtojd(8, 14, $hebrew_year);
 
 	/*
-	 * Passover typically falls within the rang of March 13 to April 10, so the
+	 * Adjust for Passover beginning at sunset.
+	 * Passover typically falls within the range of March 13 to April 10, so the
 	 * midpoint of that date range would be March 27th. Sunset on that date is
 	 * about 8pm / 20h. So if the current time is before 8pm, then decrease
 	 * the count.
@@ -356,17 +356,8 @@ function get_meal_type_by_date($date) {
 
 	# skip invalid dates
 	$day_of_week = date('N', $date_ts);
-	if ($day_of_week == FALSE) {
-		return NOT_A_MEAL;
-	}
-
 	$month_num = date('n', $date_ts);
 	$day_num = date('j', $date_ts);
-
-	# if either the month or day of month turned out to be invalid
-	if (($month_num == FALSE) || ($day_num == FALSE)) {
-		return NOT_A_MEAL;
-	}
 
 	# skip un-supported days of the week
 	switch($day_of_week) {
@@ -431,7 +422,7 @@ function get_meal_type_by_date($date) {
 /**
  * Determine whether this date is a meeting -> weeknight override.
  *
- * @return boolean, If TRUE then this is an override date.
+ * @return boolean If TRUE then this is an override date.
  */
 function is_weekday_override($month_num, $day_num) {
 	# look for meeting -> weekday overrides
@@ -447,7 +438,7 @@ function is_weekday_override($month_num, $day_num) {
 /**
  * Determine whether this date is a meeting -> weeknight override.
  *
- * @return boolean, If TRUE then this is an override date.
+ * @return boolean If TRUE then this is an override date.
  */
 function is_meeting_override($month_num, $day_num) {
 	# look for weekday -> meeting overrides

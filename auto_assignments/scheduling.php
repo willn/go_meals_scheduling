@@ -98,11 +98,6 @@ class Schedule {
 				exit;
 			}
 
-			// don't initialize skipped meals
-			if (is_null($this->meals[$date])) {
-				continue;
-			}
-
 			$this->meals[$date]->initShifts($job_list);
 		}
 	}
@@ -169,10 +164,6 @@ class Schedule {
 
 		foreach($slackers as $username) {
 			$worker = $this->getWorker($username);
-			if (!is_object($worker)) {
-				echo "worker $username does not exist FATAL\n";
-				exit;
-			}
 
 			$shifts_assigned = $worker->getAssignedShifts();
 			foreach($shifts_assigned as $job_id) {
@@ -244,7 +235,7 @@ class Schedule {
 			// get number of possible workers for this date/shift
 			$poss = $meal->getNumPossibleWorkerRatio($job_id);
 			// shift filled - move along
-			if (($poss == 0) || is_null($poss)) {
+			if (($poss == 0) || !is_float($poss)) {
 				continue;
 			}
 
@@ -279,7 +270,7 @@ EOTXT;
 	 *
 	 * @param array $worker_freedom workers and their difficulty to
 	 *     assign ratios.
-	 * @return boolean. If TRUE, then the meal was filled successfully.
+	 * @return boolean If TRUE, then the meal was filled successfully.
 	 */
 	public function fillMeal($worker_freedom) {
 		if (empty($this->least_possible)) {
