@@ -2,6 +2,7 @@
 require_once 'globals.php';
 require_once 'WorkersList.php';
 require_once 'mysql_api.php';
+require_once 'utils.php';
 
 class Calendar {
 	const BLANK_DAY_HTML = '<td class="blank"></td>';
@@ -196,7 +197,7 @@ EOHTML;
 		$saved_prefs = [];
 		if (!is_null($worker)) {
 			// XXX is worker an object or an array?
-			$saved_prefs = $this->getSavedPrefs($worker->getId());
+			$saved_prefs = get_saved_prefs($worker->getId());
 			$weekly_selector = $this->getWeeklySpacerHtml();
 		}
 
@@ -499,7 +500,7 @@ EOHTML;
 			return '';
 		}
 
-		$saved_prefs = $this->getSavedPrefs($worker->getId());
+		$saved_prefs = get_saved_prefs($worker->getId());
 		foreach($jobs as $job_id=>$name) {
 			// if this worker doesn't have this job, then skip
 			if (!array_key_exists($job_id, $worker->getTasks())) {
@@ -611,41 +612,6 @@ EOHTML;
 	}
 
 	/*
-	 * Find the saved preferences for this worker
-	 *
-	 * @param string $worker_id the ID number of the current worker
-	 * @return array of already-saved preferences for this worker. If empty,
-	 *     then this worker has not taken the survey yet.
-	 */
-	private function getSavedPrefs($worker_id) {
-		if (!is_numeric($worker_id)) {
-			return [];
-		}
-
-		$prefs_table = SCHEDULE_PREFS_TABLE;
-		$shifts_table = SCHEDULE_SHIFTS_TABLE;
-		$sql = <<<EOJS
-			select s.id, s.date_shift_string, s.job_id, p.pref
-				FROM {$shifts_table} as s, {$prefs_table} as p
-				WHERE s.id=p.date_id
-					AND worker_id={$worker_id}
-					ORDER BY s.date_shift_string, s.job_id
-EOJS;
-
-		$mysql_api = get_mysql_api();
-		$data = [];
-		foreach ($mysql_api->get($sql) as $row) {
-			if (!array_key_exists($row['job_id'], $data)) {
-				$data[$row['job_id']] = [];
-			}
-			$data[$row['job_id']][$row['date_shift_string']] = $row['pref'];
-		}
-
-		return $data;
-	}
-
-
-	/*
 	 * Draw an individual entry for one job survey (select list) on a given date.
 	 *
 	 * @param string $date_string text representing a date, i.e. '12/6/2009'
@@ -722,46 +688,6 @@ EOHTML;
 		return <<<EOHTML
 <ul id="filter_overlay">{$jobs_html}</ul>
 EOHTML;
-	}
-
-
-	/**
-	 * Load which dates the workers have marked as being available.
-	 * @return array associative array of date-string -> [ job_id -> preferences]
-	 */
-	function getWorkerDates() {
-		// grab all the preferences for every date
-		$prefs_table = SCHEDULE_PREFS_TABLE;
-		$shifts_table = SCHEDULE_SHIFTS_TABLE;
-		$auth_user_table = AUTH_USER_TABLE;
-		$sql = <<<EOSQL
-			SELECT s.date_shift_string, s.job_id, a.username, p.pref
-				FROM {$auth_user_table} as a, {$prefs_table} as p,
-					{$shifts_table} as s
-				WHERE a.id=p.worker_id
-					AND s.id = p.date_id
-				ORDER BY s.date_shift_string ASC,
-					p.pref DESC,
-					a.username ASC;
-EOSQL;
-		$data = [];
-		$mysql_api = get_mysql_api();
-		foreach($mysql_api->get($sql) as $row) {
-			$data[] = $row;
-		}
-
-		$dates = [];
-		foreach($data as $d) {
-			if (!array_key_exists($d['date_shift_string'], $dates)) {
-				$dates[$d['date_shift_string']] = [];
-			}
-			if (!array_key_exists($d['job_id'], $dates[$d['date_shift_string']])) {
-				$dates[$d['date_shift_string']][$d['job_id']] = [];
-			}
-			$dates[$d['date_shift_string']][$d['job_id']][$d['pref']][] = $d['username'];
-		}
-
-		return $dates;
 	}
 
 	/**

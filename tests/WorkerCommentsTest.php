@@ -7,7 +7,7 @@ require_once '../public/constants.php';
 require_once '../public/config.php';
 require_once '../public/season.php';
 require_once '../public/classes/worker.php';
-require_once '../public/classes/worker_comments.php';
+require_once '../public/classes/WorkerComments.php';
 require_once 'testing_utils.php';
 
 class WorkerCommentsTest extends TestCase {

@@ -12,7 +12,7 @@ require_once "{$relative_dir}/utils.php";
 require_once "{$relative_dir}/constants.php";
 require_once "{$relative_dir}/config.php";
 require_once('classes/calendar.php');
-require_once('classes/worker_comments.php');
+require_once('classes/WorkerComments.php');
 
 session_start();
 
@@ -62,7 +62,7 @@ if ($_SESSION['access_type'] != 'guest') {
 	$responses = $respondents->getSummary((time() < DEADLINE));
 }
 
-$worker_dates = $calendar->getWorkerDates();
+$worker_dates = get_worker_dates();
 $non_respondents = $respondents->getNonResponders();
 $cal_string = $calendar->toString(NULL, $worker_dates, $non_respondents);
 

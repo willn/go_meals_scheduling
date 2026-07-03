@@ -25,7 +25,7 @@ class WorkerComments {
 	 *
 	 * @param string $job_key_clause Fragment of a SQL query
 	 */
-	public function loadWorkerComments($job_key_clause) {
+	public function loadWorkerComments($job_key_clause='') {
 		// render the comments
 		$comments_table = SCHEDULE_COMMENTS_TABLE;
 		$prefs_table = SCHEDULE_PREFS_TABLE;

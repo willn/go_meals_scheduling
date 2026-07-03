@@ -1,6 +1,6 @@
 # phpstan config file
 # run with this command:
-# $ phpstan.phar analyse -c phpstan_config.neon .
+# $ phpstan analyse -c phpstan_config.neon .
 
 parameters:
 	level: 5

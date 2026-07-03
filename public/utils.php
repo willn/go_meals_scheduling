@@ -567,12 +567,14 @@ function get_nearest_even($number) {
 /**
  * Get the worker results data.
  */
-function get_per_worker_results($job_key) {
+function get_per_worker_results($job_key='all') {
 	$season_id = get_season_id();
 
 	$all_job_ids = get_all_jobs(FALSE);
 	$job_id_clause = ($job_key != 'all') ? $job_key :
 		implode(',', array_keys($all_job_ids));
+
+	$schedule_prefs_table = SCHEDULE_PREFS_TABLE;
 
 	$sql = <<<EOSQL
 	SELECT u.username, a.job_id, j.description, a.instances,
@@ -584,7 +586,7 @@ function get_per_worker_results($job_key) {
 		ON a.job_id = j.id
 	LEFT JOIN (
 		SELECT p.worker_id, s.job_id, COUNT(*) AS num_avail
-		FROM schedule_prefs AS p
+		FROM {$schedule_prefs_table} AS p
 		JOIN schedule_shifts AS s
 			ON p.date_id = s.id
 		WHERE p.pref > 0
@@ -671,6 +673,92 @@ EOHTML;
 </tbody>
 </table>
 EOHTML;
+}
+
+
+/*
+ * Find the saved preferences for this worker
+ *
+ * @param string $worker_id the ID number of the current worker
+ * @return array of already-saved preferences for this worker. If empty,
+ *     then this worker has not taken the survey yet.
+ */
+function get_saved_prefs($worker_id) {
+	if (!is_numeric($worker_id)) {
+		return [];
+	}
+
+	$prefs_table = SCHEDULE_PREFS_TABLE;
+	$shifts_table = SCHEDULE_SHIFTS_TABLE;
+	$sql = <<<EOJS
+		select s.id, s.date_shift_string, s.job_id, p.pref
+			FROM {$shifts_table} as s, {$prefs_table} as p
+			WHERE s.id=p.date_id
+				AND worker_id={$worker_id}
+				ORDER BY s.date_shift_string, s.job_id
+EOJS;
+
+	$mysql_api = get_mysql_api();
+	$data = [];
+	foreach ($mysql_api->get($sql) as $row) {
+		if (!array_key_exists($row['job_id'], $data)) {
+			$data[$row['job_id']] = [];
+		}
+		$data[$row['job_id']][$row['date_shift_string']] = $row['pref'];
+	}
+
+	return $data;
+}
+
+/**
+ * Load which dates the workers have marked as being available.
+ * @return array associative array of date-string -> [ job_id -> preferences]
+ */
+function get_worker_schedule_prefs() {
+	// grab all the preferences for every date
+	$prefs_table = SCHEDULE_PREFS_TABLE;
+	$shifts_table = SCHEDULE_SHIFTS_TABLE;
+	$auth_user_table = AUTH_USER_TABLE;
+	$sql = <<<EOSQL
+		SELECT s.date_shift_string, s.job_id, a.username, p.pref
+			FROM {$auth_user_table} as a, {$prefs_table} as p,
+				{$shifts_table} as s
+			WHERE a.id=p.worker_id
+				AND s.id = p.date_id
+			ORDER BY s.date_shift_string ASC,
+				p.pref DESC,
+				a.username ASC;
+EOSQL;
+	echo "SQL:{$sql}\n";
+
+	$data = [];
+	$mysql_api = get_mysql_api();
+	foreach($mysql_api->get($sql) as $row) {
+		$data[] = $row;
+	}
+	return $data;
+}
+
+/**
+ * Load which dates the workers have marked as being available.
+ * @return array associative array of date-string -> [ job_id -> preferences]
+ */
+function get_worker_dates() {
+	$data = get_worker_schedule_prefs();
+
+	$dates = [];
+	foreach($data as $d) {
+		if (!array_key_exists($d['date_shift_string'], $dates)) {
+			$dates[$d['date_shift_string']] = [];
+		}
+		if (!array_key_exists($d['job_id'], $dates[$d['date_shift_string']])) {
+			$dates[$d['date_shift_string']][$d['job_id']] = [];
+		}
+		$dates[$d['date_shift_string']][$d['job_id']][$d['pref']][] = $d['username'];
+	}
+
+error_log('dates: ' . print_r( $dates, true ));
+	return $dates;
 }
 
 ?>
