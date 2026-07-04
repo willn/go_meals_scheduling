@@ -3,7 +3,7 @@ date_default_timezone_set('America/Detroit');
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('April 24, 2026, 8:15pm'));
+define('DEADLINE', strtotime('July 24, 2026, 8:15pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
@@ -58,19 +58,9 @@ function doing_csa_farm_meals() {
  */
 function get_num_shift_overrides() {
 	return [
-		'melanie' => [SUNDAY_ASST_COOK => 2],
-		'andrewb' => [
-			SUNDAY_CLEANER => 1,
-			BRUNCH_CLEANER => 1,
+		'rossella' => [
+			WEEKDAY_ASST_COOK => 1,
 		],
-		'melissaf' => [
-			BRUNCH_HEAD_COOK => 1,
-		],
-
-		'claire' => [
-			SUNDAY_CLEANER => -6,
-		],
-		// Rossella asst cook week of Aug 2
 	];
 }
 
@@ -81,10 +71,7 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		// #!# budget meeting Sunday, October 25, 1:30 to 3pm
-		5 => [17, 19, 23],
-		6 => [9, 10],
-		7 => [25, 29],
+		10 => [25], // skip both brunch & dinner for budget meeting
 	];
 }
 

@@ -92,18 +92,18 @@ class RosterTest extends TestCase {
 					MEETING_NIGHT_CLEANER => 0,
 					MEETING_NIGHT_ORDERER => 0,
 
-					SUNDAY_ASST_COOK => 2,
-					SUNDAY_CLEANER => -5, 
+					SUNDAY_ASST_COOK => 0,
+					SUNDAY_CLEANER => 0, 
 					SUNDAY_HEAD_COOK => 0,
 
-					WEEKDAY_ASST_COOK => 0,
+					WEEKDAY_ASST_COOK => 1,
 					WEEKDAY_CLEANER => 0,
 					WEEKDAY_HEAD_COOK => 0,
 					# BRUNCH_LAUNDRY => 0,
 
 					BRUNCH_ASST_COOK => 0,
-					BRUNCH_CLEANER => 1,
-					BRUNCH_HEAD_COOK => 1,
+					BRUNCH_CLEANER => 0,
+					BRUNCH_HEAD_COOK => 0,
 					# WEEKDAY_LAUNDRY => 0,
 				]
 			]
@@ -152,7 +152,7 @@ class RosterTest extends TestCase {
 				 * List override-only users who don't
 				 * have a formal work assignment.
 				 */
-				[]
+				['rossella']
 			]
 		];
 	}
@@ -177,18 +177,18 @@ class RosterTest extends TestCase {
 					MEETING_NIGHT_CLEANER => 0,
 					MEETING_NIGHT_ORDERER => 0,
 
-					SUNDAY_ASST_COOK => 24,
-					SUNDAY_CLEANER => 34, 
+					SUNDAY_ASST_COOK => 22,
+					SUNDAY_CLEANER => 39, 
 					SUNDAY_HEAD_COOK => 11,
 
-					WEEKDAY_ASST_COOK => 56,
+					WEEKDAY_ASST_COOK => 57,
 					WEEKDAY_CLEANER => 84,
 					WEEKDAY_HEAD_COOK => 28,
 					# WEEKDAY_LAUNDRY => 0,
 
 					BRUNCH_ASST_COOK => 2,
-					BRUNCH_CLEANER => 4, 
-					BRUNCH_HEAD_COOK => 2,
+					BRUNCH_CLEANER => 3, 
+					BRUNCH_HEAD_COOK => 1,
 					# BRUNCH_LAUNDRY => 0,
 				]
 			]

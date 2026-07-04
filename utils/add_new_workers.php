@@ -11,35 +11,31 @@
 
 require_once('database.php');
 
-$workers = [
-	'michellemyers' => [WEEKDAY_ASST_COOK],
-];
-
-class AddExternalWorkers extends DatabaseHandler {
+class AddNewWorkers extends DatabaseHandler {
 	protected $all_workers;
-	protected $external_workers = [];
+	protected $new_workers = [];
 	protected $max_assign_id;
 
 	protected $errors = array();
 
 	public function __construct($workers) {
 		parent::__construct();
-		$this->external_workers = $workers;
+		$this->new_workers = $workers;
 	}
 
 	/**
 	 * Process the database initialization.
 	 */
 	public function run() {
-		if (empty($this->external_workers)) {
-			echo "external workers  listis empty\n";
+		if (empty($this->new_workers)) {
+			echo "new workers  listis empty\n";
 			exit;
 		}
 
 		// $this->addCommunityColumn();
 		$this->loadUserIds();
 		$this->loadMaxAssignmentId();
-		$this->addWorkers($this->external_workers);
+		$this->addWorkers($this->new_workers);
 
 		if (!empty($this->errors)) {
 			echo implode("\n", $this->errors) . "\n";
@@ -90,7 +86,7 @@ class AddExternalWorkers extends DatabaseHandler {
 	}
 
 	/**
-	 * Add external workers into the initialized database.
+	 * Add new workers into the initialized database.
 	 */
 	protected function addWorkers($overrides) {
 		$insert_auth_f = <<<EOSQL
@@ -140,6 +136,9 @@ EOSQL;
 	}
 }
 
-$dbi = new AddExternalWorkers($workers);
+$workers = [
+	'xyz' => [WEEKDAY_ASST_COOK],
+];
+$dbi = new AddNewWorkers($workers);
 $dbi->run();
 ?>

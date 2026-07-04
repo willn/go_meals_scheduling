@@ -28,6 +28,11 @@ class DatabaseInitializer extends DatabaseHandler {
 		$this->addSchedulingTables();
 		$this->initializeExtraWorkers();
 
+		// clear out tables for mid-season
+		$this->clearComments();
+		$this->clearPrefs();
+		$this->clearShifts();
+
 		if (!empty($this->errors)) {
 			echo implode("\n", $this->errors) . "\n";
 		}
@@ -186,6 +191,31 @@ EOSQL;
 			$this->insertAssignment($name);
 		}
 	}
+
+	protected function clearComments() {
+		$sql = 'DELETE FROM schedule_comments';
+		if ($this->mysql_api->query($sql) === FALSE) {
+			echo "Unable to clear comments\n";
+			exit;
+		}
+	}
+
+	protected function clearPrefs() {
+		$sql = 'DELETE FROM schedule_prefs';
+		if ($this->mysql_api->query($sql) === FALSE) {
+			echo "Unable to clear prefs\n";
+			exit;
+		}
+	}
+
+	protected function clearShifts() {
+		$sql = 'DELETE FROM schedule_shifts';
+		if ($this->mysql_api->query($sql) === FALSE) {
+			echo "Unable to clear shifts\n";
+			exit;
+		}
+	}
+
 }
 
 $dbi = new DatabaseInitializer();
