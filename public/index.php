@@ -33,17 +33,14 @@ if ($now > DEADLINE) {
 EOHTML;
 }
 else {
-	$workers = $survey->getWorkers();
-
 	$worker_name = array_get($_GET, 'worker');
 	if (!is_null($worker_name)) {
-		build_survey($workers, $survey, $worker_name);
+		build_survey($survey, $worker_name);
 	}
 
 	// display the menu of worker names
-	if (!isset($_GET['worker']) ||
-		!array_key_exists($_GET['worker'], $workers)) {
-		display_respondents($workers);
+	if (!isset($_GET['worker'])) {
+		display_respondents();
 		print $report_link;
 	}
 }
@@ -57,10 +54,8 @@ EOHTML;
 
 /**
  * Display the responders summary
- *
- * @param array $workers list of all worker names.
  */
-function display_respondents($workers) {
+function display_respondents() {
 	$respondents = new Respondents();
 	echo <<<EOHTML
 		<div class="special_info">
@@ -72,11 +67,12 @@ EOHTML;
 }
 
 /**
- * @param array $workers list of available workers
  * @param object $survey Survey object.
  * @param string $get_w worker's name from the _GET array
  */
-function build_survey($workers, $survey, $get_w) {
+function build_survey($survey, $get_w) {
+	$workers = $survey->getWorkers();
+
 	// --------- build the survey --------------------
 	$all_jobs = get_all_jobs();
 
