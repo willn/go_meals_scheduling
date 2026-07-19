@@ -53,6 +53,20 @@ class Survey {
 	}
 
 	/**
+	 * Build the survey.
+	 * @param string $username worker's name from the _GET array
+	 * @return string rendered HTML to display the survey
+	 */
+	function build($username) {
+		$workers = $this->getWorkers();
+		$worker = array_get($workers, $username);
+		$this->setWorker($worker['username'], $worker['id']);
+		$this->loadWorkerInfo($worker['first_name'], $worker['last_name']);
+
+		return $this->toString();
+	}
+
+	/**
 	 * Set the assigned worker, and 
 	 *
 	 * @param string $username the username of this user.

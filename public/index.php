@@ -35,12 +35,13 @@ EOHTML;
 else {
 	$worker_name = array_get($_GET, 'worker');
 	if (!is_null($worker_name)) {
-		build_survey($survey, $worker_name);
+		print $survey->build($worker_name);
 	}
 
 	// display the menu of worker names
 	if (!isset($_GET['worker'])) {
-		display_respondents();
+		$respondents = new Respondents();
+		print $respondents->toString();
 		print $report_link;
 	}
 }
@@ -51,35 +52,3 @@ print <<<EOHTML
 </body>
 </html>
 EOHTML;
-
-/**
- * Display the responders summary
- */
-function display_respondents() {
-	$respondents = new Respondents();
-	echo <<<EOHTML
-		<div class="special_info">
-			{$respondents->getTimeRemaining()}
-			{$respondents->getSummary()}
-		</div>
-		{$respondents->renderWorkerMenu()}
-EOHTML;
-}
-
-/**
- * @param object $survey Survey object.
- * @param string $get_w worker's name from the _GET array
- */
-function build_survey($survey, $get_w) {
-	$workers = $survey->getWorkers();
-
-	// --------- build the survey --------------------
-	$all_jobs = get_all_jobs();
-
-	$w = array_get($workers, $get_w);
-	$survey->setWorker($w['username'], $w['id']);
-	$survey->loadWorkerInfo($w['first_name'], $w['last_name']);
-
-	print $survey->toString();
-}
-?>

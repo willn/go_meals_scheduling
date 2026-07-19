@@ -15,13 +15,20 @@ cd sql/
 ```
 
 This needs to be the local mysql **root** user
-`mysqldump -u root -p gocoho_work_allocation --set-gtid-purged=OFF > transfer.sql`
+
+```
+mysqldump -u root -p gocoho_work_allocation --set-gtid-purged=OFF > transfer.sql`
+```
 
  Clean up the transfer SQL
-`./clean_transfer_sql.sh`
+```
+./clean_transfer_sql.sh
+```
 
 transfer the SQL file to production
-`scp -i ~/.ssh/id_dsa transfer.sql gocoho@gocoho.org:`
+```
+scp -i ~/.ssh/id_dsa transfer.sql gocoho@gocoho.org:
+```
 
 ### on remote host:
 ```

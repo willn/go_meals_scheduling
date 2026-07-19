@@ -36,6 +36,28 @@ EOSQL;
 		foreach ($query as $row) {
 			$this->workers[$row['username']] = $row;
 		}
+
+		$this->loadOverrides();
+	}
+
+	/**
+	 * Load the worker info for anyone who had an override.
+	 */
+	public function loadOverrides() {
+		$overrides = get_num_shift_overrides();
+		foreach($overrides as $username=>$assignments) {
+			if (isset($this->workers[$username])) {
+				continue;
+			}
+
+			$sql = <<<EOSQL
+SELECT id, username, first_name, last_name from auth_user where username='{$username}';
+EOSQL;
+
+			$mysql_api = get_mysql_api();
+			$query = $mysql_api->get($sql);
+			$this->workers[$username] = $query[0];
+		}
 	}
 
 	/**

@@ -226,4 +226,14 @@ EOSVG;
 EOSVG;
 
 	}
+
+	public function toString() {
+		return <<<EOHTML
+		<div class="special_info">
+			{$this->getTimeRemaining()}
+			{$this->getSummary()}
+		</div>
+		{$this->renderWorkerMenu()}
+EOHTML;
+	}
 }

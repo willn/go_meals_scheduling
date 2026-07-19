@@ -84,7 +84,7 @@ select username from auth_user
 If there is anyone listed here, find their ID in Gather & update the
 list in the `add_gather_ids.sql` file.
 
-Then run those statements manuall in mysql to get the numbers assigned to the workers.
+Then run those statements manually in mysql to get the numbers assigned to the workers.
 
 
 ### get new job IDs for the season, and update the defines for each job in config.php
