@@ -1004,13 +1004,13 @@ EOHTML;
 			# MEETING_NIGHT_CLEANER => 4,
 			# MEETING_NIGHT_ORDERER => 4,
 
-			SUNDAY_ASST_COOK => 24,
-			SUNDAY_CLEANER => 36,
-			SUNDAY_HEAD_COOK => 12,
+			SUNDAY_ASST_COOK => 22,
+			SUNDAY_CLEANER => 33,
+			SUNDAY_HEAD_COOK => 11,
 
-			WEEKDAY_ASST_COOK => 66,
-			WEEKDAY_CLEANER => 99,
-			WEEKDAY_HEAD_COOK => 33,
+			WEEKDAY_ASST_COOK => 64,
+			WEEKDAY_CLEANER => 96,
+			WEEKDAY_HEAD_COOK => 32,
 			# WEEKDAY_LAUNDRY => 21,
 
 			BRUNCH_ASST_COOK => 6,
@@ -1072,13 +1072,13 @@ EOHTML;
 			#MEETING_NIGHT_CLEANER => 4,
 			#MEETING_NIGHT_ORDERER => 4,
 
-			SUNDAY_ASST_COOK => 24,
-			SUNDAY_CLEANER => 12,
-			SUNDAY_HEAD_COOK => 12,
+			SUNDAY_ASST_COOK => 22,
+			SUNDAY_CLEANER => 11,
+			SUNDAY_HEAD_COOK => 11,
 
-			WEEKDAY_ASST_COOK => 66,
-			WEEKDAY_CLEANER => 33,
-			WEEKDAY_HEAD_COOK => 33,
+			WEEKDAY_ASST_COOK => 64,
+			WEEKDAY_CLEANER => 32,
+			WEEKDAY_HEAD_COOK => 32,
 			# WEEKDAY_LAUNDRY => 7,
 
 			BRUNCH_ASST_COOK => 6,
@@ -1122,8 +1122,8 @@ EOHTML;
 		// UPDATE-EACH-SEASON
 		$expected = [
 			'meeting' => 0,
-			'sunday' => 12,
-			'weekday' => 33,
+			'sunday' => 11,
+			'weekday' => 32,
 			'brunch' => 3,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
