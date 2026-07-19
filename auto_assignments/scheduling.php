@@ -93,9 +93,9 @@ class Schedule {
 			$this->meals[$date] = get_a_meal_object($this, $date);
 
 			if (get_class($this->meals[$date]) == 'Error') {
-				echo "current meal class Error\n";
+				echo "current meal class Error {$date}\n";
 				echo "FAIL " . __FILE__ . ' ' . __LINE__. "\n";
-				exit;
+				return FALSE;
 			}
 
 			$this->meals[$date]->initShifts($job_list);
@@ -182,6 +182,12 @@ class Schedule {
 					}
 
 					$meal = $this->meals[$date];
+					if (!isset($meal)) {
+						error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
+							"meal is not set");
+						continue;
+					}
+
 					$meal->addWorkerPref($username, $job_id, NON_RESPONSE_PREF);
 					if (!isset($worker_count[$username])) {
 						$worker_count[$username] = 0;
