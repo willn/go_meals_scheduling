@@ -577,7 +577,7 @@ EOHTML;
 
 		$bundle = array_get($post, 'bundle_shifts', '');
 		$table = SCHEDULE_COMMENTS_TABLE;
-		$comment_string = array_get($post, 'comments', []);
+		$comment_string = array_get($post, 'comments', '');
 		$mysql_link = $this->mysql_api->getLink();
 		$comments = mysqli_real_escape_string($mysql_link, $comment_string);
 		$clean_after = array_get($post, 'clean_after_self', '');

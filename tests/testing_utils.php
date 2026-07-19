@@ -11,6 +11,10 @@ function remove_html_whitespace($input) {
 	return preg_replace('/\s+</', '<', $input);
 }
 
+function normalize_whitespace($text) {
+    return preg_replace('/\s+/u', ' ', trim($text));
+}
+
 /**
  *
  */
