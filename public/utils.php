@@ -135,6 +135,8 @@ function add_easter($holidays, $season=[]) {
 }
 
 function add_passover($holidays, $season = []) {
+	date_default_timezone_set(TIME_ZONE);
+
 	// is the next April in the current year or next?
 	$this_month = date('n');
 	$year = ($this_month > APRIL) ? (SEASON_YEAR + 1) : SEASON_YEAR;

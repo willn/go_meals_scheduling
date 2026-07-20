@@ -96,7 +96,7 @@ class ScheduleTest extends TestCase {
 			'1/11/2026' => [SUNDAY_HEAD_COOK],
 			'1/25/2026' => [SUNDAY_CLEANER],
 		];
-		$this->schedule->initializeShifts($dates);
+		$this->schedule->initializeMealsAndShifts($dates);
 		$expected = [
 			SUNDAY_HEAD_COOK => ['1/4/2026', '1/11/2026'],
 			SUNDAY_ASST_COOK => ['1/4/2026'],
@@ -106,7 +106,7 @@ class ScheduleTest extends TestCase {
 	}
 
 	public function testLoadDatesByShiftCacheDuplicateJobs() {
-		$this->schedule->initializeShifts([
+		$this->schedule->initializeMealsAndShifts([
 			'1/4/2026' => [SUNDAY_HEAD_COOK],
 			'1/11/2026' => [SUNDAY_HEAD_COOK],
 			'1/25/2026' => [SUNDAY_HEAD_COOK],
@@ -122,7 +122,7 @@ class ScheduleTest extends TestCase {
 	}
 
 	public function testAddPrefsMissingMeal() {
-		$result = $this->schedule->addPrefs('bob', SUNDAY_HEAD_COOK,
+		$result = $this->schedule->addWorkerAvailability('bob', SUNDAY_HEAD_COOK,
 			'1/1/2099', 2);
 		$this->assertFalse($result);
 	}
@@ -132,13 +132,13 @@ class ScheduleTest extends TestCase {
 	}
 
 	public function testGetAssignedInitiallyEmpty() {
-		$this->assertEquals([], $this->schedule->getAssigned());
+		$this->assertEquals([], $this->schedule->getAssignments());
 	}
 
 	public function testGetAssignedAfterInitialization() {
-		$this->schedule->initializeShifts(
+		$this->schedule->initializeMealsAndShifts(
 			['1/4/2026' => [SUNDAY_HEAD_COOK]]);
-		$assigned = $this->schedule->getAssigned();
+		$assigned = $this->schedule->getAssignments();
 		$this->assertArrayHasKey('1/4/2026', $assigned);
 	}
 
@@ -153,7 +153,7 @@ class ScheduleTest extends TestCase {
 	 * @dataProvider provideAddNonResponderPrefs
 	 */
 	public function testAddNonResponderPrefs($dates_by_shift, $expected) {
-		$this->schedule->initializeShifts($dates_by_shift);
+		$this->schedule->initializeMealsAndShifts($dates_by_shift);
 
 		$roster = new Roster();
 		$this->schedule->setRoster($roster);
@@ -179,7 +179,7 @@ class ScheduleTest extends TestCase {
 		$this->assertEquals($counted_slackers, $counted_workers, print_r($debug, TRUE));
 
 		// -------- 2nd test ---------
-		$assigned = $this->schedule->getAssigned();
+		$assigned = $this->schedule->getAssignments();
 		$debug = [
 			'assigned' => $assigned,
 			'expected' => $expected,
@@ -239,7 +239,7 @@ class ScheduleTest extends TestCase {
 	/**
 	 * @dataProvider provideFillMeal
 	public function testFillMeal($worker_freedom) {
-		$is_filled = $this->schedule->fillMeal($worker_freedom);
+		$is_filled = $this->schedule->assignWorkerToShift(WEEKDAY_HEAD_COOK, $worker_freedom);
 		$this->assertEquals($is_filled, TRUE);
 	}
 
@@ -262,7 +262,7 @@ class ScheduleTest extends TestCase {
 	/**
 	 * XXX dataProvider provideInitializeShifts
 	public function testInitializeShifts($expected_shifts) {
-		$this->schedule->initializeShifts();
+		$this->schedule->initializeMealsAndShifts();
 		$num_meals = $this->schedule->getNumMeals();
 		$this->assertEquals($num_meals, 100);
 
@@ -665,9 +665,9 @@ class ScheduleTest extends TestCase {
 
 /*
 	public function testAddPrefs() {
-		$this->schedule->initializeShifts();
+		$this->schedule->initializeMealsAndShifts();
 		$date = '10/15/2018';
-		$this->schedule->addPrefs('testuser', 4396, $date, 1);
+		$this->schedule->addWorkerAvailability('testuser', 4396, $date, 1);
 		$meals = $this->schedule->getMeals();
 
 

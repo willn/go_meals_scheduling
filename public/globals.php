@@ -1,6 +1,4 @@
 <?php
-date_default_timezone_set('America/Detroit');
-
 require_once('utils.php');
 require_once('config.php');
 

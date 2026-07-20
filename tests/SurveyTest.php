@@ -267,20 +267,13 @@ EOHTML;
 	 * @dataProvider provideInvalidPreferences
 	 */
 	public function testUpdatePreferencesInvalid($pref) {
-		$result = $this->survey->updatePreferences(
-			123,
-			456,
-			$pref,
-			2,
-			'1/17/24'
-		);
-
+		$result = $this->survey->updatePreferences(123, 456, $pref, 2, '1/17/24');
 		$this->assertNull($result);
 	}
 
 	public function provideInvalidPreferences() {
 		return [
-			[-1],
+			[-2],
 			[99],
 			[999],
 		];

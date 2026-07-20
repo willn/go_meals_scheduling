@@ -50,7 +50,7 @@ class Assignments {
 
 		$this->calendar->disableWebDisplay();
 		$dates = $this->calendar->evalDates();
-		$this->schedule->initializeShifts($dates);
+		$this->schedule->initializeMealsAndShifts($dates);
 		$this->roster->loadNumShiftsAssigned();
 		$this->roster->loadRequests();
 		$this->loadPrefs();
@@ -88,7 +88,7 @@ EOSQL;
 			$p = $row['pref'];
 
 			// only add jobs which appear in the schedule
-			if ($this->schedule->addPrefs($u, $ji, $d, $p)) {
+			if ($this->schedule->addWorkerAvailability($u, $ji, $d, $p)) {
 				$this->roster->addPrefs($u, $ji, $d, $p);
 			}
 
@@ -134,13 +134,13 @@ EOSQL;
 			$this->schedule->setJobId($job_id);
 			$this->schedule->initPlaceholderCount($job_id);
 			$this->roster->setJobId($job_id);
-			$this->schedule->sortPossibleRatios();
+			$this->schedule->rankMealsByDifficulty($job_id);
 
 			// keep assigning until all the meals have been assigned
 			$success = TRUE;
 			while (!$this->schedule->isFinished() && $success) {
 				$worker_freedom = $this->roster->sortAvailable();
-				$success = $this->schedule->fillMeal($worker_freedom);
+				$success = $this->schedule->assignWorkerToShift($job_id, $worker_freedom);
 			}
 
 			if (DEBUG_FIND_CANCEL_MEALS) {
@@ -162,7 +162,7 @@ EOSQL;
 	 * Save the results to a json file which can be used to...
 	 */
 	public function saveResults() {
-		$assn = $this->schedule->getAssigned();
+		$assn = $this->schedule->getAssignments();
 		$json = json_encode($assn);
 		file_put_contents('../public/' . JSON_ASSIGNMENTS_FILE, $json);
 	}
@@ -274,7 +274,7 @@ EOM;
 
 			$this->schedule->setJobId($job_id);
 			$this->schedule->initPlaceholderCount($job_id);
-			$this->schedule->sortPossibleRatios();
+			$this->schedule->rankMealsByDifficulty($job_id);
 			$work_avail_ratio = $this->schedule->getPossibleRatios();
 			if (empty($work_avail_ratio)) {
 				continue;

@@ -144,11 +144,11 @@ class UtilsTest extends TestCase {
 		return [
 			[
 				'input' => [],
-				'expected' => [4 => [20]]
+				'expected' => [4 => [21]]
 			],
 			[
 				'input' => [7 => [4], 12 => [25]],
-				'expected' => [4 => [20], 7 => [4], 12 => [25]]
+				'expected' => [4 => [21], 7 => [4], 12 => [25]]
 			],
 		];
 	}
@@ -218,7 +218,7 @@ class UtilsTest extends TestCase {
 	public function provide_get_holidays() {
 		$days = [
 			1 => [1, 18],
-			4 => [20], // passover
+			4 => [21], // passover
 			5 => [30, 31], // Memorial Day changes
 			7 => [4],
 			9 => [6, 7],

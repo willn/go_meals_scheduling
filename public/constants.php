@@ -2,6 +2,16 @@
 /*
  * Collection of constant declarations
  */
+
+# ---------- local customization -------------
+define('DOMAIN', '@gocoho.org');
+define('FROM_EMAIL', 'willie' . DOMAIN);
+define('TIME_ZONE', 'America/Detroit');
+
+date_default_timezone_set(TIME_ZONE);
+
+# ---------- general -------------
+
 define('BASE_DIR', '/meals_scheduling');
 
 define('SKIP_EMAIL', FALSE); // set to true for debugging
@@ -51,8 +61,8 @@ define('PLACEHOLDER', 'XXXXXXXX');
 define('SKIP_USER', 'SKIP_USER');
 
 # date & shift preference levels
-define('HAS_CONFLICT_PREF', 0);
-define('NON_RESPONSE_PREF', .5);
+define('HAS_CONFLICT_PREF', -1);
+define('NON_RESPONSE_PREF', 0);
 define('OK_PREF', 1);
 define('PREFER_DATE_PREF', 2);
 define('CLEAN_AFTER_COOK_PREF', 3);
@@ -78,9 +88,6 @@ define('SEPTEMBER', 9);
 define('OCTOBER', 10);
 define('NOVEMBER', 11);
 define('DECEMBER', 12);
-
-define('DOMAIN', '@gocoho.org');
-define('FROM_EMAIL', 'willie' . DOMAIN);
 
 define('PREFER_TO_AVOID_WORKER_RATIO', .55);
 

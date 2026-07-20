@@ -938,7 +938,7 @@ EOHTML;
 			<div class="choice">
 			{$mtg_ord_name}
 			<select name="date_5/4/2022_{$mtg_orderer_job_id}" class="preference_selection">
-				<option value="0" selected>conflict</option>
+				<option value="-1">conflict</option>
 				<option value="1">OK</option>
 				<option value="2">prefer</option>
 
@@ -950,7 +950,7 @@ EOHTML;
 			<div class="choice">
 			{$mtg_ord_name}
 			<select name="date_6/20/2022_{$mtg_orderer_job_id}" class="preference_selection">
-				<option value="0">conflict</option>
+				<option value="-1">conflict</option>
 				<option value="1" selected>OK</option>
 				<option value="2">prefer</option>
 
@@ -962,7 +962,7 @@ EOHTML;
 			<div class="choice">
 			{$mtg_ord_name}
 			<select name="date_7/18/2022_{$mtg_orderer_job_id}" class="preference_selection">
-				<option value="0">conflict</option>
+				<option value="-1">conflict</option>
 				<option value="1">OK</option>
 				<option value="2" selected>prefer</option>
 

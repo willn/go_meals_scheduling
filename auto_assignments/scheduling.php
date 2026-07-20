@@ -6,19 +6,20 @@ require_once('../public/classes/calendar.php');
  * A Schedule object maintains the list of who has been scheduled to work on certain days.
  */
 class Schedule {
-	protected $meals = [];
+	protected array $meals = [];
 	protected $roster;
-	protected $job_id;
+	protected ?int $job_id;
 	protected $calendar;
-	protected $placeholders_by_job_id = [];
+	protected array $placeholders_by_job_id = [];
 
 	// the most difficult shifts to fill
 	// date => job_id => counts
-	protected $least_possible = [];
+	protected array $least_possible = [];
 
 	// which shifts happen on which dates
-	protected $dates_and_job_ids = [];
-	protected $dates_by_shift_cache = [];
+	protected array $dates_and_job_ids = [];
+	protected array $dates_by_shift_cache = [];
+
 
 	public function getPossibleRatios() {
 		return $this->least_possible;
@@ -86,19 +87,20 @@ class Schedule {
 	 *     IDs needed for that meal type.
 	 *     Example: [SUNDAY_ASST_COOK, SUNDAY_CLEANER, SUNDAY_HEAD_COOK]
 	 */
-	public function initializeShifts($dates_and_job_ids=[]) {
+	public function initializeMealsAndShifts($dates_and_job_ids=[]) {
 		$this->dates_and_job_ids = $dates_and_job_ids;
 
 		foreach($dates_and_job_ids as $date=>$job_list) {
-			$this->meals[$date] = get_a_meal_object($this, $date);
+			$meal = get_a_meal_object($this, $date);
 
-			if (get_class($this->meals[$date]) == 'Error') {
+			if (get_class($meal) == 'Error') {
 				echo "current meal class Error {$date}\n";
 				echo "FAIL " . __FILE__ . ' ' . __LINE__. "\n";
 				return FALSE;
 			}
 
-			$this->meals[$date]->initShifts($job_list);
+			$meal->initShifts($job_list);
+			$this->meals[$date] = $meal;
 		}
 	}
 
@@ -138,7 +140,7 @@ class Schedule {
 	 * @param string $date the date of the job.
 	 * @param int $pref the numeric value preference score.
 	 */
-	public function addPrefs($username, $job_id, $date, $pref) {
+	public function addWorkerAvailability($username, $job_id, $date, $pref) {
 		// only add preferences for scheduled approved meals
 		if (!isset($this->meals[$date])) {
 			return FALSE;
@@ -182,7 +184,7 @@ class Schedule {
 					}
 
 					$meal = $this->meals[$date];
-					if (!isset($meal)) {
+					if (!$meal instanceof Meal) {
 						error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
 							"meal is not set");
 						continue;
@@ -217,13 +219,11 @@ class Schedule {
 	 * Sort the various meals to find the one which will be the most difficult
 	 * to fill.
 	 */
-	public function sortPossibleRatios() {
+	public function rankMealsByDifficulty($job_id) {
 		// don't re-generate the list
 		if (!empty($this->least_possible)) {
 			return;
 		}
-
-		$job_id = $this->job_id;
 
 		$list_of_dates = empty($this->least_possible) ? 
 			array_keys($this->meals) :
@@ -241,7 +241,12 @@ class Schedule {
 			// get number of possible workers for this date/shift
 			$poss = $meal->getNumPossibleWorkerRatio($job_id);
 			// shift filled - move along
-			if (($poss == 0) || !is_float($poss)) {
+			if ($poss == 0) {
+				continue;
+			}
+
+			// something is wrong here
+			if (!is_float($poss)) {
 				continue;
 			}
 
@@ -274,16 +279,15 @@ EOTXT;
 	 * Note, this isn't solely based on availability, but also proximity of
 	 * other assignments and user requests, etc.
 	 *
+	 * @param int $job_id the ID of the shift.
 	 * @param array $worker_freedom workers and their difficulty to
 	 *     assign ratios.
 	 * @return boolean If TRUE, then the meal was filled successfully.
 	 */
-	public function fillMeal($worker_freedom) {
+	public function assignWorkerToShift($job_id, $worker_freedom) {
 		if (empty($this->least_possible)) {
 			return FALSE;
 		}
-
-		$job_id = $this->job_id;
 
 		$date = get_first_associative_key($this->least_possible);
 		if ($date == '') {
@@ -450,7 +454,7 @@ EOTXT;
 	 * @return array indexed by date, referring to the list of workers assigned
 	 *     to jobs for the meal on that date.
 	 */
-	public function getAssigned() {
+	public function getAssignments() {
 		$assignments = [];
 		foreach($this->meals as $date=>$meal) {
 			$assignments[$date] = $meal->getAssigned();
