@@ -18,30 +18,65 @@ class AssignmentsTest extends TestCase {
 		$this->assertInstanceOf('Assignments', $this->assignments);
 	}
 
-	/**
-	 * @dataProvider provideRun
-	public function testRun($season_months, $expected) {
-		$this->assignments->initialize($season_months);
-		$debug = [
-			'expected' => $expected,
-			'months' => $season_months,
-		];
-		// XXX this isn't doing much yet...
-		$this->assertEquals($expected, 'XXX', print_r($debug, TRUE));
+	public function testInitializeCreatesCalendar() {
+		$this->assignments->initialize(['January', 'February', 'March']);
+		$this->assertInstanceOf(Calendar::class,
+			$this->assignments->calendar);
 	}
 
-	public function provideRun() {
-		$season_months = [
-			'January',
-			'February',
-			'March',
-			'April',
-		];
-
-		return [
-			[$season_months, 'XXX'],
-		];
+	public function testInitializeCreatesRosterAndScheduleLinks() {
+		$this->assignments->initialize();
+		$this->assertInstanceOf(Roster::class,
+			$this->assignments->roster);
+		$this->assertInstanceOf(Schedule::class,
+			$this->assignments->schedule);
 	}
-	 */
+
+	public function testGetNumPlaceholdersInitiallyZero() {
+		$this->assignments->initialize();
+		$this->assertEquals(0, $this->assignments->getNumPlaceholders());
+	}
+
+	public function testFindCancelCountsNoShortage() {
+		$shifts_needed = [WEEKDAY_HEAD_COOK => 20];
+		$labor_available = [WEEKDAY_HEAD_COOK => 20];
+		$result = $this->assignments->findCancelCounts($shifts_needed,
+			$labor_available);
+		$this->assertEquals([], array_filter($result));
+	}
+
+	public function testFindCancelCountsMissingLaborEntry() {
+		$shifts_needed = [WEEKDAY_HEAD_COOK => 20];
+		$labor_available = [];
+
+		$result = $this->assignments->findCancelCounts($shifts_needed,
+			$labor_available);
+		$this->assertEquals([], $result);
+	}
+
+	public function testFindCancelCountsNoJobs() {
+		$result = $this->assignments->findCancelCounts([], []);
+		$this->assertEquals([], $result);
+	}
+
+	public function testFindCancelCountsExcessLabor() {
+		$shifts_needed = [WEEKDAY_HEAD_COOK => 10];
+		$labor_available = [WEEKDAY_HEAD_COOK => 100];
+		$result = $this->assignments->findCancelCounts($shifts_needed,
+			$labor_available);
+
+		foreach ($result as $cancelled) {
+			$this->assertEquals(0, $cancelled);
+		}
+	}
+
+	public function testInitializeCanBeCalledTwice() {
+		$this->assignments->initialize();
+		$this->assignments->initialize();
+
+		$this->assertInstanceOf(Calendar::class, $this->assignments->calendar);
+		$this->assertInstanceOf(Schedule::class, $this->assignments->schedule);
+		$this->assertInstanceOf(Roster::class, $this->assignments->roster);
+	}
 }
 ?>
