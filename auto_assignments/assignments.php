@@ -19,8 +19,10 @@ class Assignments {
 	/**
 	 * Construct an Assignments object.
 	 */
-	public function __construct() {
-		$this->roster = new Roster();
+	public function __construct($calendar, $roster, $schedule) {
+		$this->calendar = $calendar;
+		$this->schedule = $schedule;
+		$this->roster = $roster;
 		$this->initialize();
 	}
 
@@ -33,13 +35,9 @@ class Assignments {
 		if (empty($season_months)) {
 			$season_months = get_current_season_months();
 		}
-
-		$this->schedule = new Schedule();
-		$this->schedule->setRoster($this->roster);
-
+		$this->calendar->setSeasonMonths($season_months);
 		$this->roster->setSchedule($this->schedule);
-
-		$this->calendar = new Calendar($season_months);
+		$this->schedule->setRoster($this->roster);
 	}
 
 	/**

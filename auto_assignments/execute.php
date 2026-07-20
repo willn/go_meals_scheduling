@@ -38,9 +38,10 @@ EOTXT;
 // remove special case...
 unset($all_jobs['all']);
 
-$assignments = new Assignments();
-
-// #!# remove DEBUG_FIND_CANCEL_MEALS
+$calendar = new Calendar();
+$roster = new Roster();
+$schedule = new Schedule();
+$assignments = new Assignments($calendar, $roster, $schedule);
 
 // cancel-o-matic
 if (array_key_exists('x', $options)) {

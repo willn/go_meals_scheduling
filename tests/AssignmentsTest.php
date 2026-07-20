@@ -10,11 +10,13 @@ class AssignmentsTest extends TestCase {
 	private $assignments;
 
 	public function setUp() : void {
-		$this->assignments = new Assignments();
+		$calendar = new Calendar();
+		$roster = new Roster();
+		$schedule = new Schedule();
+		$this->assignments = new Assignments($calendar, $roster, $schedule);
 	}
 
 	public function testConstruct() {
-		$this->assignments = new Assignments();
 		$this->assertInstanceOf('Assignments', $this->assignments);
 	}
 
