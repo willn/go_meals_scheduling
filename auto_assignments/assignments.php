@@ -19,7 +19,9 @@ class Assignments {
 	/**
 	 * Construct an Assignments object.
 	 */
-	public function __construct($calendar, $roster, $schedule) {
+	public function __construct(Calendar $calendar, Roster $roster,
+		Schedule $schedule) {
+
 		$this->calendar = $calendar;
 		$this->schedule = $schedule;
 		$this->roster = $roster;
