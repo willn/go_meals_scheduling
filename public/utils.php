@@ -722,7 +722,6 @@ function get_worker_schedule_prefs() {
 				p.pref DESC,
 				a.username ASC;
 EOSQL;
-	echo "SQL:{$sql}\n";
 
 	$data = [];
 	$mysql_api = get_mysql_api();
