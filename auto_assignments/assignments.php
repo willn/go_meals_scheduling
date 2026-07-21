@@ -131,17 +131,7 @@ EOSQL;
 					" job id:{$job_id} {$job_name}");
 			}
 
-			$this->schedule->setJobId($job_id);
-			$this->schedule->initPlaceholderCount($job_id);
-			$this->roster->setJobId($job_id);
-			$this->schedule->rankMealsByDifficulty($job_id);
-
-			// keep assigning until all the meals have been assigned
-			$success = TRUE;
-			while (!$this->schedule->isFinished() && $success) {
-				$worker_freedom = $this->roster->sortAvailable();
-				$success = $this->schedule->assignWorkerToShift($job_id, $worker_freedom);
-			}
+			$this->assignJobType($job_id);
 
 			if (DEBUG_FIND_CANCEL_MEALS) {
 				$work_avail_ratio = $this->schedule->getPossibleRatios();
@@ -157,6 +147,24 @@ EOSQL;
 			}
 		}
 	}
+
+	public function assignJobType(int $jobId): void
+	{
+		$this->roster->setJobId($jobId);
+
+		$this->schedule->setJobId($jobId);
+		$this->schedule->initPlaceholderCount($jobId);
+		$this->schedule->rankMealsByDifficulty($jobId);
+
+		// keep assigning until all the meals have been assigned
+		while (!$this->schedule->isFinished()) {
+			$workers = $this->roster->sortAvailable();
+			if (!$this->schedule->assignWorkerToShift($jobId, $workers)) {
+				break;
+			}
+		}
+	}
+
 
 	/**
 	 * Save the results to a json file which can be used to...

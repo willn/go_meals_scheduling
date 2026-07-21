@@ -10,11 +10,16 @@ require_once '../public/mysql_api.php';
 class AssignmentsTest extends TestCase {
 	private $assignments;
 
+	private $calendar;
+	private $roster;
+	private $schedule;
+
 	public function setUp() : void {
-		$calendar = new Calendar();
-		$roster = new Roster();
-		$schedule = new Schedule();
-		$this->assignments = new Assignments($calendar, $roster, $schedule);
+		$this->calendar = new Calendar();
+		$this->roster = new Roster();
+		$this->schedule = new Schedule();
+		$this->assignments = new Assignments($this->calendar,
+			$this->roster, $this->schedule);
 	}
 
 	public function testConstruct() {
@@ -214,6 +219,31 @@ class AssignmentsTest extends TestCase {
 		foreach ($result as $count) {
 			$this->assertEquals(0, $count);
 		}
+	}
+
+	public function testAssignJobTypeInitializesObjects()
+	{
+		$calendar = $this->createMock(Calendar::class);
+		$schedule = $this->createMock(Schedule::class);
+		$schedule->expects($this->once())
+			->method('setJobId')
+			->with(WEEKDAY_HEAD_COOK);
+		$schedule->expects($this->once())
+			->method('initPlaceholderCount');
+		$schedule->expects($this->once())
+			->method('rankMealsByDifficulty');
+		$schedule->expects($this->once())
+			->method('isFinished')
+			->willReturn(true);
+
+		$roster = $this->createMock(Roster::class);
+		$roster->expects($this->once())
+			->method('setJobId')
+			->with(WEEKDAY_HEAD_COOK);
+		$roster->expects($this->never())->method('sortAvailable');
+
+		$assignments = new Assignments($calendar, $roster, $schedule);
+		$assignments->assignJobType(WEEKDAY_HEAD_COOK);
 	}
 
 	public function testFindCancelCountsUsesFloorForMealCapacity() {
