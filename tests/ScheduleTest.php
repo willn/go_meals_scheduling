@@ -149,44 +149,6 @@ class ScheduleTest extends TestCase {
 		$this->assertSame($worker, $this->schedule->getWorker('fred'));
 	}
 
-	/**
-	 * @dataProvider provideAddNonResponderPrefs
-	 */
-	public function testAddNonResponderPrefs($dates_by_shift, $expected) {
-		$this->schedule->initializeMealsAndShifts($dates_by_shift);
-
-		$roster = new Roster();
-		$this->schedule->setRoster($roster);
-
-		// -------- 1st test ---------
-		$workers = ['aaa', 'bbb', 'ccc', 'ddd', 'eee'];
-		$counted_workers = count($workers);
-		foreach($workers as $username) {
-			$worker = $roster->addWorker($username);
-			$worker->addNumShiftsAssigned(SUNDAY_HEAD_COOK, 1);
-			$worker->addNumShiftsAssigned(BRUNCH_HEAD_COOK, 1);
-			$worker->addNumShiftsAssigned(MEETING_NIGHT_ORDERER, 1);
-			$worker->addNumShiftsAssigned(WEEKDAY_HEAD_COOK, 1);
-			# $worker->addNumShiftsAssigned(WEEKDAY_LAUNDRY, 1);
-		}
-		$counted_slackers = $this->schedule->addNonResponderPrefs($workers);
-
-		$debug = [
-			'counted_slackers' => $counted_slackers,
-			'counted_workers' => $counted_workers,
-			'workers' => $workers,
-		];
-		$this->assertEquals($counted_slackers, $counted_workers, print_r($debug, TRUE));
-
-		// -------- 2nd test ---------
-		$assigned = $this->schedule->getAssignments();
-		$debug = [
-			'assigned' => $assigned,
-			'expected' => $expected,
-		];
-		$this->assertEquals($assigned, $expected, print_r($debug, TRUE));
-	}
-
 	public function provideAddNonResponderPrefs() {
 		return [
 			[

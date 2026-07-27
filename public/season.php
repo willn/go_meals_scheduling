@@ -2,7 +2,7 @@
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('July 24, 2026, 8:15pm'));
+define('DEADLINE', strtotime('July 26, 2026, 6:15pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
@@ -70,7 +70,9 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		10 => [25], // skip both brunch & dinner for budget meeting
+		8 => [2, 11, 19, 22, 26],
+		9 => [27, 14], // grounds native planting day 9/27
+		10 => [7, 11, 18, 24, 25], // skip both brunch & dinner for budget meeting
 	];
 }
 
