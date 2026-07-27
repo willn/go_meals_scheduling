@@ -47,8 +47,7 @@ class MealTest extends TestCase {
 		$this->roster = new Roster();
 		$this->schedule = new Schedule();
 		$this->schedule->setRoster($this->roster);
-		#$this->meal = new SundayMeal($this->schedule, '04/25/2018', 10);
-		$this->meal = new BrunchMeal($this->schedule, '01/07/2024', 10);
+		$this->meal = new SundayMeal($this->schedule, '04/25/2018', 10);
 	}
 
 	public function testConstructors() {
@@ -117,6 +116,7 @@ class MealTest extends TestCase {
 
 	/**
 	 * @dataProvider shiftsProvider
+	 */
 	public function testAddShifts($date, $shifts, $expected) {
 		$this->meal->setDate($date);
 		$this->meal->initShifts($shifts);
@@ -124,7 +124,6 @@ class MealTest extends TestCase {
 		$this->assertEquals($expected, $assigned,
 			print_r(['expected' => $expected, 'assigned' => $assigned], TRUE));
 	}
-	 */
 
 	public function shiftsProvider() {
 		return [
@@ -165,6 +164,7 @@ class MealTest extends TestCase {
 
 	/**
 	 * @dataProvider provideGetNumOpenSpacesForShift
+	 */
 	public function testGetNumOpenSpacesForShift($date, $shifts, $job_id, $expected) {
 		$this->meal->setDate($date);
 		$this->meal->initShifts($shifts);
@@ -172,7 +172,6 @@ class MealTest extends TestCase {
 		$this->assertEquals($expected, $assigned,
 			print_r(['expected' => $expected, 'assigned' => $assigned], TRUE));
 	}
-	 */
 
 	public function provideGetNumOpenSpacesForShift() {
 		return [
@@ -225,42 +224,53 @@ class MealTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider providePickWorker
-	public function testPickWorker($override, $type, $job_id,
-		$worker_freedom, $expected) {
-
-		$this->roster->loadNumMealsFromOverrides(NULL, $override);
-		$this->roster->addPrefs('aaa', $job_id, $this->meal->getDate(), 1);
-		$this->roster->addPrefs('bbb', $job_id, $this->meal->getDate(), 1);
-		$this->roster->addPrefs('ccc', $job_id, $this->meal->getDate(), 1);
-
-		$this->meal->initShifts($this->shifts[$type]);
-		$this->meal->addWorkerPref('aaa', $job_id, 1);
-		$this->meal->addWorkerPref('bbb', $job_id, 2);
-		$this->meal->addWorkerPref('ccc', $job_id, 0);
-
-		$user = $this->meal->pickWorker($job_id, $worker_freedom);
-		$this->assertEquals($user, $expected);
+	public function testHasOpenShiftsInitiallyTrue()
+	{
+		$this->meal->initShifts([SUNDAY_HEAD_COOK]);
+		$this->assertTrue($this->meal->hasOpenShifts(SUNDAY_HEAD_COOK));
 	}
-	 */
 
-	public function providePickWorker() {
-		$override = [
-			'aaa' => [SUNDAY_HEAD_COOK => 1],
-			'bbb' => [SUNDAY_HEAD_COOK => 1],
-			'ccc' => [SUNDAY_HEAD_COOK => 1],
-		];
+	public function testHasOpenShiftsFalseWhenFilled()
+	{
+		$this->meal->initShifts([SUNDAY_HEAD_COOK]);
+		$this->meal->setAssignment(SUNDAY_HEAD_COOK, 0, 'alice');
+		$this->assertFalse($this->meal->hasOpenShifts(SUNDAY_HEAD_COOK));
+	}
 
-		$freedom = [
-			'aaa' => 3.5,
-			'bbb' => 2,
-			'ccc' => 2.3,
+	public function testGetAssignedWorkerNamesByJobId()
+	{
+		$this->meal->initShifts($this->shifts['sunday']);
+		$this->meal->setAssignment(SUNDAY_HEAD_COOK, 0, 'head');
+		$this->meal->setAssignment(SUNDAY_ASST_COOK, 0, 'assistant');
+		$names = $this->meal->getAssignedWorkerNamesByJobId(SUNDAY_HEAD_COOK);
+		$expected = [
+			'head' => 1,
+			'assistant' => 1,
 		];
+		$this->assertEquals($expected, $names);
+	}
 
-		return [
-			[$override, 'sunday', SUNDAY_HEAD_COOK, $freedom, 'bbb'],
+	public function testCleanerGrouping()
+	{
+		$this->meal->initShifts($this->shifts['sunday']);
+		$this->meal->setAssignment(SUNDAY_CLEANER, 0, 'alice');
+		$this->meal->setAssignment(SUNDAY_CLEANER, 1, 'bob');
+		$names = $this->meal->getAssignedWorkerNamesByJobId(SUNDAY_CLEANER);
+		$expected = [
+			'alice' => 1,
+			'bob' => 1,
 		];
+		$this->assertEquals($expected, $names);
+	}
+
+	public function testGetNumPossibleWorkerRatio()
+	{
+		$this->meal->initShifts([SUNDAY_HEAD_COOK]);
+		$this->meal->addWorkerPref('a', SUNDAY_HEAD_COOK, 1);
+		$this->meal->addWorkerPref('b', SUNDAY_HEAD_COOK, 1);
+		$this->meal->addWorkerPref('c', SUNDAY_HEAD_COOK, 1);
+		$ratio = $this->meal->getNumPossibleWorkerRatio(SUNDAY_HEAD_COOK);
+		$this->assertEquals(3.0, $ratio);
 	}
 
 	public function testGetNumPlaceholders() {
@@ -269,6 +279,14 @@ class MealTest extends TestCase {
 		$this->meal->setAssignment(789, 'def', 'somebody');
 		$num = $this->meal->getNumPlaceholders();
 		$this->assertEquals($num, 2);
+	}
+
+	public function testGetNumPlaceholdersCountsNullAssignments()
+	{
+		$this->meal->initShifts([SUNDAY_HEAD_COOK]);
+		$this->meal->setAssignment(SUNDAY_HEAD_COOK, 0, PLACEHOLDER);
+		$this->meal->setAssignment(123, 0, null);
+		$this->assertEquals(2, $this->meal->getNumPlaceholders());
 	}
 }
 ?>
