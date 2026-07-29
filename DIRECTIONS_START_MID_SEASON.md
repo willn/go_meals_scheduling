@@ -1,5 +1,9 @@
 # MID-SEASON
 
+## Ask Process committee
+* Are there any meeting nights that will be rescheduled?
+   - Update `function get_weekday_overrides`
+
 ### edit public/season.php
 * set the appropriate `DEADLINE` date
 
