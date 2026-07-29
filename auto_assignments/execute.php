@@ -32,6 +32,7 @@ Usage:
 	-x  cancel-o-matic: ratio of shifts to labor and sorted by availability
 
 EOTXT;
+	error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 	exit;
 }
 
@@ -46,6 +47,7 @@ $assignments = new Assignments($calendar, $roster, $schedule);
 // cancel-o-matic
 if (array_key_exists('x', $options)) {
 	$assignments->findCancelDates();
+	error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 	exit;
 }
 

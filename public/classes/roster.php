@@ -222,7 +222,7 @@ EOSQL;
 
 			// determine the number of shifts across the season
 			if (!isset($shifts_per_assignment[$job_id])) {
-				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " unable to find job id :{$job_id} in shifts_per_assignment:" . var_export($shifts_per_assignment, TRUE));
+				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL unable to find job id :{$job_id} in shifts_per_assignment:" . var_export($shifts_per_assignment, TRUE));
 				exit;
 			}
 			$num_shifts_assigned = isset($shifts_per_assignment[$job_id]) ?

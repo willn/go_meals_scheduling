@@ -41,6 +41,7 @@ if (!isset($_SESSION['access_type'])) {
 				</form>
 			</div>
 EOHTML;
+		error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 		exit;
 	}
 }

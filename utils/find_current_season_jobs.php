@@ -60,6 +60,7 @@ EOSQL;
 
 			if ($prev === $count) {
 				echo "missed SQL: $sql\n";
+				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 				exit;
 			}
 			$prev++;

@@ -196,6 +196,7 @@ EOSQL;
 		$sql = 'DELETE FROM schedule_comments';
 		if ($this->mysql_api->query($sql) === FALSE) {
 			echo "Unable to clear comments\n";
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 			exit;
 		}
 	}
@@ -204,6 +205,7 @@ EOSQL;
 		$sql = 'DELETE FROM schedule_prefs';
 		if ($this->mysql_api->query($sql) === FALSE) {
 			echo "Unable to clear prefs\n";
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 			exit;
 		}
 	}
@@ -212,6 +214,7 @@ EOSQL;
 		$sql = 'DELETE FROM schedule_shifts';
 		if ($this->mysql_api->query($sql) === FALSE) {
 			echo "Unable to clear shifts\n";
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 			exit;
 		}
 	}

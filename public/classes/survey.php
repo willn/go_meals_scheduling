@@ -79,6 +79,7 @@ class Survey {
 		else {
 			if (is_null($this->username)) {
 				echo "Missing username in setWorker!\n";
+				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 				exit;
 			}
 			$username = $this->username;
@@ -90,6 +91,7 @@ class Survey {
 		else {
 			if (is_null($this->worker_id)) {
 				echo "Missing worker_id in setWorker!\n";
+				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 				exit;
 			}
 			$worker_id = $this->worker_id;
@@ -250,6 +252,7 @@ EOHTML;
 				<a href="{$dir}" class="pill">&larr; go back</a>
 			</div>
 EOHTML;
+		error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 		exit;
 	}
 
@@ -409,7 +412,7 @@ EOHTML;
 	}
 
 	/**
-	 * #!#
+	 * Run the survey
 	 */
 	public function run($post) {
 		if (isset($_POST['posted'])) {
@@ -417,6 +420,7 @@ EOHTML;
 		}
 
 		if (!is_null($this->setUsername($post))) {
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 			exit;
 		}
 
@@ -634,6 +638,8 @@ EOSQL;
 									the database writable?
 								</p>
 EOHTML;
+
+							error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 							exit;
 						}
 					}

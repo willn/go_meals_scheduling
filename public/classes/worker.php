@@ -213,6 +213,7 @@ class Worker {
 			// sanity check
 			if (!isset($dates_by_shift[$job_id])) {
 				echo "shift {$job_id} doesn't have any dates!\n";
+				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 				exit;
 			}
 

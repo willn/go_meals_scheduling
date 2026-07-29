@@ -28,7 +28,8 @@ class AddNewWorkers extends DatabaseHandler {
 	 */
 	public function run() {
 		if (empty($this->new_workers)) {
-			echo "new workers  listis empty\n";
+			echo "new workers list is empty\n";
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 			exit;
 		}
 
@@ -53,6 +54,7 @@ class AddNewWorkers extends DatabaseHandler {
 		$result = $this->mysql_api->get($sql);
 		if ($result === FALSE) {
 			echo "failed to execute: $sql\n";
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 			exit;
 		}
 
@@ -62,6 +64,7 @@ class AddNewWorkers extends DatabaseHandler {
 
 		if (empty($this->all_workers)) {
 			echo "no users found\n";
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 			exit;
 		}
 	}
@@ -80,6 +83,7 @@ class AddNewWorkers extends DatabaseHandler {
 		}
 		if (is_null($this->max_assign_id)) {
 			echo "max id is null\n";
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 			exit;
 		}
 		echo "max assignment ID is {$this->max_assign_id}\n";
@@ -105,11 +109,13 @@ EOSQL;
 		foreach($overrides as $username=>$jobs) {
 			if (empty($username)) {
 				echo "empty username\n";
+				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 				exit;
 			}
 
 			if (empty($jobs)) {
 				echo "empty username\n";
+				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 				exit;
 			}
 
@@ -118,6 +124,7 @@ EOSQL;
 			$result = $this->mysql_api->query($sql);
 			if ($result === FALSE) {
 				echo "Failed to execute: $sql\n";
+				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 				exit;
 			}
 
@@ -129,6 +136,7 @@ EOSQL;
 
 				if ($result === FALSE) {
 					echo "Failed to execute: $sql\n";
+					error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 					exit;
 				}
 			}

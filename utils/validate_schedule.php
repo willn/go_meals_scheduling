@@ -13,10 +13,12 @@ require_once('../public/classes/roster.php');
 $options = getopt('f:');
 if (!isset($options['f'])) {
 	print "Usage: -f filename.txt\n";
+	error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 	exit;
 }
 if (!file_exists($options['f'])) {
 	print "Could not find schedule file\n";
+	error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 	exit;
 }
 
