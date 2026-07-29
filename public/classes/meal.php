@@ -101,6 +101,7 @@ abstract class Meal {
 			$all_jobs = get_all_jobs();
 			if (!isset($all_jobs[$job_id])) {
 				echo "Could not find JOB ID: {$job_id} FATAL\n";
+				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL ");
 				exit;
 			}
 
@@ -117,6 +118,7 @@ assigned: {$assn_out}
 FATAL
 
 EOTXT;
+			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ . " FATAL");
 			exit;
 		}
 
@@ -186,7 +188,7 @@ EOTXT;
 	 * @param int $job_id int ID of the meal's job
 	 * @return float the popularity / open spot ratio
 	 */
-	public function getNumPossibleWorkerRatio($job_id) {
+	public function getJobPopularity($job_id) {
 		$job_instances = get_num_workers_per_job_per_meal($job_id);
 
 		// check to see if this is the wrong date for this job
@@ -211,7 +213,7 @@ EOTXT;
 
 
 	/**
-	 * Find if this meal has shifts yet to be filled.
+	 * Figure if this meal has shifts yet to be filled.
 	 * (Meal)
 	 */
 	public function hasOpenShifts($job_id) {
@@ -319,6 +321,27 @@ EOTXT;
 	}
 
 	/**
+	 * Examine various reasons why a worker might not get assigned.
+	 */
+	public function canAssignWorker($job_id, $username)
+	{
+		// is not assigned the job
+		if (!isset($this->possible_workers[$job_id][$username])) {
+			return FALSE;
+		}
+
+		$worker = $this->schedule->getWorker($username);
+
+		// worker is fully assigned, doesn't need more assignments
+		if ($worker->isFullyAssigned($job_id)) {
+			return FALSE;
+		}
+
+		// worker can be assigned
+		return TRUE;
+	}
+
+	/**
 	 * Run through each eligible worker for this job, and pick one based on
 	 * various points, characteristics, etc.
 	 *
@@ -359,24 +382,17 @@ EOTXT;
 			// initialize
 			$drawbacks = $promotes = 1;
 
-			// skip if this worker can't work on this day
-			if (!isset($this->possible_workers[$job_id][$username])) {
+			if (!$this->canAssignWorker($job_id, $username)) {
 				continue;
 			}
 
 			$worker = $this->schedule->getWorker($username);
-
-			// skip if this worker is fully assigned
-			if ($worker->isFullyAssigned($job_id)) {
-				continue;
-			}
-
-			$today = $worker->getDateScore($this->date, $job_id);
+			$today_score = $worker->getDateScore($this->date, $job_id);
 			// skip if there's a date conflict
-			if ($today == HAS_CONFLICT_PREF) {
+			if ($today_score == HAS_CONFLICT_PREF) {
 				continue;
 			}
-			$promotes += $today;
+			$promotes += $today_score;
 
 			// if a worker has an availability rating of 1 or less, then they
 			// must get this assignment, otherwise they'll end up with fewer
@@ -449,27 +465,27 @@ EOTXT;
 	 *
 	 * @return string username or NULL if assignment failed
 	 */
-	public function fill($job_id, $worker_freedom) {
+	public function findWorkerForJob($job_id, $worker_freedom) {
 		$name = get_job_name($job_id);
 
 		// don't add anymore workers, this meal is fully assigned
 		if (!$this->hasOpenShifts($job_id)) {
-			echo "this meal {$this->date} $job_id is filled\n";
+			echo "this meal {$this->date} {$job_id} is filled\n";
 			sleep(1);
 			return '';
 		}
 
 		// assign to the first available shift slot
 		$is_available = FALSE;
-		$next_shift_count = NULL;
-		foreach($this->assigned[$job_id] as $shift_count=>$worker) {
+		$next_shift_num = NULL;
+		foreach($this->assigned[$job_id] as $shift_num=>$worker) {
 			if (!is_null($worker)) {
 				// slot is taken already
 				continue;
 			}
 
 			$is_available = TRUE;
-			$next_shift_count = $shift_count;
+			$next_shift_num = $shift_num;
 			break;
 		}
 
@@ -485,7 +501,7 @@ EOTXT;
 			error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
 				" picked: {$username} id:{$job_id} date:{$this->date}");
 		}
-		$this->setAssignment($job_id, $next_shift_count, $username);
+		$this->setAssignment($job_id, $next_shift_num, $username);
 		return $username;
 	}
 
@@ -572,7 +588,6 @@ EOTXT;
 
 		$is_mtg_night_job = FALSE;
 		$out_data = [];
-
 
 		// check to make sure that all of the required instances are filled
 		foreach($this->assigned as $job_id=>$entry) {

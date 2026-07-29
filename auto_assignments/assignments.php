@@ -134,7 +134,7 @@ EOSQL;
 			$this->assignJobType($job_id);
 
 			if (DEBUG_FIND_CANCEL_MEALS) {
-				$work_avail_ratio = $this->schedule->getPossibleRatios();
+				$work_avail_ratio = $this->schedule->getPopularity();
 
 				$count = $this->schedule->getPlaceholderCount($job_id);
 				error_log(__CLASS__ . ' ' . __FUNCTION__ . ' ' . __LINE__ .
@@ -148,18 +148,18 @@ EOSQL;
 		}
 	}
 
-	public function assignJobType(int $jobId): void
+	public function assignJobType(int $job_id): void
 	{
-		$this->roster->setJobId($jobId);
+		$this->roster->setJobId($job_id);
 
-		$this->schedule->setJobId($jobId);
-		$this->schedule->initPlaceholderCount($jobId);
-		$this->schedule->rankMealsByDifficulty($jobId);
+		$this->schedule->setJobId($job_id);
+		$this->schedule->initPlaceholderCount($job_id);
+		$this->schedule->rankMealsByPopularity($job_id);
 
 		// keep assigning until all the meals have been assigned
 		while (!$this->schedule->isFinished()) {
 			$workers = $this->roster->sortAvailable();
-			if (!$this->schedule->assignWorkerToShift($jobId, $workers)) {
+			if (!$this->schedule->assignWorkerToShift($job_id, $workers)) {
 				break;
 			}
 		}
@@ -282,8 +282,8 @@ EOM;
 
 			$this->schedule->setJobId($job_id);
 			$this->schedule->initPlaceholderCount($job_id);
-			$this->schedule->rankMealsByDifficulty($job_id);
-			$work_avail_ratio = $this->schedule->getPossibleRatios();
+			$this->schedule->rankMealsByPopularity($job_id);
+			$work_avail_ratio = $this->schedule->getPopularity();
 			if (empty($work_avail_ratio)) {
 				continue;
 			}

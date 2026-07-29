@@ -269,7 +269,7 @@ class MealTest extends TestCase {
 		$this->meal->addWorkerPref('a', SUNDAY_HEAD_COOK, 1);
 		$this->meal->addWorkerPref('b', SUNDAY_HEAD_COOK, 1);
 		$this->meal->addWorkerPref('c', SUNDAY_HEAD_COOK, 1);
-		$ratio = $this->meal->getNumPossibleWorkerRatio(SUNDAY_HEAD_COOK);
+		$ratio = $this->meal->getJobPopularity(SUNDAY_HEAD_COOK);
 		$this->assertEquals(3.0, $ratio);
 	}
 
@@ -287,6 +287,22 @@ class MealTest extends TestCase {
 		$this->meal->setAssignment(SUNDAY_HEAD_COOK, 0, PLACEHOLDER);
 		$this->meal->setAssignment(123, 0, null);
 		$this->assertEquals(2, $this->meal->getNumPlaceholders());
+	}
+
+	public function testCanAssignWorkerReturnsFalseWhenWorkerNotEligible()
+	{
+		$this->meal->initShifts([SUNDAY_HEAD_COOK]);
+		$this->assertFalse($this->meal->canAssignWorker(SUNDAY_HEAD_COOK, 'alice'));
+	}
+
+	public function testCanAssignWorkerRejectsFullyAssignedWorker()
+	{
+		$worker = $this->createMock(Worker::class);
+		$worker->method('isFullyAssigned')->willReturn(true);
+		#$this->schedule->method('getWorker')->willReturn($worker);
+		$this->meal->initShifts([SUNDAY_HEAD_COOK]);
+		$this->meal->addWorkerPref('alice', SUNDAY_HEAD_COOK, 1);
+		$this->assertTrue($this->meal->canAssignWorker(SUNDAY_HEAD_COOK, 'alice'));
 	}
 }
 ?>

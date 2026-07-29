@@ -12,17 +12,16 @@ class Schedule {
 	protected $calendar;
 	protected array $placeholders_by_job_id = [];
 
-	// the most difficult shifts to fill
-	// date => job_id => counts
-	protected array $least_possible = [];
+	// the popularity for dates and jobs: date => job_id => counts
+	protected array $dates_by_popularity = [];
 
 	// which shifts happen on which dates
 	protected array $dates_and_job_ids = [];
 	protected array $dates_by_shift_cache = [];
 
 
-	public function getPossibleRatios() {
-		return $this->least_possible;
+	public function getPopularity() {
+		return $this->dates_by_popularity;
 	}
 
 	/**
@@ -69,7 +68,7 @@ class Schedule {
 		$this->job_id = $job_id;
 
 		// reset the listing of availability for all meals
-		$this->least_possible = [];
+		$this->dates_by_popularity = [];
 	}
 
 	/**
@@ -216,21 +215,14 @@ class Schedule {
 	}
 
 	/**
-	 * Sort the various meals to find the one which will be the most difficult
-	 * to fill.
+	 * Sort the various meals to find the one which will be the most or least
+	 * popular to work.
+	 *
+	 * @return boolean whether this ranking was successful, or FALSE for empty
 	 */
-	public function rankMealsByDifficulty($job_id) {
-		// don't re-generate the list
-		if (!empty($this->least_possible)) {
-			return;
-		}
+	public function rankMealsByPopularity($job_id) {
 
-		$list_of_dates = empty($this->least_possible) ? 
-			array_keys($this->meals) :
-			array_keys($this->least_possible);
-		$this->least_possible = [];
-
-		foreach($list_of_dates as $date) {
+		foreach(array_keys($this->meals) as $date) {
 			$meal = $this->meals[$date];
 
 			// skip dates which don't need workers
@@ -239,36 +231,35 @@ class Schedule {
 			}
 
 			// get number of possible workers for this date/shift
-			$poss = $meal->getNumPossibleWorkerRatio($job_id);
+			$job_popularity = $meal->getJobPopularity($job_id);
 			// shift filled - move along
-			if ($poss == 0) {
+			if ($job_popularity == 0) {
 				continue;
 			}
 
 			// something is wrong here
-			if (!is_float($poss)) {
+			if (!is_numeric($job_popularity)) {
 				continue;
 			}
 
 			// uh oh - not enough workers!
-			if ($poss < 1) {
+			if ($job_popularity < 1) {
 				$job_name = get_job_name($job_id);
 				echo <<<EOTXT
-D:{$date}, job:{$job_id} {$job_name} may not have enough workers: {$poss}
+D:{$date}, job:{$job_id} {$job_name} may not have enough workers: {$job_popularity}
 
 EOTXT;
 				continue;
 			}
 
-			// record the possibility ratio
-			$this->least_possible[$date] = $poss;
+			$this->dates_by_popularity[$date] = $job_popularity;
 		}
 
-		if (empty($this->least_possible)) {
+		if (empty($this->dates_by_popularity)) {
 			return FALSE;
 		}
 
-		asort($this->least_possible);
+		asort($this->dates_by_popularity);
 
 		return TRUE;
 	}
@@ -285,30 +276,31 @@ EOTXT;
 	 * @return boolean If TRUE, then the meal was filled successfully.
 	 */
 	public function assignWorkerToShift($job_id, $worker_freedom) {
-		if (empty($this->least_possible)) {
+		if (empty($this->dates_by_popularity)) {
 			return FALSE;
 		}
 
-		$date = get_first_associative_key($this->least_possible);
+		$date = get_first_associative_key($this->dates_by_popularity);
 		if ($date == '') {
 			echo "EMPTY DATE\n";
 			return FALSE;
 		}
 		$meal = $this->meals[$date];
-		$username = $meal->fill($job_id, $worker_freedom);
+		$username = $meal->findWorkerForJob($job_id, $worker_freedom);
 		if (empty($username)) {
 			echo "null user\n";
+			$this->placeholders_by_job_id[$job_id]++;
 			return FALSE;
 		}
 
 		// update the current meal's possibility ratio
-		$poss = $meal->getNumPossibleWorkerRatio($job_id);
-		if ($poss == 0) {
-			unset($this->least_possible[$date]);
+		$job_popularity = $meal->getJobPopularity($job_id);
+		if ($job_popularity == 0) {
+			unset($this->dates_by_popularity[$date]);
 		}
 		else {
-			$this->least_possible[$date] = $poss;
-			asort($this->least_possible);
+			$this->dates_by_popularity[$date] = $job_popularity;
+			asort($this->dates_by_popularity);
 		}
 
 		$worker = $this->getWorker($username);

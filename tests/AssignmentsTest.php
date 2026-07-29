@@ -225,21 +225,13 @@ class AssignmentsTest extends TestCase {
 	{
 		$calendar = $this->createMock(Calendar::class);
 		$schedule = $this->createMock(Schedule::class);
-		$schedule->expects($this->once())
-			->method('setJobId')
-			->with(WEEKDAY_HEAD_COOK);
-		$schedule->expects($this->once())
-			->method('initPlaceholderCount');
-		$schedule->expects($this->once())
-			->method('rankMealsByDifficulty');
-		$schedule->expects($this->once())
-			->method('isFinished')
-			->willReturn(true);
+		$schedule->expects($this->once())->method('setJobId')->with(WEEKDAY_HEAD_COOK);
+		$schedule->expects($this->once())->method('initPlaceholderCount');
+		$schedule->expects($this->once())->method('rankMealsByPopularity');
+		$schedule->expects($this->once())->method('isFinished')->willReturn(true);
 
 		$roster = $this->createMock(Roster::class);
-		$roster->expects($this->once())
-			->method('setJobId')
-			->with(WEEKDAY_HEAD_COOK);
+		$roster->expects($this->once())->method('setJobId')->with(WEEKDAY_HEAD_COOK);
 		$roster->expects($this->never())->method('sortAvailable');
 
 		$assignments = new Assignments($calendar, $roster, $schedule);
