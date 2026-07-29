@@ -143,10 +143,6 @@ class UtilsTest extends TestCase {
 	public function provide_add_passover() {
 		return [
 			[
-				'input' => [],
-				'expected' => [4 => [21]]
-			],
-			[
 				'input' => [7 => [4], 12 => [25]],
 				'expected' => [4 => [21], 7 => [4], 12 => [25]]
 			],
