@@ -70,9 +70,9 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		8 => [2, 11, 19, 22, 26],
-		9 => [27, 14], // grounds native planting day 9/27
-		10 => [7, 11, 18, 24, 25], // skip both brunch & dinner for budget meeting
+		8 => [2, 11, 19, 22, 26], // resv 8/2
+		9 => [14, 27], // grounds native planting day 9/27
+		10 => [18, 24, 25], // skip brunch & dinner for budget meeting 10/25
 	];
 }
 

@@ -102,13 +102,7 @@ chmod +x checks.sh
 ```
 
 ## Auto-check for conflicts
-If changes were made, then re-download from google spreadsheet:
-```
-mv file to auto-assignments/schedule.txt
-cd tests/
-vi CheckForConflictsTest.php # un-comment the test_check_for_conflicts test
-phpunit CheckForConflictsTest.php
-```
+If changes were made, then re-download from google spreadsheet.
 
 ## run conflicts validation:
 ```
@@ -144,22 +138,4 @@ Look up their ID in Gather, then:
     - Meeting Night: 3:30 - 8:00
     - Saturday Brunches: 8:15 - 12:45
   The header is the 1st.
-
-
-## Development notes between seasons
-
-update public/config.php, update the season name, year, and season id
-
-- pop into sqlite:
-`sqlite3 !$`
-
-- update the data to use the current season id:
-`update work_app_assignment set season_id=11 where season_id=10;`
-
-```
-# create some entries (cook & clean) for testing of survey
-# sqlite> insert into work_app_assignment values(NULL, 'a', 3, 4592, 1, 33, 59);
-# sqlite> insert into work_app_assignment values(NULL, 'a', 1, 4596, 1, 33, 59);
-```
-
 

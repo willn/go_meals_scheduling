@@ -1004,9 +1004,9 @@ EOHTML;
 			# MEETING_NIGHT_CLEANER => 4,
 			# MEETING_NIGHT_ORDERER => 4,
 
-			SUNDAY_ASST_COOK => 14,
-			SUNDAY_CLEANER => 21,
-			SUNDAY_HEAD_COOK => 7,
+			SUNDAY_ASST_COOK => 16,
+			SUNDAY_CLEANER => 24,
+			SUNDAY_HEAD_COOK => 8,
 
 			WEEKDAY_ASST_COOK => 56,
 			WEEKDAY_CLEANER => 84,
@@ -1072,9 +1072,9 @@ EOHTML;
 			#MEETING_NIGHT_CLEANER => 4,
 			#MEETING_NIGHT_ORDERER => 4,
 
-			SUNDAY_ASST_COOK => 14,
-			SUNDAY_CLEANER => 7,
-			SUNDAY_HEAD_COOK => 7,
+			SUNDAY_ASST_COOK => 16,
+			SUNDAY_CLEANER => 8,
+			SUNDAY_HEAD_COOK => 8,
 
 			WEEKDAY_ASST_COOK => 56,
 			WEEKDAY_CLEANER => 28,
@@ -1122,7 +1122,7 @@ EOHTML;
 		// UPDATE-EACH-SEASON
 		$expected = [
 			'meeting' => 0,
-			'sunday' => 7,
+			'sunday' => 8,
 			'weekday' => 28,
 			'brunch' => 1,
 		];

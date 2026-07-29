@@ -31,7 +31,7 @@ $found_conflict = FALSE;
 // parse the schedule file into meaningful arrays
 $schedule = file($options['f']);
 foreach($schedule as $meal_line) {
-	$e = explode("\t", trim($meal_line));
+	$e = explode(",", trim($meal_line));
 	$date = $e[0];
 
 	// parse the cooks
