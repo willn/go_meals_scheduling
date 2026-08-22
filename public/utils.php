@@ -282,6 +282,10 @@ function add_thanksgiving_day($holidays) {
 
 /*
  * Get the list of all holidays.
+ * These dates are intended to block a meal from happening. If you're looking
+ * to track a list of special days which are indicated, but not blocked, then
+ * see "observances".
+ *
  * @return associative array where the keys are the months, and the values are
  *     dates in the months.
  */
@@ -311,6 +315,71 @@ function get_holidays() {
 	ksort($holidays);
 	return $holidays;
 }
+
+/*
+ * Get the list of all observances.
+ * These dates do NOT block a meal from happening. They're only intended
+ * to track a list of special days which are indicated as happening.
+ *
+ * @return associative array where the keys are the months, and the values are
+ *     dates in the months.
+ */
+function get_observances() {
+	// start with fixed events
+	$holidays = [
+		JANUARY => [],
+		FEBRUARY => [
+			2 => "Groundhog Day",
+			14 => "Valentine's Day",
+		],
+		MARCH => [
+			3 => "Pi Day",
+			14 => "St. Patrick's Day",
+			20 => "First day of Spring",
+		],
+		APRIL => [
+			1 => "April Fools' Day",
+			22 => "Earth Day",
+		],
+		MAY => [5 => "Cinco de Mayo"],
+		JUNE => [
+			19 => "Juneteenth",
+			21 => "First day of Summer",
+		],
+		JULY => [],
+		SEPTEMBER => [22 => "First day of Autumn"],
+		OCTOBER => [],
+		NOVEMBER => [],
+		DECEMBER => [
+			21 => "First day of Winter",
+		],
+	];
+
+	/*
+	 * TO-DO: fill in the logic to capture the following days
+	 *
+	 * --- rhythmic
+	 * Mother's Day - second Sunday in May
+	 * Father's Day - the third Sunday of June
+	 * Presidents’ Day - third Monday of February
+	 * Columbus Day / Indigenous Peoples’ Day - second Monday in October
+	 * Election day - the Tuesday next after the first Monday in November
+
+	 * --- alternate calendars
+	 * Chinese New Year
+	 * Rosh Hashanah
+	 * Yom Kippur
+	 * Hanukkah
+	 * Diwali
+	 * Eid al-Fitr
+	 * Eid al-Adha
+	*/
+
+	ksort($holidays);
+	return $holidays;
+}
+
+
 
 /**
  * Get the first key from the array

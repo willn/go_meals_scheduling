@@ -220,7 +220,8 @@ label input[type="radio"]:checked + span:before {
 }
 
 .skip, .note {
-	color: #999;
+	background-color: #ffe066;
+	padding: 4px;
 }
 
 .week_selector {
@@ -446,6 +447,6 @@ svg {
 }
 
 .notice {
-	background-color: #fc6;
+	background-color: #b2f2bb;
 	padding: 3px;
 }

@@ -132,28 +132,38 @@ EOHTML;
 	/**
 	 * @dataProvider provideAddMessage
 	 */
-	public function testAddMessage($month_num, $day_of_week, $expected) {
-		$result = $this->calendar->addMessage($month_num, $day_of_week);
+	public function testAddMessage($month_num, $day_of_month, $day_of_week, $expected) {
+		$result = $this->calendar->addMessage($month_num, $day_of_month, $day_of_week);
 		$this->assertEquals($expected, $result);
 	}
 
 	public function provideAddMessage() {
+		$summer = "<p class=\"notice\">First day of Summer</p>";
+		$both = Calendar::FARM_MSG . "\n" . $summer;
+
 		return [
 			// cell is empty
-			[NULL, NULL, ''],
+			[NULL, NULL, NULL, ''],
 
-			[MONDAY, MARCH, ''],
-			[WEDNESDAY, MARCH, ''],
-			[TUESDAY, MAY, ''],
-			[MONDAY, JULY, ''],
+			[MARCH, 1, MONDAY, ''],
+			[MARCH, 1, WEDNESDAY, ''],
+			[MAY, 1, TUESDAY, ''],
+			[JULY, 1, MONDAY, ''],
 
 			// non-summer season months
-			[TUESDAY, MARCH, ''],
-			[TUESDAY, DECEMBER, ''],
+			[MARCH, 1, TUESDAY, ''],
+			[DECEMBER, 1, TUESDAY, ''],
 
 			// middle of summer
-			[TUESDAY, JULY, (doing_csa_farm_meals() ? Calendar::FARM_MSG : '')],
-			[TUESDAY, OCTOBER, (doing_csa_farm_meals() ? Calendar::FARM_MSG : '')],
+			[JULY, 1, TUESDAY, (doing_csa_farm_meals() ? Calendar::FARM_MSG : '')],
+			[OCTOBER, 1, TUESDAY, (doing_csa_farm_meals() ? Calendar::FARM_MSG : '')],
+
+			// observances
+			[FEBRUARY, 14, SUNDAY, "<p class=\"notice\">Valentine's Day</p>"],
+			[FEBRUARY, 1, SUNDAY, ''],
+
+			// farm CSA & observance
+			[JUNE, 21, TUESDAY, (doing_csa_farm_meals() ? $both : $summer)],
 		];
 	}
 

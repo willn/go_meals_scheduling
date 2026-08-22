@@ -269,7 +269,7 @@ EOHTML;
 					case HOLIDAY_NIGHT:
 						$holiday_label = get_holiday_by_date($date_string);
 						$cell = <<<EOHTML
-<span class="skip">holiday<br>{$holiday_label}</span>
+<div class="skip">holiday<br>{$holiday_label}</div>
 EOHTML;
 						$is_done = TRUE;
 						break;
@@ -281,7 +281,7 @@ EOHTML;
 					 * https://github.com/willn/go_meals_scheduling/issues/17
 					 */
 					case SKIP_NIGHT:
-						$cell = '<span class="skip">skip</span>';
+						$cell = '<div class="skip">skip</div>';
 						$is_done = TRUE;
 						break;
 
@@ -337,8 +337,7 @@ EOHTML;
 							$date_string, $type);
 					}
 
-					$message = empty($cell) ? '' : 
-						$this->addMessage($day_of_week, $month_num);
+					$message = $this->addMessage($month_num, $day_num, $day_of_week);
 				}
 
 				// #!# suppress this display unless it's report mode...
@@ -360,7 +359,7 @@ EOHTML;
 				// render an individual calendar day table cell
 				$table .= <<<EOHTML
 				<td class="dow_{$day_of_week}">
-					<div class="date_number">{$day_num}{$tally}</div>{$cell}{$message}
+					<div class="date_number">{$day_num}{$tally}</div>{$message}{$cell}
 				</td>
 
 EOHTML;
@@ -531,21 +530,28 @@ EOHTML;
 	/**
 	 * Add a notice message to display on certain dates.
 	 *
-	 * @param int $day_of_week the number of the current day of the week.
 	 * @param int $month_num the number of the current month.
+	 * @param int $day_of_month the count of day of the month.
+	 * @param int $day_of_week the number of the current day of the week.
 	 * @return string if applicable, an html message about what
 	 *     happens on this calendar date.
 	 */
-	public function addMessage($day_of_week, $month_num) {
-		if (!doing_csa_farm_meals()) {
-			return '';
+	public function addMessage($month_num, $day_of_month, $day_of_week) {
+		$out = [];
+
+		if (doing_csa_farm_meals() && ($day_of_week === TUESDAY) &&
+			(($month_num > MAY) && ($month_num < NOVEMBER))) {
+			$out[] = self::FARM_MSG;
 		}
 
-		// XXX
-		if (($day_of_week === TUESDAY) && (($month_num > MAY) && ($month_num < NOVEMBER))) {
-			return self::FARM_MSG;
+		$observances = get_observances();
+		if (isset($observances[$month_num][$day_of_month])) {
+			$out[] = <<<EOHTML
+<p class="notice">{$observances[$month_num][$day_of_month]}</p>
+EOHTML;
 		}
-		return '';
+
+		return implode("\n", $out);
 	}
 
 	/**
