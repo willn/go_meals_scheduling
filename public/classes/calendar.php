@@ -270,7 +270,10 @@ EOHTML;
 				$jobs = [];
 				switch($meal_type) {
 					case HOLIDAY_NIGHT:
-						$cell = '<span class="skip">holiday</span>';
+						$holiday_label = get_holiday_by_date($date_string);
+						$cell = <<<EOHTML
+<span class="skip">holiday<br>{$holiday_label}</span>
+EOHTML;
 						$is_done = TRUE;
 						break;
 

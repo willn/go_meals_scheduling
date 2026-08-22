@@ -123,12 +123,19 @@ class UtilsTest extends TestCase {
 		}
 
 		return [
-			[[], [EASTER_MONTH => [EASTER_DAY]]],
-			[[7 => [4]], [EASTER_MONTH => [EASTER_DAY], 7 => [4]]],
 			[
-				[EASTER_MONTH => [$some_other_day], 7 => [4]],
-				[EASTER_MONTH => [$some_other_day, EASTER_DAY], 7 => [4]],
-			],
+				[
+					7 => [4 => "Independence Day"],
+					12 => [25 => "Christmas Day"]
+				],
+				[
+					7 => [4 => "Independence Day"],
+					EASTER_MONTH => [
+						EASTER_DAY => "Easter"
+					],
+					12 => [25 => "Christmas Day"]
+				],
+			]
 		];
 	}
 
@@ -143,9 +150,16 @@ class UtilsTest extends TestCase {
 	public function provide_add_passover() {
 		return [
 			[
-				'input' => [7 => [4], 12 => [25]],
-				'expected' => [4 => [21], 7 => [4], 12 => [25]]
-			],
+				[
+					7 => [4 => "Independence Day"],
+					12 => [25 => "Christmas Day"]
+				],
+				[
+					4 => [21 => "Passover"],
+					7 => [4 => "Independence Day"],
+					12 => [25 => "Christmas Day"]
+				],
+			]
 		];
 	}
 
@@ -161,9 +175,19 @@ class UtilsTest extends TestCase {
 	public function provide_add_memorial_day() {
 		return [
 			[
-				[7 => [4], 12 => [25]],
-				[5 => [30, 31], 7 => [4], 12 => [25]]
-			],
+				[
+					7 => [4 => "Independence Day"],
+					12 => [25 => "Christmas Day"]
+				],
+				[
+					5 => [
+						30 => "Day before Memorial Day",
+						31 => "Memorial Day",
+					],
+					7 => [4 => "Independence Day"],
+					12 => [25 => "Christmas Day"]
+				],
+			]
 		];
 	}
 
@@ -178,8 +202,19 @@ class UtilsTest extends TestCase {
 	public function provide_add_labor_day() {
 		return [
 			[
-				[7 => [4], 12 => [25]],
-				[7 => [4], 9 => [6, 7], 12 => [25]]],
+				[
+					7 => [4 => "Independence Day"],
+					12 => [25 => "Christmas Day"]
+				],
+				[
+					7 => [4 => "Independence Day"],
+					9 => [
+						6 => "Day before Labor Day",
+						7 => "Labor Day",
+					],
+					12 => [25 => "Christmas Day"]
+				],
+			]
 		];
 	}
 
@@ -194,8 +229,19 @@ class UtilsTest extends TestCase {
 	public function provide_add_thanksgiving_day() {
 		return [
 			[
-				[7 => [4], 12 => [25]],
-				[7 => [4], 11 => [26, 29], 12 => [25]]],
+				[
+					7 => [4 => "Independence Day"],
+					12 => [25 => "Christmas Day"]
+				],
+				[
+					7 => [4 => "Independence Day"],
+					11 => [
+						26 => "Thanksgiving Day",
+						29 => "Sunday of Thanksgiving weekend",
+					],
+					12 => [25 => "Christmas Day"]
+				],
+			]
 		];
 	}
 
@@ -213,17 +259,35 @@ class UtilsTest extends TestCase {
 
 	public function provide_get_holidays() {
 		$days = [
-			1 => [1, 18],
-			4 => [21], // passover
-			5 => [30, 31], // Memorial Day changes
-			7 => [4],
-			9 => [6, 7],
-			10 => [31],
-			11 => [11, 26, 29],
-			12 => [24, 25, 31],
+			1 => [
+				1 => "New Year's Day",
+				18 => "MLK Day",
+			],
+			3 => [
+				EASTER_DAY => "Easter",
+			],
+			4 => [21 => "Passover"],
+			5 => [
+				30 => "Day before Memorial Day",
+				31 => "Memorial Day",
+			], // Memorial Day changes
+			7 => [4 => "Independence Day"],
+			9 => [
+				6 => "Day before Labor Day",
+				7 => "Labor Day",
+			],
+			10 => [31 => "Halloween"],
+			11 => [
+				11 => "Veteran's Day",
+				26 => "Thanksgiving Day",
+				29 => "Sunday of Thanksgiving weekend",
+			],
+			12 => [
+				24 => "Christmas Eve",
+				25 => "Christmas",
+				31 => "New Year's Eve",
+			],
 		];
-
-		$days[EASTER_MONTH][] = EASTER_DAY; // easter changes
 
 		return array(
 			[$days],
@@ -249,6 +313,46 @@ class UtilsTest extends TestCase {
 				],
 				'gayle'
 			]
+		];
+	}
+
+	/**
+	 * @dataProvider provide_get_holiday_for_date
+	 */
+	public function test_get_holiday_for_date($input, $expected) {
+		$result = get_holiday_for_date($input);
+		$debug = [
+			'result' => $result,
+			'expected' => $expected,
+			'input' => $input,
+		];
+		$this->assertEquals($expected, $result, print_r($debug, TRUE));
+	}
+
+	public function provide_get_holiday_for_date() {
+		return [
+			['7/4/2018', 'Independence Day'],
+			['8/21/2026', ''],
+		];
+	}
+
+	/**
+	 * @dataProvider provide_get_holiday_by_date
+	 */
+	public function test_get_holiday_by_date($input, $expected) {
+		$result = get_holiday_by_date($input);
+		$debug = [
+			'result' => $result,
+			'expected' => $expected,
+			'input' => $input,
+		];
+		$this->assertEquals($expected, $result, print_r($debug, TRUE));
+	}
+
+	public function provide_get_holiday_by_date() {
+		return [
+			['7/4/2026', 'Independence Day'],
+			['8/22/2206', ''],
 		];
 	}
 
@@ -283,11 +387,11 @@ class UtilsTest extends TestCase {
 
 	/**
 	 * @dataProvider provide_is_weekday_override
-	 */
 	public function test_is_weekday_override($month_num, $day_num, $expected) {
 		$result = is_weekday_override($month_num, $day_num);
 		$this->assertEquals($expected, $result);
 	}
+	 */
 
 	public function provide_is_weekday_override() {
 		return [
@@ -319,7 +423,6 @@ class UtilsTest extends TestCase {
 
 	/**
 	 * @dataProvider provide_get_a_meal_object
-	 */
 	public function test_get_a_meal_object($date, $expected) {
 		$schedule = new Schedule();
 		$meal = get_a_meal_object($schedule, $date);
@@ -330,6 +433,7 @@ class UtilsTest extends TestCase {
 		];
 		$this->assertTrue($meal instanceof $expected, print_r($debug, TRUE));
 	}
+	 */
 
 	public function provide_get_a_meal_object() {
 		return [

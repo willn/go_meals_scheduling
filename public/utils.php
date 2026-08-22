@@ -94,7 +94,7 @@ function add_mlk_day($holidays) {
 
 	// add MLK day
 	$mlk_day = date('j', strtotime('third monday of January ' . $year));
-	$holidays[JANUARY][] = $mlk_day;
+	$holidays[JANUARY][$mlk_day] = "MLK Day";
 
 	return $holidays;
 }
@@ -129,7 +129,7 @@ function add_easter($holidays, $season=[]) {
 	$easter_ts = easter_date($year) + (12 * 60 * 60);
 	$easter_month = date('n', $easter_ts);
 	$easter_day = date('j', $easter_ts);
-	$holidays[$easter_month][] = $easter_day;
+	$holidays[$easter_month][$easter_day] = "Easter";
 
 	return $holidays;
 }
@@ -164,7 +164,7 @@ function add_passover($holidays, $season = []) {
 
     $passover_month = $greg['month'];
     $passover_day = $greg['day'];
-    $holidays[$passover_month][] = $passover_day;
+    $holidays[$passover_month][$passover_day] = "Passover";
 
     return $holidays;
 }
@@ -194,9 +194,9 @@ function add_memorial_day($holidays) {
 
 	$mem_day = date('j', strtotime('last monday of May ' . $may_year));
 	// sunday, day before
-	$holidays[MAY][] = ($mem_day - 1);
+	$holidays[MAY][($mem_day - 1)] = "Day before Memorial Day";
 	// monday, memorial day
-	$holidays[MAY][] = $mem_day;
+	$holidays[MAY][$mem_day] = "Memorial Day";
 
 	return $holidays;
 }
@@ -232,13 +232,14 @@ function add_labor_day($holidays) {
 
 	// add Sunday before labor day...
 	// If preceding Sunday is in August
+	$pre_label = "Day before Labor Day";
 	if ($labor_day === 1) {
-		$holidays[AUGUST][] = 31;
+		$holidays[AUGUST][31] = $pre_label;
 	}
 	else {
-		$holidays[SEPTEMBER][] = ($labor_day - 1);
+		$holidays[SEPTEMBER][($labor_day - 1)] = $pre_label;
 	}
-	$holidays[SEPTEMBER][] = $labor_day;
+	$holidays[SEPTEMBER][$labor_day] = "Labor Day";
 
 	return $holidays;
 }
@@ -268,12 +269,12 @@ function add_thanksgiving_day($holidays) {
 
 	// add Thanksgiving
 	$thx_day = date('j', strtotime('fourth thursday of November ' . $nov_year));
-	$holidays[NOVEMBER][] = $thx_day;
+	$holidays[NOVEMBER][$thx_day] = "Thanksgiving Day";
 
 	// also add the following Sunday
 	$last_sunday = date('j', strtotime('last sunday of November ' . SEASON_YEAR));
 	if ($last_sunday > $thx_day) {
-		$holidays[11][] = $last_sunday;
+		$holidays[11][$last_sunday] = "Sunday of Thanksgiving weekend";
 	}
 
 	return $holidays;
@@ -285,16 +286,20 @@ function add_thanksgiving_day($holidays) {
  *     dates in the months.
  */
 function get_holidays() {
-	// start with static holidays
+	// start with fixed holidays
 	$holidays = [
-		JANUARY => [1],
-		JULY => [4],
-		OCTOBER => [31],
-		NOVEMBER => [11],
-		DECEMBER => [24,25,31],
+		JANUARY => [1 => "New Year's Day"],
+		JULY => [4 => "Independence Day"],
+		OCTOBER => [31 => "Halloween"],
+		NOVEMBER => [11 => "Veteran's Day"],
+		DECEMBER => [
+			24 => "Christmas Eve",
+			25 => "Christmas",
+			31 => "New Year's Eve",
+		],
 	];
 
-	// get dynamic dates
+	// get floating holdays
 	$season = get_current_season_months();
 	$holidays = add_mlk_day($holidays);
 	$holidays = add_passover($holidays, $season);
@@ -343,6 +348,24 @@ function get_meal_type_by_job_id($job_id) {
 }
 
 /**
+ * Get the holiday label for a given date.
+ * @param string $date a date string
+ * @return string the label or empty string for a given holiday.
+ */
+function get_holiday_by_date($date) {
+    $date_ts = strtotime($date);
+
+    if (!$date_ts) {
+        return '';
+    }
+
+    $holidays = get_holidays();
+    $month_num = date('n', $date_ts);
+    $day_num = date('j', $date_ts);
+    return $holidays[$month_num][$day_num] ?? '';
+}
+
+/**
  * Get the type of meal for a given date.
  * Isolate the logic for determining which kind of meal to use for a given date.
  *
@@ -369,9 +392,7 @@ function get_meal_type_by_date($date) {
 	}
 
 	// check to see if this is a holiday
-	$holidays = get_holidays();
-	if (isset($holidays[$month_num]) &&
-		in_array($day_num, $holidays[$month_num])) {
+	if (get_holiday_by_date($date) !== '') {
 		return HOLIDAY_NIGHT;
 	}
 
