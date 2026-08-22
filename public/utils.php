@@ -384,16 +384,16 @@ function get_meal_type_by_date($date) {
 	$month_num = date('n', $date_ts);
 	$day_num = date('j', $date_ts);
 
+	// check to see if this is a holiday
+	if (get_holiday_by_date($date) !== '') {
+		return HOLIDAY_NIGHT;
+	}
+
 	# skip un-supported days of the week
 	switch($day_of_week) {
 		case THURSDAY:
 		case FRIDAY:
 			return NOT_A_MEAL;
-	}
-
-	// check to see if this is a holiday
-	if (get_holiday_by_date($date) !== '') {
-		return HOLIDAY_NIGHT;
 	}
 
 	// check to see if we're override skipping this date
