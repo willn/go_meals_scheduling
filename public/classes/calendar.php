@@ -98,11 +98,14 @@ EOHTML;
 		}
 
 		return <<<EOHTML
-			<ul id="summary_overlay">
-				<li>Quick links:</li>
-				{$out}
-				<li><a href="#end">end</a></li>
-			</ul>
+			<div id="summary_overlay" class="overlay">
+				<div class="overlay_title">Summary</div>
+				<ul class="overlay_content">
+					<li>Quick links:</li>
+					{$out}
+					<li><a href="#end">end</a></li>
+				</ul>
+			</div>
 EOHTML;
 	}
 
@@ -677,7 +680,10 @@ EOHTML;
 EOHTML;
 		}
 		return <<<EOHTML
-<ul id="filter_overlay">{$jobs_html}</ul>
+<div id="filter_overlay" class="overlay">
+    <div class="overlay_title">Filters</div>
+	<ul class="overlay_content">{$jobs_html}</ul>
+</div>
 EOHTML;
 	}
 

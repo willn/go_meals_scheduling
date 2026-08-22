@@ -305,7 +305,7 @@ table tr.week .affecting {
 	clear: left;
 }
 
-#summary_overlay, #filter_overlay {
+.overlay {
 	position: fixed;
 	top: 0;
 	right: 20px;
@@ -321,6 +321,31 @@ table tr.week .affecting {
 	-moz-border-radius: 0 0 10px 10px;
 	border-radius: 0 0 10px 10px;
 	text-shadow: #000 0px 0px 10px;
+
+    /* Collapse the contents */
+    max-height: 20px;
+    overflow: hidden;
+
+    /* Smooth expansion */
+    transition: max-height .2s ease;
+}
+
+.overlay:hover {
+    max-height: 600px;
+}
+
+.overlay ul {
+	padding-left: 0;
+}
+
+.overlay_title {
+    font-weight: bold;
+    cursor: default;
+    padding: 2px 4px;
+}
+
+.overlay_content {
+    padding-top: 4px;
 }
 
 #filter_overlay {
