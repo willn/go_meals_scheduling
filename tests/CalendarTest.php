@@ -97,15 +97,7 @@ EOHTML;
 		];
 
 		$one = <<<EOHTML
-<ul id="summary_overlay">
-<li>Quick links:</li>
-<li><a href="#Mar">Mar</a></li>
-<li><a href="#Jun">Jun</a></li>
-<li><a href="#Oct">Oct</a></li>
-<li><a href="#worker_comments">comments</a></li>
-<li><a href="#confirm_checks">confirm checks</a></li>
-<li><a href="#end">end</a></li>
-</ul>
+<div id="summary_overlay" class="overlay"><div class="overlay_title">Summary</div><ul class="overlay_content"><li>Quick links:</li><li><a href="#Mar">Mar</a></li><li><a href="#Jun">Jun</a></li><li><a href="#Oct">Oct</a></li><li><a href="#worker_comments">comments</a></li><li><a href="#confirm_checks">confirm checks</a></li><li><a href="#end">end</a></li></ul></div>
 EOHTML;
 
 		return [
@@ -227,23 +219,13 @@ EOHTML;
 		# $brunch_laund_n = BRUNCH_LAUNDRY_NAME;
 
 		$out = <<<EOHTML
-<ul id="filter_overlay">
-<li><a href="/meals_scheduling/report.php?key=all">all</a></li>
-<li><a href="/meals_scheduling/report.php?key={$mtg_order}">{$mtg_order_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$mtg_clean}">{$mtg_clean_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$brunch_head}">{$brunch_head_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$brunch_asst}">{$brunch_asst_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$brunch_clean}">{$brunch_clean_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$sun_head}">{$sun_head_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$sun_asst}">{$sun_asst_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$sun_clean}">{$sun_clean_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$week_head}">{$week_head_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$week_asst}">{$week_asst_n}</a></li>
-<li><a href="/meals_scheduling/report.php?key={$week_clean}">{$week_clean_n}</a></li>
-</ul>
-
+<div id="filter_overlay" class="overlay">
+<div class="overlay_title">Filters</div>
+<ul class="overlay_content"><li><a href="/meals_scheduling/report.php?key=all">all</a></li><li><a href="/meals_scheduling/report.php?key=7626">Mtg takeout orderer (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=7629">Meeting night cleaner</a></li><li><a href="/meals_scheduling/report.php?key=11031">4th Saturday Brunch Head Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11032">4th Saturday Brunch Asst Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11037">4th Saturday Brunch Cleaner (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11022">Sunday Head Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11028">Sunday Assistant Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11018">Sunday Meal Cleaner (6 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11021">Weekday Head Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11020">Weekday Assistant Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11019">Weekday Meal Cleaner (6 meals)</a></li></ul>
+</div>
 EOHTML;
-		$this->assertEquals($result, remove_html_whitespace($out));
+		$this->assertEquals(remove_html_whitespace($result),
+			remove_html_whitespace($out));
 	}
 
 	/**
