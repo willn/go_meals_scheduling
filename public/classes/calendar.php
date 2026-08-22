@@ -13,8 +13,6 @@ class Calendar {
 
 	protected $assignments = [];
 
-	protected $holidays;
-
 	protected $is_report = FALSE;
 
 	protected $num_shifts = [
@@ -32,7 +30,6 @@ class Calendar {
 			$this->key_filter = $_GET['key'];
 		}
 
-		$this->holidays = get_holidays();
 		$this->season_months = !empty($season_months) ?
 			$season_months : get_current_season_months();
 	}
