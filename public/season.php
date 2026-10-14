@@ -17,15 +17,15 @@ define('SUB_SEASON_FACTOR', .5);
 define('DOING_CSA_FARM_MEALS', FALSE);
 
 /* ----------- job ids --------------- */
-define('SUNDAY_ASST_COOK', 11028);
-define('SUNDAY_CLEANER', 11018);
-define('SUNDAY_HEAD_COOK', 11022);
-define('BRUNCH_ASST_COOK', 11032);
-define('BRUNCH_CLEANER', 11037);
-define('BRUNCH_HEAD_COOK', 11031);
-define('WEEKDAY_ASST_COOK', 11020);
-define('WEEKDAY_CLEANER', 11019);
-define('WEEKDAY_HEAD_COOK', 11021);
+define('SUNDAY_ASST_COOK', 11711);
+define('SUNDAY_CLEANER', 11701);
+define('SUNDAY_HEAD_COOK', 11705);
+define('BRUNCH_ASST_COOK', 11715);
+define('BRUNCH_CLEANER', 11720);
+define('BRUNCH_HEAD_COOK', 11714);
+define('WEEKDAY_ASST_COOK', 11703);
+define('WEEKDAY_CLEANER', 11702);
+define('WEEKDAY_HEAD_COOK', 11704);
 
 // previous season jobs, keep for unit tests & for the future
 define('MEETING_NIGHT_CLEANER', 7629);

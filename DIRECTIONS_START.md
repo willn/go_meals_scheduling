@@ -9,14 +9,10 @@ If this is mid-season, skip to the [MID-SEASON section](./DIRECTIONS_START_MID_S
 * set the `SUB_SEASON_FACTOR` (to .5 to work on 3 months)
 * display a farm meals night message? (`DOING_CSA_FARM_MEALS`)
 
-XXX
-
 ### Update unit tests
 * run & fix unit tests
   - The number of assignments needed is in tests/CalendarTest.php, in
   `provideGetAssignmentsNeededForCurrentSeason()`
-
---> ensure that this works in the survey, CRUD & assignments.
 
 ### reset the local database
 
@@ -56,6 +52,7 @@ confirm that we got the needed tables
 
 ### combine various SQL files into one, and import them all:
 ```
+cd sql/
 cat add_gather_ids.sql scheduling_survey_schema.sql > imports.sql
 mysql -u gocoho_work_allocation -p gocoho_work_allocation < imports.sql
 

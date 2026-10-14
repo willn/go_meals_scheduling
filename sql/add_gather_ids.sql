@@ -117,4 +117,6 @@ update auth_user set gather_id=10161 where username='melissaf';
 update auth_user set gather_id=3019 where username='sevi';
 update auth_user set gather_id=10289 where username='tedb';
 update auth_user set gather_id=10642 where username='claire';
+update auth_user set gather_id=10938 where username='Adumbiam';
+update auth_user set gather_id=10939 where username='KAPapaya';
 

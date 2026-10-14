@@ -229,13 +229,10 @@ EOHTML;
 		# $brunch_laund_n = BRUNCH_LAUNDRY_NAME;
 
 		$out = <<<EOHTML
-<div id="filter_overlay" class="overlay">
-<div class="overlay_title">Filters</div>
-<ul class="overlay_content"><li><a href="/meals_scheduling/report.php?key=all">all</a></li><li><a href="/meals_scheduling/report.php?key=7626">Mtg takeout orderer (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=7629">Meeting night cleaner</a></li><li><a href="/meals_scheduling/report.php?key=11031">4th Saturday Brunch Head Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11032">4th Saturday Brunch Asst Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11037">4th Saturday Brunch Cleaner (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11022">Sunday Head Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11028">Sunday Assistant Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11018">Sunday Meal Cleaner (6 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11021">Weekday Head Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11020">Weekday Assistant Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11019">Weekday Meal Cleaner (6 meals)</a></li></ul>
-</div>
+<div id="filter_overlay" class="overlay"><div class="overlay_title">Filters</div><ul class="overlay_content"><li><a href="/meals_scheduling/report.php?key=all">all</a></li><li><a href="/meals_scheduling/report.php?key=7626">Mtg takeout orderer (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=7629">Meeting night cleaner</a></li><li><a href="/meals_scheduling/report.php?key=11714">4th Saturday Brunch Head Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11715">4th Saturday Brunch Asst Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11720">4th Saturday Brunch Cleaner (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11705">Sunday Head Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11711">Sunday Assistant Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11701">Sunday Meal Cleaner (6 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11704">Weekday Head Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11703">Weekday Assistant Cook (2 meals)</a></li><li><a href="/meals_scheduling/report.php?key=11702">Weekday Meal Cleaner (6 meals)</a></li></ul></div>
 EOHTML;
-		$this->assertEquals(remove_html_whitespace($result),
-			remove_html_whitespace($out));
+		$this->assertEquals(remove_html_whitespace($out),
+			remove_html_whitespace($result));
 	}
 
 	/**
