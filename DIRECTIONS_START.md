@@ -7,7 +7,9 @@ If this is mid-season, skip to the [MID-SEASON section](./DIRECTIONS_START_MID_S
 * set the appropriate `DEADLINE` date
 * set `SEASON_NAME` - use the short season name to get 3 months
 * set the `SUB_SEASON_FACTOR` (to .5 to work on 3 months)
-* display a farm meals night message? (`function doing_csa_farm_meals`)
+* display a farm meals night message? (`DOING_CSA_FARM_MEALS`)
+
+XXX
 
 ### Update unit tests
 * run & fix unit tests

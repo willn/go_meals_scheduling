@@ -2,16 +2,19 @@
 require_once 'constants.php';
 
 /* -------- seasonal config --------- */
-define('DEADLINE', strtotime('July 26, 2026, 6:15pm'));
+define('DEADLINE', strtotime('October 24 , 2026, 6:15pm'));
 
 /*
  * SEASON_NAME is used to lookup the months involved.
  * Possible answers are: SPRING, SPRING_SUMMER, SUMMER, FALL, FALL_WINTER, WINTER
  */
-define('SEASON_NAME', SUMMER);
+define('SEASON_NAME', FALL);
 
 // If this is a whole season, then 1, half .5, etc.
 define('SUB_SEASON_FACTOR', .5);
+
+// Whether we're hosting CSA farm meals this summer.
+define('DOING_CSA_FARM_MEALS', FALSE);
 
 /* ----------- job ids --------------- */
 define('SUNDAY_ASST_COOK', 11028);
@@ -44,22 +47,12 @@ define('WEEKDAY_HEAD_COOK_NAME', 'Weekday Head Cook (2 meals)');
 # define('WEEKDAY_LAUNDRY_NAME', 'Weekday Laundry');
 
 /**
- * Whether we're hosting CSA farm meals this summer.
- */
-function doing_csa_farm_meals() {
-	return TRUE;
-}
-
-/**
  * Get the number of shift overrides.
  *
  * @return array username => array(job_id => num_meals)
  */
 function get_num_shift_overrides() {
 	return [
-		'rossella' => [
-			WEEKDAY_ASST_COOK => 1,
-		],
 	];
 }
 
@@ -70,9 +63,6 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		8 => [2, 11, 19, 22, 26], // resv 8/2
-		9 => [14, 27], // grounds native planting day 9/27
-		10 => [18, 24, 25], // skip brunch & dinner for budget meeting 10/25
 	];
 }
 
@@ -84,6 +74,8 @@ function get_skip_dates() {
  */
 function get_weekday_overrides() {
 	return [
+		12 => [21], // moved to 12-02
+		1 => [18], // MLK day
 	];
 }
 
@@ -95,6 +87,8 @@ function get_weekday_overrides() {
  */
 function get_meeting_night_overrides() {
 	return [
+		12 => [2], // moved from 12-21
+		1 => [20], // meeting night moved to 20th due to MLK day
 	];
 }
 

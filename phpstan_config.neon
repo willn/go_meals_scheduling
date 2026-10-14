@@ -37,4 +37,6 @@ parameters:
 		- message: "#^Loose comparison using == between 0.5 and 1.0 will always evaluate to false#"
 		  count: 2
 		  path: public/classes/calendar.php
+	dynamicConstantNames:
+		- DOING_CSA_FARM_MEALS
 

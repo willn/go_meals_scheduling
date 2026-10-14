@@ -11,7 +11,7 @@ committee needs to know how much meals labor will be needed.
 * Do they want to update the list of hobarters?
   - Look for `function get_hobarters`
 * Do they want to offer CSA farm meals this summer? Disable for fall / winter.
-  - Update `function doing_csa_farm_meals()`
+  - Update `DOING_CSA_FARM_MEALS`
 * Which meal formula should we use?
   - Update instances of `Meal::BILLING_FORMULA`
 * Where will these meals be hosted?

@@ -155,15 +155,15 @@ EOHTML;
 			[DECEMBER, 1, TUESDAY, ''],
 
 			// middle of summer
-			[JULY, 1, TUESDAY, (doing_csa_farm_meals() ? Calendar::FARM_MSG : '')],
-			[OCTOBER, 1, TUESDAY, (doing_csa_farm_meals() ? Calendar::FARM_MSG : '')],
+			[JULY, 1, TUESDAY, (DOING_CSA_FARM_MEALS ? Calendar::FARM_MSG : '')],
+			[OCTOBER, 1, TUESDAY, (DOING_CSA_FARM_MEALS ? Calendar::FARM_MSG : '')],
 
 			// observances
 			[FEBRUARY, 14, SUNDAY, "<p class=\"notice\">Valentine's Day</p>"],
 			[FEBRUARY, 1, SUNDAY, ''],
 
 			// farm CSA & observance
-			[JUNE, 21, TUESDAY, (doing_csa_farm_meals() ? $both : $summer)],
+			[JUNE, 21, TUESDAY, (DOING_CSA_FARM_MEALS ? $both : $summer)],
 		];
 	}
 

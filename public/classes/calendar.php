@@ -265,6 +265,7 @@ EOHTML;
 				$is_done = FALSE;
 				$type = '';
 				$jobs = [];
+				$message = '';
 				switch($meal_type) {
 					case HOLIDAY_NIGHT:
 						$holiday_label = get_holiday_by_date($date_string);
@@ -309,6 +310,7 @@ EOHTML;
 						$type = 'meeting';
 						$this->num_shifts[$type]++;
 						$jobs = get_mtg_jobs();
+						$message = 'Meeting night';
 						break;
 
 					case WEEKDAY_MEAL:
@@ -322,7 +324,6 @@ EOHTML;
 						break;
 				}
 
-				$message = '';
 				if (!$is_done) {
 					if (!$this->web_display) {
 						$dates_and_shifts = $this->addJobsToDatesAndShifts(
@@ -539,7 +540,7 @@ EOHTML;
 	public function addMessage($month_num, $day_of_month, $day_of_week) {
 		$out = [];
 
-		if (doing_csa_farm_meals() && ($day_of_week === TUESDAY) &&
+		if (DOING_CSA_FARM_MEALS && ($day_of_week === TUESDAY) &&
 			(($month_num > MAY) && ($month_num < NOVEMBER))) {
 			$out[] = self::FARM_MSG;
 		}
