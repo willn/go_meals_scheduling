@@ -996,18 +996,18 @@ EOHTML;
 			# MEETING_NIGHT_CLEANER => 4,
 			# MEETING_NIGHT_ORDERER => 4,
 
-			SUNDAY_ASST_COOK => 16,
-			SUNDAY_CLEANER => 24,
-			SUNDAY_HEAD_COOK => 8,
+			SUNDAY_ASST_COOK => 26,
+			SUNDAY_CLEANER => 39,
+			SUNDAY_HEAD_COOK => 13,
 
-			WEEKDAY_ASST_COOK => 56,
-			WEEKDAY_CLEANER => 84,
-			WEEKDAY_HEAD_COOK => 28,
+			WEEKDAY_ASST_COOK => 64,
+			WEEKDAY_CLEANER => 96,
+			WEEKDAY_HEAD_COOK => 32,
 			# WEEKDAY_LAUNDRY => 21,
 
-			BRUNCH_ASST_COOK => 2,
-			BRUNCH_CLEANER => 3,
-			BRUNCH_HEAD_COOK => 1,
+			BRUNCH_ASST_COOK => 6,
+			BRUNCH_CLEANER => 9,
+			BRUNCH_HEAD_COOK => 3,
 			# BRUNCH_LAUNDRY => 8,
 		];
 
@@ -1064,18 +1064,18 @@ EOHTML;
 			#MEETING_NIGHT_CLEANER => 4,
 			#MEETING_NIGHT_ORDERER => 4,
 
-			SUNDAY_ASST_COOK => 16,
-			SUNDAY_CLEANER => 8,
-			SUNDAY_HEAD_COOK => 8,
+			SUNDAY_ASST_COOK => 26,
+			SUNDAY_CLEANER => 13,
+			SUNDAY_HEAD_COOK => 13,
 
-			WEEKDAY_ASST_COOK => 56,
-			WEEKDAY_CLEANER => 28,
-			WEEKDAY_HEAD_COOK => 28,
+			WEEKDAY_ASST_COOK => 64,
+			WEEKDAY_CLEANER => 32,
+			WEEKDAY_HEAD_COOK => 32,
 			# WEEKDAY_LAUNDRY => 7,
 
-			BRUNCH_ASST_COOK => 2,
-			BRUNCH_CLEANER => 3,
-			BRUNCH_HEAD_COOK => 1,
+			BRUNCH_ASST_COOK => 6,
+			BRUNCH_CLEANER => 9,
+			BRUNCH_HEAD_COOK => 3,
 			# BRUNCH_LAUNDRY => 3,
 		];
 
@@ -1114,9 +1114,9 @@ EOHTML;
 		// UPDATE-EACH-SEASON
 		$expected = [
 			'meeting' => 0,
-			'sunday' => 8,
-			'weekday' => 28,
-			'brunch' => 1,
+			'sunday' => 13,
+			'weekday' => 32,
+			'brunch' => 3,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
 			$carry += $item;

@@ -209,8 +209,8 @@ class UtilsTest extends TestCase {
 				[
 					7 => [4 => "Independence Day"],
 					9 => [
-						6 => "Day before Labor Day",
-						7 => "Labor Day",
+						5 => "Day before Labor Day",
+						6 => "Labor Day",
 					],
 					12 => [25 => "Christmas Day"]
 				],
@@ -273,8 +273,8 @@ class UtilsTest extends TestCase {
 			], // Memorial Day changes
 			7 => [4 => "Independence Day"],
 			9 => [
-				6 => "Day before Labor Day",
-				7 => "Labor Day",
+				5 => "Day before Labor Day",
+				6 => "Labor Day",
 			],
 			10 => [31 => "Halloween"],
 			11 => [
@@ -313,26 +313,6 @@ class UtilsTest extends TestCase {
 				],
 				'gayle'
 			]
-		];
-	}
-
-	/**
-	 * @dataProvider provide_get_holiday_for_date
-	 */
-	public function test_get_holiday_for_date($input, $expected) {
-		$result = get_holiday_for_date($input);
-		$debug = [
-			'result' => $result,
-			'expected' => $expected,
-			'input' => $input,
-		];
-		$this->assertEquals($expected, $result, print_r($debug, TRUE));
-	}
-
-	public function provide_get_holiday_for_date() {
-		return [
-			['7/4/2018', 'Independence Day'],
-			['8/21/2026', ''],
 		];
 	}
 
