@@ -27,7 +27,7 @@ mysqldump -u root -p gocoho_work_allocation --set-gtid-purged=OFF > transfer.sql
 
 transfer the SQL file to production
 ```
-scp -i ~/.ssh/id_dsa transfer.sql gocoho@gocoho.org:
+scp transfer.sql gocoho@gocoho.org:
 ```
 
 ### on remote host:

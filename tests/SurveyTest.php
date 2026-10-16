@@ -108,6 +108,7 @@ EOHTML;
 		$out2_empty = <<<EOHTML
 <div class="shift_instances">
     <h4>Assigned Meals:</h4>
+	<div>No meals assigned.</div>
 </div>
 EOHTML;
 

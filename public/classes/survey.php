@@ -198,6 +198,11 @@ class Survey {
 			$plural = ($info['instances'] == 1) ? '' : 's';
 			$out .= "<div>{$info['instances']} meal{$plural} of {$short_name}</div>";
 		}
+
+		if (empty($out)) {
+			$out = '<div>No meals assigned.</div>';
+		}
+
 		return <<<EOHTML
 			<div class="shift_instances">
 				<h4>Assigned Meals:</h4>
