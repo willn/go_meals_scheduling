@@ -63,6 +63,7 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
+		11 => [3], // election day has a volunteer meal already
 	];
 }
 
