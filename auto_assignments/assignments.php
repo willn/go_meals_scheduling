@@ -82,14 +82,14 @@ EOSQL;
 
 		$count = 0;
 		foreach($mysql_api->get($sql) as $row) {
-			$u = $row['username'];
-			$d = $row['date'];
-			$ji = $row['job_id'];
-			$p = $row['pref'];
+			$username = $row['username'];
+			$job_id = $row['job_id'];
+			$date = $row['date'];
+			$pref = $row['pref'];
 
 			// only add jobs which appear in the schedule
-			if ($this->schedule->addWorkerAvailability($u, $ji, $d, $p)) {
-				$this->roster->addPrefs($u, $ji, $d, $p);
+			if ($this->schedule->addWorkerAvailability($username, $job_id, $date, $pref)) {
+				$this->roster->addPrefs($username, $job_id, $date, $pref);
 			}
 
 			$count++;
