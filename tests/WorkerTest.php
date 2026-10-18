@@ -3,6 +3,7 @@ use PHPUnit\Framework\TestCase;
 
 require_once '../public/classes/worker.php';
 require_once '../public/season.php';
+require_once '../public/globals.php';
 
 class WorkerTest extends TestCase {
 	private $worker;
@@ -134,6 +135,141 @@ class WorkerTest extends TestCase {
 			['4/9/2022', Worker::ADJACENCY_LIMIT / 7],
 			['4/10/2022', Worker::ADJACENCY_LIMIT / 8],
 			['4/11/2022', 0],
+		];
+	}
+
+	/**
+	 * Test getDateScore with no existing assignment.
+	 * @dataProvider provideGetDateScoreWithNoExistingShifts
+	 */
+	public function testGetDateScoreWithNoExistingShifts($date, $job_id, $pref, $expected) {
+		$this->worker->addAvailability(123, $date, $pref);
+		$result = $this->worker->getDateScore($date, $job_id);
+		$this->assertEquals($expected, $result);
+	}
+
+	public function provideGetDateScoreWithNoExistingShifts() {
+		return [
+			['4/3/2022', 123, 1, 1],
+			['4/10/2022', 123, 2, 2],
+		];
+	}
+
+
+	/**
+	 * Test getDateScore when the worker already has a shift on that date.
+	 *
+	 * @dataProvider provideGetDateScore
+	 */
+	public function testGetDateScore($existing_job, $new_job, $pref_level, $requests, $expected) {
+
+		$date = '10/18/2026';
+		$this->worker->addNumShiftsAssigned($existing_job, 1);
+		$this->assertTrue($this->worker->setAssignedShift($existing_job, $date));
+		$this->worker->setRequests($requests);
+		$this->worker->addAvailability($new_job, $date, $pref_level);
+
+		$result = $this->worker->getDateScore($date, $new_job);
+		$this->assertEquals($expected, $result);
+	}
+
+
+	public function provideGetDateScore() {
+		return [
+
+			'clean then cook' => [
+				SUNDAY_CLEANER,
+				SUNDAY_HEAD_COOK,
+				1,
+				[],
+				OK_PREF,
+			],
+
+			'cook then clean' => [
+				SUNDAY_HEAD_COOK,
+				SUNDAY_CLEANER,
+				1,
+				[],
+				OK_PREF,
+			],
+
+			'cook then clean prefers both pref of 1' => [
+				SUNDAY_HEAD_COOK,
+				SUNDAY_CLEANER,
+				1,
+				['clean_after_self' => 'yes'],
+				CLEAN_AFTER_COOK_PREF,
+			],
+			'clean then cook prefers both pref of 1' => [
+				SUNDAY_CLEANER,
+				SUNDAY_HEAD_COOK,
+				1,
+				['clean_after_self' => 'yes'],
+				CLEAN_AFTER_COOK_PREF,
+			],
+
+			'cook then clean prefers both pref of 2' => [
+				SUNDAY_HEAD_COOK,
+				SUNDAY_CLEANER,
+				2,
+				['clean_after_self' => 'yes'],
+				CLEAN_AFTER_COOK_PREF * 2,
+			],
+			'clean then cook prefers both pref of 2' => [
+				SUNDAY_CLEANER,
+				SUNDAY_HEAD_COOK,
+				2,
+				['clean_after_self' => 'yes'],
+				CLEAN_AFTER_COOK_PREF * 2,
+			],
+
+			// The worker does not want to clean after cooking.
+			'cook then clean, cleaning declined' => [
+				SUNDAY_HEAD_COOK,
+				SUNDAY_CLEANER,
+				1,
+				['clean_after_self' => 'no'],
+				HAS_CONFLICT_PREF,
+			],
+			'clean then cook, cleaning declined' => [
+				SUNDAY_CLEANER,
+				SUNDAY_HEAD_COOK,
+				1,
+				['clean_after_self' => 'no'],
+				HAS_CONFLICT_PREF,
+			],
+
+			// Repeating the same type of shift creates a conflict by default.
+			'cook then cook' => [
+				SUNDAY_HEAD_COOK,
+				SUNDAY_ASST_COOK,
+				1,
+				[],
+				HAS_CONFLICT_PREF,
+			],
+			'clean then clean' => [
+				SUNDAY_CLEANER,
+				SUNDAY_CLEANER,
+				1,
+				[],
+				HAS_CONFLICT_PREF,
+			],
+
+			// Bundling allows repeated shifts of the same type.
+			'bundle two cooking shifts' => [
+				SUNDAY_HEAD_COOK,
+				SUNDAY_ASST_COOK,
+				1,
+				['bundle_shifts' => TRUE],
+				DO_BUNDLING_PREF,
+			],
+			'bundle two cleaning shifts' => [
+				SUNDAY_CLEANER,
+				SUNDAY_CLEANER,
+				1,
+				['bundle_shifts' => TRUE],
+				DO_BUNDLING_PREF,
+			],
 		];
 	}
 }

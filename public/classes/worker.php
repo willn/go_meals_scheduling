@@ -356,35 +356,39 @@ class Worker {
 	 * @return int a numeric string representing any conflicts for the day.
 	 */
 	public function getDateScore($date, $job_id) {
-		$todays_shifts = $this->getShiftsAssignedByDate($date);
+		$current_day_shifts = $this->getShiftsAssignedByDate($date);
+
+		$prefer_or_ok = OK_PREF;
+		if (isset($this->avail_shifts[$job_id][$date]) &&
+			($this->avail_shifts[$job_id][$date] == PREFER_DATE_PREF)) {
+			$prefer_or_ok = PREFER_DATE_PREF;
+		}
 
 		// if not scheduled for today, then no conflict
-		if (empty($todays_shifts)) {
-			return OK_PREF;
+		if (empty($current_day_shifts)) {
+			return $prefer_or_ok;
 		}
 
 		// would they prefer to clean after themselves?
-		// null = not set or don't care, true / false otherwise
-		$clean_after_self = NULL;
+		$clean_after_self = 0; // don't care
 		if (array_key_exists('clean_after_self', $this->requests)) {
 			if ($this->requests['clean_after_self'] == 'yes') {
-				$clean_after_self = TRUE;
+				$clean_after_self = 1; // prefers
 			}
 			else if ($this->requests['clean_after_self'] == 'no') {
-				$clean_after_self = FALSE;
+				$clean_after_self = -1; // avoid
 			}
 		}
 
 		$have_cooking = FALSE;
 		$have_cleaning = FALSE;
-		foreach($todays_shifts as $s) {
+		foreach($current_day_shifts as $s) {
 			if (is_a_cook_job($s)) {
 				$have_cooking = TRUE;
 			}
 			if (is_a_clean_job($s)) {
 				$have_cleaning = TRUE;
 			}
-			#!# add mention of table setter
 		}
 
 		$do_bundling = $this->wantsBundling();
@@ -398,10 +402,17 @@ class Worker {
 
 			// conflict found if they already have a cleaning shift and don't
 			// want to cook before cleaning
-			return (($have_cleaning) && ($clean_after_self === FALSE)) ?
-				HAS_CONFLICT_PREF : CLEAN_AFTER_COOK_PREF;
+			if ($have_cleaning) {
+				switch($clean_after_self) {
+					case -1:
+						return HAS_CONFLICT_PREF;
+					case 0:
+						return $prefer_or_ok;
+					case 1:
+						return (CLEAN_AFTER_COOK_PREF * $prefer_or_ok);
+				}
+			}
 		}
-		#!# add mention of table setter
 
 		// this is a cleaning job
 		// look to see if they already have a cleaning job
@@ -412,8 +423,19 @@ class Worker {
 
 		// conflict found if they already have a cooking shift and don't
 		// want to clean up after themselves
-		return (($have_cooking) && ($clean_after_self === FALSE)) ?
-			HAS_CONFLICT_PREF : CLEAN_AFTER_COOK_PREF;
+		if ($have_cooking) {
+			switch($clean_after_self) {
+				case -1:
+					return HAS_CONFLICT_PREF;
+				case 0:
+					return $prefer_or_ok;
+				case 1:
+					return (CLEAN_AFTER_COOK_PREF * $prefer_or_ok);
+			}
+		}
+
+		// unsure if we can get here
+		return OK_PREF;
 	}
 
 	/**
