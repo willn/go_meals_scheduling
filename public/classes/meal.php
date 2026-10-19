@@ -387,12 +387,12 @@ EOTXT;
 			}
 
 			$worker = $this->schedule->getWorker($username);
-			$today_score = $worker->getDateScore($this->date, $job_id);
+			$cur_date_score = $worker->getDateScore($this->date, $job_id);
 			// skip if there's a date conflict
-			if ($today_score == HAS_CONFLICT_PREF) {
+			if ($cur_date_score == HAS_CONFLICT_PREF) {
 				continue;
 			}
-			$promotes += $today_score;
+			$promotes += $cur_date_score;
 
 			// if a worker has an availability rating of 1 or less, then they
 			// must get this assignment, otherwise they'll end up with fewer
