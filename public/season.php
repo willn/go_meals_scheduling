@@ -53,6 +53,9 @@ define('WEEKDAY_HEAD_COOK_NAME', 'Weekday Head Cook (2 meals)');
  */
 function get_num_shift_overrides() {
 	return [
+		// swap between these 2 for the next season
+		'maryc' => [BRUNCH_CLEANER => -1],
+		'trisha' => [BRUNCH_CLEANER => 1],
 	];
 }
 
@@ -63,8 +66,8 @@ function get_num_shift_overrides() {
  */
 function get_skip_dates() {
 	return [
-		11 => [1, 3, 8, 24, 25, 28], // election day has a volunteer meal already
-		12 => [22, 23, 27, 28, 29, 30],
+		11 => [1, 3, 8, 24, 25], // election day has a volunteer meal already
+		12 => [22, 23, 26, 27, 28, 29, 30],
 		1 => [3, 4],
 	];
 }

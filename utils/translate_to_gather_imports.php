@@ -14,8 +14,8 @@ require_once "{$relative_dir}/classes/roster.php";
 
 $lines = file(FILENAME);
 $header = array_shift($lines);
-$header_keys = str_getcsv($header);
-$data = array_map('str_getcsv', $lines);
+$header_keys = str_getcsv($header, ',', '"', '');
+$data = array_map(fn($line) => str_getcsv($line, ',', '"', ''), $lines);
 
 $header_cols = [
 	'date_time' => 'Date/Time',

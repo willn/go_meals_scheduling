@@ -33,6 +33,10 @@ php execute.php -u
 ```
 
 ## Cancel extra meals
+First, start off by looking at reservations for the kitchen and dining room in
+Gather. Cancel any dates which have conflicts there first before moving on to
+availability.
+
 ```
 # cancel-o-matic mode
 php execute.php -x
@@ -101,6 +105,10 @@ chmod +x checks.sh
 ./checks.sh | more
 ```
 
+Examine the "avoid worker" preferences, and look to see if a single worker is
+being marked as "avoid" by many people. When this happens, report it to the
+Meals Committee as a potential issue for them to work on.
+
 ## Auto-check for conflicts
 If changes were made, then re-download from google spreadsheet.
 
@@ -108,7 +116,7 @@ If changes were made, then re-download from google spreadsheet.
 ```
 mv auto_assignments/schedule.csv utils/
 cd utils/
-php validate_schedule.php -f schedule.txt
+php validate_schedule.php -f schedule.csv
 php translate_to_gather_imports.php > imports.csv
 ```
 ### Dealing with problems
