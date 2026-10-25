@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 set_include_path('../' . PATH_SEPARATOR . '../public/');
 global $relative_dir;
@@ -50,6 +51,23 @@ class MealTest extends TestCase {
 		$this->meal = new SundayMeal($this->schedule, '04/25/2018', 10);
 	}
 
+	public function getShiftsForType($shift_type) {
+		$shifts = [];
+		switch($shift_type) {
+			case 'meeting':
+				$shifts = $this->shifts['meeting'];
+				break;
+			case 'weekday':
+				$shifts = $this->shifts['weekday'];
+				break;
+			case 'sunday':
+				$shifts = $this->shifts['sunday'];
+				break;
+		}
+
+		return $shifts;
+	}
+
 	public function testConstructors() {
 		$sunday = new SundayMeal('foo', '04/22/2018', 10);
 		$this->assertInstanceOf('SundayMeal', $sunday);
@@ -61,9 +79,7 @@ class MealTest extends TestCase {
 		$this->assertInstanceOf('MeetingNightMeal', $mtg);
 	}
 
-	/**
-	 * @dataProvider pointFactorsProvider
-	 */
+	#[DataProvider('pointFactorsProvider')]
 	public function testSetPointFactors($hobart, $avoid_workers, $prefer) {
 		$this->meal->setPointFactors($hobart, $avoid_workers);
 		$expected = [
@@ -76,7 +92,7 @@ class MealTest extends TestCase {
 		$this->assertEquals($this->meal->getPointFactors(), $expected);
 	}
 
-	public function pointFactorsProvider() {
+	public static function pointFactorsProvider(): array {
 		// hobart_factor, avoids_factor
 		return [
 			[NULL, NULL, NULL],
@@ -89,15 +105,13 @@ class MealTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider datesProvider
-	 */
+	#[DataProvider('datesProvider')]
 	public function testDayOfWeek($date, $expected) {
 		$this->meal->setDate($date);
 		$this->assertEquals($expected, $this->meal->getDayOfWeek());
 	}
 
-	public function datesProvider() {
+	public static function datesProvider(): array {
 		return [
 			['Wed Dec 11 11:15:42 EST 2013', 3],
 			['12/31/13', 2],
@@ -114,27 +128,27 @@ class MealTest extends TestCase {
 		$this->assertEquals($date, $this->meal->getDate());
 	}
 
-	/**
-	 * @dataProvider shiftsProvider
-	 */
-	public function testAddShifts($date, $shifts, $expected) {
+	#[DataProvider('shiftsProvider')]
+	public function testAddShifts($date, $shift_type, $expected) {
 		$this->meal->setDate($date);
+
+		$shifts = $this->getShiftsForType($shift_type);
 		$this->meal->initShifts($shifts);
 		$assigned = $this->meal->getAssigned();
 		$this->assertEquals($expected, $assigned,
 			print_r(['expected' => $expected, 'assigned' => $assigned], TRUE));
 	}
 
-	public function shiftsProvider() {
+	public static function shiftsProvider(): array {
 		return [
 			[
 				'12/11/2013',
-				$this->shifts['fake'],
+				'fake',
 				[]
 			],
 			[
 				'04/16/2018',
-				$this->shifts['meeting'],
+				'meeting',
 				[
 					MEETING_NIGHT_CLEANER => [NULL],
 					MEETING_NIGHT_ORDERER => [NULL],
@@ -142,7 +156,7 @@ class MealTest extends TestCase {
 			],
 			[
 				'04/17/2018',
-				$this->shifts['weekday'],
+				'weekday',
 				[
 					WEEKDAY_HEAD_COOK => [NULL],
 					WEEKDAY_ASST_COOK => [NULL, NULL],
@@ -152,7 +166,7 @@ class MealTest extends TestCase {
 			],
 			[
 				'04/22/2018',
-				$this->shifts['sunday'],
+				'sunday',
 				[
 					SUNDAY_HEAD_COOK => [NULL],
 					SUNDAY_ASST_COOK => [NULL, NULL],
@@ -162,28 +176,30 @@ class MealTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider provideGetNumOpenSpacesForShift
-	 */
-	public function testGetNumOpenSpacesForShift($date, $shifts, $job_id, $expected) {
+	#[DataProvider('provideGetNumOpenSpacesForShift')]
+	public function testGetNumOpenSpacesForShift($date, $shift_type, $job_id, $expected) {
 		$this->meal->setDate($date);
+
+		$shifts = $this->getShiftsForType($shift_type);
 		$this->meal->initShifts($shifts);
 		$assigned = $this->meal->getNumOpenSpacesForShift($job_id);
 		$this->assertEquals($expected, $assigned,
 			print_r(['expected' => $expected, 'assigned' => $assigned], TRUE));
 	}
 
-	public function provideGetNumOpenSpacesForShift() {
+	public static function provideGetNumOpenSpacesForShift(): array {
 		return [
-			['04/16/2018', $this->shifts['meeting'], MEETING_NIGHT_ORDERER, 1],
-			['04/16/2018', $this->shifts['meeting'], MEETING_NIGHT_CLEANER, 1],
-			['04/17/2018', $this->shifts['weekday'], WEEKDAY_HEAD_COOK, 1],
-			['04/17/2018', $this->shifts['weekday'], WEEKDAY_ASST_COOK, 2],
-			['04/17/2018', $this->shifts['weekday'], WEEKDAY_CLEANER, 3],
-			# ['04/17/2018', $this->shifts['weekday'], WEEKDAY_TABLE_SETTER, 1],
-			['04/22/2018', $this->shifts['sunday'], SUNDAY_HEAD_COOK, 1],
-			['04/22/2018', $this->shifts['sunday'], SUNDAY_ASST_COOK, 2],
-			['04/22/2018', $this->shifts['sunday'], SUNDAY_CLEANER, 3],
+			['04/16/2018', 'meeting', MEETING_NIGHT_ORDERER, 1],
+			['04/16/2018', 'meeting', MEETING_NIGHT_CLEANER, 1],
+
+			['04/17/2018', 'weekday', WEEKDAY_HEAD_COOK, 1],
+			['04/17/2018', 'weekday', WEEKDAY_ASST_COOK, 2],
+			['04/17/2018', 'weekday', WEEKDAY_CLEANER, 3],
+			# ['04/17/2018', 'weekday', WEEKDAY_TABLE_SETTER, 1],
+
+			['04/22/2018', 'sunday', SUNDAY_HEAD_COOK, 1],
+			['04/22/2018', 'sunday', SUNDAY_ASST_COOK, 2],
+			['04/22/2018', 'sunday', SUNDAY_CLEANER, 3],
 		];
 	}
 
@@ -205,9 +221,7 @@ class MealTest extends TestCase {
 		$this->assertEquals($brunch->getCommunities(), 'GO, SW, TS');
 	}
 
-	/**
-	 * @dataProvider provideAddWorkerPref
-	 */
+	#[DataProvider('provideAddWorkerPref')]
 	public function testAddWorkerPref($username, $type, $job_id, $pref, $expected) {
 		$this->meal->initShifts($this->shifts[$type]);
 		$this->meal->addWorkerPref($username, $job_id, $pref);
@@ -215,7 +229,7 @@ class MealTest extends TestCase {
 		$this->assertEquals($workers, $expected);
 	}
 
-	public function provideAddWorkerPref() {
+	public static function provideAddWorkerPref(): array {
 		return [
 			['aaa', 'sunday', SUNDAY_HEAD_COOK, 1, [SUNDAY_HEAD_COOK => ['aaa' => 1]]],
 			['bbb', 'weekday', WEEKDAY_HEAD_COOK, 0, [WEEKDAY_HEAD_COOK => ['bbb' => 0]]],

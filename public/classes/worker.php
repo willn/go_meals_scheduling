@@ -236,7 +236,7 @@ class Worker {
 	 * job ID.
 	 */
 	public function getNumShiftsOpen($job_id) {
-		if (!isset($this->num_shifts_to_fill[$job_id])) {
+		if (is_null($job_id) || !isset($this->num_shifts_to_fill[$job_id])) {
 			return 0;
 		}
 

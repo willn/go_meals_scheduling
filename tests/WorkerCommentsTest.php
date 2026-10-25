@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 set_include_path('../' . PATH_SEPARATOR . '../public/');
 
@@ -17,9 +18,7 @@ class WorkerCommentsTest extends TestCase {
 		$this->worker_comments = new WorkerComments();
 	}
 
-	/**
-	 * @dataProvider provideRenderWorkerComments
-	 */
+	#[DataProvider('provideRenderWorkerComments')]
 	public function testRenderWorkerComments($input, $expected) {
 		$result = $this->worker_comments->renderWorkerComments($input);
 		$result = remove_html_whitespace($result);
@@ -32,7 +31,7 @@ class WorkerCommentsTest extends TestCase {
 		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function provideRenderWorkerComments() {
+	public static function provideRenderWorkerComments(): array {
 		$basic_response = <<<EOHTML
 <h2 id="worker_comments">Comments</h2>
 <h2 id="confirm_checks">Confirm results check</h2>

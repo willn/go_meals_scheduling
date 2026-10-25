@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 global $relative_dir;
 $relative_dir = '../public/';
@@ -80,9 +81,7 @@ class ConfigTest extends TestCase {
 		}
 	}
 
-	/**
-	 * @dataProvider provide_get_num_meals_per_assignment
-	 */
+	#[DataProvider('provide_get_num_meals_per_assignment')]
 	public function test_get_num_meals_per_assignment($season, $job_id,
 		$sub_season_factor, $expect) {
 
@@ -96,7 +95,7 @@ class ConfigTest extends TestCase {
 		$this->assertEquals($expect, $result, print_r($debug, TRUE));
 	}
 
-	public function provide_get_num_meals_per_assignment() {
+	public static function provide_get_num_meals_per_assignment(): array {
 		$season_6mos = [
 			5 => 'May',
 			6 => 'June',
@@ -176,9 +175,7 @@ class ConfigTest extends TestCase {
 		return $cases;
 	}
 
-	/**
-	 * @dataProvider provide_get_num_workers_per_job_per_meal
-	 */
+	#[DataProvider('provide_get_num_workers_per_job_per_meal')]
 	public function test_get_num_workers_per_job_per_meal($input, $expected) {
 		$result = get_num_workers_per_job_per_meal($input);
 		$debug = [
@@ -189,7 +186,7 @@ class ConfigTest extends TestCase {
 		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function provide_get_num_workers_per_job_per_meal() {
+	public static function provide_get_num_workers_per_job_per_meal(): array {
 		$all = [
 			MEETING_NIGHT_CLEANER => 1,
 			MEETING_NIGHT_ORDERER => 1,

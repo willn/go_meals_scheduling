@@ -93,8 +93,6 @@ class Schedule {
 			$meal = get_a_meal_object($this, $date);
 
 			if (get_class($meal) == 'Error') {
-				echo "current meal class Error {$date}\n";
-				echo "FAIL " . __FILE__ . ' ' . __LINE__. "\n";
 				return FALSE;
 			}
 

@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 set_include_path('../' . PATH_SEPARATOR . '../public/');
 global $relative_dir;
@@ -25,16 +26,14 @@ class ScheduleTest extends TestCase {
 		$this->assertInstanceOf('Schedule', $this->schedule);
 	}
 
-	/**
-	 * @dataProvider jobIdsProvider
-	 */
+	#[DataProvider('jobIdsProvider')]
 	public function testSetJobId($id) {
 		$this->schedule->setJobId($id);
 		$this->assertEquals($this->schedule->getJobId(), $id);
 		$this->assertEquals($this->schedule->getPopularity(), []);
 	}
 
-	public function jobIdsProvider() {
+	public static function jobIdsProvider(): array {
 		return [
 			[0],
 			[1],
@@ -92,14 +91,14 @@ class ScheduleTest extends TestCase {
 
 	public function testGetDatesByShift() {
 		$dates = [
-			'1/4/2026' => [SUNDAY_HEAD_COOK, SUNDAY_ASST_COOK],
+			'12/7/2025' => [SUNDAY_HEAD_COOK, SUNDAY_ASST_COOK],
 			'1/11/2026' => [SUNDAY_HEAD_COOK],
 			'1/25/2026' => [SUNDAY_CLEANER],
 		];
 		$this->schedule->initializeMealsAndShifts($dates);
 		$expected = [
-			SUNDAY_HEAD_COOK => ['1/4/2026', '1/11/2026'],
-			SUNDAY_ASST_COOK => ['1/4/2026'],
+			SUNDAY_HEAD_COOK => ['12/7/2025', '1/11/2026'],
+			SUNDAY_ASST_COOK => ['12/7/2025'],
 			SUNDAY_CLEANER => ['1/25/2026'],
 		];
 		$this->assertEquals($expected, $this->schedule->getDatesByShift());
@@ -107,15 +106,15 @@ class ScheduleTest extends TestCase {
 
 	public function testLoadDatesByShiftCacheDuplicateJobs() {
 		$this->schedule->initializeMealsAndShifts([
-			'1/4/2026' => [SUNDAY_HEAD_COOK],
 			'1/11/2026' => [SUNDAY_HEAD_COOK],
 			'1/25/2026' => [SUNDAY_HEAD_COOK],
+			'2/8/2026' => [SUNDAY_HEAD_COOK],
 		]);
 		$expected = [
 			SUNDAY_HEAD_COOK => [
-				'1/4/2026',
 				'1/11/2026',
 				'1/25/2026',
+				'2/8/2026',
 			],
 		];
 		$this->assertEquals($expected, $this->schedule->loadDatesByShiftCache());
@@ -137,9 +136,14 @@ class ScheduleTest extends TestCase {
 
 	public function testGetAssignedAfterInitialization() {
 		$this->schedule->initializeMealsAndShifts(
-			['1/4/2026' => [SUNDAY_HEAD_COOK]]);
+			['12/25/2026' => [HOLIDAY_NIGHT]]);
 		$assigned = $this->schedule->getAssignments();
-		$this->assertArrayHasKey('1/4/2026', $assigned);
+		$this->assertEmpty($assigned, print_r($assigned, TRUE));
+
+		$this->schedule->initializeMealsAndShifts(
+			['1/25/2026' => [SUNDAY_HEAD_COOK]]);
+		$assigned = $this->schedule->getAssignments();
+		$this->assertArrayHasKey('1/25/2026', $assigned, print_r($assigned, TRUE));
 	}
 
 	public function testGetWorker() {

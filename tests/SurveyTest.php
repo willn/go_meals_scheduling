@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 global $relative_dir;
 $relative_dir = '../public/';
@@ -20,16 +21,14 @@ class SurveyTest extends TestCase {
 		$this->assertInstanceOf('Survey', $this->survey);
 	}
 
-	/**
-	 * @dataProvider provideSetWorker
-	 */	
+	#[DataProvider('provideSetWorker')]
 	public function testSetWorker($username, $worker_id, $expected) {
 		$this->survey->setWorker($username, $worker_id);
 		$results = $this->survey->getCurrentWorkerInfo();
 		$this->assertEquals($expected, $results);
 	}
 
-	public function provideSetWorker() {
+	public static function provideSetWorker(): array {
 		return [
 			['x', 123, ['username' => 'x', 'worker_id' => 123]],
 			['x', NULL, ['username' => 'x', 'worker_id' => 59]],
@@ -44,16 +43,14 @@ class SurveyTest extends TestCase {
 	}
 	*/
 
-	/**
-	 * @dataProvider provideRenderShiftsSummaryHtml
-	 */
+	#[DataProvider('provideRenderShiftsSummaryHtml')]
 	public function testRenderShiftsSummaryHtml($input, $expected) {
 		$result = $this->survey->renderShiftsSummaryHtml($input);
 		$this->assertEquals(remove_html_whitespace($expected), 
 			remove_html_whitespace($result));
 	}
 
-	public function provideRenderShiftsSummaryHtml() {
+	public static function provideRenderShiftsSummaryHtml(): array {
 		$ex0 = [
 			4597 => [
 				"name" => SUNDAY_CLEANER_NAME,
@@ -143,15 +140,13 @@ EOHTML;
 	}
 
 
-	/**
-	 * @dataProvider provideSetUsername
-	 */
+	#[DataProvider('provideSetUsername')]
 	public function testSetUsername($input, $expected) {
 		$result = $this->survey->setUsername($input);
 		$this->assertEquals($expected, $result);
 	}
 
-	public function provideSetUsername() {
+	public static function provideSetUsername(): array {
 		$err = '<p class="error">Missing username</p>' . "\n";
 
 		return [
@@ -181,9 +176,7 @@ EOHTML;
 		);
 	}
 
-	/**
-	 * @dataProvider provideGetSaveRequestsSQL
-	 */
+	#[DataProvider('provideGetSaveRequestsSQL')]
 	public function testGetSaveRequestsSQL($input, $expected) {
 		$post = json_decode($input, TRUE);
 		$result = $this->survey->getSaveRequestsSQL($post);
@@ -191,7 +184,7 @@ EOHTML;
 			normalize_whitespace($result));
 	}
 
-	public function provideGetSaveRequestsSQL() {
+	public static function provideGetSaveRequestsSQL(): array {
 		$base = "replace into schedule_comments
 		values( 59, now(), '%s', '%s', '%s', '%s', '%s', '%s' )";
 
@@ -245,18 +238,15 @@ EOHTML;
 	}
 	*/
 
-	/**
-	 * XXX
-	 * @dataProvider provideTestUpdatePreferences
-	 */
+	#[DataProvider('provideTestUpdatePreferences')]
 	public function testUpdatePreferences($shift_id, $worker_id, $pref, $task, $date) {
 		$result = $this->survey->updatePreferences($shift_id, $worker_id, $pref,
 			$task, $date);
-		$this->assertEquals($result, $pref);
+		$this->assertEquals($pref, $result);
 	}
 
 	
-	public function provideTestUpdatePreferences() {
+	public static function provideTestUpdatePreferences(): array {
 		return [
 			[123, 456, HAS_CONFLICT_PREF, 2, '1/17/24'],
 			[123, 456, OK_PREF, 2, '1/17/24'],
@@ -264,15 +254,13 @@ EOHTML;
 		];
 	}
 
-	/**
-	 * @dataProvider provideInvalidPreferences
-	 */
+	#[DataProvider('provideInvalidPreferences')]
 	public function testUpdatePreferencesInvalid($pref) {
 		$result = $this->survey->updatePreferences(123, 456, $pref, 2, '1/17/24');
 		$this->assertNull($result);
 	}
 
-	public function provideInvalidPreferences() {
+	public static function provideInvalidPreferences(): array {
 		return [
 			[-2],
 			[99],

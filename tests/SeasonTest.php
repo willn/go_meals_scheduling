@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 require_once '../public/season.php';
 require_once '../public/utils.php';
@@ -74,9 +75,7 @@ class SeasonTest extends TestCase {
 		}
 	}
 
-	/**
-	 * @dataProvider provide_get_current_season_months
-	 */
+	#[DataProvider('provide_get_current_season_months')]
 	public function test_get_current_season_months($season_name) {
 		$result = get_current_season_months($season_name);
 		$this->assertNotEmpty($result);
@@ -92,7 +91,7 @@ class SeasonTest extends TestCase {
 		}
 	}
 
-	public function provide_get_current_season_months() {
+	public static function provide_get_current_season_months(): array {
 		return [
 			[WINTER],
 			[SPRING],

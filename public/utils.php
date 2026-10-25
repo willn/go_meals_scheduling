@@ -562,6 +562,7 @@ function get_a_meal_object($schedule, $date) {
 		case MEETING_NIGHT_MEAL:
 			return new MeetingNightMeal($schedule, $date);
 		case SKIP_NIGHT:
+			error_log(__FUNCTION__ . ' ' . __LINE__ . " skip this date {$date}");
 		case HOLIDAY_NIGHT:
 		case NOT_A_MEAL:
 		default:

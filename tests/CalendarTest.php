@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 set_include_path('../' . PATH_SEPARATOR . '../public/');
 
@@ -45,15 +46,13 @@ class CalendarTest extends TestCase {
 		$this->assertNotEmpty($result);
 	}
 
-	/**
-	 * @dataProvider provideGetWeekdaySelectorHtml
-	 */
+	#[DataProvider('provideGetWeekdaySelectorHtml')]
 	public function testGetWeekdaySelectorHtml($day_num, $day_of_week, $expected) {
 		$result = $this->calendar->getWeekdaySelectorHtml($day_num, $day_of_week);
-		$this->assertEquals($result, $expected);
+		$this->assertSame($expected, $result);
 	}
 
-	public function provideGetWeekdaySelectorHtml() {
+	public static function provideGetWeekdaySelectorHtml(): array {
 		$one = <<<EOHTML
 			<td class="weekday_selector weekday_num_1">
 				Tue:<br>
@@ -79,9 +78,7 @@ EOHTML;
 		];
 	}
 
-	/**
-	 * @dataProvider provideRenderMonthsOverlay
-	 */
+	#[DataProvider('provideRenderMonthsOverlay')]
 	public function testRenderMonthsOverlay($input, $expected) {
 		$result = $this->calendar->renderMonthsOverlay($input);
 		$result = remove_html_whitespace($result);
@@ -89,7 +86,7 @@ EOHTML;
 		$this->assertEquals($expected, $result);
 	}
 
-	public function provideRenderMonthsOverlay() {
+	public static function provideRenderMonthsOverlay(): array {
 		$random = [
 			3 => 'Mar',
 			6 => 'Jun',
@@ -105,16 +102,14 @@ EOHTML;
 		];
 	}
 
-	/**
-	 * @dataProvider provideRenderDaySelectors
-	 */
+	#[DataProvider('provideRenderDaySelectors')]
 	public function testRenderDaySelectors($worker, $expected) {
 		$result = $this->calendar->renderDaySelectors($worker);
 		$this->assertEquals(remove_html_whitespace($expected),
 			remove_html_whitespace($result));
 	}
 
-	public function provideRenderDaySelectors() {
+	public static function provideRenderDaySelectors(): array {
 		$one = <<<EOHTML
 <tr class="day_labels"><td width="1%"><!-- weekly spacer --></td><th class="day_of_week">Sun</th><th class="day_of_week">Mon</th><th class="day_of_week">Tue</th><th class="day_of_week">Wed</th><th class="day_of_week">Thu</th><th class="day_of_week">Fri</th><th class="day_of_week">Sat</th></tr><tr class="weekdays"><td width="1%"><!-- weekly spacer --></td><td class="weekday_selector weekday_num_0">Sun:<br><a class="conflict">conflict</a><a class="OK">OK</a><a class="prefer">prefer</a></td><td class="weekday_selector weekday_num_1">Mon:<br><a class="conflict">conflict</a><a class="OK">OK</a><a class="prefer">prefer</a></td><td class="weekday_selector weekday_num_2">Tue:<br><a class="conflict">conflict</a><a class="OK">OK</a><a class="prefer">prefer</a></td><td class="weekday_selector weekday_num_3">Wed:<br><a class="conflict">conflict</a><a class="OK">OK</a><a class="prefer">prefer</a></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
 EOHTML;
@@ -129,21 +124,19 @@ EOHTML;
 		];
 	}
 
-	/**
-	 * @dataProvider provideAddMessage
-	 */
+	#[DataProvider('provideAddMessage')]
 	public function testAddMessage($month_num, $day_of_month, $day_of_week, $expected) {
 		$result = $this->calendar->addMessage($month_num, $day_of_month, $day_of_week);
 		$this->assertEquals($expected, $result);
 	}
 
-	public function provideAddMessage() {
+	public static function provideAddMessage(): array {
 		$summer = "<p class=\"notice\">First day of Summer</p>";
 		$both = Calendar::FARM_MSG . "\n" . $summer;
 
 		return [
-			// cell is empty
-			[NULL, NULL, NULL, ''],
+			// invalid numbers, cell is empty
+			[13, 50, 10, ''],
 
 			[MARCH, 1, MONDAY, ''],
 			[MARCH, 1, WEDNESDAY, ''],
@@ -167,15 +160,13 @@ EOHTML;
 		];
 	}
 
-	/**
-	 * @dataProvider provideRenderJobNameForDay
-	 */
+	#[DataProvider('provideRenderJobNameForDay')]
 	public function testRenderJobNameForDay($input, $expected) {
 		$result = $this->calendar->renderJobNameForDay($input);
 		$this->assertEquals($expected, $result);
 	}
 
-	public function provideRenderJobNameForDay() {
+	public static function provideRenderJobNameForDay(): array {
 		$out = [
 			['x', 'x'],
 			[MEETING_NIGHT_CLEANER_NAME, 'Meeting night cleaner'],
@@ -235,9 +226,7 @@ EOHTML;
 			remove_html_whitespace($result));
 	}
 
-	/**
-	 * @dataProvider provideShiftsPerDate
-	 */
+	#[DataProvider('provideShiftsPerDate')]
 	public function testShiftsPerDate($input, $expected) {
 		$result = $this->calendar->getShiftsPerDate($input);
 		$debug = [
@@ -248,7 +237,7 @@ EOHTML;
 		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function provideShiftsPerDate() {
+	public static function provideShiftsPerDate(): array {
 		$example1 = [
 			'10/1/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
 			'10/2/2018' => [0 => WEEKDAY_HEAD_COOK, 1 => WEEKDAY_ASST_COOK, 2 => WEEKDAY_CLEANER],
@@ -309,9 +298,7 @@ EOHTML;
 		];
 	}
 
-	/**
-	 * @dataProvider provideGetNumberAssignmentsPerJobId
-	 */
+	#[DataProvider('provideGetNumberAssignmentsPerJobId')]
 	public function testGetNumberAssignmentsPerJobId($input,
 		$sub_season_factor, $expected, $season) {
 
@@ -326,7 +313,7 @@ EOHTML;
 		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function provideGetNumberAssignmentsPerJobId() {
+	public static function provideGetNumberAssignmentsPerJobId(): array {
 		// 6-month seasons use a special allocation
 		$input_6mo = [
 			# MEETING_NIGHT_CLEANER => 90,
@@ -477,9 +464,7 @@ EOHTML;
 		];
 	}
 
-	/**
-	 * @dataProvider provideRenderNumberAssignments
-	 */
+	#[DataProvider('provideRenderNumberAssignments')]
 	public function testRenderNumberAssignments($input, $expected) {
 		$result = $this->calendar->renderNumberAssignments($input);
 		$debug = [
@@ -490,7 +475,7 @@ EOHTML;
 		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function provideRenderNumberAssignments() {
+	public static function provideRenderNumberAssignments(): array {
 		$input1 = [
 			# MEETING_NIGHT_ORDERER => 2.0,
 			# MEETING_NIGHT_CLEANER => 2.0,
@@ -546,9 +531,7 @@ EOHTML;
 		];
 	}
 
-	/**
-	 * @dataProvider provide_list_available_workers_for_date
-	 */
+	#[DataProvider('provide_list_available_workers_for_date')]
 	public function test_list_available_workers_for_date($cur_date_jobs,
 		$is_brunch, $expected) {
 
@@ -564,7 +547,7 @@ EOHTML;
 		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function provide_list_available_workers_for_date() {
+	public static function provide_list_available_workers_for_date(): array {
 		$mtg_clean_n = MEETING_NIGHT_CLEANER_NAME;
 		$mtg_order_n = MEETING_NIGHT_ORDERER_NAME;
 		$sun_asst_n = SUNDAY_ASST_COOK_NAME;
@@ -910,15 +893,13 @@ EOHTML;
 	}
 
 
-    /**
-     * @dataProvider provideRenderSurveyJob
-     */
+	#[DataProvider('provideRenderSurveyJob')]
     public function testRenderSurveyJob($date, $name, $key, $saved_pref, $expected) {
         $result = $this->calendar->renderSurveyJob($date, $name, $key, $saved_pref);
         $this->assertEquals($expected, $result);
     }
 
-    public function provideRenderSurveyJob() {
+    public static function provideRenderSurveyJob(): array {
 		// UPDATE-EACH-SEASON
 		$mtg_orderer_job_id = MEETING_NIGHT_ORDERER;
 		$mtg_ord_name = MEETING_NIGHT_ORDERER_NAME;
@@ -967,7 +948,7 @@ EOHTML;
 	}
 
 	/**
-	 * dataProvider provideGenerateReportCellForWorker
+	#[DataProvider('provideGenerateReportCellForWorker')]
 	public function testGenerateReportCellForWorker($date_string, $type, $expected) {
 		$worker = new Worker('foo');
 		$result = $this->calendar->generateReportCellForWorker($worker, $date_string, $type);
@@ -978,7 +959,7 @@ EOHTML;
         $this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function provideGenerateReportCellForWorker() {
+	public static function provideGenerateReportCellForWorker(): array {
 		return [
 			['1/25/24', 'weekday', 'xxx'],
 			['1/25/24', 'brunch', 'zzz'],
@@ -993,18 +974,18 @@ EOHTML;
 			# MEETING_NIGHT_CLEANER => 4,
 			# MEETING_NIGHT_ORDERER => 4,
 
-			SUNDAY_ASST_COOK => 26,
-			SUNDAY_CLEANER => 39,
-			SUNDAY_HEAD_COOK => 13,
+			SUNDAY_ASST_COOK => 18,
+			SUNDAY_CLEANER => 27,
+			SUNDAY_HEAD_COOK => 9,
 
-			WEEKDAY_ASST_COOK => 62,
-			WEEKDAY_CLEANER => 93,
-			WEEKDAY_HEAD_COOK => 31,
+			WEEKDAY_ASST_COOK => 46,
+			WEEKDAY_CLEANER => 69,
+			WEEKDAY_HEAD_COOK => 23,
 			# WEEKDAY_LAUNDRY => 21,
 
-			BRUNCH_ASST_COOK => 6,
-			BRUNCH_CLEANER => 9,
-			BRUNCH_HEAD_COOK => 3,
+			BRUNCH_ASST_COOK => 4,
+			BRUNCH_CLEANER => 6,
+			BRUNCH_HEAD_COOK => 2,
 			# BRUNCH_LAUNDRY => 8,
 		];
 
@@ -1017,9 +998,7 @@ EOHTML;
         $this->assertEquals($expected, $result, print_r($debug, TRUE));
     }
 
-    /**
-     * @dataProvider provideGetAssignmentsNeededForCurrentSeason
-     */
+	#[DataProvider('provideGetAssignmentsNeededForCurrentSeason')]
 	public function testGetAssignmentsNeededForCurrentSeason($expected) {
 		$result = $this->calendar->getAssignmentsNeededForCurrentSeason();
 		# write_out_data(__METHOD__, $result);
@@ -1031,7 +1010,7 @@ EOHTML;
 	/**
 	 * These track work-system assignments.
 	 */
-    public function provideGetAssignmentsNeededForCurrentSeason() {
+    public static function provideGetAssignmentsNeededForCurrentSeason(): array {
 		// UPDATE-EACH-SEASON
 		$six_month_season = [
 			#MEETING_NIGHT_CLEANER => 5,
@@ -1061,18 +1040,18 @@ EOHTML;
 			#MEETING_NIGHT_CLEANER => 4,
 			#MEETING_NIGHT_ORDERER => 4,
 
-			SUNDAY_ASST_COOK => 26,
-			SUNDAY_CLEANER => 13,
-			SUNDAY_HEAD_COOK => 13,
+			SUNDAY_ASST_COOK => 18,
+			SUNDAY_CLEANER => 9,
+			SUNDAY_HEAD_COOK => 9,
 
-			WEEKDAY_ASST_COOK => 62,
-			WEEKDAY_CLEANER => 31,
-			WEEKDAY_HEAD_COOK => 31,
+			WEEKDAY_ASST_COOK => 46,
+			WEEKDAY_CLEANER => 23,
+			WEEKDAY_HEAD_COOK => 23,
 			# WEEKDAY_LAUNDRY => 7,
 
-			BRUNCH_ASST_COOK => 6,
-			BRUNCH_CLEANER => 9,
-			BRUNCH_HEAD_COOK => 3,
+			BRUNCH_ASST_COOK => 4,
+			BRUNCH_CLEANER => 6,
+			BRUNCH_HEAD_COOK => 2,
 			# BRUNCH_LAUNDRY => 3,
 		];
 
@@ -1111,9 +1090,9 @@ EOHTML;
 		// UPDATE-EACH-SEASON
 		$expected = [
 			'meeting' => 0,
-			'sunday' => 13,
-			'weekday' => 31,
-			'brunch' => 3,
+			'sunday' => 9,
+			'weekday' => 23,
+			'brunch' => 2,
 		];
 		$expected['total'] = array_reduce($expected, function($carry, $item) {
 			$carry += $item;

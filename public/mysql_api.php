@@ -19,8 +19,7 @@ class MysqlApi {
 	 *
 	 * @param string $host The hostname of the database server.
 	 */
-	public function __construct($host='localhost', $database, $user='nobody',
-		$password) {
+	public function __construct($host, $database, $user, $password) {
 
 		$this->host = $host;
 		$this->database = $database;

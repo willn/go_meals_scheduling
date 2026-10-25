@@ -1,20 +1,19 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 global $relative_dir;
 $relative_dir = '../public/';
 require_once "{$relative_dir}/gather_utils.php";
 
 class GatherUtilsTest extends TestCase {
-	/**
-	 * @dataProvider provide_map_usernames_to_gather_id
-	 */
+	#[DataProvider('provide_map_usernames_to_gather_id')]
 	public function test_map_usernames_to_gather_id($usernames, $ids, $expected) {
 		$result = map_usernames_to_gather_id($usernames, $ids);
 		$this->assertEquals($expected, $result);
 	}
 
-	public function provide_map_usernames_to_gather_id() {
+	public static function provide_map_usernames_to_gather_id(): array {
 		$map = [
 			'Luke' => 12,
 			'Leia' => 23,

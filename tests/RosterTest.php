@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 global $relative_dir;
 $relative_dir = '../public/';
@@ -12,7 +13,7 @@ require_once 'testing_utils.php';
 
 class RosterTest extends TestCase {
 	private $roster;
-	private $total_labor_avail;
+	private $total_labor_available;
 
 	public function setUp() : void {
 		$this->loadLabor();
@@ -25,9 +26,7 @@ class RosterTest extends TestCase {
 		ksort($this->total_labor_available);
 	}
 
-	/**
-	 * @dataProvider provideLoadNumAssignmentsFromDatabase
-	 */
+	#[DataProvider('provideLoadNumAssignmentsFromDatabase')]
 	public function testLoadNumAssignmentsFromDatabase($expected) {
 		$this->roster->initLaborCount();
 		$this->roster->loadNumMealsFromDatabase();
@@ -38,7 +37,7 @@ class RosterTest extends TestCase {
 		$this->assertEquals($expected, $db_labor);
 	}
 
-	public function provideLoadNumAssignmentsFromDatabase() {
+	public static function provideLoadNumAssignmentsFromDatabase(): array {
 		$out = [
 			[
 				[
@@ -70,9 +69,7 @@ class RosterTest extends TestCase {
 		return $out;
 	}
 
-	/**
-	 * @dataProvider provideLoadNumAssignmentsFromOverrides
-	 */
+	#[DataProvider('provideLoadNumAssignmentsFromOverrides')]
 	public function testLoadNumAssignmentsFromOverrides($expected) {
 		$this->roster->initLaborCount();
 		$this->roster->loadNumMealsFromOverrides();
@@ -83,7 +80,7 @@ class RosterTest extends TestCase {
 		$this->assertEquals($expected, $db_labor);
 	}
 
-	public function provideLoadNumAssignmentsFromOverrides() {
+	public static function provideLoadNumAssignmentsFromOverrides(): array {
 		$out = [
 			[
 				[
@@ -115,9 +112,7 @@ class RosterTest extends TestCase {
 		return $out;
 	}
 
-	/**
-	 * @dataProvider provideTestOverrideUsersExist
-	 *
+	/*
 	 * This checks to see if any override users do not exist in the db already.
 	 *
 	 * NOTE: If this is true, then they need to be created manually, as seen
@@ -130,6 +125,7 @@ class RosterTest extends TestCase {
 	 *
 	 * Fix this by adding an entry in the provider.
 	 */
+	#[DataProvider('provideTestOverrideUsersExist')]
 	public function testOverrideUsersExist($list) {
 		$num_shift_overrides = array_keys(get_num_shift_overrides());
 
@@ -145,7 +141,7 @@ class RosterTest extends TestCase {
 		$this->assertEquals(array_values($list), array_values($diff));
 	}
 
-	public function provideTestOverrideUsersExist() {
+	public static function provideTestOverrideUsersExist(): array {
 		return [
 			[
 				/**
@@ -158,9 +154,9 @@ class RosterTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider provideGetTotalLaborAvailable
 	 * Note: this may need to be adjusted each season or sub-season.
 	 */
+	#[DataProvider('provideGetTotalLaborAvailable')]
 	public function testGetTotalLaborAvailable($expected) {
 		$this->loadLabor();
 		$result = $this->total_labor_available;
@@ -168,7 +164,7 @@ class RosterTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-	public function provideGetTotalLaborAvailable() {
+	public static function provideGetTotalLaborAvailable(): array {
 		$out = [
 			[
 				[
@@ -253,10 +249,10 @@ class RosterTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider provideGetNumShiftsPerSeason
 	 * How many meals should each job get over the season?
 	 * XXX I'm not sure if this is testing what we want it to...?
 	 */
+	#[DataProvider('provideGetNumShiftsPerSeason')]
 	public function testGetNumShiftsPerSeason($input, $expected) {
 		$this->roster->setShifts($input);
 		$results = $this->roster->getNumShiftsPerSeason();
@@ -268,7 +264,7 @@ class RosterTest extends TestCase {
 		$this->assertEquals($expected, $results, print_r($debug, TRUE));
 	}
 
-	public function provideGetNumShiftsPerSeason() {
+	public static function provideGetNumShiftsPerSeason() {
 		return [
 			[WINTER, count(get_current_season_months(WINTER))],
 			[SPRING, count(get_current_season_months(SPRING))],
@@ -281,7 +277,6 @@ class RosterTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider provideCompareLabor
 	 *
 	 * Confirm whether there is enough labor for the amount of shifts that need
 	 * to be filled for the season.
@@ -289,6 +284,7 @@ class RosterTest extends TestCase {
 	 * NOTE: This is where we'll find out if we're short on labor for
 	 * the upcoming season. This is how we'll figure out how many meals
 	 * to cancel due to labor shortages.
+	#[DataProvider('provideCompareLabor')]
 	public function testCompareLabor($job_id, $assigned_labor, $need, $diff, $job_name) {
 		$all_jobs = get_all_jobs();
 
@@ -303,7 +299,7 @@ class RosterTest extends TestCase {
 	}
 	 */
 
-	public function provideCompareLabor() {
+	public static function provideCompareLabor(): array {
 		$all_jobs = get_all_jobs();
 
 		// how much labor is available?
@@ -338,7 +334,7 @@ class RosterTest extends TestCase {
 
 
 	/**
-	 * @dataProvider provideAddNonResponderPrefs
+	#[DataProvider('provideAddNonResponderPrefs')]
 	public function testAddNonResponderPrefs($dates_by_shift, $expected) {
 		$this->roster->initLaborCount();
 
@@ -361,7 +357,7 @@ class RosterTest extends TestCase {
 			'num' => $num,
 			'slackers' => $slackers,
 		];
-		$this->assertEquals($result, $num, print_r($debug, TRUE));
+		$this->assertEquals($num, $result, print_r($debug, TRUE));
 
 		// -------- 2nd test ---------
 		$assigned = $this->roster->getAssigned();
@@ -373,7 +369,7 @@ class RosterTest extends TestCase {
 	}
 	 */
 
-	public function provideAddNonResponderPrefs() {
+	public static function provideAddNonResponderPrefs(): array {
 
 		return [
 			[

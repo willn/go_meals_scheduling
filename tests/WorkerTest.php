@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 require_once '../public/classes/worker.php';
 require_once '../public/season.php';
@@ -7,10 +8,10 @@ require_once '../public/globals.php';
 
 class WorkerTest extends TestCase {
 	private $worker;
-	private $default_username;
+	const DEFAULT_USERNAME = 'DEFAULT';
 
 	public function setUp() : void {
-		$this->worker = new Worker($this->default_username);
+		$this->worker = new Worker(WorkerTest::DEFAULT_USERNAME);
 	}
 
 	/**
@@ -20,18 +21,16 @@ class WorkerTest extends TestCase {
 		$this->assertInstanceOf('Worker', $this->worker);
 	}
 
-	/**
-	 * @dataProvider provideSetNames
-	 */
+	#[DataProvider('provideSetNames')]
 	public function testSetNames($first, $last, $expected) {
 		$this->worker->setNames($first, $last);
 		$result = $this->worker->getName();
 		$this->assertEquals($expected, $result);
 	}
 
-	public function provideSetNames() {
+	public static function provideSetNames(): array {
 		return [
-			['', '', $this->default_username],
+			['', '', WorkerTest::DEFAULT_USERNAME],
 			['Bruce', 'Lee', 'Bruce Lee'],
 			['Madonna', '', 'Madonna '],
 		];
@@ -106,21 +105,16 @@ class WorkerTest extends TestCase {
 			[$date2 => 2], 999 => [$date1 => 0, $date2 => .5]], $result);
 	}
 
-	private function setUpGetAdjancencyScore() {
+	#[DataProvider('provideGetAdjancencyScore')]
+	public function testGetAdjancencyScore($date, $expected) {
 		$this->worker->addNumShiftsAssigned(SUNDAY_HEAD_COOK, 2);
 		$this->worker->setAssignedShift(SUNDAY_HEAD_COOK, '4/2/2022');
-	}
 
-	/**
-	 * @dataProvider provideGetAdjancencyScore
-	 */
-	public function testGetAdjancencyScore($date, $expected) {
-		$this->setUpGetAdjancencyScore();
 		$result = $this->worker->getAdjancencyScore($date);
-		$this->assertEquals($result, $expected);
+		$this->assertEquals($expected, $result);
 	}
 
-	public function provideGetAdjancencyScore() {
+	public static function provideGetAdjancencyScore(): array {
 		return [
 			['3/24/2022', 0],
 			['3/25/2022', Worker::ADJACENCY_LIMIT / 8],
@@ -140,15 +134,15 @@ class WorkerTest extends TestCase {
 
 	/**
 	 * Test getDateScore with no existing assignment.
-	 * @dataProvider provideGetDateScoreWithNoExistingShifts
 	 */
+	#[DataProvider('provideGetDateScoreWithNoExistingShifts')]
 	public function testGetDateScoreWithNoExistingShifts($date, $job_id, $pref, $expected) {
 		$this->worker->addAvailability(123, $date, $pref);
 		$result = $this->worker->getDateScore($date, $job_id);
 		$this->assertEquals($expected, $result);
 	}
 
-	public function provideGetDateScoreWithNoExistingShifts() {
+	public static function provideGetDateScoreWithNoExistingShifts(): array {
 		return [
 			['4/3/2022', 123, 1, 1],
 			['4/10/2022', 123, 2, 2],
@@ -159,8 +153,8 @@ class WorkerTest extends TestCase {
 	/**
 	 * Test getDateScore when the worker already has a shift on that date.
 	 *
-	 * @dataProvider provideGetDateScore
 	 */
+	#[DataProvider('provideGetDateScore')]
 	public function testGetDateScore($existing_job, $new_job, $pref_level, $requests, $expected) {
 
 		$date = '10/18/2026';
@@ -174,7 +168,7 @@ class WorkerTest extends TestCase {
 	}
 
 
-	public function provideGetDateScore() {
+	public static function provideGetDateScore(): array {
 		return [
 
 			'clean then cook' => [

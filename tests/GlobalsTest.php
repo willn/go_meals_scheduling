@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 global $relative_dir;
 $relative_dir = '../public/';
@@ -49,9 +50,7 @@ class GlobalsTest extends TestCase {
 	}
 
 
-	/**
-	 * @dataProvider provide_get_is_a_mtg_night_job
-	 */
+	#[DataProvider('provide_get_is_a_mtg_night_job')]
 	public function test_is_a_mtg_night_job($job_id, $expected) {
 		$result = is_a_mtg_night_job($job_id);
 		$debug = [
@@ -62,7 +61,7 @@ class GlobalsTest extends TestCase {
 		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function provide_get_is_a_mtg_night_job() {
+	public static function provide_get_is_a_mtg_night_job(): array {
 		$out = [
 			[0, FALSE],
 			[MEETING_NIGHT_ORDERER, TRUE],
@@ -81,9 +80,7 @@ class GlobalsTest extends TestCase {
 		return $out;
 	}
 
-	/**
-	 * @dataProvider get_is_a_sunday_job
-	 */
+	#[DataProvider('get_is_a_sunday_job')]
 	public function test_is_a_sunday_job($job_id, $expected) {
 		$result = is_a_sunday_job($job_id);
 		$debug = [
@@ -94,7 +91,7 @@ class GlobalsTest extends TestCase {
 		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function get_is_a_sunday_job() {
+	public static function get_is_a_sunday_job(): array {
 		$out = [
 			[0, FALSE],
 			[MEETING_NIGHT_ORDERER, FALSE],
@@ -113,9 +110,7 @@ class GlobalsTest extends TestCase {
 		return $out;
 	}
 
-	/**
-	 * @dataProvider get_is_a_cook_job
-	 */
+	#[DataProvider('get_is_a_cook_job')]
 	public function test_is_a_cook_job($job_id, $expected) {
 		$result = is_a_cook_job($job_id);
 		$debug = [
@@ -126,7 +121,7 @@ class GlobalsTest extends TestCase {
 		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function get_is_a_cook_job() {
+	public static function get_is_a_cook_job(): array {
 		$out = [
 			[0, FALSE],
 			[MEETING_NIGHT_ORDERER, TRUE],
@@ -145,9 +140,7 @@ class GlobalsTest extends TestCase {
 		return $out;
 	}
 
-	/**
-	 * @dataProvider get_is_a_clean_job
-	 */
+	#[DataProvider('get_is_a_clean_job')]
 	public function test_is_a_clean_job($job_id, $expected) {
 		$result = is_a_clean_job($job_id);
 		$debug = [
@@ -158,7 +151,7 @@ class GlobalsTest extends TestCase {
 		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function get_is_a_clean_job() {
+	public static function get_is_a_clean_job(): array {
 		$out = [
 			[0, FALSE],
 			[MEETING_NIGHT_ORDERER, FALSE],
@@ -176,9 +169,7 @@ class GlobalsTest extends TestCase {
 		return $out;
 	}
 
-	/**
-	 * @dataProvider get_is_a_head_cook_job
-	 */
+	#[DataProvider('get_is_a_head_cook_job')]
 	public function test_is_a_head_cook_job($job_id, $expected) {
 		$result = is_a_head_cook_job($job_id);
 		$debug = [
@@ -189,7 +180,7 @@ class GlobalsTest extends TestCase {
 		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function get_is_a_head_cook_job() {
+	public static function get_is_a_head_cook_job(): array {
 		$out = [
 			[0, FALSE],
 			[MEETING_NIGHT_ORDERER, TRUE],

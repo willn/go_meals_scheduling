@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 global $relative_dir;
 $relative_dir = '../public/';
@@ -13,9 +14,7 @@ class RespondentsTest extends TestCase {
 		$this->respondents = new Respondents();
 	}
 
-	/**
-	 * @dataProvider provideRenderPercentageBar
-	 */
+	#[DataProvider('provideRenderPercentageBar')]
 	public function testRenderPercentageBar($input, $expected) {
 		$result = $this->respondents->renderPercentageBar($input);
 		$debug = [
@@ -26,7 +25,7 @@ class RespondentsTest extends TestCase {
 		$this->assertEquals($expected, $result, print_r($debug, TRUE));
 	}
 
-	public function provideRenderPercentageBar() {
+	public static function provideRenderPercentageBar(): array {
 		$example = <<<EOSVG
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300px" height="30px">
 	<rect x="0" y="0" width="300" height="30" style="fill:#C6D9FD;"/>
