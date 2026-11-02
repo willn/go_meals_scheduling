@@ -306,7 +306,7 @@ function get_holidays() {
 	// get floating holdays
 	$season = get_current_season_months();
 	$holidays = add_mlk_day($holidays);
-	$holidays = add_passover($holidays, $season);
+	// $holidays = add_passover($holidays, $season);
 	$holidays = add_easter($holidays, $season);
 	$holidays = add_memorial_day($holidays);
 	$holidays = add_labor_day($holidays);

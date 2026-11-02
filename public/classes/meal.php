@@ -19,7 +19,7 @@ abstract class Meal {
 
 	const HOBART = 'hobart';
 	const AVOID_WORKERS = 'avoid_workers';
-	const PREFERS = 'prefers';
+	const PREFER_WORKERS = 'prefers';
 
 	const WEEK_OF_MONTH = 0; // used by a child object
 
@@ -27,7 +27,7 @@ abstract class Meal {
 	protected $point_factors = [
 		self::HOBART => DEFAULT_HOBART_SCORE,
 		self::AVOID_WORKERS => DEFAULT_AVOID_WORKER_SCORE,
-		self::PREFERS => DEFAULT_PREFERS_SCORE,
+		self::PREFER_WORKERS => DEFAULT_PREFERS_SCORE,
 	];
 
 	// array of username => pref
@@ -143,7 +143,7 @@ EOTXT;
 		}
 		if (!is_null($avoid_workers_factor)) {
 			$this->point_factors[self::AVOID_WORKERS] = $avoid_workers_factor;
-			$this->point_factors[self::PREFERS] =
+			$this->point_factors[self::PREFER_WORKERS] =
 				$this->point_factors[self::AVOID_WORKERS] * PREFER_TO_AVOID_WORKER_RATIO;
 		}
 	}
@@ -263,8 +263,8 @@ EOTXT;
 	 * @param int $job_id the job to get preferences for.
 	 * @return array key-value pairs, one for 'avoid_workers', another for 'prefer'.
 	 */
-	protected function getAvoidAndPreferWorkerList($job_id,
-		$assigned_worker_names) {
+	public function getAvoidAndPreferWorkerList($job_id) {
+		$assigned_worker_names = $this->getAssignedWorkerNamesByJobId($job_id);
 		if (empty($assigned_worker_names)) {
 			return [];
 		}
@@ -272,51 +272,39 @@ EOTXT;
 		$assigned_worker_objects = $this->getAssignedWorkerObjectsByJobId(
 			$job_id, $assigned_worker_names);
 
-		$avoid_workers_list = [];
+		$avoid_list = [];
 		$prefer_list = [];
 		foreach($assigned_worker_objects as $worker) {
 			// get list of names worker does not want to work with
-			// Array ( [0] => aaron, [1] => nancy)
-			$av_list = $worker->getAvoids();
-			if (!empty($av_list)) {
-				$avoid_workers_list = array_merge($avoid_workers_list, $av_list);
+			$avoids = $worker->getAvoids();
+			if (!empty($avoids)) {
+				$avoid_list = array_merge($avoid_list, $avoids);
 			}
 
 			// get list of names worker wants to work with
-			$pr_list = $worker->getPrefers();
-			if (!empty($pr_list)) {
-				$prefer_list = array_merge($prefer_list, $pr_list);
+			$prefers = $worker->getPrefers();
+			if (!empty($prefers)) {
+				$prefer_list = array_merge($prefer_list, $prefers);
 			}
 		}
 
 		$avoid_workers = [];
-		if (!empty($avoid_workers_list)) {
+		if (!empty($avoid_list)) {
 			// flip from a list to an associative array of name => AVOID_PERSON
-			// AVOIDS: Array ( [aaron] => -2, [nancy] => -2 )
-			$avoid_workers = array_combine(array_values($avoid_workers_list),
-				array_fill(0, count($avoid_workers_list), AVOID_PERSON));
+			$avoid_workers = array_combine(array_values($avoid_list),
+				array_fill(0, count($avoid_list), AVOID_PERSON));
 		}
 
-		$prefers = [];
+		$prefer_workers = [];
 		if (!empty($prefer_list)) {
 			// flip from a list to an associative array of name => PREFER_PERSON
-			$prefers = array_combine(array_values($prefer_list),
+			$prefer_workers = array_combine(array_values($prefer_list),
 				array_fill(0, count($prefer_list), PREFER_PERSON));
-		}
-
-		// look for contention of preferences. Resolve by combining the two.
-		if (!empty($avoid_workers) && !empty($prefers)) {
-			foreach($avoid_workers as $name=>$value) {
-				if (isset($prefers[$name])) {
-					unset($prefers[$name]);
-					$avoid_workers[$name] = AVOID_PERSON + PREFER_PERSON;
-				}
-			}
 		}
 
 		return [
 			'avoids' => $avoid_workers,
-			'prefers' => $prefers,
+			'prefers' => $prefer_workers,
 		];
 	}
 
@@ -331,7 +319,6 @@ EOTXT;
 		}
 
 		$worker = $this->schedule->getWorker($username);
-
 		// worker is fully assigned, doesn't need more assignments
 		if ($worker->isFullyAssigned($job_id)) {
 			return FALSE;
@@ -342,8 +329,8 @@ EOTXT;
 	}
 
 	/**
-	 * Run through each eligible worker for this job, and pick one based on
-	 * various points, characteristics, etc.
+	 * Run through each eligible worker candidate for this job, and
+	 * pick one based on various points, characteristics, etc.
 	 *
 	 * @param int $job_id int the number of the current job to fill
 	 * @param array $worker_freedom array of username => num possible
@@ -351,59 +338,67 @@ EOTXT;
 	 * @return string the username, it could be PLACEHOLDER.
 	 */
 	public function pickWorker($job_id, $worker_freedom) {
-		$name = get_job_name($job_id);
-
+		// no workers remaining
 		if (empty($worker_freedom)) {
 			return PLACEHOLDER;
 		}
 
+		$name = get_job_name($job_id);
 		$worker_points = [];
 
-		$assigned_worker_names = $this->getAssignedWorkerNamesByJobId($job_id);
-		$list = $this->getAvoidAndPreferWorkerList($job_id,
-			$assigned_worker_names);
+		$social_prefs = $this->getAvoidAndPreferWorkerList($job_id);
 
 		// find the value of each characteristic (globally set per instance)
 		$point_factors = $this->getPointFactors();
 
-		// if the person has marked a lot of people to avoid or prefer to work
-		// with, then that will carry less weight than if they only mark 1
-		$avoid_point_factor = empty($list['avoids']) ? 1 :
-			($point_factors[self::AVOID_WORKERS] / count($list['avoids']));
-		$prefer_point_factor = empty($list['prefers']) ? 1 :
-			($point_factors[self::PREFERS] / count($list['prefers']));
+		/*
+		 * If the already-assigned workers have marked a lot of
+		 * people to avoid or prefer to work with, then that will
+		 * carry less weight than if they only mark 1.
+		 */
+		$denominator = empty($social_prefs['avoids']) ? 1 :
+			count($social_prefs['avoids']);
+		$avoid_point_factor = $point_factors[self::AVOID_WORKERS] / $denominator;
+		$denominator = empty($social_prefs['prefers']) ? 1 :
+			count($social_prefs['prefers']);
+		$prefer_point_factor = $point_factors[self::PREFER_WORKERS] / $denominator;
+
+		$assigned_worker_names = $this->getAssignedWorkerNamesByJobId($job_id);
 
 		/*
 		 * Walk down the list of people's availability, and find out who is
 		 * able to work. If they are, then assign points and ultimately sort on
 		 * those points to find the best worker for this slot.
 		 */
-		foreach($worker_freedom as $username=>$avail_pref) {
-			// initialize
-			$drawbacks = $promotes = 1;
-
-			if (!$this->canAssignWorker($job_id, $username)) {
+		foreach($worker_freedom as $candidate=>$avail_pref) {
+			// if this worker is not eligible for assignment
+			if (!$this->canAssignWorker($job_id, $candidate)) {
 				continue;
 			}
 
-			$worker = $this->schedule->getWorker($username);
+			/*
+			 * If a worker has an availability rating of 1 or less, then they
+			 * must get this assignment, otherwise they'll end up with fewer
+			 * assignments than necessary.
+			 */
+			if ($avail_pref <= 1) {
+				return $candidate;
+			}
+
+			$worker = $this->schedule->getWorker($candidate);
 			$cur_date_score = $worker->getDateScore($this->date, $job_id);
 			// skip if there's a date conflict
 			if ($cur_date_score == HAS_CONFLICT_PREF) {
 				continue;
 			}
-			$promotes += $cur_date_score;
 
-			// if a worker has an availability rating of 1 or less, then they
-			// must get this assignment, otherwise they'll end up with fewer
-			// assignments than necessary.
-			if ($avail_pref <= 1) {
-				return $username;
-			}
+			// initialize
+			$drawbacks = $promotes = 1;
+			$promotes += $cur_date_score;
 
 			// try to promote one hobarter per shift, only look at group
 			// cleaning shifts (i.e. not meeting nights)
-			if (is_a_group_clean_job($job_id) && is_a_hobarter($username)) {
+			if (is_a_group_clean_job($job_id) && is_a_hobarter($candidate)) {
 				// spread out hobarters
 				if ($this->isHobarterAssignedToShift($job_id)) {
 					$drawbacks += $point_factors[self::HOBART];
@@ -413,33 +408,42 @@ EOTXT;
 				}
 			}
 
-			// check to see if others already assigned to this meal have marked
-			// prefer or avoid for the current person
-			if (isset($list['avoids'][$username])) {
+			/*
+			 * Check to see if others already assigned to this meal have marked
+			 * prefer or avoid for the current candidate.
+			 */
+			if (isset($social_prefs['avoids'][$candidate])) {
 				$drawbacks += $avoid_point_factor;
 			}
-			else if (isset($list['prefers'][$username])) {
+			else if (isset($social_prefs['prefers'][$candidate])) {
 				$promotes += $prefer_point_factor;
 			}
 
-			// check to see if the current person wants to avoid anyone who
-			// is currently assigned...
+			/*
+			 * Compare current candidate's social preferences against
+			 * already assigned workers.
+			 */
 			$worker_avoids = $worker->getAvoids();
-			if (!empty($worker_avoids)) {
-				foreach($worker_avoids as $avoid_person) {
-					if (isset($assigned_worker_names[$avoid_person])) {
-						$drawbacks += $point_factors[self::AVOID_WORKERS];
-					}
+			foreach($worker_avoids as $avoid_person) {
+				if (isset($assigned_worker_names[$avoid_person])) {
+					$drawbacks += $point_factors[self::AVOID_WORKERS];
+				}
+			}
+			$worker_prefers = $worker->getPrefers();
+			foreach($worker_prefers as $prefer_person) {
+				if (isset($assigned_worker_names[$prefer_person])) {
+					$promotes += $point_factors[self::PREFER_WORKERS];
 				}
 			}
 
-			// look at workers who marked 'prefer'
-			$promotes += $this->possible_workers[$job_id][$username];
+			// look at workers who marked 'prefer date'
+			$promotes += $this->possible_workers[$job_id][$candidate];
 
-			// conjure up a worker point rating
 			$adjacent = $worker->getAdjancencyScore($this->date);
+
+			// compute a worker point rating
 			$denominator = ($drawbacks + $adjacent) * $avail_pref;
-			$worker_points[$username] = ($denominator == 0) ?
+			$worker_points[$candidate] = ($denominator == 0) ?
 				$promotes : ($promotes / $denominator);
 		}
 

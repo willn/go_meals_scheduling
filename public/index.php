@@ -17,9 +17,8 @@ echo <<<EOHTML
 <h1>Great Oak Meals Scheduling</h1>
 EOHTML;
 
-$dir = BASE_DIR;
 $report_link = <<<EOHTML
-<p class="summary_report">See the <a href="{$dir}/report.php">summary report</a></p>
+<p class="summary_report">See the <a href="/report.php">summary report</a></p>
 EOHTML;
 
 // ----- deadline check ----

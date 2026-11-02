@@ -51,6 +51,28 @@ class MealTest extends TestCase {
 		$this->meal = new SundayMeal($this->schedule, '04/25/2018', 10);
 	}
 
+	/**
+	 * Create a Worker mock with predictable scoring behavior.
+	 */
+	private function createTestWorker(
+		array $avoids = [],
+		array $prefers = [],
+		$dateScore = 0,
+		$adjacencyScore = 0,
+		$fullyAssigned = false
+	): Worker {
+		$worker = $this->createMock(Worker::class);
+
+		$worker->method('getAvoids')->willReturn($avoids);
+		$worker->method('getPrefers')->willReturn($prefers);
+		$worker->method('getDateScore')->willReturn($dateScore);
+		$worker->method('getAdjancencyScore')->willReturn($adjacencyScore);
+		$worker->method('isFullyAssigned')->willReturn($fullyAssigned);
+
+		return $worker;
+	}
+
+
 	public function getShiftsForType($shift_type) {
 		$shifts = [];
 		switch($shift_type) {
@@ -313,10 +335,397 @@ class MealTest extends TestCase {
 	{
 		$worker = $this->createMock(Worker::class);
 		$worker->method('isFullyAssigned')->willReturn(true);
-		#$this->schedule->method('getWorker')->willReturn($worker);
+
+		$this->schedule = $this->createMock(Schedule::class);
+		$this->schedule->method('getWorker')
+			->willReturn($worker);
+
+		$this->meal = new SundayMeal($this->schedule, '04/22/2018');
 		$this->meal->initShifts([SUNDAY_HEAD_COOK]);
 		$this->meal->addWorkerPref('alice', SUNDAY_HEAD_COOK, 1);
-		$this->assertTrue($this->meal->canAssignWorker(SUNDAY_HEAD_COOK, 'alice'));
+
+		$this->assertFalse(
+			$this->meal->canAssignWorker(SUNDAY_HEAD_COOK, 'alice')
+		);
 	}
+
+	public function testGetAvoidAndPreferWorkerListReturnsEmptyListsForWorkerWithoutPreferences()
+	{
+		$worker = $this->createMock(Worker::class);
+		$worker->method('getAvoids')->willReturn([]);
+		$worker->method('getPrefers')->willReturn([]);
+
+		$this->schedule = $this->createMock(Schedule::class);
+		$this->schedule->method('getWorker')
+			->willReturn($worker);
+
+		$this->meal = new SundayMeal($this->schedule, '04/22/2018');
+		$this->meal->initShifts([SUNDAY_CLEANER]);
+		$this->meal->setAssignment(SUNDAY_CLEANER, 0, 'alice');
+
+		$this->assertSame(
+			['avoids' => [], 'prefers' => []],
+			$this->meal->getAvoidAndPreferWorkerList(SUNDAY_CLEANER)
+		);
+	}
+
+	public function testGetAvoidAndPreferWorkerListCombinesPreferences()
+	{
+		$alice = $this->createMock(Worker::class);
+		$alice->method('getAvoids')->willReturn(['bob', 'carol']);
+		$alice->method('getPrefers')->willReturn(['dave']);
+
+		$bob = $this->createMock(Worker::class);
+		$bob->method('getAvoids')->willReturn(['carol', 'eve']);
+		$bob->method('getPrefers')->willReturn(['dave', 'frank']);
+
+		$this->schedule = $this->createMock(Schedule::class);
+		$this->schedule->method('getWorker')->willReturnMap([
+			['alice', $alice],
+			['bob', $bob],
+		]);
+
+		$this->meal = new SundayMeal($this->schedule, '04/22/2018');
+		$this->meal->initShifts([SUNDAY_CLEANER]);
+
+		$this->meal->setAssignment(SUNDAY_CLEANER, 0, 'alice');
+		$this->meal->setAssignment(SUNDAY_CLEANER, 1, 'bob');
+
+		$expected = [
+			'avoids' => [
+				'bob' => AVOID_PERSON,
+				'carol' => AVOID_PERSON,
+				'eve' => AVOID_PERSON,
+			],
+			'prefers' => [
+				'dave' => PREFER_PERSON,
+				'frank' => PREFER_PERSON,
+			],
+		];
+
+		$this->assertSame(
+			$expected,
+			$this->meal->getAvoidAndPreferWorkerList(SUNDAY_CLEANER)
+		);
+	}
+
+	public function testPickWorkerImmediatelyReturnsCandidateWithAvailabilityOfOne()
+	{
+		$this->meal->initShifts([SUNDAY_HEAD_COOK]);
+		$this->meal->addWorkerPref('alice', SUNDAY_HEAD_COOK, 1);
+		$this->meal->addWorkerPref('bob', SUNDAY_HEAD_COOK, 1);
+
+		$alice = $this->createMock(Worker::class);
+		$alice->method('isFullyAssigned')->willReturn(false);
+
+		$bob = $this->createMock(Worker::class);
+		$bob->method('isFullyAssigned')->willReturn(false);
+
+		$this->schedule = $this->createMock(Schedule::class);
+		$this->schedule->method('getWorker')->willReturnMap([
+			['alice', $alice],
+			['bob', $bob],
+		]);
+
+		$this->meal = new SundayMeal($this->schedule, '04/22/2018');
+		$this->meal->initShifts([SUNDAY_HEAD_COOK]);
+		$this->meal->addWorkerPref('alice', SUNDAY_HEAD_COOK, 1);
+		$this->meal->addWorkerPref('bob', SUNDAY_HEAD_COOK, 1);
+
+		$this->assertSame(
+			'alice',
+			$this->meal->pickWorker(
+				SUNDAY_HEAD_COOK,
+				['alice' => 1, 'bob' => 2]
+			)
+		);
+	}
+
+
+	/**
+	 * 1. No workers assigned means there are no social preferences to collect.
+	 */
+	public function testGetAvoidAndPreferWorkerListReturnsEmptyWhenNoWorkersAssigned()
+	{
+		$this->meal->initShifts([SUNDAY_CLEANER]);
+
+		$this->assertSame(
+			[],
+			$this->meal->getAvoidAndPreferWorkerList(SUNDAY_CLEANER)
+		);
+	}
+
+
+	/**
+	 * 2. Collect avoid/prefer preferences from one assigned worker.
+	 */
+	public function testGetAvoidAndPreferWorkerListCollectsSingleWorkersPreferences()
+	{
+		$alice = $this->createTestWorker(
+			['bob'],
+			['carol']
+		);
+
+		$this->schedule = $this->createMock(Schedule::class);
+		$this->schedule->method('getWorker')
+			->willReturnMap([
+				['alice', $alice],
+			]);
+
+		$this->meal = new SundayMeal($this->schedule, '04/22/2018');
+		$this->meal->initShifts([SUNDAY_CLEANER]);
+		$this->meal->setAssignment(SUNDAY_CLEANER, 0, 'alice');
+
+		$this->assertSame(
+			[
+				'avoids' => [
+					'bob' => AVOID_PERSON,
+				],
+				'prefers' => [
+					'carol' => PREFER_PERSON,
+				],
+			],
+			$this->meal->getAvoidAndPreferWorkerList(SUNDAY_CLEANER)
+		);
+	}
+
+
+	/**
+	 * 3. Combine preferences from multiple workers and deduplicate names.
+	 */
+	public function testGetAvoidAndPreferWorkerListCombinesMultipleWorkersPreferences()
+	{
+		$alice = $this->createTestWorker(
+			['bob', 'carol'],
+			['dave']
+		);
+
+		$bob = $this->createTestWorker(
+			['carol', 'eve'],
+			['dave', 'frank']
+		);
+
+		$this->schedule = $this->createMock(Schedule::class);
+		$this->schedule->method('getWorker')
+			->willReturnMap([
+				['alice', $alice],
+				['bob', $bob],
+			]);
+
+		$this->meal = new SundayMeal($this->schedule, '04/22/2018');
+		$this->meal->initShifts([SUNDAY_CLEANER]);
+
+		$this->meal->setAssignment(SUNDAY_CLEANER, 0, 'alice');
+		$this->meal->setAssignment(SUNDAY_CLEANER, 1, 'bob');
+
+		$this->assertSame(
+			[
+				'avoids' => [
+					'bob' => AVOID_PERSON,
+					'carol' => AVOID_PERSON,
+					'eve' => AVOID_PERSON,
+				],
+				'prefers' => [
+					'dave' => PREFER_PERSON,
+					'frank' => PREFER_PERSON,
+				],
+			],
+			$this->meal->getAvoidAndPreferWorkerList(SUNDAY_CLEANER)
+		);
+	}
+
+
+	/**
+	 * 4. No candidates means the shift cannot be filled automatically.
+	 */
+	public function testPickWorkerReturnsPlaceholderWhenNoCandidates()
+	{
+		$this->assertSame(
+			PLACEHOLDER,
+			$this->meal->pickWorker(SUNDAY_CLEANER, [])
+		);
+	}
+
+
+	/**
+	 * 5. A candidate who is not eligible must not be selected.
+	 */
+	public function testPickWorkerReturnsPlaceholderWhenCandidateIsNotEligible()
+	{
+		$this->meal->initShifts([SUNDAY_CLEANER]);
+
+		// Alice is deliberately not added to the possible-worker list.
+		$this->assertSame(
+			PLACEHOLDER,
+			$this->meal->pickWorker(
+				SUNDAY_CLEANER,
+				['alice' => 2]
+			)
+		);
+	}
+
+
+	/**
+	 * 6. An eligible candidate with availability <= 1 is selected immediately.
+	 */
+	public function testPickWorkerImmediatelySelectsMandatoryCandidate()
+	{
+		$alice = $this->createTestWorker();
+		$bob = $this->createTestWorker();
+
+		$this->schedule = $this->createMock(Schedule::class);
+		$this->schedule->method('getWorker')
+			->willReturnMap([
+				['alice', $alice],
+				['bob', $bob],
+			]);
+
+		$this->meal = new SundayMeal($this->schedule, '04/22/2018');
+		$this->meal->initShifts([SUNDAY_CLEANER]);
+
+		$this->meal->addWorkerPref('alice', SUNDAY_CLEANER, 1);
+		$this->meal->addWorkerPref('bob', SUNDAY_CLEANER, 1);
+
+		// Bob is mandatory even though he appears later in the list.
+		$this->assertSame(
+			'bob',
+			$this->meal->pickWorker(
+				SUNDAY_CLEANER,
+				[
+					'alice' => 2,
+					'bob' => 1,
+				]
+			)
+		);
+	}
+
+
+	/**
+	 * 7. Candidates with date conflicts must be skipped.
+	 */
+	public function testPickWorkerReturnsPlaceholderWhenAllCandidatesHaveDateConflicts()
+	{
+		$alice = $this->createTestWorker(
+			[],
+			[],
+			HAS_CONFLICT_PREF
+		);
+
+		$bob = $this->createTestWorker(
+			[],
+			[],
+			HAS_CONFLICT_PREF
+		);
+
+		$this->schedule = $this->createMock(Schedule::class);
+		$this->schedule->method('getWorker')
+			->willReturnMap([
+				['alice', $alice],
+				['bob', $bob],
+			]);
+
+		$this->meal = new SundayMeal($this->schedule, '04/22/2018');
+		$this->meal->initShifts([SUNDAY_CLEANER]);
+
+		$this->meal->addWorkerPref('alice', SUNDAY_CLEANER, 1);
+		$this->meal->addWorkerPref('bob', SUNDAY_CLEANER, 1);
+
+		// Both availability ratings exceed 1, so the mandatory-assignment
+		// branch cannot bypass the date-conflict checks.
+		$this->assertSame(
+			PLACEHOLDER,
+			$this->meal->pickWorker(
+				SUNDAY_CLEANER,
+				[
+					'alice' => 2,
+					'bob' => 3,
+				]
+			)
+		);
+	}
+
+
+	/**
+	 * 8a. An existing worker's avoid preference penalizes that candidate.
+	 */
+	public function testPickWorkerAvoidsCandidateDislikedByAssignedWorker()
+	{
+		$alice = $this->createTestWorker(['bob']);
+		$bob = $this->createTestWorker();
+		$carol = $this->createTestWorker();
+
+		$this->schedule = $this->createMock(Schedule::class);
+		$this->schedule->method('getWorker')
+			->willReturnMap([
+				['alice', $alice],
+				['bob', $bob],
+				['carol', $carol],
+			]);
+
+		$this->meal = new SundayMeal($this->schedule, '04/22/2018');
+		$this->meal->initShifts([SUNDAY_CLEANER]);
+
+		// Alice is already assigned to this meal.
+		$this->meal->setAssignment(SUNDAY_CLEANER, 0, 'alice');
+
+		$this->meal->addWorkerPref('bob', SUNDAY_CLEANER, 1);
+		$this->meal->addWorkerPref('carol', SUNDAY_CLEANER, 1);
+
+		// Bob and Carol have otherwise identical scores.
+		$this->assertSame(
+			'carol',
+			$this->meal->pickWorker(
+				SUNDAY_CLEANER,
+				[
+					'bob' => 2,
+					'carol' => 2,
+				]
+			)
+		);
+	}
+
+
+	/**
+	 * 8b. An existing worker's preference boosts the preferred candidate.
+	 */
+	public function testPickWorkerPrefersCandidateLikedByAssignedWorker()
+	{
+		$alice = $this->createTestWorker(
+			[],
+			['bob']
+		);
+
+		$bob = $this->createTestWorker();
+		$carol = $this->createTestWorker();
+
+		$this->schedule = $this->createMock(Schedule::class);
+		$this->schedule->method('getWorker')
+			->willReturnMap([
+				['alice', $alice],
+				['bob', $bob],
+				['carol', $carol],
+			]);
+
+		$this->meal = new SundayMeal($this->schedule, '04/22/2018');
+		$this->meal->initShifts([SUNDAY_CLEANER]);
+
+		$this->meal->setAssignment(SUNDAY_CLEANER, 0, 'alice');
+
+		$this->meal->addWorkerPref('bob', SUNDAY_CLEANER, 1);
+		$this->meal->addWorkerPref('carol', SUNDAY_CLEANER, 1);
+
+		// Bob receives the social-preference bonus.
+		$this->assertSame(
+			'bob',
+			$this->meal->pickWorker(
+				SUNDAY_CLEANER,
+				[
+					'bob' => 2,
+					'carol' => 2,
+				]
+			)
+		);
+	}
+
 }
 ?>

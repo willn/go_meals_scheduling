@@ -1,7 +1,9 @@
 
-rsync -e 'ssh' -avz --exclude '*.swp' public/ gocoho@gocoho.org:/home/gocoho/public_html/meals_scheduling/
+HOST='meals_sc1@65.181.116.46';
+
+rsync -e 'ssh' -avz --exclude '*.swp' public/ $HOST:public_html/
 
 #reset permissions
-ssh gocoho@gocoho.org 'cd ~/public_html/meals_scheduling/ && ~/bin/fix_web_perms.sh';
+#ssh $HOST 'cd ~/public_html/meals_scheduling/ && ~/bin/fix_web_perms.sh';
 
 

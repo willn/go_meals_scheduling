@@ -26,12 +26,11 @@ if (!isset($_SESSION['access_type'])) {
 		$_SESSION['access_type'] = 'admin';
 	}
 	else if (!isset($_SESSION['access_type'])) {
-		$dir = BASE_DIR;
 		print <<<EOHTML
 			<h2>Meals scheduling reporting</h2>
 			<h3>Please choose access type:</h3>
 			<div class="access_type">
-				<a href="{$dir}/report.php?guest=1">guest</a>
+				<a href="/report.php?guest=1">guest</a>
 			</div>
 			<div class="access_type">
 				admin
@@ -53,7 +52,7 @@ $job_key = (isset($_GET['key']) && is_numeric($_GET['key'])) ?
 $calendar->loadAssignments(JSON_ASSIGNMENTS_FILE);
 $calendar->setIsReport(TRUE);
 
-$job_key_clause = ($job_key != 0) ? "AND s.job_id={$job_key}" : '';
+$job_key_clause = ($job_key !== 'all') ? "AND s.job_id={$job_key}" : '';
 
 $current_season_months = get_current_season_months();
 

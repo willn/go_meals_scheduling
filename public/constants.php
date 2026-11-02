@@ -12,7 +12,7 @@ date_default_timezone_set(TIME_ZONE);
 
 # ---------- general -------------
 
-define('BASE_DIR', '/meals_scheduling');
+define('BASE_DIR', '');
 
 define('SKIP_EMAIL', FALSE); // set to true for debugging
 define('RESULTS_FILE', 'schedule.csv');

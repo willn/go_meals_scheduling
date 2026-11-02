@@ -56,6 +56,10 @@ function get_num_shift_overrides() {
 		// swap between these 2 for the next season
 		'maryc' => [BRUNCH_CLEANER => -1],
 		'trisha' => [BRUNCH_CLEANER => 1],
+
+		// trade across season boundaries, dan will take one from mac
+		'dan' => [SUNDAY_ASST_COOK => 1],
+		'mac' => [SUNDAY_ASST_COOK => -1],
 	];
 }
 
